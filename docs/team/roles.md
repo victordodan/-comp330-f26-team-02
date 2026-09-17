@@ -55,7 +55,7 @@ Every student has the base role **Developer**. In addition, the team must assign
 |---|---|---|---|---|
 | Team Lead | Victor Dodan | Malec Tarabein  | A1-A6 | |
 | Planning & Process Lead | Malec Tarabein | Shu Perez | A1-A6 | |
-| Architecture & Development |Shu Perez  | Mareddy Venkata Aravind | | A1-A6 | |
+| Architecture & Development |Shu Perez  | Mareddy Venkata Aravind |  A1-A6  |  |
 | Quality & Review Lead | Giancarlo Herrera  | Victor Dodoan | A1-A6 | |
 | Operations & Evidence Lead | Sierah Shelby | Mareddy Venkata Aravind | A1-A6 | |
 
@@ -75,16 +75,15 @@ The following ownership assignments apply to the Project Launch (A1) deliverable
 
 | Deliverable | Primary Owner | Backup Owner | Evidence Location |
 |---|---|---|---|
-| Repository README | Jordan Smith | Taylor Nguyen | `/README.md` |
-| Team Charter | Taylor Nguyen | Jordan Smith | `/docs/team/team-charter.md` |
-| Role Matrix | Jordan Smith | Casey Patel | `/docs/team/roles.md` |
-| Working Agreements | Taylor Nguyen | Riley Chen | `/docs/team/working-agreements.md` |
-| AI-Use Policy | Riley Chen | Casey Patel | `/docs/ai/ai-policy.md` |
-| AI-Use Log | Riley Chen | Casey Patel | `/docs/ai/ai-use-log.md` |
-| Initial Requirements | Morgan Lee | Taylor Nguyen | `/docs/requirements/` |
-| Planning and Risk | Taylor Nguyen | Jordan Smith | `/docs/planning/` |
-| Initial Decision Record | Morgan Lee | Casey Patel | `/docs/decisions/` |
-
+| Repository README | Dodan Victor | Mareddy, Venkata Aravind | `/README.md` |
+| Team Charter | Shu Perez | Shelby Sierah | `/docs/team/team-charter.md` |
+| Role Matrix | Tarabein Malec | Dodan Victor | `/docs/team/roles.md` |
+| Working Agreements | Mareddy, Venkata Aravind | Shu Perez | `/docs/team/working-agreements.md` |
+| AI-Use Policy | Giancarlo Herrera | Shelby Sierah | `/docs/ai/ai-policy.md` |
+| AI-Use Log | Giancarlo Herrera | Tarabein Malec | `/docs/ai/ai-use-log.md` |
+| Initial Requirements | Shelby Sierah | Mareddy, Venkata Aravind | `/docs/requirements/` |
+| Planning and Risk | Dodan Victor | Tarabein Malec | `/docs/planning/` |
+| Initial Decision Record | Tarabein Malec | Shu Perez | `/docs/decisions/` |
 ### Instructions
 
 - Replace the sample names with declared students from the Team Members and GitHub Identities table.
