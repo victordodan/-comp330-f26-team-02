@@ -1,261 +1,153 @@
 # AI Use Policy
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file defines your team's policy for using AI-assisted engineering tools.
-
-The policy should reflect decisions your team has actually discussed and
-agreed to. Do not simply accept the examples or wording in this scaffold.
-
-AI may assist engineering work, but responsibility remains with the human
-engineers who accept, modify, commit, review, test, and defend that work.
-
-Remove instructional comments like this one as you complete the artifact.
--->
+# AI Use Policy
 
 ## Purpose
 
-This policy defines how the team will use AI-assisted tools while preserving
-human engineering responsibility, reviewability, traceability, and verification.
+This policy explains how the Codex Ramblers will use AI tools throughout the project. AI may assist our team during development, but all work submitted by the team remains our responsibility.
+
+Our goal is to use AI as a helpful engineering tool while making sure that project work is understood, reviewed, verified, and properly documented by team members.
 
 ## Core Principle
 
-The team remains responsible for all project work regardless of whether AI
-assisted in producing it.
+AI will be treated as a support tool rather than a replacement for the team's own work and judgment.
 
-AI-generated or AI-assisted output is not considered correct merely because
-a tool produced it.
+Any team member who uses AI-generated or AI-assisted material is responsible for understanding that material before adding it to the project. AI output should not automatically be assumed to be accurate.
 
-Team members are responsible for understanding, reviewing, verifying, and
-being able to defend work they contribute to the repository.
-
-<!--
-TEAM DECISION REQUIRED
-
-Review the Core Principle above. Your team may refine the wording, but the
-finished policy should make clear that accountability remains with the team
-and cannot be delegated to an AI system.
--->
+The team member contributing the work is responsible for checking it and being able to explain how it works and why it was used.
 
 ## Permitted Uses
 
-<!--
-Replace or revise the items below based on your team's actual policy.
+The Codex Ramblers may use AI tools to assist with:
 
-Possible AI-assisted activities might include:
-
-- brainstorming;
-- explaining unfamiliar concepts;
-- comparing implementation alternatives;
-- generating draft code;
-- generating draft tests;
-- reviewing code;
-- identifying possible defects;
-- refactoring suggestions;
-- debugging assistance;
-- generating documentation drafts;
-- requirements analysis;
-- architecture discussion;
-- risk identification;
-- verification planning.
-
-Do not leave items here merely because they appear in the scaffold.
--->
-
-The team permits AI-assisted tools to support activities such as:
-
-- brainstorming and exploring alternatives;
-- explaining technical concepts;
-- reviewing requirements and engineering decisions;
-- generating or reviewing draft code;
-- generating or reviewing draft tests;
-- debugging and defect investigation;
-- refactoring suggestions;
+- brainstorming project ideas and possible solutions;
+- explaining programming and software engineering concepts;
+- reviewing project requirements;
+- helping organize project plans and documentation;
+- creating or reviewing draft code;
+- suggesting test cases;
+- debugging errors and investigating problems;
+- suggesting improvements or refactoring;
 - drafting technical documentation;
-- identifying risks, edge cases, and verification concerns.
+- identifying possible risks, edge cases, or problems.
 
-Permitted use does not remove the verification expectations defined in this policy.
+AI assistance may be used for these activities as long as the resulting work is reviewed and understood by a team member.
 
 ## Prohibited or Unacceptable Uses
 
-<!--
-TEAM DECISION REQUIRED
+The team will not use AI to:
 
-Identify uses your team considers unacceptable.
+- submit work that no team member understands;
+- copy AI-generated material into the project without reviewing it;
+- treat AI responses as automatically correct;
+- invent requirements, testing results, citations, stakeholder feedback, or project evidence;
+- claim that code was tested when testing did not actually occur;
+- replace required team participation or peer review;
+- create false GitHub activity or project history;
+- share passwords, private keys, authentication tokens, credentials, or other protected information.
 
-Think particularly about situations where AI would replace rather than assist
-human engineering responsibility.
--->
-
-The team will not:
-
-- submit AI-generated work that no team member understands;
-- treat AI output as authoritative without human review;
-- represent unverified AI-generated claims as established engineering facts;
-- use AI output to fabricate requirements, test results, evidence, citations,
-  repository history, stakeholder input, or phase-gate evidence;
-- claim that testing or verification occurred when it did not;
-- use AI to bypass required human review or team participation;
-- provide secrets, credentials, private keys, access tokens, or other protected
-  information to an AI system.
+AI should assist legitimate project work rather than create evidence for work that the team did not actually perform.
 
 ## Human Review Requirements
 
-<!--
-Customize this section based on your team's actual working agreements.
+Before AI-assisted work becomes part of the project's official repository, the team member responsible for the work should:
 
-Consider:
-- Who must understand AI-assisted code before merge?
-- Is peer review required?
-- What evidence is expected?
-- What happens when the reviewer cannot explain the generated work?
--->
+1. read and understand the AI-assisted output;
+2. check that it is relevant to the project;
+3. identify questionable assumptions or unsupported information;
+4. verify important technical information when necessary;
+5. correct or remove inaccurate material; and
+6. make sure the final work is consistent with the rest of the project.
 
-Before AI-assisted work is accepted into the project's authoritative evidence,
-the responsible team member must:
-
-1. understand the relevant output;
-2. review it for correctness and relevance;
-3. identify assumptions or unsupported claims;
-4. verify important behavior using appropriate evidence;
-5. revise or reject incorrect or unsuitable output; and
-6. ensure the resulting artifact is consistent with related requirements,
-   decisions, implementation, tests, and documentation.
-
-Significant AI-assisted implementation should receive the same engineering
-review expected of comparable human-written implementation.
+AI-assisted code should also go through the same review and testing process that the team would use for code written without AI assistance.
 
 ## Verification Expectations
 
-AI-assisted work must be verified based on its engineering significance and risk.
+The amount of verification needed will depend on the type and importance of the AI-assisted work.
 
 Verification may include:
 
-- automated tests;
-- integration tests;
-- manual testing;
-- code review;
-- independent analysis;
-- comparison with authoritative documentation;
-- inspection of runtime behavior;
-- security review;
-- traceability review; or
-- other appropriate evidence.
+- running automated tests;
+- manually testing software behavior;
+- reviewing code;
+- comparing information with official documentation;
+- checking requirements;
+- reviewing application behavior;
+- checking security concerns;
+- reviewing the work with another team member.
 
-<!--
-Do not state that every AI interaction requires the same level of verification.
-
-The level of verification should be proportional to consequence.
-
-For example:
-- asking AI to reword a sentence may require ordinary proofreading;
-- accepting AI-generated authentication logic requires substantially stronger
-  technical review and testing.
--->
-
-Higher-risk AI-assisted work requires stronger independent verification.
+AI-assisted work that could have a larger impact on the project should receive more careful verification.
 
 ## AI Use Logging
 
-Significant AI-assisted engineering activity will be recorded in:
+Significant uses of AI during the project will be recorded in:
 
 `/docs/ai/ai-use-log.md`
 
-<!--
-TEAM DECISION REQUIRED
-
-Define what your team considers "significant."
-
-The intent is NOT to create a transcript of every AI interaction.
-
-A useful rule is to record AI use when it materially influences an engineering
-artifact, implementation, test, decision, analysis, or phase-gate evidence.
-
-Examples that normally SHOULD be logged:
-- AI-generated implementation accepted or substantially adapted;
-- AI-generated tests used in the repository;
-- architecture recommendations that influence a decision;
-- requirements or acceptance criteria materially shaped by AI;
-- AI-assisted defect diagnosis that leads to a code change;
-- AI-generated analysis used as phase-gate evidence.
-
-Examples that normally MAY NOT need individual logging:
-- spelling correction;
-- simple syntax reminder;
-- routine explanation that does not influence project evidence;
-- minor wording assistance.
--->
+The log will help the team maintain transparency about where AI contributed to project planning, documentation, development, testing, debugging, or other engineering activities.
 
 ## AI Verification Evidence
 
-When AI materially contributes to engineering work that warrants explicit
-verification evidence, the team will document the verification in:
+When AI makes a significant contribution that requires additional verification, the team may document how the work was checked in:
 
 `/docs/ai/ai-verification-notes.md`
 
-The AI Use Log should reference verification evidence when appropriate.
+When appropriate, the AI Use Log should reference the related verification evidence.
 
 ## Sensitive and Protected Information
 
-Team members will not intentionally provide AI systems with:
+Team members should not enter sensitive or protected information into AI tools.
+
+This includes:
 
 - passwords;
 - authentication tokens;
 - private keys;
-- secrets;
-- protected credentials;
-- private personal information not appropriate for the tool;
-- confidential information the team is not authorized to disclose.
+- account credentials;
+- confidential project information;
+- private personal information that is not appropriate to share.
 
-If there is uncertainty about whether information is appropriate to provide
-to an AI system, the team will not provide it until the issue is resolved.
+If a team member is unsure whether information is safe or appropriate to provide to an AI tool, they should avoid sharing it until the team determines that it is acceptable.
 
 ## Engineering Decisions
 
-AI may recommend an engineering decision, but the decision remains a team decision.
+AI tools may suggest solutions or possible engineering decisions, but final decisions belong to the team.
 
-For significant decisions, the team should be able to explain:
+For important decisions, the team should understand the problem, consider reasonable alternatives, review available evidence, and discuss important advantages, disadvantages, and risks.
 
-- the problem being addressed;
-- alternatives considered;
-- evidence reviewed;
-- why the selected approach was chosen;
-- important tradeoffs or risks; and
-- how AI assistance influenced the analysis, if materially relevant.
-
-Significant decisions should be recorded in the appropriate decision artifact.
+When AI meaningfully contributes to an important engineering decision, that assistance should be documented when appropriate.
 
 ## Handling Incorrect AI Output
 
-If AI-generated or AI-assisted output is found to be incorrect, incomplete,
-unsafe, misleading, or unsupported, the team will:
+If the team discovers that AI-assisted information is incorrect, incomplete, misleading, or unsuitable for the project, the team will correct or remove it.
 
-1. reject or correct the output;
-2. determine whether related work was affected;
-3. update affected implementation or engineering evidence;
-4. rerun appropriate verification; and
-5. document the issue when it is significant to project history or evidence.
+The team should also determine whether the incorrect information affected other project work. If necessary, affected code, documentation, requirements, or other evidence should be updated and verified again.
+
+Significant problems should be documented when they are relevant to the project's engineering history.
+
+## Team-Specific AI Practices
+
+The Codex Ramblers may use AI-assisted tools, including ChatGPT and other approved tools, to support brainstorming, technical explanations, documentation, debugging, code review, and project planning.
+
+Team members are responsible for reviewing and understanding any AI-assisted work before contributing it to the repository.
+
+Significant AI assistance that contributes to project engineering work will be documented in `/docs/ai/ai-use-log.md`.
+
+AI-generated code or technical recommendations must be reviewed and, when applicable, tested before being accepted into the project.
+
+AI tools are intended to assist the Codex Ramblers rather than replace communication, collaboration, peer review, or engineering decisions made by the team.
 
 ## Team Expectations
 
-- Humans remain responsible for submitted engineering work.
-- Team members must understand work they accept.
-- AI output must be reviewed rather than trusted automatically.
-- Verification should be proportional to engineering risk.
-- Significant AI use must be traceable.
-- AI must not fabricate engineering evidence.
-- AI assistance does not replace peer review, testing, or engineering judgment.
-- Sensitive credentials and protected information must not be disclosed.
-- Uncertainty should be stated explicitly rather than hidden behind AI-generated certainty.
+The Codex Ramblers agree that:
 
-<!--
-Before the applicable phase-gate submission:
-
-1. Replace or revise the example policy statements based on actual team decisions.
-2. Ensure this policy agrees with your working agreements and engineering process.
-3. Confirm the team is actually following the policy.
-4. Remove instructional HTML comments.
-
-This should be YOUR TEAM'S policy, not simply a completed template.
+- team members remain responsible for the work they submit;
+- team members should understand AI-assisted work before accepting it;
+- AI-generated information should be reviewed rather than automatically trusted;
+- important technical information should be verified when appropriate;
+- significant AI use should be documented;
+- AI should never be used to fabricate project evidence;
+- AI does not replace testing or peer review;
+- sensitive information should not be shared with AI tools;
+- uncertainty or incomplete information should be clearly identified.
 -->
