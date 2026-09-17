@@ -28,7 +28,7 @@ Replace the sample student entries below with the members of your team. Leave th
 
 | Student Name | GitHub Login | Git Author Alias(es) | Member Type |
 |---|---|---|---|
-| Giancarlo Herrera| jsmith-luc | Jordan Smith; J. Smith | Student |
+| Giancarlo Herrera| gherrera | Jordan Smith; J. Smith | Student |
 | Taylor Nguyen | tnguyen22 | Taylor Nguyen | Student |
 | Morgan Lee | mlee-luc | Morgan Lee | Student |
 | Casey Patel | cpatel-luc | Casey Patel | Student |
