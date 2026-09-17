@@ -28,11 +28,12 @@ Replace the sample student entries below with the members of your team. Leave th
 
 | Student Name | GitHub Login | Git Author Alias(es) | Member Type |
 |---|---|---|---|
-| Giancarlo Herrera| gherrera | Jordan Smith; J. Smith | Student |
-| Taylor Nguyen | tnguyen22 | Taylor Nguyen | Student |
-| Morgan Lee | mlee-luc | Morgan Lee | Student |
-| Casey Patel | cpatel-luc | Casey Patel | Student |
-| Riley Chen | rchen-luc | Riley Chen | Student |
+| Giancarlo Herrera | gherrera | Giancarlo Herrera | Student |
+| Dodan Victor | vdodan | Dodan Victor | Student |
+| Mareddy, Venkata Aravind | vmareddy | Venkata Aravind Mareddy | Student |
+| Shu Perez | sperez22 | Shu Perez | Student |
+| Shelby Sierah | sshelby | Shelby Sierah | Student |
+| Tarabein Malec | mtarabein | Tarabein Malec | Student |
 | William O'Connell | woconnell1 |  | Instructor / Observer |
 
 ### Instructions
