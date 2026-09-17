@@ -1,288 +1,89 @@
 # AI Verification Notes
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file records detailed verification evidence for significant AI-assisted
-engineering work when the short Human Verification field in ai-use-log.md is
-not sufficient.
-
-Not every AI interaction requires a verification note.
-
-Create an entry when the AI-assisted work has enough engineering significance,
-risk, or downstream impact that the verification itself should be preserved
-as reviewable evidence.
-
-Replace the sample entry below with actual project evidence.
-
-Remove instructional comments like this one as you complete the artifact.
--->
+# AI Verification Notes
 
 ## Verification Notes
 
-<!--
-Use unique IDs in the form:
+The Codex Ramblers will use this file to document detailed verification of
+significant AI-assisted engineering work when the verification cannot be
+adequately described in the AI Use Log.
 
-AVN-###
+Not every use of AI requires a separate verification note. Verification notes
+will be created when AI materially contributes to work with greater technical
+risk, complexity, or impact on the project.
 
-Examples:
-AVN-001
-AVN-002
-AVN-003
-
-Reference these IDs from /docs/ai/ai-use-log.md when appropriate.
--->
-
-### AVN-001 — Request Validation Implementation
-
-**Date:** 2026-09-08  
-**AI Tool:** GitHub Copilot  
-**Related AI Use Log Entry:** 2026-09-08  
-**Related Evidence:** `REQ-004`, `AC-REQ-004-01`, `src/workflow/validation.py`
-
-#### AI Contribution
-
-Copilot generated an initial implementation of request-field validation and
-suggested handling for missing required fields.
-
-#### Human Verification Performed
-
-Taylor Nguyen reviewed the generated implementation line by line and compared
-its behavior with `REQ-004` and the related acceptance criteria.
-
-The team identified that the initial generated implementation did not correctly
-handle whitespace-only values. The implementation was modified before merge.
-
-Verification included:
-
-- code review;
-- existing unit tests;
-- an additional whitespace-only input test;
-- integration testing of valid and invalid submissions; and
-- review of the resulting error response against the acceptance criteria.
-
-#### Result
-
-The original AI-generated implementation was not accepted unchanged.
-
-The corrected implementation passed the relevant unit and integration tests and
-was accepted through the team's normal pull-request process.
-
-#### Remaining Concerns
-
-No known unresolved concerns related to this AI contribution remain.
-
-<!--
-DELETE THE SAMPLE AVN-001 ENTRY ABOVE after your team has created actual
-verification evidence.
-
-The sample demonstrates the expected structure and level of detail.
--->
-
----
-
-<!--
-COPY THE TEMPLATE BELOW for each significant verification note.
-
-### AVN-### — Short Descriptive Title
-
-**Date:** YYYY-MM-DD
-**AI Tool:**
-**Related AI Use Log Entry:**
-**Related Evidence:**
-
-#### AI Contribution
-
-Describe what AI materially contributed.
-
-Do not paste an entire AI conversation unless there is an exceptional reason
-to preserve it. Summarize the engineering-relevant contribution.
-
-#### Human Verification Performed
-
-Describe specifically how humans independently evaluated the work.
-
-Possible evidence might include:
-
-- code review;
-- unit testing;
-- integration testing;
-- end-to-end testing;
-- manual reproduction;
-- comparison with requirements;
-- comparison with acceptance criteria;
-- comparison with authoritative technical documentation;
-- security review;
-- architecture review;
-- independent calculation or analysis;
-- runtime observation;
-- peer review.
-
-Do not simply state "verified" or "reviewed."
-
-#### Result
-
-State what happened after verification.
-
-Examples:
-
-- accepted unchanged;
-- accepted after modification;
-- partially accepted;
-- rejected;
-- replaced with another approach;
-- additional requirements identified;
-- defect found and corrected;
-- further investigation required.
-
-#### Remaining Concerns
-
-Identify unresolved uncertainty, risk, limitations, or follow-up work.
-
-If none are known, state that explicitly.
-
----
--->
+When a verification note is required, the team will use a unique identifier
+in the format `AVN-###`.
 
 ## When to Create a Verification Note
 
-<!--
-A separate verification note is especially useful when AI materially
-contributes to:
+A verification note may be created when AI significantly contributes to:
 
-- security-sensitive code;
+- security-related implementation;
 - authentication or authorization;
-- data integrity logic;
-- significant architectural decisions;
-- complex algorithms;
-- concurrency or transaction handling;
-- deployment or operational behavior;
-- substantial requirements analysis;
+- data integrity or database logic;
+- important architecture decisions;
+- complex implementation;
+- significant requirements or acceptance criteria;
 - important test design;
-- defect diagnosis with significant downstream impact;
-- phase-gate evidence;
-- other work where an unsupported AI error could have meaningful consequences.
+- debugging of significant defects;
+- deployment or operational decisions; or
+- other engineering work where incorrect AI output could significantly affect
+  the project.
 
-A separate note is usually unnecessary for trivial or low-risk AI assistance.
--->
+Routine or low-risk AI assistance normally does not require a separate
+verification note.
 
 ## Verification Independence
 
-<!--
-Verification should not simply ask the same AI system whether its prior answer
-was correct.
+AI-generated work should be verified using human judgment and appropriate
+engineering evidence.
 
-AI may assist in verification, but meaningful verification should include
-independent human judgment and appropriate external evidence.
+The team should not rely only on asking an AI system whether its own previous
+answer was correct.
 
-For example:
-
-WEAK:
-"ChatGPT generated the code and then said the code was correct."
-
-STRONGER:
-"Team member reviewed the code against REQ-006, added boundary-condition tests,
-ran the integration suite, and compared library behavior against authoritative
-documentation."
-
-The purpose is independent engineering evidence.
--->
+Depending on the work, verification may include code review, testing,
+comparison with requirements, comparison with official technical
+documentation, peer review, or observation of actual system behavior.
 
 ## Verification Depth
 
-The depth of verification should be proportional to the potential consequence
-of accepting incorrect AI output.
+The amount of verification should match the potential impact of an incorrect
+AI-generated result.
 
-<!--
-Examples:
-
-LOW CONSEQUENCE
-AI rewrites a documentation sentence.
-Verification might be ordinary human proofreading.
-
-MODERATE CONSEQUENCE
-AI generates routine transformation logic.
-Verification might include code review and automated tests.
-
-HIGH CONSEQUENCE
-AI generates authentication, authorization, data-integrity, concurrency, or
-deployment logic.
-Verification should include stronger independent review, relevant testing,
-and other appropriate evidence.
-
-Do not mechanically apply the same verification process to every AI use.
-Exercise engineering judgment.
--->
+Low-risk assistance may only require human review or proofreading. More
+important technical work may require code review, testing, documentation
+comparison, or additional independent verification.
 
 ## Verification Against Requirements
 
-Where AI-assisted work implements or affects system behavior, verification
-should reference the applicable requirements and acceptance criteria when
-practical.
+When AI-assisted work affects system behavior, the team should connect the
+verification to applicable requirements and acceptance criteria when
+appropriate.
 
-<!--
-A useful evidence chain is:
-
-AI Use Log Entry
-  ->
-AI Verification Note
-  ->
-Requirement / Acceptance Criterion
-  ->
-Implementation
-  ->
-Test / Review Evidence
-
-Not every activity requires every link, but important AI-assisted engineering
-work should be traceable into the same evidence system as other engineering
-work.
--->
+Important AI-assisted work should remain traceable to related project
+documentation, implementation, testing, or review evidence.
 
 ## Failed Verification Is Valuable Evidence
 
-<!--
-Do not hide AI-generated work that fails verification.
+AI recommendations that fail verification should not be hidden.
 
-A failed verification may demonstrate excellent engineering judgment.
+If verification identifies an incorrect assumption, defect, or unsuitable
+recommendation, the team should record the result when it meaningfully affects
+the project.
 
-Example:
-
-AI recommendation
-  ->
-Independent verification
-  ->
-Defect or unsupported assumption discovered
-  ->
-Recommendation rejected
-  ->
-Correct approach implemented
-
-Record the result when the failure is significant enough to affect project
-history or engineering decisions.
--->
+Rejected AI recommendations can provide evidence that the team independently
+evaluated AI output rather than automatically accepting it.
 
 ## Expectations
 
-- Create verification notes for significant AI-assisted work when detailed evidence is warranted.
-- Use unique `AVN-###` identifiers.
-- Link entries to the AI Use Log and related engineering evidence.
-- Describe the AI contribution accurately.
-- Describe what humans actually did to verify it.
-- Use verification methods appropriate to the potential consequence.
-- Record modifications, rejection, or failed verification honestly.
-- Identify remaining uncertainty or risk.
-- Do not treat AI self-confirmation as sufficient independent verification.
-- Keep evidence concise enough to review while preserving important engineering reasoning.
-
-<!--
-Before the applicable phase-gate submission:
-
-1. Delete the sample AVN-001 entry.
-2. Confirm all retained notes correspond to actual project AI-assisted work.
-3. Confirm links and evidence references are valid.
-4. Confirm verification descriptions identify actual human actions.
-5. Remove instructional HTML comments.
-
-This file is engineering evidence of HOW the team established confidence in
-significant AI-assisted work, not evidence that AI was used.
+- Create verification notes when significant AI-assisted work requires detailed
+  verification evidence.
+- Use unique `AVN-###` identifiers for verification notes.
+- Connect verification notes to the related AI Use Log entry when applicable.
+- Clearly describe what AI contributed.
+- Clearly describe how a team member independently verified the work.
+- Record whether the AI contribution was accepted, modified, or rejected.
+- Identify remaining concerns or risks when applicable.
+- Do not treat an AI system checking its own output as sufficient verification.
+- Keep verification evidence concise and relevant.idence that AI was used.
 -->
