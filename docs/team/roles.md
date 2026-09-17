@@ -53,11 +53,11 @@ Every student has the base role **Developer**. In addition, the team must assign
 
 | Specialized Role | Primary Owner(s) | Backup Owner | Effective Gates | Notes |
 |---|---|---|---|---|
-| Team Lead | Jordan Smith | Taylor Nguyen | A1-A6 | |
-| Planning & Process Lead | Taylor Nguyen | Jordan Smith | A1-A6 | |
-| Architecture & Development Lead | Morgan Lee | Casey Patel | A1-A6 | |
-| Quality & Review Lead | Casey Patel | Morgan Lee | A1-A6 | |
-| Operations & Evidence Lead | Riley Chen | Jordan Smith | A1-A6 | |
+| Team Lead | Victor Dodan | Malec Tarabein  | A1-A6 | |
+| Planning & Process Lead | Malec Tarabein | Shu Perez | A1-A6 | |
+| Architecture & Development |Shu Perez  | Mareddy Venkata Aravind | Giancarlo Herrera | A1-A6 | |
+| Quality & Review Lead | Giancarlo Herrera  | Victor Dodoan | A1-A6 | |
+| Operations & Evidence Lead | Sierah Shelby | Mareddy Venkata Aravind | A1-A6 | |
 
 ### Instructions
 
