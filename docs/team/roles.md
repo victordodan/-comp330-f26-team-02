@@ -121,11 +121,12 @@ The **Evidence** column should reference a repository-visible confirmation made 
 
 | Student Name | Acknowledged | Evidence |
 |---|---|---|
-| Jordan Smith | Yes | Issue #2 — acknowledgement comment |
-| Taylor Nguyen | Yes | PR #3 — review acknowledgement |
-| Morgan Lee | Pending |  |
-| Casey Patel | Pending |  |
-| Riley Chen | Pending |  |
+| Giancarlo Herrera | Yes |  |
+| Dodan Victor | Pending |  |
+| Mareddy, Venkata Aravind | Pending |  |
+| Shu Perez | Pending |  |
+| Shelby Sierah | Pending |  |
+| Tarabein Malec | Pending |  |
 
 ### Instructions
 
