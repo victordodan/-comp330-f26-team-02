@@ -121,7 +121,7 @@ The **Evidence** column should reference a repository-visible confirmation made 
 
 | Student Name | Acknowledged | Evidence |
 |---|---|---|
-| Giancarlo Herrera | Yes |  |
+| Giancarlo Herrera | Yes | I, Giancarlo Herrera, acknowledge my Developer role, Quality & Review Lead role, A1 AI-Use Policy and AI-Use Log ownership, backup responsibilities, and responsibility for keeping project evidence current. |
 | Dodan Victor | Pending |  |
 | Mareddy, Venkata Aravind | Pending |  |
 | Shu Perez | Pending |  |
