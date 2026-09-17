@@ -55,7 +55,7 @@ Every student has the base role **Developer**. In addition, the team must assign
 |---|---|---|---|---|
 | Team Lead | Victor Dodan | Malec Tarabein  | A1-A6 | |
 | Planning & Process Lead | Malec Tarabein | Shu Perez | A1-A6 | |
-| Architecture & Development |Shu Perez  | Mareddy Venkata Aravind | Giancarlo Herrera | A1-A6 | |
+| Architecture & Development |Shu Perez  | Mareddy Venkata Aravind | | A1-A6 | |
 | Quality & Review Lead | Giancarlo Herrera  | Victor Dodoan | A1-A6 | |
 | Operations & Evidence Lead | Sierah Shelby | Mareddy Venkata Aravind | A1-A6 | |
 
