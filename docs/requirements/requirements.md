@@ -3,18 +3,7 @@
 <!--
 STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
 
-This file contains sample requirements showing the expected structure and
-level of detail.
 
-Replace the sample requirements with requirements for your team's actual
-system. Do not simply change a few words in the examples.
-
-Requirements describe what the system is obligated to do or satisfy.
-They should be clear enough that another engineer can understand the
-obligation and determine whether it has been met.
-
-Keep the document structure that is useful to your team, but remove
-instructional comments like this one as you complete the artifact.
 -->
 
 ## Requirements
@@ -25,13 +14,11 @@ Replace the sample rows below with your team's actual requirements.
 Use unique IDs in the form REQ-###.
 
 Requirement:
-State the system obligation clearly and precisely. When practical, use
-"The system shall..." Avoid vague statements such as "The system should
-be easy to use" unless the expectation is made observable or measurable.
+It’s requirement is to be a small, bounded student support request workflow system that is not a full university platform.
+
 
 Rationale:
-Explain why the requirement exists. Do not simply restate the requirement.
-
+It exists to replace the unorganized handling of emails/documents by using one controlled workflow that should be testable.
 Priority:
 Use Must, Should, or Could.
 
@@ -58,52 +45,17 @@ been referenced elsewhere in the repository.
 
 ## Requirement Quality
 
-<!--
-Use this section as a final review checklist while developing your requirements.
-Delete this comment before submission.
-
-Good requirements should be:
-
-- clear;
-- concise;
-- unambiguous;
-- necessary;
-- feasible;
-- traceable; and
-- verifiable.
-
-Before accepting a requirement, consider:
-
-- What stakeholder, engineering, operational, or project need does it address?
-- Is the obligation clear?
-- Could two reasonable people interpret it differently?
-- Can the team eventually demonstrate whether it has been satisfied?
-- Does it unnecessarily prescribe a technical solution?
-- Is it consistent with other requirements?
-- Does it depend on an unresolved assumption or open question?
--->
-
+The primary stakeholders are the student requester(submits the request and monitor/view the request), the support reviewer(updates/resolves the status), the team administrator(optional in the 1st cycle), and the optional AI assistant(strictly advisory, and human-reviewed)
 ## Requirements and Design
 
 <!--
-Requirements normally describe WHAT must be true, not unnecessarily dictate
-HOW the system must be implemented.
+The student will create a new support request that will contain only synthetic data
+The system will store it and assign it with an unique number
+The reviewer can view the request and change the status
+The reviewer can also record the resolution 
+The student can view the status and/or resolution 
+The repository will show the traceability 
 
-Example of an appropriate requirement:
-
-"The system shall preserve an audit record of workflow status changes."
-
-This establishes an obligation.
-
-By contrast:
-
-"The system shall use PostgreSQL table workflow_history with three indexes..."
-
-is usually an architecture or implementation decision unless that technology
-is itself an externally imposed requirement.
-
-Record significant implementation choices in the appropriate architecture or
-decision artifact.
 -->
 
 ## Requirements and Uncertainty
