@@ -1,264 +1,61 @@
 # Estimates
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file records the team's engineering estimates and the reasoning behind them.
-
-An estimate is NOT a promise.
-
-An estimate represents the team's current judgment about expected effort,
-duration, complexity, or another planning quantity based on the evidence
-available at the time.
-
-Good estimation evidence should make visible:
-
-- what is being estimated;
-- the estimate itself;
-- the basis for the estimate;
-- important assumptions;
-- uncertainty or confidence;
-- who participated in the estimate; and
-- how actual experience compares with the estimate later.
-
-Do not invent precision you do not have.
-
-"Approximately 8-12 hours" may be stronger engineering evidence than "9.25 hours"
-when the work is not understood well enough to justify that precision.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
+**Team:** Codex Ramblers  
+**Project:** CampusConnect  
+**Current Phase:** A1 — Project Launch  
+**Release Cycle:** Cycle 1  
 
 ## Estimation Approach
 
-<!--
-TEAM CONTENT REQUIRED
+Codex Ramblers uses estimated team person-hours within a range to represent uncertainty. The estimate is the team's current expected effort, whereas the range accounts for unresolved requirements, technical decisions, integration work, and other such factors that may change as the project develops.
 
-Describe how your team will estimate work.
-
-Possible approaches include:
-
-- relative sizing;
-- person-hours;
-- ideal engineering hours;
-- ranges;
-- story points;
-- task decomposition;
-- analogous estimation;
-- a combination of approaches.
-
-Do not choose a method simply because it appears in this scaffold.
-
-Explain enough that another reviewer can understand what your estimate values mean.
-
-Replace this comment with your team's actual approach.
--->
+Initial estimates are expected to have wider ranges because architecture and implementation details are not yet fully known. Estimates will be refined throughout the semester as the team gains more engineering evidence and completes related work.
 
 ## Estimates
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use stable estimate IDs:
-
-EST-###
-
-Examples:
-
-EST-001
-EST-002
-
-COLUMN GUIDANCE
-
-Work Item
-Identify the scope item, requirement group, milestone, feature, or task being
-estimated.
-
-Estimate
-State the estimate using the unit defined by your team.
-
-Range / Uncertainty
-Represent uncertainty explicitly when useful.
-
-Basis
-Explain where the estimate came from.
-
-Assumptions
-Reference important assumptions that materially influence the estimate.
-
-Owner(s)
-Identify who participated in or owns refinement of the estimate.
-
-Status
-Suggested values:
-
-- Initial
-- Refined
-- Completed
-- Superseded
-
-EXAMPLE ONLY:
-
 | ID | Work Item | Estimate | Range / Uncertainty | Basis | Assumptions | Owner(s) | Status |
 |---|---|---|---|---|---|---|---|
-| EST-001 | Initial workflow submission capability | 10 hours | 8-14 hours | Team decomposition of UI, service, persistence, and tests | ASM-002 | Jordan Smith, Morgan Lee | Initial |
-
-DELETE the example and populate the actual table below.
--->
-
-| ID | Work Item | Estimate | Range / Uncertainty | Basis | Assumptions | Owner(s) | Status |
-|---|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |  |
+| EST-001 | A1 project launch and planning evidence | 10 hours | 8–14 hours | Current A1 work primarily involves documentation, planning, repository setup, and review. | Team roles and the initial CampusConnect scope remain stable. | Codex Ramblers | Initial |
+| EST-002 | Requirements and planning refinement | 14 hours | 10–20 hours | Includes refining requirements, acceptance criteria, assumptions, scope, schedule, risks, and traceability. | The Cycle 1 workflow remains limited to the current CampusConnect support-request process. | Codex Ramblers | Initial |
+| EST-003 | Architecture and design | 18 hours | 12–26 hours | Includes selecting the technology stack, defining system structure and interfaces, and documenting major engineering decisions. | The team selects technologies that members can reasonably learn and support. | Codex Ramblers | Initial |
+| EST-004 | Cycle 1 implementation | 36 hours | 24–50 hours | Based on implementing the student request workflow, persistence, reviewer actions, status updates, resolution information, integration, and supporting tests. | Requirements and architecture are stable enough before major construction begins. | Codex Ramblers | Initial |
+| EST-005 | Cycle 1 verification and release preparation | 18 hours | 12–26 hours | Includes end-to-end testing, defect correction, review, documentation of limitations, and preparation of release evidence. | A complete Cycle 1 workflow is available for verification. | Codex Ramblers | Initial |
+| EST-006 | Cycle 2 maturity improvements and final release | 32 hours | 20–48 hours | Cycle 2 work will depend on issues, risks, defects, and improvement opportunities identified from Cycle 1 evidence. | Cycle 2 remains focused on a limited number of evidence-based improvements rather than major feature expansion. | Codex Ramblers | Initial |
 
 ## Estimation Assumptions
 
-<!--
-TEAM CONTENT REQUIRED WHEN IMPORTANT ASSUMPTIONS AFFECT ESTIMATES
-
-Do not duplicate the authoritative assumption record.
-
-Reference assumptions in:
-
-/docs/requirements/assumptions-open-questions.md
-
-This section may summarize only the assumptions that materially affect
-planning estimates.
-
-EXAMPLE ONLY:
-
 | Assumption Reference | Estimate(s) Affected | Effect if Incorrect |
 |---|---|---|
-| ASM-002 | EST-001, EST-003 | Additional workflow-state work may increase effort |
-
-Populate actual relationships below.
--->
-
-| Assumption Reference | Estimate(s) Affected | Effect if Incorrect |
-|---|---|---|
-|  |  |  |
+| Cycle 1 remains limited to the required support-request workflow | EST-002, EST-003, EST-004, EST-005 | Additional features would increase design, implementation, and verification effort. |
+| Synthetic data and simulated user roles remain acceptable | EST-003, EST-004, EST-005 | Real authentication or institutional data integration would significantly increase project complexity. |
+| The team selects a technology stack that members can reasonably support | EST-003, EST-004 | An unfamiliar or overly complex stack could increase implementation time and technical risk. |
+| Requirements are refined before major construction begins | EST-003, EST-004, EST-005 | Significant requirement changes during implementation could cause rework and schedule changes. |
+| Cycle 2 work is based on Cycle 1 evidence | EST-006 | The estimate may need to change significantly once actual defects, risks, and maturity needs are known. |
 
 ## Estimate Confidence
 
-<!--
-TEAM CONTENT REQUIRED WHEN CONFIDENCE VARIES MATERIALLY
-
-A useful estimate includes some understanding of uncertainty.
-
-If your team uses confidence labels, define them.
-
-Example ONLY:
-
-High
-Work is well understood and similar work has already been completed.
-
-Medium
-Major work is understood, but some uncertainty remains.
-
-Low
-Important requirements, dependencies, or technical questions remain unresolved.
-
-You may use another approach.
-
-Do not assign confidence labels without thinking about what they mean.
--->
-
 | Estimate ID | Confidence | Reason |
 |---|---|---|
-|  |  |  |
+| EST-001 | High | A1 work is already underway and is mostly defined documentation and planning work. |
+| EST-002 | Medium | The overall workflow is known, but requirements and planning details may still change. |
+| EST-003 | Low | Major architecture and technology decisions have not yet been finalized. |
+| EST-004 | Low | Implementation effort depends heavily on requirements, architecture, technology choices, and integration experience. |
+| EST-005 | Low | Verification effort will depend on the quality and behavior of the implementation produced during construction. |
+| EST-006 | Low | Cycle 2 work will be selected later based on evidence from Cycle 1. |
 
 ## Estimate Changes
 
-<!--
-TEAM CONTENT REQUIRED WHEN AN ESTIMATE CHANGES MATERIALLY
-
-Estimates should be refined as the team learns.
-
-Do not rewrite history simply because an estimate turned out to be wrong.
-
-Preserve important changes so the team can learn from them.
-
-A blank table is intentional at project start.
--->
-
-| Date / Gate | Estimate ID | Previous Estimate | New Estimate | Reason for Change |
-|---|---|---|---|---|
-|  |  |  |  |  |
+No material estimate changes have been recorded yet. Estimates will be updated as the team gains more information rather than replacing earlier estimates without explanation.
 
 ## Estimate vs. Actual
 
-<!--
-TEAM CONTENT REQUIRED AS WORK COMPLETES
-
-Comparing estimates with actual outcomes helps teams improve engineering
-judgment.
-
-The goal is NOT to punish inaccurate estimates.
-
-The goal is to understand why reality differed from expectation.
-
-Actual may represent:
-
-- actual effort;
-- actual duration;
-- actual complexity encountered;
-- another agreed measurement.
-
-EXAMPLE ONLY:
-
-| Estimate ID | Estimated | Actual | Variance | What We Learned |
-|---|---|---|---|---|
-| EST-001 | 8-14 hours | 16 hours | Above range | Authentication integration required more investigation than expected |
-
-Populate actual completed-work observations below.
--->
-
-| Estimate ID | Estimated | Actual | Variance | What We Learned |
-|---|---|---|---|---|
-|  |  |  |  |  |
+No completed engineering work has enough estimation history yet to provide a useful estimate-versus-actual comparison. This section will be updated as estimated work is completed during the semester.
 
 ## Planning Implications
 
-<!--
-TEAM CONTENT REQUIRED WHEN ESTIMATES AFFECT THE PLAN
-
-Document significant planning actions resulting from estimates.
-
-Examples:
-
-- scope reduced;
-- task split;
-- work moved earlier;
-- additional research scheduled;
-- risk added;
-- backup owner assigned;
-- milestone adjusted.
-
-Do not document trivial adjustments.
--->
-
 | Estimate / Evidence | Planning Impact | Related Scope / Schedule / Risk |
 |---|---|---|
-|  |  |  |
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Replace all blank scaffold rows with actual data or remove unnecessary rows.
-2. Confirm the estimation unit and method are understandable.
-3. Avoid unsupported precision.
-4. Identify important uncertainty.
-5. Reference assumptions rather than silently embedding them.
-6. Preserve meaningful estimate changes.
-7. Compare completed work against estimates where evidence exists.
-8. Update schedule or risk evidence when estimates materially change planning.
-9. Remove ALL instructional HTML comments.
-
-The completed file should show the team's evolving engineering judgment, not
-just a collection of numbers.
--->
+| EST-001 | Complete the A1 engineering baseline before beginning more detailed development planning. | A1 Project Launch |
+| EST-003 and EST-004 | Architecture should be established before the team commits heavily to implementation work. | Architecture and Construction modules |
+| EST-004 | Construction is expected to require the most technical effort, so Cycle 1 scope should remain intentionally small. | `scope.md`, semester schedule |
+| EST-006 | Detailed Cycle 2 work should not be committed until Cycle 1 evidence shows where improvement is most valuable. | Cycle 2 planning |

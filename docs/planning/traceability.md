@@ -1,225 +1,74 @@
 # Traceability
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Team:** Codex Ramblers  
+**Project:** CampusConnect  
+**Current Phase:** A1 — Project Launch  
+**Release Cycle:** Cycle 1  
 
-This file provides a project-level view of traceability across engineering
-evidence.
+Traceability will be expanded as additional engineering evidence becomes available.
 
-Traceability answers questions such as:
-
-- Why does this requirement exist?
-- What design or architecture addresses it?
-- What implementation realizes it?
-- What acceptance criteria define success?
-- What test or verification evidence demonstrates that it works?
-- What decision influenced the solution?
-- What risk affects it?
-- What changed when an upstream assumption or requirement changed?
-
-Traceability is NOT merely a list of links.
-
-The goal is to preserve meaningful relationships among engineering artifacts.
-
-Do not attempt to populate every possible relationship at A1.
-
-Traceability should mature as the project matures.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
+At A1, the Initial Requirements package and Initial Decision Record are still incomplete, so related requirement and decision references remain pending.
 
 ## Requirements Traceability Matrix
 
-<!--
-TEAM CONTENT REQUIRED
+The Initial Requirements package has not yet been finalized, so authoritative CampusConnect requirement and acceptance-criteria IDs are not currently available.
 
-Use the requirement IDs defined in:
-
-/docs/requirements/requirements.md
-
-Add relationships as evidence becomes available.
-
-At early gates, implementation and verification columns may legitimately be
-blank or marked as not yet available.
-
-Do not invent downstream evidence merely to make the matrix look complete.
-
-COLUMN GUIDANCE
-
-Requirement
-Authoritative requirement ID.
-
-Acceptance Criteria
-Related acceptance-criteria IDs.
-
-Architecture / Design
-Relevant component, API contract, ADR, or architecture section.
-
-Implementation
-Relevant repository path, module, PR, or other implementation evidence.
-
-Verification
-Test, runtime evidence, review, or other proof.
-
-Risk / Assumption
-Relevant risk or assumption that materially affects the requirement.
-
-Status
-Current overall traceability state.
-
-EXAMPLE ONLY:
+The traceability matrix will be populated after `docs/requirements/requirements.md` and `docs/requirements/acceptance-criteria.md` are completed.
 
 | Requirement | Acceptance Criteria | Architecture / Design | Implementation | Verification | Risk / Assumption | Status |
 |---|---|---|---|---|---|---|
-| REQ-001 | AC-REQ-001-01, AC-REQ-001-02 | API-001, Application Service | Not yet implemented | Not yet available | ASM-001 | In Progress |
-
-DELETE the example and populate the actual table below.
--->
-
-| Requirement | Acceptance Criteria | Architecture / Design | Implementation | Verification | Risk / Assumption | Status |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
+| Pending | Pending | Not yet available | Not yet implemented | Not yet available | R-004 | Requirements baseline in progress |
 
 ## Decision Traceability
 
-<!--
-TEAM CONTENT REQUIRED FOR SIGNIFICANT ENGINEERING DECISIONS
-
-Reference ADRs from:
-
-/docs/decisions/
-
-Show what influenced a decision and what downstream evidence it affected.
-
-EXAMPLE ONLY:
+The Initial Decision Record has not yet been completed. Decision relationships will be added after the first project ADR is accepted.
 
 | Decision | Drivers / Inputs | Affected Architecture / Implementation | Verification / Follow-Up |
 |---|---|---|---|
-| ADR-001 | REQ-001, R-002 | Application Service structure | Architecture review |
-
-Populate actual decision relationships below.
--->
-
-| Decision | Drivers / Inputs | Affected Architecture / Implementation | Verification / Follow-Up |
-|---|---|---|---|
-|  |  |  |  |
+| Initial ADR pending | CampusConnect Project Brief, `scope.md`, Initial Requirements | Not yet available | Update traceability after the Initial Decision Record is completed. |
 
 ## Risk and Assumption Traceability
 
-<!--
-TEAM CONTENT REQUIRED
-
-Show meaningful relationships from uncertainty to affected engineering work.
-
-Do not duplicate the complete risk register or assumptions file.
-
-Reference the authoritative entries.
-
-EXAMPLE ONLY:
-
 | Risk / Assumption | Affected Evidence | Current Effect / Action |
 |---|---|---|
-| ASM-001 | REQ-001, ADR-002, API-003 | Authentication design remains dependent on provider validation |
-
-Populate actual relationships below.
--->
-
-| Risk / Assumption | Affected Evidence | Current Effect / Action |
-|---|---|---|
-|  |  |  |
+| R-001 — Cycle 1 scope expansion | `scope.md`, `task-plan.md`, EST-004, MS-004 | Keep Cycle 1 limited to the required end-to-end support-request workflow and defer unnecessary additions. |
+| R-002 — Technology learning or configuration takes longer than expected | EST-003, EST-004, MS-003, MS-004 | Technology choices should remain manageable for the team and be reconsidered if they create unnecessary complexity. |
+| R-003 — Team availability or delayed assigned work | `task-plan.md`, `schedule.md`, `docs/team/roles.md` | Primary and backup ownership and early communication are used to reduce schedule disruption. |
+| R-004 — Requirements remain incomplete or change late | `docs/requirements/`, EST-002, EST-003, EST-004 | Complete and review the Initial Requirements package before major architecture and construction work begins. |
+| R-005 — Independently developed components fail to integrate | MS-003, MS-004, EST-004 | Interfaces should be defined before implementation and integration should occur throughout construction. |
+| R-006 — Testing begins too late | EST-004, EST-005, MS-004, MS-005 | Testing and verification should develop alongside implementation instead of being postponed until the end of Cycle 1. |
+| R-007 — Repository evidence becomes incomplete or outdated | `task-plan.md`, `docs/team/working-agreements.md`, GitHub repository | Engineering evidence should be updated as work occurs and reviewed before each phase gate. |
 
 ## Change Impact Traceability
 
-<!--
-TEAM CONTENT REQUIRED WHEN MATERIAL CHANGE OCCURS
+No material upstream changes have occurred yet.
 
-Traceability becomes especially valuable when something changes.
-
-When a requirement, assumption, decision, or architecture element changes,
-record the important downstream evidence reviewed or updated.
-
-A blank table is intentional at project start.
-
-EXAMPLE ONLY:
-
-| Change | Upstream Evidence | Downstream Evidence Reviewed / Updated | Result |
-|---|---|---|---|
-| Authentication method changed | ASM-001, ADR-002 | REQ-001, API-003, integration tests | Contracts and tests updated |
-
-Do not retain the example.
--->
-
-| Change | Upstream Evidence | Downstream Evidence Reviewed / Updated | Result |
-|---|---|---|---|
-|  |  |  |  |
+This section will be updated when a requirement, assumption, decision, scope item, or architecture element changes in a way that requires downstream evidence to be reviewed or updated.
 
 ## Traceability Gaps
 
-<!--
-TEAM CONTENT REQUIRED
-
-A gap is a known missing relationship or evidence link.
-
-It is better to record a real gap than to fabricate evidence.
-
-Examples ONLY:
-
-- REQ-005 has no acceptance criterion yet;
-- API-004 has no verification evidence yet;
-- ADR-003 affects implementation but the affected module has not been identified;
-- requirement implementation exists but traceability has not yet been updated.
-
-Use the table below for actual gaps.
--->
-
 | Gap | Why It Matters | Owner | Planned Resolution | Target Gate |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| Initial CampusConnect requirements have not yet been finalized. | Authoritative CampusConnect requirement IDs are not yet available for traceability. | Shelby Sierah | Complete the Initial Requirements package and establish the team's actual requirements. | A1 |
+| Acceptance criteria have not yet been finalized. | Requirements cannot yet be connected to authoritative acceptance-criteria IDs or later verification evidence. | Shelby Sierah | Complete `docs/requirements/acceptance-criteria.md` and establish stable acceptance-criteria IDs. | A1 |
+| Planning traceability cannot yet use finalized requirement IDs. | Scope and risk relationships exist, but requirement-level links cannot be completed until the requirements baseline is finalized. | Victor Dodan | Update this file after the Initial Requirements package is completed. | A1 |
+| Initial ADR has not yet been completed. | Significant project decisions cannot yet be traced forward to architecture or implementation. | Malec Tarabein | Complete the Initial Decision Record and update Decision Traceability. | A1 |
+| Architecture evidence does not yet exist. | Requirements cannot yet be traced to specific architectural components or interfaces. | Architecture & Development Lead | Add architecture relationships as Module 3 evidence is created. | A3 |
+| Implementation evidence does not yet exist. | Requirements cannot yet be traced to source code or implementation pull requests. | Development team | Add implementation references during Construction. | A4 |
+| Verification evidence does not yet exist. | Requirements and acceptance criteria cannot yet be traced to tests or other proof of behavior. | Quality & Review Lead / team | Add test and verification references as evidence becomes available. | A4–A5 |
 
 ## Traceability Maintenance
 
-<!--
-TEAM CONTENT REQUIRED
+Codex Ramblers will update traceability as engineering evidence develops instead of attempting to reconstruct all relationships at the end of the semester.
 
-Describe how the team keeps traceability current.
+Traceability should be reviewed when:
 
-A lightweight approach is sufficient.
+- a requirement or acceptance criterion is added or changed;
+- a significant ADR is accepted or revised;
+- architecture or interface decisions change;
+- implementation is merged through a pull request;
+- verification evidence becomes available;
+- a tracked risk materializes or changes significantly; or
+- the team prepares for a phase-gate submission.
 
-Possible triggers include:
-
-- requirement change;
-- ADR acceptance;
-- API contract change;
-- PR merge;
-- new acceptance criterion;
-- completed verification;
-- risk materialization;
-- phase-gate preparation.
-
-The goal is to maintain traceability during engineering work rather than
-reconstructing it immediately before submission.
-
-Replace this comment with the team's actual approach.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Confirm every current requirement appears in the traceability matrix.
-2. Confirm acceptance-criteria references are valid.
-3. Link architecture, implementation, and verification only where evidence exists.
-4. Do not fabricate downstream links for unfinished work.
-5. Identify meaningful gaps explicitly.
-6. Confirm ADR and risk relationships point to authoritative evidence.
-7. Record downstream review when an upstream artifact changes materially.
-8. Remove ALL instructional HTML comments.
-
-The completed traceability artifact should let a reviewer follow important
-engineering relationships backward and forward through the lifecycle.
--->
+Missing downstream evidence will remain identified as a traceability gap until the related lifecycle work has actually been completed.

@@ -1,230 +1,53 @@
 # Task Plan
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Team:** Codex Ramblers  
+**Project:** CampusConnect  
+**Current Phase:** A1 — Project Launch  
+**Release Cycle:** Cycle 1  
 
-This file records the team's actionable work plan.
-
-The task plan answers:
-
-- What work needs to happen?
-- Who currently owns it?
-- What does it depend on?
-- When is it expected?
-- What evidence will show that it is complete?
-- What is its current status?
-
-This is different from:
-
-scope.md
-- defines the project boundary;
-
-estimates.md
-- records expected effort or complexity;
-
-schedule.md
-- records milestones and timing;
-
-task-plan.md
-- records actionable work needed to execute the plan.
-
-Do not turn this into hundreds of tiny checklist items.
-
-Track work at a level where ownership, dependencies, progress, and completion
-are meaningful.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove all instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
+This task plan records the major work Codex Ramblers expects to complete throughout the Fall semester. Tasks are kept at a level where ownership, dependencies, progress, and completion can be clearly tracked. More detailed tasks may be added as requirements, architecture, and implementation decisions become more specific.
 
 ## Active Task Plan
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use stable task IDs:
-
-TASK-###
-
-Examples:
-
-TASK-001
-TASK-002
-
-COLUMN GUIDANCE
-
-Task
-Describe a concrete engineering outcome.
-
-Owner
-Identify the primary person responsible for moving the work forward.
-
-Backup / Reviewer
-Identify another team member who can review or support the work where useful.
-
-Related Evidence
-Reference requirements, acceptance criteria, scope items, risks, ADRs, issues,
-or other evidence.
-
-Estimate
-Reference estimates.md when a formal estimate exists.
-
-Target
-Identify the milestone, date, or phase gate.
-
-Dependencies
-Identify meaningful predecessor work.
-
-Status
-Suggested values:
-
-- Planned
-- Ready
-- In Progress
-- Blocked
-- Review
-- Complete
-- Deferred
-
-EXAMPLE ONLY:
-
 | ID | Task | Owner | Backup / Reviewer | Related Evidence | Estimate | Target | Dependencies | Status |
 |---|---|---|---|---|---|---|---|---|
-| TASK-001 | Define workflow submission acceptance criteria | Taylor Nguyen | Morgan Lee | REQ-001 | EST-002 | MS-001 | Initial requirement draft | Planned |
-
-DELETE the example and populate the actual table below.
--->
-
-| ID | Task | Owner | Backup / Reviewer | Related Evidence | Estimate | Target | Dependencies | Status |
-|---|---|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |  |  |
+| TASK-001 | Complete the repository README and project entry point | Victor Dodan | Venkata Aravind Mareddy | `README.md` | EST-001 | A1 | Initial project direction | Planned |
+| TASK-003 | Complete the Role Matrix and acknowledgement evidence | Malec Tarabein | Victor Dodan | `docs/team/roles.md` | EST-001 | A1 | Team role and ownership decisions | In Progress |
+| TASK-006 | Complete the Initial Requirements package | Shelby Sierah | Venkata Aravind Mareddy | `docs/requirements/`, SCP-001 through SCP-006 | EST-002 | A1 | CampusConnect project brief and agreed Cycle 1 scope | Planned |
+| TASK-007 | Complete the initial Planning and Risk package | Victor Dodan | Malec Tarabein | `docs/planning/`, SCP-001 through SCP-007 | EST-001 | A1 | Initial scope and requirements direction | In Progress |
+| TASK-008 | Create the Initial Decision Record | Malec Tarabein | Shu Perez | `docs/decisions/` | EST-001 | A1 | Initial project and workflow decisions | Planned |
+| TASK-009 | Review A1 evidence and establish the Project Launch baseline | Victor Dodan | Giancarlo Herrera | A1 repository evidence and `a1-project-launch` tag | EST-001 | A1 | TASK-001 through TASK-008 | Planned |
+| TASK-010 | Refine requirements, acceptance criteria, assumptions, and open questions | Shelby Sierah | Venkata Aravind Mareddy | `docs/requirements/` | EST-002 | A2 | Initial Requirements package | Planned |
+| TASK-011 | Refine scope, estimates, schedule, risks, and traceability based on requirements | Malec Tarabein | Victor Dodan | `docs/planning/` | EST-002 | A2 | TASK-010 | Planned |
+| TASK-012 | Define and review the system architecture, interfaces, and major engineering decisions | Shu Perez | Venkata Aravind Mareddy | `docs/architecture/`, `docs/decisions/` | EST-003 | A3 | Refined requirements and planning evidence | Planned |
+| TASK-013 | Implement the controlled Cycle 1 CampusConnect workflow | Shu Perez | Venkata Aravind Mareddy | `src/`, GitHub issues and pull requests | EST-004 | A4 | TASK-012 | Planned |
+| TASK-014 | Review implementation and establish automated testing and CI evidence | Giancarlo Herrera | Victor Dodan | `tests/`, `.github/`, `docs/reviews/`, `docs/testing/` | EST-004 | A4 | TASK-013 | Planned |
+| TASK-015 | Verify the Cycle 1 workflow, address defects, and prepare release evidence | Giancarlo Herrera | Shelby Sierah | `docs/testing/`, `docs/quality/`, `docs/release/` | EST-005 | A5 | TASK-013 and TASK-014 | Planned |
+| TASK-016 | Prepare and present the Cycle 1 release with known limitations and supporting evidence | Shelby Sierah | Victor Dodan | `docs/release/`, Cycle 1 repository baseline | EST-005 | A5 | TASK-015 | Planned |
+| TASK-017 | Review Cycle 1 evidence and select a small set of Cycle 2 maturity improvements | Victor Dodan | Malec Tarabein | Cycle 1 postmortem, risks, defects, estimates, and review evidence | EST-006 | A6 | Cycle 1 release | Planned |
+| TASK-018 | Complete selected maturity improvements and prepare the final release evidence | Codex Ramblers | Shelby Sierah | `docs/release/`, `docs/observability/`, `docs/security/`, `docs/operations/`, `docs/ai/` | EST-006 | A6 | TASK-017 | Planned |
 
 ## Definition of Task Completion
 
-<!--
-TEAM CONTENT REQUIRED
+Task completion follows the Definition of Done established in `docs/team/working-agreements.md`.
 
-A task should not be marked Complete merely because someone says they are done.
+A task in this plan should only be marked **Complete** when:
 
-Describe what completion means for tasks in this plan.
+- the agreed work has been completed
+- the expected repository artifact or implementation has been updated
+- applicable acceptance criteria or requirements have been addressed
+- applicable tests or repository checks pass
+- review has occurred when required
+- important decisions or AI-assisted work have been documented when applicable
+- the completed work can be traced to the appropriate GitHub evidence
 
-Consider where appropriate:
-
-- artifact updated;
-- implementation committed;
-- pull request reviewed;
-- tests pass;
-- related documentation updated;
-- acceptance criterion satisfied;
-- evidence linked;
-- known limitations recorded.
-
-This should agree with:
-
-/docs/team/working-agreements.md
-
-Do not create a conflicting second Definition of Done.
-
-Reference the team agreement and add planning-specific clarification only when
-necessary.
-
-Replace this comment with the team's actual completion rule or reference.
--->
+Tasks that are waiting on another task, decision, or dependency should be marked **Blocked** than In Progress indefinitely.
 
 ## Blocked Work
 
-<!--
-TEAM CONTENT REQUIRED WHEN TASKS ARE BLOCKED
-
-Blocked work should become visible.
-
-Do not simply leave a task "In Progress" indefinitely.
-
-Record:
-
-- what is blocked;
-- why;
-- who owns resolution;
-- what evidence or decision is needed;
-- schedule or scope impact.
-
-EXAMPLE ONLY:
-
-| Task ID | Blocker | Resolution Owner | Needed Evidence / Action | Impact |
-|---|---|---|---|---|
-| TASK-004 | External authentication configuration unavailable | Team Lead | Confirm provider setup | Delays integration testing |
-
-Populate actual blocked work below.
-
-A blank table is correct when nothing is blocked.
--->
-
-| Task ID | Blocker | Resolution Owner | Needed Evidence / Action | Impact |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Completed Work
-
-<!--
-OPTIONAL TEAM CONTENT
-
-You may either:
-
-1. keep completed tasks in the Active Task Plan using status Complete; or
-2. move completed tasks into this section.
-
-Choose one approach and use it consistently.
-
-Do not duplicate completed tasks in both places.
-
-If your team keeps completed tasks above, remove this section.
--->
-
-| ID | Task | Owner | Completion Evidence | Completed |
-|---|---|---|---|---|
-|  |  |  |  |  |
+No tasks are currently blocked.
 
 ## Task Changes
 
-<!--
-TEAM CONTENT REQUIRED ONLY FOR MEANINGFUL CHANGES
+No material task changes have been recorded yet. As the project develops, significant task splits, reassignments, deferrals, cancellations, or scope changes will be recorded here rather than silently changing the plan.
 
-Do not record every minor edit.
-
-Use this section when a task is materially:
-
-- split;
-- merged;
-- reassigned;
-- deferred;
-- cancelled;
-- expanded due to new evidence.
-
-A blank table is intentional at project start.
--->
-
-| Date | Task ID | Change | Reason | Related Evidence |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Replace blank scaffold rows with actual tasks or remove unnecessary rows.
-2. Confirm every active task has a clear owner.
-3. Confirm task granularity is meaningful rather than trivial.
-4. Make blocked work explicit.
-5. Link important tasks to engineering evidence.
-6. Ensure completion criteria agree with working-agreements.md.
-7. Confirm target dates or milestones agree with schedule.md.
-8. Confirm referenced estimates exist when used.
-9. Remove ALL instructional HTML comments.
-
-The completed task plan should make current engineering work visible and
-actionable without becoming a second requirements document.
--->
