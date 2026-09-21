@@ -6,15 +6,9 @@
 
 ## Team Identity
 
-**Team Name: Codex Ramblers**  
-**Project: CampusConnect**  
-**Members:                     
-     Giancarlo Herrera:           AI-Use Policy + AI-Use Log   
-     Dordan Victor:               README + Planning/Risk
-     Mareddy, Venkata Aravind:    Working Agreements
-     Shú Perez:                   Team Charter
-     Tarabein Malec:              Role Matrix + Initial Decision Record
-     Shelby Sierah:               Initial Requirements**
+**Team Name:   Codex Ramblers**  
+**Project:     CampusConnect**  
+**Members:     Giancarlo Herrera, Dordan Victor, Mareddy Venkata Aravind, Shú Perez, Tarabein Malec, Shelby Sierah**
 
 <!-- List each team member. Roles may evolve during the semester. -->
 
