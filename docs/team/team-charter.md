@@ -30,6 +30,7 @@ hands on experience with coding in Java, not only improving our computer linguis
  Shú Perez:                   Team Charter
  Tarabein Malec:              Role Matrix + Initial Decision Record
  Shelby Sierah:               Initial Requirements
+ 
 These are our primary responsibilities; we also have backups to our roles to ensure that each task gets completed. In order to prevent silos and maintain structured ownership, we communicate regularly on our Microsoft Teams messenger, which keeps us all aligned and aware on tasks that need to be completed and by whom.
 
 ## Communication
