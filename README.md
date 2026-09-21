@@ -4,7 +4,7 @@
 
 CampusConnect is a student support request system being developed by Codex Ramblers for COMP 330. The project is intended to provide a simple workflow where a student can submit a support request and later view its status and resolution, while a support reviewer can view submitted requests, update their status, and record notes or resolution information.
 
-CampusConnet focuses on one small end-to-end workflow rather than a complete university support platform. The project will use synthetic data and simulated user roles so that the system can be developed, reviewed, and tested without depending on real student information or live university systems.
+CampusConnect focuses on one small end-to-end workflow rather than a complete university support platform. The project will use synthetic data and simulated user roles so that the system can be developed, reviewed, and tested without depending on real student information or live university systems.
 
 ## Project Status
 
