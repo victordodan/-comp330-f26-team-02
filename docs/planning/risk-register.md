@@ -1,253 +1,54 @@
 # Risk Register
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file tracks meaningful PROJECT RISKS.
-
-A risk is an uncertain future condition that could negatively affect:
-
-- scope;
-- schedule;
-- architecture;
-- security;
-- quality;
-- verification;
-- deployment;
-- operations;
-- data integrity;
-- stakeholder acceptance; or
-- another important project outcome.
-
-A risk is NOT the same as:
-
-ISSUE
-A problem that has already occurred.
-
-ASSUMPTION
-Something currently being treated as true without sufficient confirmation.
-
-CONSTRAINT
-A known condition the team must work within.
-
-TASK
-Work the team already knows it needs to perform.
-
-If a risk actually occurs, it may become an issue and require action.
-
-The goal is NOT to create a long list of generic things that could theoretically
-go wrong.
-
-Track risks meaningful enough to influence engineering judgment or planning.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove all instructional comments before the applicable phase-gate submission.
-- Sample risks must not be copied into the project unless they actually apply.
--->
+**Team:** Codex Ramblers  
+**Project:** CampusConnect  
+**Current Phase:** A1 — Project Launch  
+**Release Cycle:** Cycle 1  
 
 ## Risk Register
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use stable IDs:
-
-R-###
-
-Examples:
-
-R-001
-R-002
-
-COLUMN GUIDANCE
-
-Risk
-State the uncertain condition and consequence clearly.
-
-A useful form is:
-
-"If <uncertain condition>, then <potential consequence>."
-
-Likelihood
-Suggested values:
-- Low
-- Medium
-- High
-
-Impact
-Suggested values:
-- Low
-- Medium
-- High
-
-Mitigation
-Actions taken BEFORE the risk occurs to reduce likelihood or impact.
-
-Contingency / Response
-What the team intends to do IF the risk occurs.
-
-Owner
-The person responsible for monitoring and driving mitigation.
-
-Status
-Suggested values:
-
-- Open
-- Monitoring
-- Mitigating
-- Materialized
-- Closed
-- Accepted
-
-Related Evidence
-Reference assumptions, requirements, schedule, architecture, issues, or other
-evidence when appropriate.
-
-EXAMPLE ONLY:
-
 | ID | Risk | Likelihood | Impact | Mitigation | Contingency / Response | Owner | Status | Related Evidence |
 |---|---|---|---|---|---|---|---|---|
-| R-001 | If external authentication access is delayed, then integration and protected-workflow verification may miss the planned milestone. | Medium | High | Confirm access early and build interface boundary independently | Use temporary test authentication only if permitted and reschedule integration milestone | Team Lead | Open | ASM-001, MS-003 |
-
-DELETE the example and populate the actual table below.
--->
-
-| ID | Risk | Likelihood | Impact | Mitigation | Contingency / Response | Owner | Status | Related Evidence |
-|---|---|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |  |  |
+| R-001 | If the Cycle 1 scope expands beyond the required support-request workflow, then implementation and verification may become difficult to complete within the semester schedule. | Medium | High | Keep Cycle 1 focused on the workflow defined in `scope.md` and review proposed additions before accepting them. | Defer lower-priority additions to Cycle 2 or remove them from the current scope. | Malec Tarabein | Monitoring | `scope.md`, EST-004, MS-004 |
+| R-002 | If the team selects technologies that require more learning or configuration than expected, then architecture and construction may take longer than planned. | Medium | High | Prefer technologies the team can reasonably understand, support, and test within the course timeline. | Reduce technical complexity, revise the architecture, or adjust implementation tasks if necessary. | Shu Perez | Open | EST-003, EST-004, MS-003, MS-004 |
+| R-003 | If team members become unavailable or assigned work is completed late, then dependent tasks and phase-gate evidence may also be delayed. | Medium | High | Maintain primary and backup ownership, communicate blockers early, and keep work visible through GitHub and Microsoft Teams. | Reassign or redistribute affected work using the documented backup responsibilities. | Victor Dodan | Monitoring | `task-plan.md`, `schedule.md`, `docs/team/roles.md` |
+| R-004 | If requirements remain unclear or change significantly after architecture or construction begins, then the team may need to redo design or implementation work. | Medium | High | Refine requirements and acceptance criteria before major architecture and construction decisions are finalized. | Update affected planning and architecture evidence, revise estimates, and rework only the impacted parts of the system. | Malec Tarabein | Open | `docs/requirements/`, EST-002, EST-003, EST-004 |
+| R-005 | If independently developed parts of CampusConnect do not integrate as expected, then the complete Cycle 1 workflow may be delayed. | Medium | High | Define interfaces and responsibilities before implementation and integrate work regularly instead of waiting until the end of construction. | Identify the failing interface, simplify the integration where possible, and prioritize restoring the required end-to-end workflow. | Shu Perez | Open | MS-003, MS-004, EST-004 |
+| R-006 | If testing and verification are delayed until late in Cycle 1, then important defects may be discovered too close to the release deadline. | Medium | High | Add tests and verification as implementation progresses and review important workflow behavior before formal verification begins. | Prioritize defects affecting the required workflow and document any remaining limitations honestly in release evidence. | Giancarlo Herrera | Open | EST-004, EST-005, MS-004, MS-005 |
+| R-007 | If repository evidence is not kept current while work is completed, then the project may become difficult to review or trace even if the software itself works. | Low | High | Keep requirements, issues, pull requests, decisions, tests, and planning evidence updated as work occurs. | Reconcile missing evidence before the affected phase gate and document any gaps that cannot be reconstructed reliably. | Victor Dodan | Monitoring | `task-plan.md`, `docs/team/working-agreements.md`, GitHub repository |
 
 ## Risk Evaluation
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+The team uses **Low**, **Medium**, and **High** ratings for likelihood and impact.
 
-Likelihood and impact should represent the team's current engineering judgment.
+- **Low** — currently unlikely or expected to have a limited effect on the project.
+- **Medium** — reasonably possible and capable of affecting planned work.
+- **High** — likely or capable of seriously affecting scope, schedule, quality, or a required phase gate.
 
-Do not manufacture numerical probabilities unless the team has a meaningful
-basis for them.
-
-A simple Low / Medium / High scale is sufficient for most course projects.
-
-Consider impact across areas such as:
-
-- delivery;
-- requirement satisfaction;
-- architecture;
-- security;
-- data;
-- verification;
-- operation.
-
-A High-impact risk deserves attention even when likelihood is relatively low.
--->
+These ratings represent the team's current judgment and may change as more project evidence becomes available.
 
 ## Risk Triggers / Indicators
 
-<!--
-TEAM CONTENT REQUIRED FOR RISKS WHERE EARLY WARNING IS USEFUL
-
-A trigger is evidence suggesting the risk may be becoming more likely or may
-have occurred.
-
-Examples ONLY:
-
-- access still unavailable by a certain date;
-- error rate increases during verification;
-- estimate grows beyond a planning threshold;
-- dependency fails repeatedly;
-- requirement remains unresolved by architecture review.
-
-Do not force a trigger onto every risk.
-
-Populate actual meaningful triggers below.
--->
-
 | Risk ID | Trigger / Indicator | Monitoring Evidence |
 |---|---|---|
-|  |  |  |
+| R-001 | New features are repeatedly added before the required Cycle 1 workflow is complete. | `scope.md`, task plan, GitHub issues |
+| R-002 | Architecture or setup work takes significantly longer than EST-003 predicts. | `estimates.md`, architecture evidence, task status |
+| R-003 | Assigned work misses an internal target or a team member reports that they cannot complete a responsibility. | Microsoft Teams communication, GitHub activity, `task-plan.md` |
+| R-004 | Important requirements remain unresolved when architecture work begins or existing requirements change after implementation starts. | `docs/requirements/`, ADRs, GitHub issues |
+| R-005 | Components work independently but fail when combined into the end-to-end workflow. | Pull requests, integration tests, defect evidence |
+| R-006 | Major workflow behavior still lacks tests as the project approaches the Verification module. | `tests/`, CI evidence, `docs/testing/` |
+| R-007 | Completed work cannot be linked to the expected issue, pull request, review, test, or documentation evidence. | GitHub repository and traceability evidence |
 
 ## Materialized Risks
 
-<!--
-TEAM CONTENT REQUIRED WHEN A RISK ACTUALLY OCCURS
-
-When an uncertain risk becomes a real problem:
-
-1. change its status to Materialized;
-2. record what occurred;
-3. identify the resulting issue or action;
-4. execute the planned contingency or revise it based on evidence;
-5. update schedule, scope, architecture, or other affected artifacts.
-
-Do not delete the original risk simply because it occurred.
-
-A blank table is correct when no tracked risk has materialized.
--->
-
-| Risk ID | Date | What Occurred | Resulting Action / Issue | Impact |
-|---|---|---|---|---|
-|  |  |  |  |  |
+No tracked risks have materialized at this stage of the project.
 
 ## Closed or Accepted Risks
 
-<!--
-TEAM CONTENT REQUIRED AS RISKS CHANGE
-
-A risk may be Closed because:
-
-- the uncertainty no longer exists;
-- the project passed the point where the risk could occur;
-- mitigation eliminated meaningful exposure.
-
-A risk may be Accepted when:
-
-- the team understands the exposure;
-- additional mitigation is not justified;
-- the remaining risk is deliberately tolerated.
-
-Do not mark a risk Closed merely because the team has stopped discussing it.
--->
-
-| Risk ID | Final Status | Reason | Evidence |
-|---|---|---|---|
-|  |  |  |  |
+No tracked risks have been closed or formally accepted yet.
 
 ## Risk Review
 
-<!--
-TEAM CONTENT REQUIRED
+The team will review the risk register before each phase-gate submission and whenever a major change to scope, requirements, architecture, estimates, or schedule occurs.
 
-Describe how often or at what points the team reviews the risk register.
-
-A lightweight approach is sufficient.
-
-Examples:
-
-- weekly planning meeting;
-- before each phase gate;
-- when scope or architecture changes materially;
-- when an important assumption is invalidated.
-
-Replace this comment with the team's actual approach.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Delete example risks.
-2. Confirm every retained entry describes genuine uncertainty.
-3. Separate risks from existing issues, assumptions, tasks, and constraints.
-4. Confirm mitigation and contingency are not the same thing.
-5. Assign an owner to every active risk.
-6. Reference related assumptions, schedule, requirements, or architecture where useful.
-7. Preserve materialized risks rather than deleting them.
-8. Close or accept risks only with a reason.
-9. Remove ALL instructional HTML comments.
-
-The completed risk register should help the team make better decisions, not
-serve as a generic list of possible problems.
--->
+Risks may be added, updated, closed, or marked as materialized as the project develops. If a risk affects another planning artifact, the related scope, task, estimate, or schedule evidence should also be updated.
