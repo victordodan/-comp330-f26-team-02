@@ -121,11 +121,11 @@ The **Evidence** column should reference a repository-visible confirmation made 
 
 | Student Name | Acknowledged | Evidence |
 |---|---|---|
-| Giancarlo Herrera | Yes | I, Giancarlo Herrera, acknowledge my Developer role, Quality & Review Lead role, A1 AI-Use Policy and AI-Use Log ownership, backup responsibilities, and responsibility for keeping project evidence current. |
-| Dodan Victor | Pending |  |
-| Mareddy, Venkata Aravind | Pending |  |
-| Shu Perez | Pending |  |
-| Shelby Sierah | Pending |  |
+| Giancarlo Herrera | Yes | Issue #3 — acknowledgement comment |
+| Dodan Victor | Yes | Issue #3 — acknowledgement comment |
+| Mareddy, Venkata Aravind | Yes |  |
+| Shu Perez | Yes |  |
+| Shelby Sierah | Yes |  |
 | Tarabein Malec | Pending |  |
 
 ### Instructions
