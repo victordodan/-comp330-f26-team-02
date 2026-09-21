@@ -77,4 +77,4 @@ At A1, this file represents the initial project scope baseline.
 
 | Effective Gate | Change | Added / Removed | Reason | Related Evidence |
 |---|---|---|---|---|
-| A1 | Initial CampusConnect scope established | Initial baseline | Establish the project boundary before detailed implementation begins | `docs/requirements/` |
+| A1 | Initial CampusConnect scope established | Initial baseline | Establish the project boundary before detailed implementation begins | `docs/requirements/` - in progress |
