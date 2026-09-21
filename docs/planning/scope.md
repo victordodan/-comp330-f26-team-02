@@ -1,259 +1,80 @@
 # Project Scope
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file defines the current boundaries of the project.
-
-Scope should make clear:
-
-- what the team intends to deliver;
-- what capabilities are included;
-- what is explicitly outside the current scope;
-- important constraints affecting scope;
-- important dependencies;
-- what may be deferred; and
-- what conditions would require the scope to change.
-
-Scope is NOT the same as requirements.
-
-Requirements describe obligations the system must satisfy.
-
-Scope describes the boundaries of the work the team has agreed to undertake.
-
-At an early phase gate, scope may still evolve. Record uncertainty honestly
-instead of treating every possible feature as committed work.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove all instructional comments before the applicable phase-gate submission.
-- Examples inside comments are guidance only.
-- Do not copy example capabilities into your project unless they actually apply.
--->
+**Team:** Codex Ramblers  
+**Project:** CampusConnect  
+**Current Phase:** A1 — Project Launch  
+**Release Cycle:** Cycle 1  
 
 ## Scope Statement
 
-<!--
-TEAM CONTENT REQUIRED
+CampusConnect is a semester-long project focused on creating a student support request system. The system allows students to submit support requests and view their status, while a support reviewer can view those requests, update their status, and record a note or resolution.
 
-Provide a concise statement describing what this project is intended to
-deliver during the current course/project period.
-
-A good scope statement establishes boundaries without attempting to reproduce
-every individual requirement.
-
-Consider:
-
-- primary system purpose;
-- primary users;
-- major capabilities;
-- expected delivery boundary.
-
-EXAMPLE ONLY:
-
-"The project will deliver a web-based workflow application that allows
-students to submit requests and authorized staff to review and process those
-requests through a defined lifecycle."
-
-Replace this entire comment with your team's actual scope statement.
--->
+For Cycle 1, our team's goal is to keep the project small and minimal, and complete one working end-to-end request workflow instead of trying to build a full university support platform. The project uses fake data and simulated users rather than real student or university information.
 
 ## In Scope
 
-<!--
-TEAM CONTENT REQUIRED
-
-Identify meaningful capabilities or work that are included in the current
-project boundary.
-
-Do not list every requirement.
-
-Use high-level scope items that help explain what the team has committed to
-deliver.
-
-EXAMPLE ONLY:
-
 | Scope ID | Included Capability / Work | Related Requirements | Notes |
 |---|---|---|---|
-| SCP-001 | Authenticated workflow submission | REQ-001, REQ-003 | Initial release capability |
+| SCP-001 | Student request submission | Initial Requirements | Students will be able to create a support request using synthetic data. |
+| SCP-002 | Request storage and identification | Initial Requirements | Submitted requests will be stored and given a unique identifier. |
+| SCP-003 | Reviewer access to requests | Initial Requirements | A support reviewer will be able to view submitted requests. |
+| SCP-004 | Request status updates | Initial Requirements | A reviewer will be able to update the status of a request. |
+| SCP-005 | Reviewer notes and resolution | Initial Requirements | A reviewer will be able to add a note or resolution to a request. |
+| SCP-006 | Student status and resolution viewing | Initial Requirements | Students will be able to view the current status and resolution information for their requests. |
+| SCP-007 | Repository engineering evidence | Assignment 1 evidence | Requirements, planning, issues, pull requests, reviews, tests, and later release evidence will be maintained in GitHub as the project develops. |
 
-DELETE the example and populate the actual table below.
-
-Use stable IDs such as:
-
-SCP-001
-SCP-002
-SCP-003
--->
-
-| Scope ID | Included Capability / Work | Related Requirements | Notes |
-|---|---|---|---|
-|  |  |  |  |
+The first six items come directly from the required Cycle 1 CampusConnect workflow defined by the project brief. 
 
 ## Out of Scope
 
-<!--
-TEAM CONTENT REQUIRED
-
-Explicitly identify important capabilities or work that the team is NOT
-committing to deliver.
-
-Out-of-scope items are useful when:
-
-- they are plausible enough that a reviewer might otherwise assume they are included;
-- they were discussed and intentionally excluded;
-- they may become future work;
-- excluding them materially affects architecture or planning.
-
-Do not invent out-of-scope items merely to populate the table.
-
-EXAMPLE ONLY:
-
 | Item | Reason Excluded | Future Consideration |
 |---|---|---|
-| Native mobile application | Course delivery focuses on the web application | Possible future extension |
+| Real student records or private university data | CampusConnect is required to use made-up data and does not require access to private Loyola information. | Not planned unless specifically requested. |
+| Real Loyola authentication or single sign-on | Simulated user roles are enough for the required Cycle 1 workflow. | Could be considered outside the current semester scope. |
+| Live integration with Loyola systems | The project does not require institutional integrations and they would add unnecessary complexity. | Only if approved and justified later. |
+| Email or text-message notifications | Notifications are not needed to complete the core request workflow. | Possible later improvement. |
+| User-facing AI features | AI may help us during development, but an AI feature is not required for the product itself. | Could be considered in Cycle 2 if justified. |
+| Native mobile application | The project only needs one reviewable implementation. | Not currently planned. |
+| Advanced analytics or reporting | These features are not necessary for the initial workflow. | Possible later improvement. |
+| Full university support platform | CampusConnect is intentionally limited to a small support-request workflow. | Outside the current project scope. |
 
-Populate the actual table below.
--->
-
-| Item | Reason Excluded | Future Consideration |
-|---|---|---|
-|  |  |  |
+The project brief specifically keeps Cycle 1 small and states that real authentication, production integration, advanced analytics, mobile apps, and user-facing AI are not required for the minimum product.
 
 ## Scope Constraints
 
-<!--
-TEAM CONTENT REQUIRED
-
-Identify constraints that materially limit or shape what the team can deliver.
-
-Examples may include:
-
-- semester duration;
-- team size;
-- required technology;
-- required repository or deployment platform;
-- access limitations;
-- external-service constraints;
-- course requirements;
-- data limitations.
-
-Do not confuse a constraint with a risk.
-
-A constraint is an existing condition the team must work within.
-
-A risk is an uncertain future condition that may negatively affect the project.
-
-EXAMPLE ONLY:
-
 | Constraint | Impact on Scope | Related Evidence |
 |---|---|---|
-| Semester delivery window | Advanced administrative features may need to be deferred | Schedule |
+| Cycle 1 must remain intentionally small | Our team will focus on one complete workflow instead of adding many unnecessary features. | CampusConnect Project Brief |
+| Simulated data only | Real student records, grades, private university data, or regulated records will not be used. | CampusConnect Project Brief |
+| Separate requester and reviewer behavior | The system must distinguish between student and reviewer actions even if authentication is simulated. | CampusConnect Project Brief |
+| Limited status model | Request statuses should remain simple and understandable. | CampusConnect Project Brief |
+| No required live institutional integration | The project will not depend on Loyola production systems or services. | CampusConnect Project Brief |
+| GitHub is the authoritative engineering record | Project evidence and engineering decisions must remain visible and reviewable in the repository. | Assignment 1 Project Launch Evidence Package |
+| Fall semester schedule | Work must remain realistic across the six course modules and two development cycles. | COMP 330 course project structure |
 
-Populate the actual table below.
--->
-
-| Constraint | Impact on Scope | Related Evidence |
-|---|---|---|
-|  |  |  |
+The brief establishes synthetic-data use, simulated roles, a small status model, and no required institutional integrations as initial constraints. 
 
 ## Dependencies Affecting Scope
 
-<!--
-TEAM CONTENT REQUIRED WHEN EXTERNAL OR INTERNAL DEPENDENCIES CAN AFFECT DELIVERY
-
-Identify dependencies that materially affect what the team can deliver.
-
-Examples:
-
-- external identity provider;
-- access to an API;
-- instructor-provided environment;
-- another component;
-- required data source;
-- availability of a team capability.
-
-A dependency is not automatically a risk.
-
-If uncertainty about a dependency creates meaningful risk, reference the
-corresponding risk-register entry.
--->
-
 | Dependency | Why It Matters | Owner / Source | Related Risk |
 |---|---|---|---|
-|  |  |  |  |
+| Initial Requirements | The planning scope should stay consistent with the requirements the team agrees on. | Shelby Sierah / `docs/requirements/` | To be tracked in risk register |
+| Team availability | Deliverables depend on team members completing and reviewing assigned work. | Codex Ramblers | To be tracked in risk register |
+| Technology stack decision | Implementation, testing, and setup planning depend on the stack the team selects. | Architecture & Development Lead / team | To be tracked in risk register |
+| GitHub repository | GitHub is where the team's authoritative engineering evidence is maintained. | Codex Ramblers / GitHub | To be tracked in risk register |
 
 ## Deferred Scope
 
-<!--
-TEAM CONTENT REQUIRED WHEN WORK HAS BEEN INTENTIONALLY DEFERRED
-
-Deferred work is different from work that was never in scope.
-
-Use this section when something was considered or initially planned but has
-been intentionally postponed.
-
-Reference affected requirements or planning evidence when appropriate.
-
-At project start, a blank table is acceptable.
--->
-
 | Item | Reason Deferred | Decision / Evidence | Reconsider By |
 |---|---|---|---|
-|  |  |  |  |
+| User-facing AI assistance | It is not necessary for the required Cycle 1 workflow. | CampusConnect Project Brief | Cycle 2 planning |
+| Search, filtering, and expanded status history | The first priority is completing the required end-to-end request workflow. | CampusConnect Project Brief | Cycle 2 planning |
+| Additional operational and observability features | These will become more relevant after implementation and testing evidence exists. | Team Project Overview | Later course modules |
 
 ## Scope Change History
 
-<!--
-TEAM CONTENT REQUIRED WHEN MATERIAL SCOPE CHANGES OCCUR
-
-Do not silently expand or reduce project scope.
-
-Record material scope changes so later reviewers can understand why the
-project differs from an earlier baseline.
-
-A minor clarification does not necessarily require a scope-change record.
-
-A blank table is intentional at project start.
--->
+At A1, this file represents the initial project scope baseline.
 
 | Effective Gate | Change | Added / Removed | Reason | Related Evidence |
 |---|---|---|---|---|
-|  |  |  |  |  |
-
-## Scope Acceptance Check
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before treating the scope as a usable baseline, ask:
-
-- Can the team explain what it is actually delivering?
-- Are major boundaries explicit?
-- Are likely misunderstandings addressed through out-of-scope statements?
-- Does the scope agree with the current requirements?
-- Does the scope appear feasible given estimates and schedule?
-- Are important dependencies visible?
-- Are deferred items distinguished from committed work?
-- Are material scope changes traceable?
-
-Do not leave this checklist in the completed artifact.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Replace all blank scaffold rows with actual content or remove unnecessary rows.
-2. Confirm In Scope agrees with requirements.md.
-3. Confirm deferred or removed requirements are reflected appropriately.
-4. Confirm significant dependencies and constraints are visible.
-5. Confirm scope is realistic relative to estimates.md and schedule.md.
-6. Record material scope changes rather than silently modifying the baseline.
-7. Remove ALL instructional HTML comments.
-
-The completed file should make the project's delivery boundary clear without
-becoming a duplicate requirements specification.
--->
+| A1 | Initial CampusConnect scope established | Initial baseline | Establish the project boundary before detailed implementation begins | `docs/requirements/` |
