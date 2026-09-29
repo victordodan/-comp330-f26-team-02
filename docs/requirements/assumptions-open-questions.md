@@ -11,8 +11,8 @@ This document records requirement-level uncertainty that may affect planning, ar
 
 | ID | Assumption | Basis | Related Evidence | Impact if Incorrect | Owner | Status |
 |---|---|---|---|---|---|---|
-| ASM-001 | Each support request will have one current status at a time during Cycle 1. | The Cycle 1 scope calls for a small status model and current-status viewing. | REQ-004, REQ-006, `docs/planning/scope.md` | The workflow model, acceptance criteria, implementation, and verification may need to support more complex status history or concurrent state information. | Requirements owner | Unvalidated |
-| ASM-002 | A simple reviewer note or resolution associated with the request is sufficient for Cycle 1 and a full discussion or messaging system is not required. | The Cycle 1 workflow requires the reviewer to record a note or resolution, while messaging is not part of the defined workflow. | REQ-005, REQ-006, `docs/planning/scope.md` | Additional communication behavior could expand scope, implementation effort, and verification requirements. | Requirements owner | Unvalidated |
+| ASM-001 | A support request will have one current status at a time during Cycle 1. | The project requires the requester to view a current status and calls for a small, understandable status model. | REQ-002, REQ-005, `docs/planning/scope.md` | The request model, status acceptance criteria, planning, and later implementation may need to support more complex status information. | Shelby Sierah | Open |
+| ASM-002 | A short reviewer note or resolution is sufficient for the required Cycle 1 workflow, and a threaded messaging system is not required. | The required vertical slice calls for a short note or resolution rather than a messaging feature. | REQ-002, REQ-006, `docs/planning/scope.md` | Additional communication behavior would expand requirements, planning, implementation, and verification work. | Shelby Sierah | Open |
 
 ## Open Questions
 
