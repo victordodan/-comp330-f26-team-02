@@ -121,7 +121,7 @@ The **Evidence** column should reference a repository-visible confirmation made 
 
 | Student Name | Acknowledged | Evidence |
 |---|---|---|
-| Giancarlo Herrera | Yes | Issue #3 — acknowledgement comment |
+| Giancarlo Herrera | Yes | [Issue #3 acknowledgement](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5751168414) |
 | Dodan Victor | Yes | Issue #3 — acknowledgement comment |
 | Mareddy, Venkata Aravind | Yes |  |
 | Shu Perez | Yes |  |
