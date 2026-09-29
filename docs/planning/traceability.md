@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A1 — Project Launch  
+**Current Phase:** A1 — Project Launch\
 **Release Cycle:** Cycle 1  
 
 Traceability will be expanded as additional engineering evidence becomes available.
