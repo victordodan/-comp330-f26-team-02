@@ -1,51 +1,22 @@
 # Acceptance Criteria
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file contains sample acceptance criteria showing how requirements can
-be translated into observable, verifiable conditions.
-
-Replace the sample criteria with acceptance criteria for your team's actual
-requirements.
-
-Keep identifiers and requirement references consistent with:
-
-/docs/requirements/requirements.md
-
-Acceptance criteria define the observable conditions that demonstrate whether
-a requirement has been satisfied.
-
-Remove instructional comments like this one as you complete the artifact.
--->
-
-## Acceptance Criteria
-
-<!--
-Replace the sample rows below with your team's actual acceptance criteria.
-
-Recommended identifier format:
-
-AC-REQ-###-##
-
-Examples:
-AC-REQ-001-01
-AC-REQ-001-02
-AC-REQ-002-01
-
-A single requirement may have multiple acceptance criteria.
--->
-
 | ID | Requirement Reference | Acceptance Criterion | Verification Method | Status |
 |---|---|---|---|---|
-| AC-REQ-001-01 | REQ-001 | Given an authenticated student and valid required information, when the student submits a workflow request, then the system creates the request and assigns it a unique identifier. | Automated test / demonstration | Proposed |
-| AC-REQ-001-02 | REQ-001 | Given an authenticated student whose submission is missing required information, when the student attempts to submit the request, then the system rejects the submission and identifies the missing information. | Automated test / demonstration | Proposed |
-| AC-REQ-002-01 | REQ-002 | Given an authenticated requester with an existing workflow request, when the requester views their requests, then the system displays the current status of that request. | Automated test / demonstration | Proposed |
+| AC-REQ-001-01 | REQ-001 User Authentication| Given a registered user, when valid login information are entered, then the system will allow access | Automated integration test | Proposed |
+| AC-REQ-001-02 | REQ-001 User Authentication | Given invalid login information, when a user makes a login attempt, then the system will deny access and show an error message. | Automated integration test | Proposed |
+| AC-REQ-002-01 | REQ-002 User Communication | Given an authenticated user, when a message is sent via platform, then the message is delivered to the recipient | Automated end-to-end test | Proposed |
+| AC-REQ-002-02 | REQ-002 User Communication | Given that the network is interrupted or message delivery failure, when the user attempts to deliver a message, then the system will inform the user that the delivery was unable to process | Automated test / demonstration | Proposed |
+| AC-REQ-003-01 | REQ-003 Team Coordination | Given an upcoming team meeting is scheduled, the assigned team members can view the date, time, and meeting details | Demonstration | Proposed |
+| AC-REQ-003-02 | REQ-003 Team Coordination | Given an updated team meeting, meeting details are changed and modified, then all the members will receive the updated information | Automated test / demonstration | Proposed |
+| AC-REQ-004-01 | REQ-004 Task Management | Given a team member assigned a task, when the member views the assigned task, then all the current & active tasks and due dates are shown | Automated test / demonstration | Proposed |
+| AC-REQ-004-02 | REQ-004 Task Management | Given a completed task, when the user marks that the task is complete, then the status of the task will update frequently | Automated test | Proposed |
+| AC-REQ-005-01 | REQ-005 Notifications | Given an important announcement, when a team-wide notification is developed, then all team members will receive the notification | Demonstration | Proposed |
+| AC-REQ-005-02 | REQ-005 Notifications | Given a user who is logged into the platform, when they are presented with an assigned task, then the system will generate an assignment notification | Automated integration test | Proposed |
+| AC-REQ-006-01 | REQ-006 Accountability Tracking | Given a project due date, when a team member submits work before the proposed deadline, then the submission will be recorded | Automated test | Proposed |
+| AC-REQ-006-02 | REQ-006 Accountability Tracking | Given a missed deadline, when the due date has surpassed without submission, then the system will mark the task as overdue | Automated test | Proposed |
+| AC-REQ-007-01 | REQ-007 AI Usage Documentation | Given AI-assisted work, when the user submits the project documentation, then the system will provide a method to record the details of AI usage | Inspection / demonstration | Proposed |
+| AC-REQ-007-02 | REQ-007 AI Usage Documentation | Given an AI-use entry, the entry will save and then the information will become available for later review | Demonstration | Proposed |
 
-<!--
-DELETE THE SAMPLE ROWS ABOVE after your team has replaced them with actual
-project acceptance criteria.
--->
 
 ## Writing Acceptance Criteria
 
@@ -167,7 +138,15 @@ The second describes engineering work.
 -->
 
 ## Traceability
-
+| Requirement ID | Related Acceptance Criteria |
+|---|---|
+REQ-001 | AC-REQ-001-01, AC-REQ-001-02 | 
+REQ-002 | AC-REQ-002-01, AC-REQ-002-02 |
+REQ-003 | AC-REQ-003-01, AC-REQ-003-02 |
+REQ-004 | AC-REQ-004-01, AC-REQ-004-02 | 
+REQ-005 | AC-REQ-005-01, AC-REQ-005-02 | 
+REQ-006 | AC-REQ-006-01, AC-REQ-006-02 | 
+REQ-007 | AC-REQ-007-01, AC-REQ-007-02 |
 <!--
 Acceptance criteria should eventually connect requirements to verification
 evidence.
