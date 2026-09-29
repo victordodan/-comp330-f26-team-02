@@ -3,11 +3,13 @@
 ## AI Use
 
 This log records significant AI-assisted work that influenced the Codex Ramblers' project. AI use is documented when it contributes to project planning, documentation, development, testing, or other engineering evidence.
-
-| Date | Tool | Purpose | Artifact / Activity | Human Verification | Result / Action |
-|---|---|---|---|---|---|
-| 2026-09-17 | ChatGPT | Help review and customize the team's AI use rules | `/docs/ai/ai-policy.md` | Giancarlo Herrera reviewed the suggestions against the starter policy and Assignment 1 requirements, then selected and modified the wording before adding it to the repository | Accepted after modification and used to customize the AI Use Policy |
-| 2026-09-17 | ChatGPT | Help organize the team's initial AI use documentation | `/docs/ai/ai-use-log.md` | Giancarlo Herrera reviewed the suggested entries and confirmed that they described AI assistance that actually occurred during Assignment 1 work | Accepted after modification and added to the AI Use Log |
+| **Date**   | **Tool** | **Purpose**                                           | **Artifact / Activity**                       | **Human Verification**                                                                                                                                                                                                 | **Result / Action**                                                                          |
+| ---------- | -------- | ----------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 2026-09-17 | ChatGPT  | Help review and customize the team's AI use rules     | `/docs/ai/ai-policy.md`                       | Giancarlo Herrera reviewed the suggestions against the starter policy and Assignment 1 requirements, then selected and modified the wording before adding it to the repository                                         | Accepted after modification and used to customize the AI Use Policy                          |
+| 2026-09-17 | ChatGPT  | Help organize the team's initial AI use documentation | `/docs/ai/ai-use-log.md`                      | Giancarlo Herrera reviewed the suggested entries and confirmed that they described AI assistance that actually occurred during Assignment 1 work                                                                       | Accepted after modification and added to the AI Use Log                                      |
+| 2026-09-28 | ChatGPT  | Help review A1 feedback and organize A2 planning work | Assignment 2 planning                         | Giancarlo Herrera compared the AI-assisted planning suggestions with the Assignment 2 instructions, A1 instructor feedback, and current repository evidence before using them to organize A2 work                       | Used as planning assistance; final responsibilities and repository changes remain team-owned |
+| 2026-09-28 | ChatGPT  | Help update requirement traceability for A2 planning  | `/docs/planning/traceability.md`               | Giancarlo Herrera checked the suggested traceability changes against the current `requirements.md` and `acceptance-criteria.md`, preserved their Proposed status, and did not add task or estimate IDs that do not yet exist | Modified and used for the A2 traceability update                                             |
+                                       
 
 ## What Should Be Logged?
 
