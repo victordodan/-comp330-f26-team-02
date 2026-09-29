@@ -2,8 +2,8 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A1 — Project Launch  
-**Release Cycle:** Cycle 1  
+**Current Phase:** A2 — Planning and Estimation
+**Release Cycle:** Cycle 1
 
 This task plan records the major work Codex Ramblers expects to complete throughout the Fall semester. Tasks are kept at a level where ownership, dependencies, progress, and completion can be clearly tracked. More detailed tasks may be added as requirements, architecture, and implementation decisions become more specific.
 
