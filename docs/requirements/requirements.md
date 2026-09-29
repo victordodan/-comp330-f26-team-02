@@ -13,7 +13,7 @@ The system will allow a student requester to submit a support request using synt
 
 | ID | Requirement | Rationale | Priority | Acceptance Criteria Reference | Status |
 |---|---|---|---|---|---|
-| REQ-001 | The system shall allow a student requester to submit a support request containing the information required for Cycle 1 processing. | Students need a controlled way to initiate the support-request workflow. | Must | AC-REQ-001-01, AC-REQ-001-02 | Proposed |
+| REQ-001 | The system shall allow a student requester to submit a support request containing the information required for Cycle 1 processing. | Students need a controlled way to initiate the support-request workflow. | Must | AC-REQ-001-01 | Proposed |
 | REQ-002 | The system shall allow a student requester to view the current status and available resolution information for a request they submitted. | Students need visibility into the progress and outcome of their support requests. | Must | AC-REQ-002-01, AC-REQ-002-02 | Proposed |
 | REQ-003 | The system shall store each successfully submitted support request and assign it a unique identifier. | Requests must remain identifiable and available for later review and tracking. | Must | AC-REQ-003-01 | Proposed |
 | REQ-004 | The system shall allow a support reviewer to view submitted support requests. | Reviewers must be able to inspect submitted requests before taking workflow actions. | Must | AC-REQ-004-01 | Proposed |
