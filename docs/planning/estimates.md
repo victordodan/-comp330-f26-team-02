@@ -2,60 +2,113 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A1 — Project Launch  
+**Current Phase:** A2 — Planning and Estimation  
 **Release Cycle:** Cycle 1  
 
 ## Estimation Approach
 
-Codex Ramblers uses estimated team person-hours within a range to represent uncertainty. The estimate is the team's current expected effort, whereas the range accounts for unresolved requirements, technical decisions, integration work, and other such factors that may change as the project develops.
+Codex Ramblers uses team person-hours and three-point estimates to represent uncertainty in Cycle 1 planning. Each planned item has a low, likely, and high estimate.
 
-Initial estimates are expected to have wider ranges because architecture and implementation details are not yet fully known. Estimates will be refined throughout the semester as the team gains more engineering evidence and completes related work.
+- **Low** represents a favorable case with limited rework.
+- **Likely** represents the team's current expected effort.
+- **High** represents additional effort caused by unresolved requirements, technical decisions, integration problems, testing, or rework.
 
-## Estimates
+The estimates are planning commitments based on the evidence currently available. They will be revised when new engineering evidence changes the assumptions on which an estimate depends. Earlier estimates will not be silently replaced; material changes will be recorded with the reason for re-estimation.
 
-| ID | Work Item | Estimate | Range / Uncertainty | Basis | Assumptions | Owner(s) | Status |
-|---|---|---|---|---|---|---|---|
-| EST-001 | A1 project launch and planning evidence | 10 hours | 8–14 hours | Current A1 work primarily involves documentation, planning, repository setup, and review. | Team roles and the initial CampusConnect scope remain stable. | Codex Ramblers | Initial |
-| EST-002 | Requirements and planning refinement | 14 hours | 10–20 hours | Includes refining requirements, acceptance criteria, assumptions, scope, schedule, risks, and traceability. | The Cycle 1 workflow remains limited to the current CampusConnect support-request process. | Codex Ramblers | Initial |
-| EST-003 | Architecture and design | 18 hours | 12–26 hours | Includes selecting the technology stack, defining system structure and interfaces, and documenting major engineering decisions. | The team selects technologies that members can reasonably learn and support. | Codex Ramblers | Initial |
-| EST-004 | Cycle 1 implementation | 36 hours | 24–50 hours | Based on implementing the student request workflow, persistence, reviewer actions, status updates, resolution information, integration, and supporting tests. | Requirements and architecture are stable enough before major construction begins. | Codex Ramblers | Initial |
-| EST-005 | Cycle 1 verification and release preparation | 18 hours | 12–26 hours | Includes end-to-end testing, defect correction, review, documentation of limitations, and preparation of release evidence. | A complete Cycle 1 workflow is available for verification. | Codex Ramblers | Initial |
-| EST-006 | Cycle 2 maturity improvements and final release | 32 hours | 20–48 hours | Cycle 2 work will depend on issues, risks, defects, and improvement opportunities identified from Cycle 1 evidence. | Cycle 2 remains focused on a limited number of evidence-based improvements rather than major feature expansion. | Codex Ramblers | Initial |
+## Cycle 1 Estimates
 
-## Estimation Assumptions
+| ID | Work Item | Low | Likely | High | Basis | Related Task(s) | Owner(s) | Confidence |
+|---|---|---:|---:|---:|---|---|---|---|
+| EST-002 | Requirements and planning refinement | 10 h | 14 h | 20 h | Refine requirements, acceptance criteria, assumptions, scope, schedule, risks, estimates, and traceability for the A2 baseline. | TASK-010, TASK-011 | Requirements and Planning owners | Medium |
+| EST-003 | Architecture and design | 12 h | 18 h | 26 h | Define the technology stack, system structure, interfaces, and major engineering decisions after the A2 requirements baseline is established. | TASK-012 | Architecture & Development Lead / team | Low |
+| EST-004 | Cycle 1 implementation and integration | 24 h | 36 h | 50 h | Implement and integrate the controlled student support-request workflow, including request submission, persistence, reviewer actions, status updates, resolution information, and supporting tests. | TASK-013, TASK-014 | Development team | Low |
+| EST-005 | Cycle 1 verification and release preparation | 12 h | 18 h | 26 h | Perform end-to-end verification, correct defects, review evidence, document limitations, and prepare Cycle 1 release evidence. | TASK-015, TASK-016 | Quality & Review Lead / team | Low |
 
-| Assumption Reference | Estimate(s) Affected | Effect if Incorrect |
+## Estimation Basis and Assumptions
+
+| Estimate | Key Assumptions | Evidence / Dependency | Effect if Assumption Is Wrong |
+|---|---|---|---|
+| EST-002 | Cycle 1 remains limited to the agreed CampusConnect support-request workflow and the A2 requirements can be finalized without major scope expansion. | `docs/requirements/`, `scope.md`, TASK-010, TASK-011 | Requirements and planning work must be re-estimated if significant capabilities are added or acceptance criteria materially change. |
+| EST-003 | Requirements and acceptance criteria are sufficiently stable before architecture decisions are finalized, and the team chooses technologies it can reasonably support. | TASK-010, TASK-011, TASK-012, R-002, R-004 | Architecture effort may increase because of additional investigation, redesign, or technology learning. |
+| EST-004 | Architecture and interfaces are established before major implementation and the team continues to use synthetic data and simulated roles. | TASK-012, TASK-013, TASK-014, R-001, R-002, R-004, R-005 | Implementation may require additional integration or rework and must be re-estimated. |
+| EST-005 | A complete Cycle 1 workflow is available early enough for verification and testing develops alongside implementation. | TASK-013, TASK-014, TASK-015, TASK-016, R-005, R-006 | Verification effort or schedule must be revised if implementation is late, unstable, or produces significant defects. |
+
+## Confidence and Uncertainty
+
+Confidence is based on how much engineering evidence currently exists.
+
+| Estimate ID | Confidence | Current Uncertainty |
 |---|---|---|
-| Cycle 1 remains limited to the required support-request workflow | EST-002, EST-003, EST-004, EST-005 | Additional features would increase design, implementation, and verification effort. |
-| Synthetic data and simulated user roles remain acceptable | EST-003, EST-004, EST-005 | Real authentication or institutional data integration would significantly increase project complexity. |
-| The team selects a technology stack that members can reasonably support | EST-003, EST-004 | An unfamiliar or overly complex stack could increase implementation time and technical risk. |
-| Requirements are refined before major construction begins | EST-003, EST-004, EST-005 | Significant requirement changes during implementation could cause rework and schedule changes. |
-| Cycle 2 work is based on Cycle 1 evidence | EST-006 | The estimate may need to change significantly once actual defects, risks, and maturity needs are known. |
+| EST-002 | Medium | The Cycle 1 workflow is understood, but the final A2 requirements and acceptance criteria may still cause planning adjustments. |
+| EST-003 | Low | Architecture, interfaces, and technology decisions are not yet fully established. |
+| EST-004 | Low | Implementation effort depends on finalized requirements, architecture choices, integration behavior, and team experience. |
+| EST-005 | Low | Verification effort depends on the completeness and quality of the implementation produced during construction. |
 
-## Estimate Confidence
+The wider ranges for EST-003 through EST-005 are intentional. The team currently has less direct evidence for architecture, implementation, integration, and verification than for A2 planning work.
 
-| Estimate ID | Confidence | Reason |
-|---|---|---|
-| EST-001 | High | A1 work is already underway and is mostly defined documentation and planning work. |
-| EST-002 | Medium | The overall workflow is known, but requirements and planning details may still change. |
-| EST-003 | Low | Major architecture and technology decisions have not yet been finalized. |
-| EST-004 | Low | Implementation effort depends heavily on requirements, architecture, technology choices, and integration experience. |
-| EST-005 | Low | Verification effort will depend on the quality and behavior of the implementation produced during construction. |
-| EST-006 | Low | Cycle 2 work will be selected later based on evidence from Cycle 1. |
+## Estimate-to-Task and Risk Relationships
+
+| Estimate | Primary Tasks | Important Dependencies | Related Risks |
+|---|---|---|---|
+| EST-002 | TASK-010, TASK-011 | Finalized requirements and acceptance criteria | R-001, R-004, R-007 |
+| EST-003 | TASK-012 | TASK-010 and TASK-011 | R-002, R-004 |
+| EST-004 | TASK-013, TASK-014 | TASK-012 and stable interfaces | R-001, R-002, R-004, R-005 |
+| EST-005 | TASK-015, TASK-016 | TASK-013 and TASK-014 | R-005, R-006, R-007 |
+
+## Re-estimation Triggers
+
+The team will review and, when necessary, revise an estimate when engineering evidence shows that its assumptions are no longer reasonable.
+
+Re-estimation is specifically triggered when:
+
+- requirements or acceptance criteria materially change;
+- Cycle 1 scope is expanded or reduced;
+- an architecture or technology decision changes expected implementation effort;
+- a dependency or assigned task becomes blocked;
+- integration work takes materially longer than expected;
+- actual effort falls outside the current low-to-high range;
+- significant defects or verification work are discovered;
+- a tracked risk materializes and affects planned effort; or
+- a milestone or phase-gate commitment is threatened.
+
+A material revision should preserve the previous estimate in repository history and record why the estimate changed.
 
 ## Estimate Changes
 
-No material estimate changes have been recorded yet. Estimates will be updated as the team gains more information rather than replacing earlier estimates without explanation.
+### A1 to A2
+
+The A1 estimates were initial planning ranges created before the requirements and task relationships were mature.
+
+For A2:
+
+- the planning estimate is connected to TASK-010 and TASK-011;
+- architecture, implementation, and verification estimates are connected to their planned tasks;
+- low, likely, and high values are stated explicitly;
+- assumptions and dependencies are identified;
+- relevant risks are linked to estimates;
+- confidence and uncertainty are documented; and
+- explicit re-estimation triggers are defined.
+
+The current numerical ranges have not been changed solely to create a new A2 baseline. They remain the team's current planning judgment until additional engineering evidence supports a material revision.
 
 ## Estimate vs. Actual
 
-No completed engineering work has enough estimation history yet to provide a useful estimate-versus-actual comparison. This section will be updated as estimated work is completed during the semester.
+A reliable estimate-versus-actual comparison is not yet available for Cycle 1 implementation because the related architecture, construction, and verification work has not been completed.
+
+As estimated tasks are completed, the team will compare actual effort with the applicable estimate and use the difference as evidence for later re-estimation. Actual effort will not be invented retrospectively where reliable evidence was not recorded.
 
 ## Planning Implications
 
-| Estimate / Evidence | Planning Impact | Related Scope / Schedule / Risk |
-|---|---|---|
-| EST-001 | Complete the A1 engineering baseline before beginning more detailed development planning. | A1 Project Launch |
-| EST-003 and EST-004 | Architecture should be established before the team commits heavily to implementation work. | Architecture and Construction modules |
-| EST-004 | Construction is expected to require the most technical effort, so Cycle 1 scope should remain intentionally small. | `scope.md`, semester schedule |
-| EST-006 | Detailed Cycle 2 work should not be committed until Cycle 1 evidence shows where improvement is most valuable. | Cycle 2 planning |
+| Evidence | Planning Impact |
+|---|---|
+| EST-002 | Requirements and planning evidence should be stabilized before architecture is treated as committed. |
+| EST-003 | Architecture decisions should be reviewed before major Cycle 1 implementation begins. |
+| EST-004 | Construction is the largest expected technical effort, so Cycle 1 scope should remain intentionally small and integration should occur incrementally. |
+| EST-005 | Verification should not be postponed until the end of Cycle 1; testing and review evidence should develop with implementation. |
+
+## A2 Ownership and Review
+
+**Primary owner:** Venkata Aravind Mareddy (@VAM-hub)  
+**Tracking issue:** #15 — Create Cycle 1 estimates and schedule for A2
+
+This estimate evidence should be reviewed together with the finalized Cycle 1 requirements, task plan, schedule, scope, and risk register before the A2 planning baseline is considered complete.
