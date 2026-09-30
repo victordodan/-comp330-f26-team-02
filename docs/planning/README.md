@@ -15,17 +15,17 @@ Planning evidence is maintained as the project develops rather than reconstructe
 
 ## Planning Evidence Index
 
-| Artifact | Purpose | Current Status | Authoritative Location |
-|---|---|---|---|
-| Cycle 1 Scope | Defines the intended Cycle 1 vertical slice, project boundaries, constraints, dependencies, and deferred work. | Updated for A2 | [`scope.md`](scope.md) |
-| Requirements Traceability | Connects Cycle 1 requirements and acceptance criteria to scope, tasks, owners, estimates, risks, and later verification evidence. | Updated for A2 | [`traceability.md`](traceability.md) |
-| Task Plan | Records major planned work, ownership, dependencies, targets, estimates, and status. | Updated for A2 | [`task-plan.md`](task-plan.md) |
-| Effort Estimates | Records low, likely, and high estimates together with assumptions, confidence, dependencies, and re-estimation triggers. | Updated for A2 | [`estimates.md`](estimates.md) |
-| Risk Register | Records identified project risks, triggers, likelihood, impact, mitigation, contingency response, ownership, and status. | Updated for A2 | [`risk-register.md`](risk-register.md) |
-| Schedule and Milestones | Records major Cycle 1 milestones, dependencies, integration checkpoints, review windows, buffers, and schedule triggers. | Updated for A2 | [`schedule.md`](schedule.md) |
-| Planning Dependencies | Consolidates task, milestone, technical, risk, and schedule dependencies across the Cycle 1 plan. | Added for A2 | [`dependencies.md`](dependencies.md) |
-| Team Commitments | Records who owns planned work, expected completion targets, and the evidence that will demonstrate completion. | Added for A2 | [`team-commitments.md`](team-commitments.md) |
-| Re-estimation Notes | Defines when estimates and commitments must be reconsidered and records material changes when new evidence requires them. | Added for A2 | [`re-estimation.md`](re-estimation.md) |
+| Artifact | Purpose | Primary Owner | Backup Owner | Current Status | Authoritative Location |
+|---|---|---|---|---|---|
+| Cycle 1 Scope | Defines the intended Cycle 1 vertical slice, project boundaries, constraints, dependencies, and deferred work. | Malec Tarabein | Shu Perez | Updated for A2 | [`scope.md`](scope.md) |
+| Requirements Traceability | Connects Cycle 1 requirements and acceptance criteria to scope, tasks, owners, estimates, risks, and later verification evidence. | Giancarlo Herrera | Venkata Aravind Mareddy | Updated for A2 | [`traceability.md`](traceability.md) |
+| Task Plan | Records major planned work, ownership, dependencies, targets, estimates, and status. | Shu Perez | Giancarlo Herrera | Updated for A2 | [`task-plan.md`](task-plan.md) |
+| Effort Estimates | Records low, likely, and high estimates together with assumptions, confidence, dependencies, and re-estimation triggers. | Venkata Aravind Mareddy | Giancarlo Herrera | Updated for A2 | [`estimates.md`](estimates.md) |
+| Risk Register | Records identified project risks, triggers, likelihood, impact, mitigation, contingency response, ownership, and status. | Shelby Sierah | Victor Dodan | Updated for A2 | [`risk-register.md`](risk-register.md) |
+| Schedule and Milestones | Records major Cycle 1 milestones, dependencies, integration checkpoints, review windows, buffers, and schedule triggers. | Venkata Aravind Mareddy | Giancarlo Herrera | Updated for A2 | [`schedule.md`](schedule.md) |
+| Planning Dependencies | Consolidates task, milestone, technical, risk, and schedule dependencies across the Cycle 1 plan. | Shu Perez | Shelby Sierah | Added for A2 | [`dependencies.md`](dependencies.md) |
+| Team Commitments | Records who owns planned work, expected completion targets, and the evidence that will demonstrate completion. | Shu Perez | Victor Dodan | Added for A2 | [`team-commitments.md`](team-commitments.md) |
+| Re-estimation Notes | Defines when estimates and commitments must be reconsidered and records material changes when new evidence requires them. | Malec Tarabein | Shu Perez | Added for A2 | [`re-estimation.md`](re-estimation.md) |
 
 ## Related Engineering Evidence
 
@@ -60,6 +60,11 @@ Significant AI-assisted planning work must be reviewed and verified by team memb
 GitHub Issues, branches, pull requests, reviews, and repository-visible status updates provide workflow evidence for planned engineering work.
 
 Issues should identify meaningful work, ownership, applicable requirement or planning relationships, and completion evidence where appropriate.
+
+### Repository Workflow Links
+
+- [GitHub Issues](https://github.com/victordodan/-comp330-f26-team-02/issues)
+- [Project Board](link)
 
 ## Current Planning Baseline
 
