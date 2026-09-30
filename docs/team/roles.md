@@ -30,7 +30,7 @@ Replace the sample student entries below with the members of your team. Leave th
 |---|---|---|---|
 | Giancarlo Herrera | gherrera | Giancarlo Herrera | Student |
 | Dodan Victor | vdodan | Dodan Victor | Student |
-| Mareddy, Venkata Aravind | vmareddy | Venkata Aravind Mareddy | Student |
+| Mareddy, Venkata Aravind |VAM-Hub | Venkata Aravind Mareddy | Student |
 | Shu Perez | sperez22 | Shu Perez | Student |
 | Shelby Sierah | sshelby | Shelby Sierah | Student |
 | Tarabein Malec | mtarabein | Tarabein Malec | Student |
