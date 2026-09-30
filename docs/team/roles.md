@@ -123,7 +123,7 @@ The **Evidence** column should reference a repository-visible confirmation made 
 |---|---|---|
 | Giancarlo Herrera | Yes | [Issue #3 acknowledgement](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5751168414) |
 | Dodan Victor | Yes | Issue #3 — acknowledgement comment |
-| Mareddy, Venkata Aravind | Yes |  |
+| Mareddy, Venkata Aravind | Yes | Issue #3 — acknowledgement comment |
 | Shu Perez | Yes |  |
 | Shelby Sierah | Yes |  |
 | Tarabein Malec | Pending |  |
