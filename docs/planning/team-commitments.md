@@ -17,8 +17,8 @@ without a named owner, a named backup, and captured evidence.
 | GitHub Project Board | Dodan Victor | Shelby Sierah | GitHub Projects (linked in `/docs/planning/`) |
 | Final Coordination | Dodan Victor | Shelby Sierah | `/docs/planning/` |
 | Scope | Tarabein Malec | Shu Perez | `/docs/planning/scope.md` |
-| Team Commitments | Tarabein Malec | Shu Perez | `/docs/planning/team-commitments.md` |
-| Re-estimation / Tradeoff Decisions | Tarabein Malec | Shu Perez | docs/planning/re-estimation.md |
+| Team Commitments | Shu Perez | Victor Dodan | `/docs/planning/team-commitments.md` |
+| Re-estimation / Tradeoff Decisions | Tarabein Malec | Shu Perez | `docs/planning/re-estimation.md` |
 | Task Plan | Shu Perez | Giancarlo Herrera | `/docs/planning/task-plan.md` |
 | GitHub Issues | Shu Perez | Shelby Sierah | GitHub Issues (linked in `/docs/planning/`) |
 | Dependencies | Shu Perez | Shelby Sierah | `/docs/planning/dependencies.md` |
@@ -33,7 +33,7 @@ without a named owner, a named backup, and captured evidence.
 
 | Task | Owner | Due Date | Evidence of Completion |
 |------|-------|----------|------------------------|
-| Traceability | Giancarlo Herrera | 9/29/26 | `/docs/requirements/traceability.md` |
+| Traceability | Giancarlo Herrera | 9/29/26 | `/docs/planning/traceability.md` |
 | AI-Use Log | Giancarlo Herrera | 9/29/26 | `/docs/ai/ai-use-log.md` |
 | Quality / Final Review | Giancarlo Herrera | 9/29/26 | `/docs/quality/` |
 | Planning README | Dodan Victor | 9/29/26 | `/docs/planning/README.md` |
@@ -58,8 +58,8 @@ without a named owner, a named backup, and captured evidence.
 |-------------|-----------|
 | Giancarlo Herrera | Traceability, AI-Use Log, Quality / Final Review |
 | Dodan Victor | Planning README, GitHub Project Board, Final Coordination |
-| Tarabein Malec | Scope, Team Commitments, Re-estimation / Tradeoff Decisions |
-| Shu Perez | Task Plan, GitHub Issues, Dependencies |
+| Tarabein Malec | Scope, Re-estimation / Tradeoff Decisions |
+| Shu Perez | Team Commitments, Task Plan, GitHub Issues, Dependencies |
 | Mareddy, Venkata Aravind | Estimates, Schedule / Milestones |
 | Shelby Sierah | Requirements Updates, Risk Register |
 

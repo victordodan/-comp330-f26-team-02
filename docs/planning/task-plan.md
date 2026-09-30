@@ -18,7 +18,7 @@ This task plan records the major work Codex Ramblers expects to complete through
 | TASK-008 | Create the Initial Decision Record | Malec Tarabein | Shu Perez | `docs/decisions/` | EST-001 | A1 | Initial project and workflow decisions | Planned |
 | TASK-009 | Review A1 evidence and establish the Project Launch baseline | Victor Dodan | Giancarlo Herrera | A1 repository evidence and `a1-project-launch` tag | EST-001 | A1 | TASK-001 through TASK-008 | Planned |
 | TASK-010 | Refine requirements, acceptance criteria, assumptions, and open questions | Shelby Sierah | Venkata Aravind Mareddy | `docs/requirements/` | EST-002 | A2 | Initial Requirements package | Planned |
-| TASK-011 | Refine scope, estimates, schedule, risks, and traceability based on requirements | Malec Tarabein | Victor Dodan | `docs/planning/` | EST-002 | A2 | TASK-010 | Planned |
+| TASK-011 | Refine scope, estimates, schedule, risks, and traceability based on requirements | Shu Perez | Victor Dodan | `docs/planning/` | EST-002 | A2 | TASK-010 | Planned |
 | TASK-012 | Define and review the system architecture, interfaces, and major engineering decisions | Shu Perez | Venkata Aravind Mareddy | `docs/architecture/`, `docs/decisions/` | EST-003 | A3 | Refined requirements and planning evidence | Planned |
 | TASK-013 | Implement the controlled Cycle 1 CampusConnect workflow | Shu Perez | Venkata Aravind Mareddy | `src/`, GitHub issues and pull requests | EST-004 | A4 | TASK-012 | Planned |
 | TASK-014 | Review implementation and establish automated testing and CI evidence | Giancarlo Herrera | Victor Dodan | `tests/`, `.github/`, `docs/reviews/`, `docs/testing/` | EST-004 | A4 | TASK-013 | Planned |

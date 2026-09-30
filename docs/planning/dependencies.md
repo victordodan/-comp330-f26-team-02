@@ -28,7 +28,7 @@ convention used in `task-plan.md` for consistency across all planning artifacts.
 | TASK-008 | Create Initial Decision Record | Initial project and workflow decisions | Initial Setup | Malec Tarabein | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-009 | Review A1 evidence and establish Project Launch baseline | TASK-001 – TASK-008 | Sequence / Gate | Victor Dodan | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-010 | Refine requirements, acceptance criteria, assumptions, open questions | Initial Requirements package (TASK-006) | Sequence | Shelby Sierah | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
-| TASK-011 | Refine scope, estimates, schedule, risks, traceability | TASK-010 | Sequence | Malec Tarabein | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
+| TASK-011 | Refine scope, estimates, schedule, risks, traceability | TASK-010 | Sequence | Shu Perez | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-012 | Define system architecture, interfaces, major engineering decisions | Refined requirements and planning (TASK-011) | Technical / Sequence | Shu Perez | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-013 | Implement controlled Cycle 1 CampusConnect workflow | TASK-012 | Technical / Sequence | Shu Perez | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-014 | Review implementation, establish automated testing and CI | TASK-013 | Technical / Interface | Giancarlo Herrera | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
