@@ -26,11 +26,11 @@ Current scope, task, ownership, and estimate relationships are linked below usin
 
 ## Decision Traceability
 
-The Initial Decision Record has not yet been completed. Decision relationships will be added after the first project ADR is accepted.
+ADR-001 records the team's decision to defer selection of the final production technology stack until sufficient architecture and implementation evidence exists. This preserves the current Cycle 1 scope without treating an unsupported technology choice as a permanent commitment.
 
-| Decision | Drivers / Inputs | Affected Architecture / Implementation | Verification / Follow-Up |
-|---|---|---|---|
-| Initial ADR pending | CampusConnect Project Brief, `scope.md`, proposed CampusConnect requirements | Not yet available | Update traceability after the Initial Decision Record is completed. |
+| **Decision** | **Drivers / Inputs** | **Affected Architecture / Implementation** | **Verification / Follow-Up** |
+| ------------ | -------------------- | ------------------------------------------ | ---------------------------- |
+| ADR-001 — Defer final production technology stack | Cycle 1 requirements, `scope.md`, current planning evidence, limited architecture and implementation evidence | Final framework, database, hosting, and related production technology choices remain uncommitted during A2 | Reconsider the decision when architecture or implementation requires a committed technology stack and update affected estimates, risks, schedule, and traceability as needed. |
 
 ## Risk and Assumption Traceability
 
@@ -50,7 +50,7 @@ The transition from A1 to A2 established REQ-001 through REQ-006 and their corre
 
 Current scope, task, ownership, and estimate relationships can now be traced to these requirements. The requirements remain Proposed, so downstream planning evidence must be reviewed if a requirement or acceptance criterion changes during team review.
 
-Decision, architecture, implementation, and completed verification relationships will be added as those artifacts are established.
+Architecture, implementation, and completed verification relationships will be added as those artifacts are established. ADR-001 now provides the current decision traceability for the deferred production technology stack.
 
 ## Traceability Gaps
 
@@ -58,7 +58,6 @@ Decision, architecture, implementation, and completed verification relationships
 |---|---|---|---|---|
 | Cycle 1 requirements remain Proposed. | REQ-001 through REQ-006 provide the current planning baseline, but later requirement changes may require downstream traceability updates. | Shelby Sierah | Review and stabilize the current requirements package and resolve material requirement-level uncertainty. | A2 |
 | Acceptance criteria remain Proposed. | Existing AC identifiers can now be traced, but changes during team review may affect planning and later verification evidence. | Shelby Sierah | Review and stabilize `docs/requirements/acceptance-criteria.md`. | A2 |
-| Initial ADR has not yet been completed. | Significant project decisions cannot yet be traced forward to architecture or implementation. | Malec Tarabein | Complete the Initial Decision Record and update Decision Traceability. | A2 |
 | Architecture evidence does not yet exist. | Requirements cannot yet be traced to specific architectural components or interfaces. | Architecture & Development Lead | Add architecture relationships as Module 3 evidence is created. | A3 |
 | Implementation evidence does not yet exist. | Requirements cannot yet be traced to source code or implementation pull requests. | Development team | Add implementation references during Construction. | A4 |
 | Verification evidence does not yet exist. | Requirements and acceptance criteria cannot yet be traced to tests or other proof of behavior. | Quality & Review Lead / team | Add test and verification references as evidence becomes available. | A4–A5 |
