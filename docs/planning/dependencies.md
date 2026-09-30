@@ -28,7 +28,7 @@ convention used in `task-plan.md` for consistency across all planning artifacts.
 | TASK-008 | Create Initial Decision Record | Initial project and workflow decisions | Initial Setup | Malec Tarabein | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-009 | Review A1 evidence and establish Project Launch baseline | TASK-001 – TASK-008 | Sequence / Gate | Victor Dodan | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-010 | Refine requirements, acceptance criteria, assumptions, open questions | Initial Requirements package (TASK-006) | Sequence | Shelby Sierah | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
-| TASK-011 | Refine scope, estimates, schedule, risks, traceability | TASK-010 | Sequence | Malec Tarabein | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
+| TASK-011 | Refine scope, estimates, schedule, risks, traceability | TASK-010 | Sequence | Shu Perez | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-012 | Define system architecture, interfaces, major engineering decisions | Refined requirements and planning (TASK-011) | Technical / Sequence | Shu Perez | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-013 | Implement controlled Cycle 1 CampusConnect workflow | TASK-012 | Technical / Sequence | Shu Perez | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
 | TASK-014 | Review implementation, establish automated testing and CI | TASK-013 | Technical / Interface | Giancarlo Herrera | [Issues tab](https://github.com/victordodan/-comp330-f26-team-02/issues) |
@@ -107,7 +107,7 @@ wider ranges for EST-003 through EST-005.
 
 ## 4. Risk Register Alignment
 
-Each high-risk dependency is linked to its corresponding trigger in
+Tracked dependency-related risks are linked to their corresponding triggers in
 `/docs/planning/risk-register.md`.
 
 | Risk ID | Risk Event | Trigger Event (Dependency Link) | Impact | Mitigation Strategy | Owner |
@@ -119,6 +119,8 @@ Each high-risk dependency is linked to its corresponding trigger in
 | R-005 | Integration problems | Components work independently but fail when combined (affects TASK-013, TASK-014) | High | Define interfaces before implementation; integrate incrementally | Shu Perez |
 | R-006 | Late testing | Major workflow behavior lacks tests as Verification module approaches | High | Test throughout implementation; prioritize required-workflow defects | Giancarlo Herrera |
 | R-007 | Missing engineering evidence | Completed work cannot be linked to expected issue, PR, review, test, or doc evidence | High | Keep requirements, issues, PRs, decisions, tests, and planning evidence current | Victor Dodan |
+| R-008 | Team communication becomes inconsistent | Important updates, deadlines, or ownership changes are missed or misunderstood | Medium | Follow team communication expectations and clarify responsibilities when needed | All Team Members |
+| R-009 | Merge conflicts delay work | Multiple contributors modify overlapping files without coordination | Medium | Pull regularly, coordinate file ownership, and use smaller focused pull requests | Venkata Aravind Mareddy |
 
 **Materialized risks:** None at this stage.
 **Closed / accepted risks:** None.
@@ -153,7 +155,7 @@ the change.
 | Tasks | `task-plan.md` (TASK-001 – TASK-018) | GitHub Issues, estimates, milestones |
 | Estimates | `estimates.md` (EST-002 – EST-005) | Tasks, risks |
 | Milestones | `schedule.md` (MS-001 – MS-006) | Tasks, checkpoints, phase gates |
-| Risks | `risk-register.md` (R-001 – R-007) | Estimates, tasks, milestones |
+| Risks | `risk-register.md` (R-001 – R-009) | Estimates, tasks, milestones |
 | Dependencies | This document | All of the above |
 
 The same task ID (`TASK-001` … `TASK-018`) is used consistently across the task
