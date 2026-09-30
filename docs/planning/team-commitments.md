@@ -40,7 +40,7 @@ without a named owner, a named backup, and captured evidence.
 | GitHub Project Board | Dodan Victor | 9/29/26 | GitHub Projects (linked in `/docs/planning/`) |
 | Final Coordination | Dodan Victor | 9/29/26 | `/docs/planning/` |
 | Scope | Tarabein Malec | 9/29/26 | `/docs/planning/scope.md` |
-| Team Commitments | Tarabein Malec | 9/29/26 | `/docs/planning/team-commitments.md` |
+| Team Commitments | Shu Perez | 9/29/26 | `/docs/planning/team-commitments.md` |
 | Re-estimation / Tradeoff Decisions | Tarabein Malec | 9/29/26 | `docs/planning/re-estimation.md` | 
 | Task Plan | Shu Perez | 9/29/26 | `/docs/planning/task-plan.md` |
 | GitHub Issues | Shu Perez | 9/29/26 | GitHub Issues (linked in `/docs/planning/`) |
