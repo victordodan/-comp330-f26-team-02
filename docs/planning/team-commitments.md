@@ -44,7 +44,8 @@ without a named owner, a named backup, and captured evidence.
 | Re-estimation / Tradeoff Decisions | Tarabein Malec | 9/29/26 | `docs/planning/re-estimation.md` | 
 | Task Plan | Shu Perez | 9/29/26 | `/docs/planning/task-plan.md` |
 | GitHub Issues | Shu Perez | 9/29/26 | GitHub Issues (linked in `/docs/planning/`) |
-| Estimates | Mareddy, Venkata Aravind | 9/29/26 | `/docs/planning/estimates.md` | 
+| Estimates | Mareddy, Venkata Aravind | 9/29/26 | `/docs/planning/estimates.md` |
+| Dependencies | Shu Perez | 9/29/26 | `/docs/planning/dependencies.md` |
 | Schedule / Milestones | Mareddy, Venkata Aravind | 9/29/26 | `/docs/planning/schedule.md` |
 | Requirements Updates | Shelby Sierah | 9/29/26 | `/docs/requirements/` |
 | Risk Register | Shelby Sierah | 9/29/26 | `/docs/planning/risk-register.md` |
