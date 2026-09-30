@@ -86,6 +86,8 @@ The Quality & Review Lead should check that significant re-estimation changes re
 
 The Cycle 1 estimates and schedule represent the current A2 planning baseline.
 
+No material re-estimation has occurred yet. The current estimates remain the team's initial A2 planning ranges because no new repository evidence has required a change to their low, likely, or high values.
+
 No estimate should be presented as guaranteed. Low, likely, and high values represent planning ranges based on the team's current information.
 
 Future changes should be documented when a re-estimation trigger materially affects the Cycle 1 plan.
