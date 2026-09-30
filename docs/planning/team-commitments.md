@@ -10,7 +10,7 @@ without a named owner, a named backup, and captured evidence.
 
 | Responsibility Area | Primary Owner | Backup Owner | Evidence Location |
 |---------------------|---------------|--------------|-------------------|
-| Traceability | Giancarlo Herrera | Mareddy, Venkata Aravind | `/docs/requirements/traceability.md` |
+| Traceability | Giancarlo Herrera | Mareddy, Venkata Aravind | `/docs/planning/traceability.md` |
 | AI-Use Log | Giancarlo Herrera | Mareddy, Venkata Aravind | `/docs/ai/ai-use-log.md` |
 | Quality / Final Review | Giancarlo Herrera | Mareddy, Venkata Aravind | `/docs/quality/` |
 | Planning README | Dodan Victor | Shelby Sierah | `/docs/planning/README.md` |
@@ -41,11 +41,10 @@ without a named owner, a named backup, and captured evidence.
 | Final Coordination | Dodan Victor | 9/29/26 | `/docs/planning/` |
 | Scope | Tarabein Malec | 9/29/26 | `/docs/planning/scope.md` |
 | Team Commitments | Tarabein Malec | 9/29/26 | `/docs/planning/team-commitments.md` |
-| Re-estimation / Tradeoff Decisions | Tarabein Malec | 9/29/26 | docs/planning/re-estimation.md | 
+| Re-estimation / Tradeoff Decisions | Tarabein Malec | 9/29/26 | `docs/planning/re-estimation.md` | 
 | Task Plan | Shu Perez | 9/29/26 | `/docs/planning/task-plan.md` |
 | GitHub Issues | Shu Perez | 9/29/26 | GitHub Issues (linked in `/docs/planning/`) |
-| Dependencies | Shu Perez | 9/29/26 | `/docs/planning/dependencies.md` |
-| Estimates | Mareddy, Venkata Aravind | 9/29/26 | `/docs/planning/estimates.md` | x
+| Estimates | Mareddy, Venkata Aravind | 9/29/26 | `/docs/planning/estimates.md` | 
 | Schedule / Milestones | Mareddy, Venkata Aravind | 9/29/26 | `/docs/planning/schedule.md` |
 | Requirements Updates | Shelby Sierah | 9/29/26 | `/docs/requirements/` |
 | Risk Register | Shelby Sierah | 9/29/26 | `/docs/planning/risk-register.md` |
@@ -54,7 +53,7 @@ without a named owner, a named backup, and captured evidence.
 
 ## Ownership Summary
 
-| Team Member | Primary Responsabilities |
+| Team Member | Primary Responsibilities  |
 |-------------|-----------|
 | Giancarlo Herrera | Traceability, AI-Use Log, Quality / Final Review |
 | Dodan Victor | Planning README, GitHub Project Board, Final Coordination |
