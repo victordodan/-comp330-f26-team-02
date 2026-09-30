@@ -64,7 +64,7 @@ Issues should identify meaningful work, ownership, applicable requirement or pla
 ### Repository Workflow Links
 
 - [GitHub Issues](https://github.com/victordodan/-comp330-f26-team-02/issues)
-- [Project Board](link)
+- [Project Board]([link](https://github.com/users/victordodan/projects/2))
 
 ## Current Planning Baseline
 
