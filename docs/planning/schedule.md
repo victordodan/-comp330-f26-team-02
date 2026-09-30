@@ -21,25 +21,25 @@ Sakai deadlines remain the authoritative course deadlines. Internal milestones a
 
 ## Cycle 1 Milestones
 
-| ID | Milestone | Planned Outcome | Dependencies | Related Tasks / Estimates | Owner | Status |
-|---|---|---|---|---|---|---|
-| MS-001 | Project Launch baseline | Establish initial team, repository, scope, planning, and engineering evidence. | Team formation and project direction | EST-001 | Codex Ramblers | Complete |
-| MS-002 | A2 planning and requirements baseline | Finalize/refine Cycle 1 requirements, acceptance criteria, scope, estimates, task plan, schedule, risks, and traceability. | MS-001 | TASK-010, TASK-011, EST-002 | Planning and Requirements owners | In Progress |
-| MS-003 | Architecture baseline | Establish system structure, interfaces, technology decisions, and major ADRs required for implementation. | MS-002 | TASK-012, EST-003 | Architecture & Development Lead | Planned |
-| MS-004 | Cycle 1 implementation baseline | Complete the controlled CampusConnect support-request workflow and integrate its major components. | MS-003 | TASK-013, TASK-014, EST-004 | Development team | Planned |
-| MS-005 | Cycle 1 verification and release readiness | Verify the required workflow, resolve material defects, document limitations, and prepare release evidence. | MS-004 | TASK-015, TASK-016, EST-005 | Quality & Review Lead / team | Planned |
-| MS-006 | Cycle 2 maturity planning | Use Cycle 1 evidence to select a limited set of justified maturity improvements. | MS-005 | TASK-017, EST-006 | Codex Ramblers | Planned |
+| ID | Milestone | Planned Date / Date Range | Planned Outcome | Dependencies | Related Tasks / Estimates | Owner | Status |
+|---|---|---|---|---|---|---|---|
+| MS-001 | Project Launch baseline | Sep 10–Sep 20, 2026 | Establish initial team, repository, scope, planning, and engineering evidence. | Team formation and project direction | EST-001 | Codex Ramblers | Complete |
+| MS-002 | A2 planning and requirements baseline | Sep 22–Sep 29, 2026 | Finalize/refine Cycle 1 requirements, acceptance criteria, scope, estimates, task plan, schedule, risks, and traceability. | MS-001 | TASK-010, TASK-011, EST-002 | Planning and Requirements owners | In Progress |
+| MS-003 | Architecture baseline | Sep 30–Oct 15, 2026 | Establish system structure, interfaces, technology decisions, and major ADRs required for implementation. | MS-002 | TASK-012, EST-003 | Architecture & Development Lead | Planned |
+| MS-004 | Cycle 1 implementation baseline | Oct 16–Oct 29, 2026 | Complete the controlled CampusConnect support-request workflow and integrate its major components. | MS-003 | TASK-013, TASK-014, EST-004 | Development team | Planned |
+| MS-005 | Cycle 1 verification and release readiness | Oct 30–Nov 10, 2026 | Verify the required workflow, resolve material defects, document limitations, and prepare release evidence. | MS-004 | TASK-015, TASK-016, EST-005 | Quality & Review Lead / team | Planned |
+| MS-006 | Cycle 2 maturity planning | Nov 11–Nov 24, 2026 | Use Cycle 1 evidence to select a limited set of justified maturity improvements. | MS-005 | TASK-017, EST-006 | Codex Ramblers | Planned |
 
 ## Near-Term Cycle 1 Schedule
 
-| Sequence | Planned Work | Entry Condition | Exit / Completion Evidence | Related Risk |
-|---|---|---|---|---|
-| 1 | Refine Cycle 1 requirements and acceptance criteria | A1 baseline exists | Stable requirement and acceptance-criteria IDs are available | R-004 |
-| 2 | Reconcile scope, task plan, estimates, schedule, risks, and traceability | Refined requirements are available | A2 planning artifacts are mutually consistent and reviewed | R-001, R-003, R-007 |
-| 3 | Define architecture, interfaces, and major engineering decisions | A2 planning baseline is established | Architecture evidence and applicable ADRs are reviewed | R-002, R-004, R-005 |
-| 4 | Implement the required Cycle 1 workflow | Architecture and interfaces are sufficiently stable | Required workflow components are implemented and reviewable | R-001, R-002, R-005 |
-| 5 | Integrate and test the end-to-end workflow | Major implementation components are available | Student-to-reviewer workflow operates as an integrated system | R-005, R-006 |
-| 6 | Verify, correct defects, and prepare release evidence | Integrated workflow is available | Required behavior is verified and known limitations are documented | R-006, R-007 |
+| Sequence | Planned Work | Planned Date Range | Entry Condition | Exit / Completion Evidence | Related Risk |
+|---|---|---|---|---|---|
+| 1 | Refine Cycle 1 requirements and acceptance criteria | Sep 22–Sep 24, 2026 | A1 baseline exists | Stable requirement and acceptance-criteria IDs are available | R-004 |
+| 2 | Reconcile scope, task plan, estimates, schedule, risks, and traceability | Sep 25–Sep 29, 2026 | Refined requirements are available | A2 planning artifacts are mutually consistent and reviewed | R-001, R-003, R-007 |
+| 3 | Define architecture, interfaces, and major engineering decisions | Sep 30–Oct 15, 2026 | A2 planning baseline is established | Architecture evidence and applicable ADRs are reviewed | R-002, R-004, R-005 |
+| 4 | Implement the required Cycle 1 workflow | Oct 16–Oct 29, 2026 | Architecture and interfaces are sufficiently stable | Required workflow components are implemented and reviewable | R-001, R-002, R-005 |
+| 5 | Integrate and test the end-to-end workflow | Oct 30–Nov 5, 2026 | Major implementation components are available | Student-to-reviewer workflow operates as an integrated system | R-005, R-006 |
+| 6 | Verify, correct defects, and prepare release evidence | Nov 6–Nov 10, 2026 | Integrated workflow is available | Required behavior is verified and known limitations are documented | R-006, R-007 |
 
 ## Dependencies and Integration Checkpoints
 
