@@ -17,14 +17,15 @@ Planning evidence is maintained as the project develops rather than reconstructe
 
 | Artifact | Purpose | Current Status | Authoritative Location |
 |---|---|---|---|
-| Cycle 1 Scope | Defines the intended Cycle 1 vertical slice, project boundaries, constraints, dependencies, and deferred work. | Existing — A2 refinement required | [`scope.md`](scope.md) |
+| Cycle 1 Scope | Defines the intended Cycle 1 vertical slice, project boundaries, constraints, dependencies, and deferred work. | Updated for A2 | [`scope.md`](scope.md) |
 | Requirements Traceability | Connects Cycle 1 requirements and acceptance criteria to scope, tasks, owners, estimates, risks, and later verification evidence. | Updated for A2 | [`traceability.md`](traceability.md) |
 | Task Plan | Records major planned work, ownership, dependencies, targets, estimates, and status. | Updated for A2 | [`task-plan.md`](task-plan.md) |
 | Effort Estimates | Records low, likely, and high estimates together with assumptions, confidence, dependencies, and re-estimation triggers. | Updated for A2 | [`estimates.md`](estimates.md) |
-| Risk Register | Records identified project risks, triggers, likelihood, impact, mitigation, contingency response, ownership, and status. | Existing — A2 refinement required | [`risk-register.md`](risk-register.md) |
+| Risk Register | Records identified project risks, triggers, likelihood, impact, mitigation, contingency response, ownership, and status. | Updated for A2 | [`risk-register.md`](risk-register.md) |
 | Schedule and Milestones | Records major Cycle 1 milestones, dependencies, integration checkpoints, review windows, buffers, and schedule triggers. | Updated for A2 | [`schedule.md`](schedule.md) |
-| Team Commitments | Records who owns planned work, expected completion targets, and the evidence that will demonstrate completion. | Pending A2 completion | [`team-commitments.md`](team-commitments.md) |
-| Re-estimation Notes | Records changes to estimates or commitments, the evidence that triggered those changes, and resulting scope or schedule decisions. | Pending A2 completion | [`re-estimation.md`](re-estimation.md) |
+| Planning Dependencies | Consolidates task, milestone, technical, risk, and schedule dependencies across the Cycle 1 plan. | Added for A2 | [`dependencies.md`](dependencies.md) |
+| Team Commitments | Records who owns planned work, expected completion targets, and the evidence that will demonstrate completion. | Added for A2 | [`team-commitments.md`](team-commitments.md) |
+| Re-estimation Notes | Defines when estimates and commitments must be reconsidered and records material changes when new evidence requires them. | Added for A2 | [`re-estimation.md`](re-estimation.md) |
 
 ## Related Engineering Evidence
 
@@ -44,7 +45,7 @@ Tradeoff decisions, deferred-scope rationale, and major engineering decisions ar
 
 [`../decisions/`](../decisions/)
 
-Decision evidence should only be added when the team has actually made or explicitly deferred a decision. Planning artifacts should not infer architecture or implementation choices that have not yet been established.
+The current decision evidence includes the accepted deferral of the final production technology stack until the A3 architecture phase. Planning artifacts should not present an architecture or implementation choice as committed until the team has actually established that decision
 
 ### AI-Assisted Engineering
 
@@ -95,10 +96,10 @@ When new evidence changes what the team knows, the affected plan should be updat
 
 Before establishing the final A2 planning baseline, the team still needs to:
 
-- complete `team-commitments.md`;
-- complete `re-estimation.md`;
-- reconcile the A2 scope and risk evidence with the current requirements;
-- record required tradeoff or deferred-scope decision evidence;
-- confirm A2 workflow evidence through GitHub Issues and related planning records;
-- verify planning references are internally consistent;
-- and establish the final `a2-planning-estimate` repository tag.
+- establish the final `a2-planning-estimate` repository tag.
+
+## A2 Planning Baseline
+
+The A2 planning baseline is considered reviewable when the planning artifacts in this directory are mutually consistent, repository evidence is current, required ownership and dependency relationships are documented, and the final A2 repository tag is established.
+
+The planning package remains living engineering evidence and should continue to be updated when later requirements, decisions, implementation evidence, risks, or re-estimation triggers materially change the plan.
