@@ -18,7 +18,7 @@ without a named owner, a named backup, and captured evidence.
 | Final Coordination | Dodan Victor | Shelby Sierah | `/docs/planning/` |
 | Scope | Tarabein Malec | Shu Perez | `/docs/planning/scope.md` |
 | Team Commitments | Shu Perez | Victor Dodan | `/docs/planning/team-commitments.md` |
-| Re-estimation / Tradeoff Decisions | Tarabein Malec | Shu Perez | `docs/planning/re-estimation.md` |
+| Re-estimation / Tradeoff Decisions | Tarabein Malec | Shu Perez | `/docs/planning/re-estimation.md` |
 | Task Plan | Shu Perez | Giancarlo Herrera | `/docs/planning/task-plan.md` |
 | GitHub Issues | Shu Perez | Shelby Sierah | GitHub Issues (linked in `/docs/planning/`) |
 | Dependencies | Shu Perez | Shelby Sierah | `/docs/planning/dependencies.md` |
@@ -41,7 +41,7 @@ without a named owner, a named backup, and captured evidence.
 | Final Coordination | Dodan Victor | 9/29/26 | `/docs/planning/` |
 | Scope | Tarabein Malec | 9/29/26 | `/docs/planning/scope.md` |
 | Team Commitments | Shu Perez | 9/29/26 | `/docs/planning/team-commitments.md` |
-| Re-estimation / Tradeoff Decisions | Tarabein Malec | 9/29/26 | `docs/planning/re-estimation.md` | 
+| Re-estimation / Tradeoff Decisions | Tarabein Malec | 9/29/26 | `/docs/planning/re-estimation.md` | 
 | Task Plan | Shu Perez | 9/29/26 | `/docs/planning/task-plan.md` |
 | GitHub Issues | Shu Perez | 9/29/26 | GitHub Issues (linked in `/docs/planning/`) |
 | Estimates | Mareddy, Venkata Aravind | 9/29/26 | `/docs/planning/estimates.md` |
@@ -64,6 +64,3 @@ without a named owner, a named backup, and captured evidence.
 | Shelby Sierah | Requirements Updates, Risk Register |
 
 ---
-
-_Last updated: 9/29/26 20:01_
-_Tarabein Malec files created by Shu Perez, Giancarlo Herrera, and Victor Dodan_
