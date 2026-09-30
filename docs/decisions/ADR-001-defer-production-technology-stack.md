@@ -113,6 +113,6 @@ This decision is related to:
 
 ## Reconsideration Trigger
 
-This ADR should be revisited when the team begins implementation work that requires a committed architecture or when sufficient engineering evidence exists to compare realistic technology alternatives.
+This ADR should be revisited during the A3 architecture phase, before implementation begins, when the team has sufficient engineering evidence to compare realistic technology alternatives.
 
 At that point, Codex Ramblers should document the selected approach, alternatives considered, supporting evidence, and tradeoffs in a new or superseding architecture decision record.
