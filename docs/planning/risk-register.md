@@ -16,8 +16,8 @@
 | R-005 | If independently developed parts of CampusConnect do not integrate as expected, then the complete Cycle 1 workflow may be delayed. | Medium | High | Define interfaces and responsibilities before implementation and integrate work regularly instead of waiting until the end of construction. | Identify the failing interface, simplify the integration where possible, and prioritize restoring the required end-to-end workflow. | Shu Perez | Open | MS-003, MS-004, EST-004 |
 | R-006 | If testing and verification are delayed until late in Cycle 1, then important defects may be discovered too close to the release deadline. | Medium | High | Add tests and verification as implementation progresses and review important workflow behavior before formal verification begins. | Prioritize defects affecting the required workflow and document any remaining limitations honestly in release evidence. | Giancarlo Herrera | Open | EST-004, EST-005, MS-004, MS-005 |
 | R-007 | If repository evidence is not kept current while work is completed, then the project may become difficult to review or trace even if the software itself works. | Low | High | Keep requirements, issues, pull requests, decisions, tests, and planning evidence updated as work occurs. | Reconcile missing evidence before the affected phase gate and document any gaps that cannot be reconstructed reliably. | Victor Dodan | Monitoring | `task-plan.md`, `docs/team/working-agreements.md`, GitHub repository |
-| R-008 |Important project updates, deadlines, or ownership changes are missed or misunderstood by team members. | `docs/team/team-charter.md`, `docs/team/working-agreements.md`, GitHub activity |
-| R-009 | Repeated merge conflicts occur or multiple contributors modify the same files without coordination. | Pull requests, branch history, GitHub activity |
+| R-008 | If team communication becomes inconsistent, then team members may misunderstand requirements, deadlines, or assigned responsibilities. | Medium | Medium | Follow the communication expectations defined in the Team Charter and Working Agreements and provide regular project updates. | Schedule an additional team meeting, clarify responsibilities, and update affected repository evidence. | All Team Members | Monitoring | docs/team/team-charter.md, docs/team/working-agreements.md, GitHub activity |
+| R-009 | If merge conflicts occur frequently because multiple contributors modify the same files or related work without coordination, then planning or development progress may be delayed. | Medium | Medium | Pull changes regularly, communicate ongoing work, and submit smaller focused pull requests. | Resolve conflicts collaboratively and coordinate ownership of affected files before additional changes are made. | Mareddy Venkata Aravind | Open | GitHub branches, pull requests, repository history |
 
 
 ## Risk Evaluation
@@ -41,6 +41,8 @@ These ratings represent the team's current judgment and may change as more proje
 | R-005 | Components work independently but fail when combined into the end-to-end workflow. | Pull requests, integration tests, defect evidence |
 | R-006 | Major workflow behavior still lacks tests as the project approaches the Verification module. | `tests/`, CI evidence, `docs/testing/` |
 | R-007 | Completed work cannot be linked to the expected issue, pull request, review, test, or documentation evidence. | GitHub repository and traceability evidence |
+| R-008 | Important project updates, deadlines, or ownership changes are missed or misunderstood by team members. | `docs/team/team-charter.md`, `docs/team/working-agreements.md`, GitHub activity |
+| R-009 | Repeated merge conflicts occur or multiple contributors modify the same files without coordination. | Pull requests, branch history, GitHub activity |
 
 ## Materialized Risks
 
