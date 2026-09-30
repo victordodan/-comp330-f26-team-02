@@ -11,14 +11,18 @@ The current requirements package contains proposed CampusConnect requirements an
 
 ## Requirements Traceability Matrix
 
-The current CampusConnect requirements package contains two proposed Cycle 1 requirements.
+The current CampusConnect requirements package contains six proposed Cycle 1 requirements.
 
-Task, estimate, architecture, implementation, and verification references will be added as the corresponding authoritative engineering evidence is established.
+Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Architecture, implementation, and concrete verification evidence will be added as those lifecycle artifacts are established.
 
 | Requirement | Acceptance Criteria | Task / Planning Evidence | Owner | Estimate | Verification | Risk / Assumption | Status |
 |---|---|---|---|---|---|---|---|
-| REQ-001 — Authenticated student submits a workflow request containing required information | AC-REQ-001-01, AC-REQ-001-02 | Pending — awaiting finalized task plan | Pending — awaiting task ownership | Pending — awaiting estimates | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
-| REQ-002 — Requester views the current status of submitted workflow requests | AC-REQ-002-01 | Pending — awaiting finalized task plan | Pending — awaiting task ownership | Pending — awaiting estimates | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-001 — Student requester submits a support request containing the information required for Cycle 1 processing | AC-REQ-001-01 | SCP-001, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-002 — Student requester views the current status and available resolution information for a submitted request | AC-REQ-002-01, AC-REQ-002-02 | SCP-006, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-003 — System stores a submitted support request and assigns a unique identifier | AC-REQ-003-01 | SCP-002, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-004 — Support reviewer views submitted support requests | AC-REQ-004-01 | SCP-003, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-005 — Support reviewer changes the current status of a support request | AC-REQ-005-01 | SCP-004, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-006 — Support reviewer records a short note or resolution for a support request | AC-REQ-006-01 | SCP-005, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 
 ## Decision Traceability
 
@@ -42,18 +46,18 @@ The Initial Decision Record has not yet been completed. Decision relationships w
 
 ## Change Impact Traceability
 
-The transition from A1 to A2 introduces proposed requirement and acceptance-criteria IDs that can now be used for planning traceability.
+The transition from A1 to A2 established REQ-001 through REQ-006 and their corresponding acceptance-criteria identifiers as the current Cycle 1 planning baseline.
 
-REQ-001 and REQ-002 are currently marked Proposed. Downstream task, ownership, estimate, decision, architecture, implementation, and verification relationships will be reviewed as those artifacts are finalized.
+Current scope, task, ownership, and estimate relationships can now be traced to these requirements. The requirements remain Proposed, so downstream planning evidence must be reviewed if a requirement or acceptance criterion changes during team review.
+
+Decision, architecture, implementation, and completed verification relationships will be added as those artifacts are established.
 
 ## Traceability Gaps
 
 | Gap | Why It Matters | Owner | Planned Resolution | Target Gate |
 |---|---|---|---|---|
-| Proposed CampusConnect requirements have not yet been finalized. | REQ-001 and REQ-002 can be used for current planning, but their Proposed status means later changes may require downstream traceability updates. | Shelby Sierah | Review and finalize the current requirements package and record any additional approved requirements. | A2 |
-| Acceptance criteria remain Proposed. | Existing AC IDs can be traced, but changes during team review may affect tasks and later verification evidence. | Shelby Sierah | Review and finalize `docs/requirements/acceptance-criteria.md`. | A2 |
-| Task and ownership relationships are pending. | Requirements cannot yet be fully connected to Cycle 1 implementation work and responsible owners. | Planning team | Update this matrix after the authoritative task plan and GitHub Issues establish task IDs and ownership. | A2 |
-| Estimate relationships are pending. | Requirements cannot yet be traced to finalized effort ranges and estimation assumptions. | Planning team | Add estimate references after `docs/planning/estimates.md` is finalized. | A2 |
+| Cycle 1 requirements remain Proposed. | REQ-001 through REQ-006 provide the current planning baseline, but later requirement changes may require downstream traceability updates. | Shelby Sierah | Review and stabilize the current requirements package and resolve material requirement-level uncertainty. | A2 |
+| Acceptance criteria remain Proposed. | Existing AC identifiers can now be traced, but changes during team review may affect planning and later verification evidence. | Shelby Sierah | Review and stabilize `docs/requirements/acceptance-criteria.md`. | A2 |
 | Initial ADR has not yet been completed. | Significant project decisions cannot yet be traced forward to architecture or implementation. | Malec Tarabein | Complete the Initial Decision Record and update Decision Traceability. | A2 |
 | Architecture evidence does not yet exist. | Requirements cannot yet be traced to specific architectural components or interfaces. | Architecture & Development Lead | Add architecture relationships as Module 3 evidence is created. | A3 |
 | Implementation evidence does not yet exist. | Requirements cannot yet be traced to source code or implementation pull requests. | Development team | Add implementation references during Construction. | A4 |
