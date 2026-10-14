@@ -20,8 +20,8 @@ The component structure below is a proposal for team review. Final component nam
 |---|---|---|---|---|---|
 | Requester and Reviewer UI | Collect request input, display requests and status information, and initiate permitted user actions | Authoritative authorization, workflow rules, persistent records | Request Workflow Service | Student requester, support reviewer | REQ-001, REQ-002, REQ-004, REQ-005, REQ-006 |
 | Request Workflow Service | Validate operations, enforce workflow and role rules, coordinate request creation, retrieval, status changes, and resolution updates | UI rendering, physical data storage, real institutional authentication | Simulated Role Context, Request Repository | Requester and Reviewer UI | REQ-001 through REQ-006 |
-| Request Repository | Store and retrieve support requests, unique identifiers, current statuses, and recorded notes or resolutions | Role authorization, user interface, workflow policy | Persistent data store (technology pending) | Request Workflow Service | REQ-002, REQ-003, REQ-004, REQ-005, REQ-006 |
-| Simulated Role Context | Supply the selected requester or reviewer context for Cycle 1 and support requester ownership checks | Real authentication, institutional identity verification, workflow authorization decisions | Team-approved simulation mechanism (pending Q-004) | Request Workflow Service | REQ-001, REQ-002, REQ-004, REQ-005, REQ-006 |
+| Request Repository | Store and retrieve support requests, unique identifiers, current statuses, and recorded notes or resolutions | Role authorization, user interface, workflow policy | Persistent data store (technology pending) | Request Workflow Service | REQ-001 through REQ-006 |
+| Simulated Role Context | Supply the selected requester or reviewer context for Cycle 1 and support requester ownership checks | Real authentication, institutional identity verification, workflow authorization decisions | Team-approved simulation mechanism (pending Q-004) | Request Workflow Service | REQ-001 through REQ-006 |
 
 ## Component Inputs, Outputs, and Failure Responsibilities
 
