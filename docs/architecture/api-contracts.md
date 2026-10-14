@@ -264,7 +264,7 @@ The exact required fields are unresolved under Q-001.
 
 **Consumer:** Request Workflow Service  
 **Provider:** Request Repository  
-**Related requirements:** REQ-002 through REQ-006  
+**Related requirements:** REQ-001 through REQ-006  
 **Status:** Proposed
 
 **Logical operations**
@@ -294,7 +294,7 @@ The exact required fields are unresolved under Q-001.
 
 **Consumer:** Request Workflow Service  
 **Provider:** Simulated Role Context  
-**Related requirements:** REQ-001, REQ-002, REQ-004 through REQ-006  
+**Related requirements:** REQ-001 through REQ-006
 **Status:** Proposed
 
 **Purpose**
@@ -343,7 +343,7 @@ Accordingly:
 
 The team must resolve architecture-critical questions before accepting dependent contracts for construction. Deferred choices must have an owner and decision point.
 
-## 6A. Negative and Boundary Test Scenarios
+## 6A. Additional Verification and Boundary Test Scenarios
 
 The following scenarios are proposed verification cases for Cycle 1. They supplement the existing acceptance criteria and do not represent completed tests.
 
@@ -360,6 +360,10 @@ The following scenarios are proposed verification cases for Cycle 1. They supple
 | NEG-009 | API-001, API-006 | Persistence fails during request creation | Report failure without confirming that a request was created |
 | NEG-010 | API-004, API-006 | Persistence fails during a status update | Report failure without confirming the status change |
 | NEG-011 | API-007 | Operation has missing or invalid simulated role context | Reject the operation rather than assuming an authorized role |
+| NEG-012 | API-004 | Reviewer attempts to update the status of a nonexistent request | Reject the update; do not create or modify another request |
+| NEG-013 | API-005 | Reviewer attempts to record a note or resolution for a nonexistent request | Report that the request is unavailable; do not save the note |
+| NEG-014 | API-005, API-006 | Persistence fails while saving a reviewer note or resolution | Report failure without falsely confirming that the note or resolution was saved |
+
 
 ### Verification Boundaries
 
