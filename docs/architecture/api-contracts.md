@@ -1,476 +1,375 @@
-# API and Interface Contracts
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+# API and Tool Boundary Contracts
 
-This file records significant contracts between architectural components and
-between the system and external systems.
+**Project:** CampusConnect  
+**Team:** Team 2 — Codex Ramblers  
+**Assignment:** A3 — Cycle 1 Architecture and Review  
+**Status:** Proposed — pending architecture and requirements review
 
-"API" does not mean only public HTTP endpoints.
+## 1. Purpose and Scope
 
-A contract may describe:
+This document defines the significant interactions between CampusConnect components for the Cycle 1 support-request workflow.
 
-- HTTP/REST interactions;
-- internal service interfaces;
-- events or messages;
-- external service integrations;
-- command/query boundaries;
-- file or data exchange formats; or
-- other interactions where both sides need a stable, reviewable agreement.
+It covers request submission, retrieval, reviewer access, status updates, notes or resolutions, persistence, and simulated role context.
 
-Do not document every function call.
+These are proposed logical interface contracts. They are not claims that HTTP endpoints, a technology stack, or working implementations have been approved.
 
-Document interfaces whose behavior, data, errors, security expectations, or
-evolution matter to the architecture.
+Cycle 1 uses synthetic data and simulated roles. Real Loyola authentication, institutional integrations, notifications, and user-facing AI are outside the required workflow.
 
-Use component names consistent with:
+## 2. Contract Summary
 
-/docs/architecture/architecture.md
-/docs/architecture/component-responsibilities.md
+| ID | Consumer | Provider | Interaction | Requirements | Status |
+|---|---|---|---|---|---|
+| API-001 | Requester UI | Request Workflow Service | Submit support request | REQ-001, REQ-003 | Proposed |
+| API-002 | Requester UI | Request Workflow Service | Retrieve own request | REQ-002 | Proposed |
+| API-003 | Reviewer UI | Request Workflow Service | View submitted requests | REQ-004 | Proposed |
+| API-004 | Reviewer UI | Request Workflow Service | Update request status | REQ-005 | Proposed |
+| API-005 | Reviewer UI | Request Workflow Service | Record note or resolution | REQ-006 | Proposed |
+| API-006 | Request Workflow Service | Request Repository | Persist and retrieve records | REQ-002 through REQ-006 | Proposed |
+| API-007 | Request Workflow Service | Simulated Role Context | Obtain role and requester context | REQ-001, REQ-002, REQ-004 through REQ-006 | Proposed |
 
-IMPORTANT:
+The contracts describe logical boundaries. Actual HTTP paths, schemas, and technology-specific details require an accepted architecture decision.
 
-- Text inside HTML comments like this is Starter Kit guidance.
-- Delete instructional comments before the applicable phase-gate submission.
-- Sample contracts and sample data must be replaced with your team's actual
-  interface contracts.
-- Do not simply rename the example endpoints or fields.
--->
+## 3. Shared Contract Rules
 
-## Contract Summary
+### Data constraints
 
-<!--
-TEAM CONTENT REQUIRED
+- Only synthetic request data may be processed.
+- Every successfully created request must have a unique identifier.
+- Each request has one current status in the proposed Cycle 1 model.
+- Reviewer notes or resolutions must remain associated with the correct request.
+- Actual request fields and status values remain subject to Q-001 and Q-002.
 
-Use unique identifiers in the form:
+### Role and ownership rules
 
-API-###
+- Requester and reviewer operations must remain distinguishable.
+- A requester may view only requests associated with their simulated requester identity.
+- Reviewer-only actions must be rejected for requester-role operations.
+- The workflow service is responsible for enforcing role and ownership checks.
+- The UI must not be treated as an authoritative security boundary.
+- Simulated roles are a Cycle 1 testing mechanism, not production-grade authentication.
 
-Examples:
+### Failure categories
 
-API-001
-API-002
-API-003
+The contracts distinguish:
 
-The API prefix may be used for significant interface contracts even when the
-interaction is not HTTP.
+- Invalid input
+- Missing request
+- Unauthorized role or request ownership
+- Unsupported status or transition
+- Persistence or unexpected service failure
 
-If your team adopts another consistent identifier convention, document it and
-use it throughout the repository.
+Exact protocol error codes and response schemas will be finalized when the team accepts its implementation architecture.
 
-Recommended status values:
+### Observability
 
-- Proposed
-- Accepted
-- Implemented
-- Verified
-- Changed
-- Deprecated
-- Removed
+The implementation should provide enough evidence to investigate request creation, authorized updates, rejected operations, and persistence failures.
 
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH ACTUAL PROJECT CONTRACTS.
--->
+Logs should avoid unnecessary request descriptions or other potentially sensitive content. Logging design and retention require architecture review.
 
-| ID | Consumer | Provider | Purpose | Interface / Protocol | Related Requirements | Status |
-|---|---|---|---|---|---|---|
-| API-001 | Web Client | Application Service | Submit a new workflow request | HTTPS / JSON | REQ-001 | Proposed |
-| API-002 | Web Client | Application Service | Retrieve workflow request status | HTTPS / JSON | REQ-002 | Proposed |
-| API-003 | Application Service | Identity Provider | Obtain trusted authenticated identity | Provider-defined authentication protocol | REQ-001 | Proposed |
+## 4. Detailed Interface Contracts
 
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
+### API-001 — Submit Support Request
 
-## Detailed Contracts
-
-<!--
-TEAM CONTENT REQUIRED FOR SIGNIFICANT CONTRACTS
-
-Use a detailed subsection for each important interface contract.
-
-Suggested structure:
-
-### API-### — Contract Name
-
-**Consumer:**
-**Provider:**
-**Purpose:**
-**Related Requirements:**
-**Status:**
-
-#### Interaction
-
-Describe the interaction and its direction.
-
-For HTTP:
-- include method and path when known.
-
-For events:
-- identify producer, consumer, and event.
-
-For internal interfaces:
-- identify the architectural boundary.
-
-#### Request / Input
-
-Describe meaningful input.
-
-Use a table, schema, example, or link to authoritative schema evidence.
-
-#### Response / Output
-
-Describe expected output.
-
-#### Failure Behavior
-
-Describe important failure conditions and how they are represented.
-
-#### Authentication / Authorization
-
-Describe security expectations relevant to the interaction.
-
-#### Contract Rules
-
-Describe important:
-
-- invariants;
-- preconditions;
-- postconditions;
-- idempotency expectations;
-- ordering requirements;
-- transaction expectations; or
-- other behavior both sides must understand.
-
-#### Verification
-
-Reference tests or other evidence demonstrating that the implementation
-conforms to the contract.
-
-#### Notes / Open Questions
-
-Reference unresolved questions instead of inventing missing contract details.
-
-The contracts below are WORKED EXAMPLES ONLY.
-
-DELETE AND REPLACE THEM WITH YOUR ACTUAL PROJECT CONTRACTS.
--->
-
-### API-001 — Submit Workflow Request
-
-<!--
-SAMPLE CONTRACT — DELETE AND REPLACE BEFORE SUBMISSION
--->
-
-**Consumer:** Web Client  
-**Provider:** Application Service  
-**Purpose:** Submit a new workflow request for processing.  
-**Related Requirements:** `REQ-001`  
+**Consumer:** Requester UI  
+**Provider:** Request Workflow Service  
+**Related requirements:** REQ-001, REQ-003  
+**Acceptance criteria:** AC-REQ-001-01, AC-REQ-003-01  
 **Status:** Proposed
 
-#### Interaction
+**Input**
 
-`POST /api/requests`
+- Simulated requester context
+- Request information required by the accepted Cycle 1 input specification
 
-The Web Client sends an authenticated request to create a workflow request.
+The exact required fields are unresolved under Q-001.
 
-#### Request / Input
+**Successful output**
 
-| Field | Required | Description |
+- Unique request identifier
+- Created request record or confirmation
+- Initial current status, once the status model is approved
+
+**Failure behavior**
+
+- Reject missing or invalid required information.
+- Reject an operation without an allowed requester context.
+- Report persistence failure without claiming successful creation.
+
+**Contract rules**
+
+- Validate input before accepting the request.
+- Persist the request and its identifier consistently.
+- Do not report success unless storage succeeds.
+- Retry and duplicate-submission behavior must be decided before implementation.
+
+**Planned verification**
+
+- Valid synthetic submission creates a stored request.
+- Invalid submission is rejected.
+- Created identifiers are unique.
+- A simulated persistence failure does not produce false success.
+
+### API-002 — Retrieve Requester-Owned Request
+
+**Consumer:** Requester UI  
+**Provider:** Request Workflow Service  
+**Related requirement:** REQ-002  
+**Acceptance criteria:** AC-REQ-002-01, AC-REQ-002-02  
+**Status:** Proposed
+
+**Input**
+
+- Request identifier
+- Simulated requester context
+
+**Successful output**
+
+- The request's current status
+- Available resolution information
+- The request identifier
+
+**Failure behavior**
+
+- Reject access to another requester's request.
+- Handle unknown identifiers without exposing another requester's information.
+- Report storage or retrieval failure.
+
+**Contract rules**
+
+- Enforce requester ownership in the workflow service.
+- Do not rely only on UI filtering.
+- Return the current stored status and resolution information.
+
+**Planned verification**
+
+- Requester retrieves their own request.
+- Another requester cannot retrieve that request.
+- Missing request is handled safely.
+- Recorded resolution information is visible to the owner.
+
+### API-003 — View Submitted Requests for Review
+
+**Consumer:** Reviewer UI  
+**Provider:** Request Workflow Service  
+**Related requirement:** REQ-004  
+**Acceptance criterion:** AC-REQ-004-01  
+**Status:** Proposed
+
+**Input**
+
+- Simulated reviewer context
+
+**Successful output**
+
+- Submitted support requests available for review
+- Information necessary to identify and inspect requests
+
+**Failure behavior**
+
+- Reject requester-role access to reviewer-only operations.
+- Handle retrieval failure without showing misleading results.
+
+**Contract rules**
+
+- Verify reviewer role before returning reviewer-level information.
+- Avoid unnecessary exposure of request data.
+- Pagination and filtering are not assumed for Cycle 1.
+
+**Planned verification**
+
+- Reviewer can view submitted requests.
+- Requester cannot use reviewer-only access.
+- Empty results and retrieval failures are distinguishable.
+
+### API-004 — Update Request Status
+
+**Consumer:** Reviewer UI  
+**Provider:** Request Workflow Service  
+**Related requirement:** REQ-005  
+**Acceptance criterion:** AC-REQ-005-01  
+**Status:** Proposed
+
+**Input**
+
+- Request identifier
+- Proposed new status
+- Simulated reviewer context
+
+**Successful output**
+
+- Confirmation of the accepted change
+- Updated current status
+
+**Failure behavior**
+
+- Reject unsupported statuses or transitions.
+- Reject requester-role status changes.
+- Reject changes to nonexistent requests.
+- Report persistence failure without falsely confirming an update.
+
+**Contract rules**
+
+- Allowed statuses and transitions depend on Q-002.
+- Validate the transition before persisting it.
+- Keep the stored current status consistent with the confirmed result.
+- Concurrent update handling requires a team design decision.
+
+**Planned verification**
+
+- Reviewer makes an allowed status change.
+- Requester status change is rejected.
+- Unsupported transition is rejected.
+- Failed persistence does not produce a false confirmation.
+
+### API-005 — Record Reviewer Note or Resolution
+
+**Consumer:** Reviewer UI  
+**Provider:** Request Workflow Service  
+**Related requirement:** REQ-006  
+**Acceptance criterion:** AC-REQ-006-01  
+**Status:** Proposed
+
+**Input**
+
+- Request identifier
+- Short note or resolution
+- Simulated reviewer context
+
+**Successful output**
+
+- Confirmation that information was saved
+- Current stored note or resolution information
+
+**Failure behavior**
+
+- Reject reviewer-only updates from requester roles.
+- Reject invalid input according to accepted validation rules.
+- Handle missing requests and persistence failure.
+
+**Contract rules**
+
+- Associate the note or resolution with the correct request.
+- Persist the information before confirming success.
+- Editing or replacing existing content remains unresolved under Q-003.
+
+**Planned verification**
+
+- Reviewer saves a note or resolution.
+- Requester later sees available resolution information.
+- Requester cannot perform reviewer-only edits.
+- Failed storage is reported.
+
+### API-006 — Request Repository Operations
+
+**Consumer:** Request Workflow Service  
+**Provider:** Request Repository  
+**Related requirements:** REQ-002 through REQ-006  
+**Status:** Proposed
+
+**Logical operations**
+
+- Create and persist a request with a unique identifier.
+- Retrieve a request by identifier.
+- Retrieve requests for reviewer access.
+- Persist current status changes.
+- Persist reviewer notes or resolutions.
+
+**Contract rules**
+
+- Repository operations must not bypass workflow authorization.
+- The workflow service checks permissions before calling the repository.
+- Storage operations must report success or failure accurately.
+- The selected persistence technology remains subject to an accepted ADR.
+- Transaction, concurrency, and identifier-generation details require design decisions.
+
+**Planned verification**
+
+- Stored records can be retrieved.
+- Unique identifiers remain unique.
+- Failed writes are reported.
+- Updates preserve the association between request and stored information.
+
+### API-007 — Simulated Role Context
+
+**Consumer:** Request Workflow Service  
+**Provider:** Simulated Role Context  
+**Related requirements:** REQ-001, REQ-002, REQ-004 through REQ-006  
+**Status:** Proposed
+
+**Purpose**
+
+Provide the simulated role and requester context required to distinguish student requester and support reviewer behavior.
+
+**Expected information**
+
+- Simulated role
+- Simulated requester identity when applicable
+
+**Contract rules**
+
+- Role selection does not constitute real authentication.
+- The workflow service applies role and ownership policies.
+- The representation and selection mechanism remain unresolved under Q-004.
+- No real Loyola identity provider is required.
+
+**Planned verification**
+
+- Requester and reviewer operations are distinguishable.
+- Requester cannot perform reviewer-only operations.
+- Requester ownership checks reject another requester's access.
+- Missing or invalid simulated context is handled safely.
+
+## 5. AI and External Tool Boundaries
+
+The Cycle 1 support-request workflow does not require user-facing AI, external APIs, or institutional integrations.
+
+Accordingly:
+
+- No AI model is authorized by this proposal to change request state.
+- No external service contract is assumed.
+- Development-time AI assistance is recorded separately in the team's AI-use log.
+- Any future AI or external integration requires explicit scope review, architecture decisions, permissions, failure handling, and applicable instructor approval.
+
+## 6. Open Decisions and Dependencies
+
+| Reference | Decision Needed | Affected Contracts |
 |---|---|---|
-| `requestType` | Yes | Identifies the type of workflow being requested. |
-| `description` | Yes | User-provided information required to process the request. |
-
-<!--
-THE FIELDS ABOVE ARE SAMPLE DATA.
-
-DELETE AND REPLACE THEM WITH YOUR ACTUAL CONTRACT.
-
-Do not infer project fields merely because they appear in this example.
--->
-
-#### Response / Output
-
-On successful creation, the service returns a representation containing the
-new request identifier and current workflow status.
-
-<!--
-As the contract matures, document protocol details such as response structures
-or status codes when they are actually known.
-
-Do not invent protocol detail simply to make an early artifact look complete.
--->
-
-#### Failure Behavior
-
-The service rejects requests that are invalid or unauthorized and returns
-enough structured information for the consumer to distinguish relevant
-failure conditions.
-
-#### Authentication / Authorization
-
-The interaction requires an authenticated user.
-
-The Application Service remains responsible for authoritative authorization
-decisions.
-
-#### Contract Rules
-
-- A successful response represents a workflow request that was actually created.
-- Invalid required input must not create a workflow request.
-- The client must not infer success solely from local state.
-
-#### Verification
-
-`AC-REQ-001-01`, `AC-REQ-001-02`
-
-<!--
-THE REFERENCES ABOVE ARE SAMPLE DATA.
-
-Replace them with actual verification evidence.
-
-As implementation matures, verification may also reference:
-
-- integration tests;
-- contract tests;
-- end-to-end tests; or
-- other repository-visible evidence.
--->
-
-#### Notes / Open Questions
-
-None currently documented.
-
----
-
-### API-002 — Retrieve Workflow Status
-
-<!--
-SAMPLE CONTRACT — DELETE AND REPLACE BEFORE SUBMISSION
--->
-
-**Consumer:** Web Client  
-**Provider:** Application Service  
-**Purpose:** Retrieve the current state of a workflow request.  
-**Related Requirements:** `REQ-002`  
-**Status:** Proposed
-
-#### Interaction
-
-`GET /api/requests/{requestId}`
-
-#### Request / Input
-
-The consumer provides the identifier of the workflow request being retrieved.
-
-#### Response / Output
-
-The service returns the request's current workflow status when the authenticated
-user is authorized to view the request.
-
-#### Failure Behavior
-
-The contract must distinguish relevant conditions such as:
-
-- request does not exist;
-- caller is not authorized to view the request; and
-- service cannot currently complete the operation.
-
-#### Authentication / Authorization
-
-The caller must be authenticated.
-
-The provider determines whether the caller is authorized to view the identified
-request.
-
-#### Contract Rules
-
-- A caller must not receive protected request information solely because they know a request identifier.
-- Returned status must represent authoritative application state.
-
-#### Verification
-
-`AC-REQ-002-01`
-
-#### Notes / Open Questions
-
-None currently documented.
-
-<!--
-DELETE AND REPLACE ALL SAMPLE CONTRACTS ABOVE.
-
-The examples demonstrate the expected structure and level of reasoning.
-
-They do NOT define required behavior for your project.
--->
-
-## Data Contract Guidance
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Where an interface exchanges structured data, document the contract at an
-appropriate level of precision.
-
-Possible approaches include:
-
-- Markdown field tables;
-- JSON examples;
-- JSON Schema;
-- OpenAPI;
-- protocol definitions;
-- typed interfaces; or
-- another repository-visible schema.
-
-Avoid maintaining several independent definitions of the same contract.
-
-If OpenAPI or another machine-readable artifact becomes authoritative, this
-file may summarize the architectural contract and link to that source instead
-of duplicating every field.
-
-Example:
-
-Authoritative schema:
-/openapi/openapi.yaml
-
-Architecture evidence:
-This file summarizes the interface and links to the authoritative schema.
--->
-
-## Failure Contracts
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Failure behavior is part of an interface contract.
-
-Do not define only the successful path.
-
-Consider relevant conditions such as:
-
-- invalid input;
-- missing required data;
-- unauthorized access;
-- forbidden operations;
-- missing resources;
-- duplicate requests;
-- dependency failures;
-- timeout;
-- concurrency conflicts;
-- unavailable services; or
-- partial completion.
-
-Not every contract needs every failure condition.
-
-Document failures consumers need to understand or that materially affect
-system behavior.
--->
-
-## Security Boundaries
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-For contracts crossing trust boundaries, consider:
-
-- authentication;
-- authorization;
-- confidentiality;
-- integrity;
-- input validation;
-- secret handling;
-- sensitive-data exposure;
-- least privilege;
-- replay behavior; and
-- duplicate-operation concerns.
-
-Do not rely on a user interface to enforce an authoritative security rule.
-
-Reference authoritative security requirements or decisions rather than
-unnecessarily duplicating them.
--->
-
-## Contract Compatibility and Change
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-An interface change may affect multiple components.
-
-Before materially changing an accepted contract:
-
-1. identify consumers;
-2. identify affected requirements and acceptance criteria;
-3. determine compatibility impact;
-4. update provider and consumer evidence;
-5. update tests;
-6. record a significant architectural decision when appropriate; and
-7. preserve enough history to understand the change.
-
-Do not silently change one side of a contract while leaving the other side
-documented against an older interface.
-
-The blank table below is intentional at project start.
--->
-
-| Effective Gate | Contract | Change | Compatibility Impact | Related Evidence |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Verification and Traceability
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Important contracts should become traceable to implementation and verification.
-
-A useful evidence chain may look like:
-
-REQ-001
-  ->
-AC-REQ-001-01
-  ->
-API-001
-  ->
-Provider implementation
-  ->
-Consumer implementation
-  ->
-Contract or integration test
-
-The exact chain will evolve as the project matures.
-
-Do not claim that a contract is Verified until appropriate evidence exists.
--->
-
-## Expectations
-
-- Use stable identifiers for significant interface contracts.
-- Use component names consistent with the architecture.
-- Identify both consumer and provider.
-- Describe meaningful input and output behavior.
-- Document important failure behavior.
-- Make security expectations explicit where relevant.
-- Link contracts to requirements and acceptance criteria.
-- Reference authoritative schemas rather than creating unnecessary duplicate definitions.
-- Update both sides of a contract when it changes.
-- Add verification evidence as implementation matures.
-- Record unresolved behavior explicitly rather than inventing contract details.
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Delete and replace all sample contracts and sample data.
-2. Confirm every retained contract represents an actual architectural interface.
-3. Confirm consumer and provider names agree with component-responsibilities.md.
-4. Confirm component names agree with architecture.md.
-5. Confirm requirement and acceptance-criteria references are valid.
-6. Confirm documented interfaces match the current implementation where implementation exists.
-7. Confirm important failure and security behavior is represented.
-8. Remove all instructional HTML comments.
-
-A reviewer should be able to understand what each side of an important
-architectural boundary is entitled to expect from the other.
--->
+| Q-001 | Required request fields and validation rules | API-001 |
+| Q-002 | Supported statuses and transitions | API-001, API-002, API-004 |
+| Q-003 | Editing or replacing notes and resolutions | API-005, API-006 |
+| Q-004 | Simulated identity and role representation | API-001 through API-005, API-007 |
+| Architecture ADR | Implementation technology, persistence and transport choices | All relevant contracts |
+
+The team must resolve architecture-critical questions before accepting dependent contracts for construction. Deferred choices must have an owner and decision point.
+
+## 7. Review and Verification Plan
+
+Before marking a contract Accepted:
+
+1. Compare it with the accepted architecture overview and diagram.
+2. Confirm its consumer and provider names match the component responsibility map.
+3. Review inputs, outputs, permissions, failures, and invariants.
+4. Resolve or explicitly track open decisions.
+5. Record independent reviewer findings and their dispositions.
+6. Update the test strategy with the corresponding verification cases.
+7. Update estimates, risks, and traceability if the design changes.
+
+These are planned verification activities, not claims of completed tests.
+
+## 8. Related Engineering Evidence
+
+- `docs/requirements/requirements.md`
+- `docs/requirements/acceptance-criteria.md`
+- `docs/requirements/assumptions-open-questions.md`
+- `docs/architecture/architecture.md`
+- `docs/architecture/component-responsibilities.md`
+- `docs/planning/traceability.md`
+- `docs/planning/risk-register.md`
+- `docs/decisions/ADR-001-defer-production-technology-stack.md`
+- `docs/testing/test-strategy.md`
+- `docs/ai/ai-use-log.md`
+
+Links to the architecture review, GitHub issue, pull request, and accepted design decisions must be added or verified before the A3 phase gate.
+
+**Evidence status:** Design proposal only. No implemented or verified API behavior is claimed.
