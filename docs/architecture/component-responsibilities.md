@@ -23,6 +23,36 @@ The component structure below is a proposal for team review. Final component nam
 | Request Repository | Store and retrieve support requests, unique identifiers, current statuses, and recorded notes or resolutions | Role authorization, user interface, workflow policy | Persistent data store (technology pending) | Request Workflow Service | REQ-002, REQ-003, REQ-004, REQ-005, REQ-006 |
 | Simulated Role Context | Supply the selected requester or reviewer context for Cycle 1 and support requester ownership checks | Real authentication, institutional identity verification, workflow authorization decisions | Team-approved simulation mechanism (pending Q-004) | Request Workflow Service | REQ-001, REQ-002, REQ-004, REQ-005, REQ-006 |
 
+## Component Inputs, Outputs, and Failure Responsibilities
+
+The following describes the proposed CampusConnect architecture. Final component boundaries will be confirmed during team review.
+
+| Component | Inputs | Outputs | Failure Responsibilities |
+|---|---|---|---|
+| Requester and Reviewer UI | Request details, request IDs, and user actions | Submission confirmation, request status, and resolution details | Display errors clearly and never show success when an operation fails |
+| Request Workflow Service | Request submissions, status updates, notes, and simulated role context | Validated results and authorized responses | Reject invalid inputs, unauthorized actions, and unsupported status changes |
+| Request Repository | Create, retrieve, and update operations | Stored records, unique IDs, and operation results | Report missing records and storage failures |
+| Simulated Role Context | Simulated requester or reviewer selection | Role and requester identity context | Identify missing or invalid simulated roles |
+
+### Why These Responsibilities Are Separated
+
+The UI handles user interaction but must not make final authorization decisions.
+
+The Request Workflow Service enforces validation, permissions, and workflow rules.
+
+The Request Repository manages storage without deciding who is authorized.
+
+The Simulated Role Context supports role-based testing without requiring real Loyola authentication.
+
+This separation makes the system easier to test, review, and maintain.
+
+### Assumptions Affecting the Design
+
+- **ASM-001:** Each request has one current status. This assumption is not yet validated.
+- **ASM-002:** A short note or resolution is sufficient without threaded messaging. This assumption is not yet validated.
+
+If either assumption changes, the team must review the affected components and API contracts.
+
 ## Architecture Constraints
 
 - Only synthetic data is permitted in Cycle 1.
