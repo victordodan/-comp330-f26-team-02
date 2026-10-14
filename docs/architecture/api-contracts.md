@@ -343,6 +343,33 @@ Accordingly:
 
 The team must resolve architecture-critical questions before accepting dependent contracts for construction. Deferred choices must have an owner and decision point.
 
+## 6A. Negative and Boundary Test Scenarios
+
+The following scenarios are proposed verification cases for Cycle 1. They supplement the existing acceptance criteria and do not represent completed tests.
+
+| Test ID | Related Contract | Scenario | Expected Behavior |
+|---|---|---|---|
+| NEG-001 | API-001 | Requester submits a request with missing required information | Reject the request with a validation error; do not store an invalid request |
+| NEG-002 | API-001, API-006 | Two requests are successfully created | Each request receives a distinct identifier |
+| NEG-003 | API-002 | Requester attempts to view another requester's request | Reject access without exposing the other requester's information |
+| NEG-004 | API-002 | Requester enters an unknown request identifier | Report that the request is unavailable without exposing unrelated records |
+| NEG-005 | API-003 | Requester attempts to access reviewer-only request listings | Reject the unauthorized operation |
+| NEG-006 | API-004 | Requester attempts to change a request's status | Reject the unauthorized update; preserve the stored status |
+| NEG-007 | API-004 | Reviewer attempts an unsupported status transition | Reject the transition; preserve the existing status |
+| NEG-008 | API-005 | Requester attempts to add a reviewer note or resolution | Reject the unauthorized modification |
+| NEG-009 | API-001, API-006 | Persistence fails during request creation | Report failure without confirming that a request was created |
+| NEG-010 | API-004, API-006 | Persistence fails during a status update | Report failure without confirming the status change |
+| NEG-011 | API-007 | Operation has missing or invalid simulated role context | Reject the operation rather than assuming an authorized role |
+
+### Verification Boundaries
+
+- Required input fields depend on resolution of Q-001.
+- Supported statuses and transitions depend on Q-002.
+- Note-editing behavior depends on Q-003.
+- Simulated role representation depends on Q-004.
+- Tests will be implemented and linked to repository evidence during construction.
+- These scenarios are design-time test proposals, not verified results.
+
 ## 7. Review and Verification Plan
 
 Before marking a contract Accepted:
