@@ -318,3 +318,8 @@ The architecture documents consistently describe a local, synthetic-data demonst
 4. **Team Lead:** Record final A3 gate approval and evidence links before tagging/submission.
 
 **October 16 gate assessment:** Documentation coverage is materially improved and several earlier findings are resolved. **Final A3 architecture approval is still pending** the diagram reconciliation, baseline confirmation, and recorded team review. No running implementation, passing tests, successful recovery, or production readiness is claimed.
+
+
+## Final Gate Control — Approval Record
+
+The final review and baseline acceptance must be recorded in [A3 Final Baseline and Architecture Gate — Approval Record](a3-final-gate-approval.md). This document reconciles the now-merged A3 PR evidence and defines the explicit sign-offs required before the `a3-architecture-review` tag. Earlier findings are retained as review history. **Do not interpret a merged PR, completed documentation, or this preparation as Victor's or Shu's approval.** The final gate remains pending until authorized reviewers record decisions and evidence links.
