@@ -3,7 +3,7 @@
 **Project:** CampusConnect  
 **Team:** Codex Ramblers — Team 2  
 **Phase:** A3 — Architecture and Review  
-**Status:** Proposed — Pending Team Approval
+**Status:** Accepted — Cycle 1
 
 ## Context
 
@@ -11,11 +11,11 @@ CampusConnect requires a simple application that allows simulated students to su
 
 The team needs a technology stack that is practical for a student project, supports automated testing, and can run locally without paid hosting.
 
-ADR-001 deferred the final production technology decision during A2. This ADR proposes a specific implementation stack for Cycle 1 without committing the team to a permanent production architecture.
+ADR-001 deferred the final production technology decision during A2. This ADR establishes the approved implementation stack for Cycle 1 without committing the team to a permanent production architecture.
 
-## Proposed Decision
+## Decision
 
-CampusConnect will use the following technologies for Cycle 1, subject to team approval:
+CampusConnect will use the following technologies for Cycle 1:
 
 - **Java:** Primary programming language.
 - **Spring Boot:** Backend application framework and request processing.
@@ -34,7 +34,7 @@ The application will use simulated student and reviewer identities rather than r
 
 **H2 vs. MySQL or PostgreSQL:** MySQL and PostgreSQL are stronger choices for many production environments, but H2 reduces setup requirements for a local demonstration.
 
-**Maven vs. Gradle:** Both support Java builds and testing. Maven is proposed because its conventional project structure and dependency configuration are suitable for this project.
+**Maven vs. Gradle:** Both support Java builds and testing. Maven is selected because its conventional project structure and dependency configuration are suitable for this project.
 
 ## Benefits
 
@@ -53,7 +53,7 @@ The application will use simulated student and reviewer identities rather than r
 
 ## Consequences
 
-Once approved, the team will use this stack as its Cycle 1 implementation baseline. The architecture documents, task estimates, dependencies, and testing plans should be updated accordingly.
+The team will use this approved stack as its Cycle 1 implementation baseline. The architecture documents, task estimates, dependencies, and testing plans should be updated accordingly.
 
 This decision does not establish the final production technology stack.
 
@@ -69,5 +69,5 @@ This decision does not establish the final production technology stack.
 ## Approval
 
 **Decision Owner:** Codex Ramblers Team  
-**Approval:** Pending team review  
+**Approval:** Approved by Victor Dodan (team lead) on October 16, 2026, following the project discussion  
 **Implementation Verification:** Not yet performed
