@@ -1,383 +1,53 @@
-# Test Cases
+# CampusConnect Cycle 1 Test Cases
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file records significant executable or manually verifiable test scenarios.
-
-A test case should define enough information that another engineer can
-understand:
-
-- what behavior is being tested;
-- what requirement or acceptance criterion it supports;
-- what starting condition is required;
-- what actions or inputs are used;
-- what result is expected;
-- what actually occurred when executed.
-
-Not every unit test belongs in this file.
-
-Use this artifact for tests important enough to support requirements,
-acceptance criteria, release verification, defect regression, security,
-integration, or other meaningful engineering evidence.
-
-Automated test code may remain the authoritative executable artifact.
-
-In that case, this file may summarize the important scenario and reference
-the executable test rather than duplicating every detail.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
-- Do not record a test as Passed unless it was actually executed.
--->
+**Team:** Codex Ramblers — Team 2  
+**Owner:** Giancarlo Herrera — Quality & Review Lead  
+**Phase:** A3 — Architecture and Review  
+**Status:** Planned — All cases Not Run
 
 ## Test Case Catalog
+The following scenarios map **one-to-one to all twelve proposed acceptance criteria** in [acceptance-criteria.md](../requirements/acceptance-criteria.md). They are planning artifacts, not executed results.
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use stable test-case IDs:
-
-TC-###
-
-Examples:
-
-TC-001
-TC-002
-TC-003
-
-COLUMN GUIDANCE
-
-Test Case
-Short descriptive title.
-
-Related Requirement / Criterion
-Reference REQ and AC identifiers.
-
-Type
-Examples:
-- Functional
-- Negative
-- Security
-- Regression
-- Integration
-- Acceptance
-- Recovery
-
-Automation
-Suggested values:
-- Automated
-- Manual
-- Mixed
-
-Status
-Suggested values:
-- Draft
-- Ready
-- Passed
-- Failed
-- Blocked
-- Not Run
-- Deprecated
-
-EXAMPLE ONLY:
-
-| ID | Test Case | Related Requirement / Criterion | Type | Automation | Status |
-|---|---|---|---|---|---|
-| TC-001 | Submit valid workflow request | REQ-001 / AC-REQ-001-01 | Acceptance | Automated | Ready |
-| TC-002 | Reject missing required description | REQ-001 / AC-REQ-001-02 | Negative | Automated | Ready |
-
-DELETE the examples and populate the actual table below.
--->
-
-| ID | Test Case | Related Requirement / Criterion | Type | Automation | Status |
-|---|---|---|---|---|---|
-|  |  |  |  |  |  |
-
-## Detailed Test Cases
-
-<!--
-TEAM CONTENT REQUIRED
-
-Use a detailed subsection for important test cases.
-
-Suggested structure:
-
-### TC-### — Test Case Name
-
-**Purpose**
-What behavior is this test intended to verify?
-
-**Related Requirement(s)**
-REQ-###
-
-**Related Acceptance Criteria**
-AC-REQ-###-##
-
-**Type**
-Functional / Negative / Security / Regression / Integration / Acceptance / etc.
-
-**Automation**
-Automated / Manual / Mixed
-
-**Environment**
-Where the test is executed.
-
-#### Preconditions
-
-What must already be true?
-
-#### Test Data
-
-What meaningful data is required?
-
-Do not include passwords, tokens, or protected data.
-
-#### Steps
-
-1.
-2.
-3.
-
-#### Expected Result
-
-State observable behavior.
-
-#### Actual Result
-
-Populate only after execution.
-
-#### Evidence
-
-Reference:
-- automated test;
-- CI run;
-- runtime evidence;
-- screenshot where appropriate;
-- issue;
-- log;
-- other reviewable evidence.
-
-#### Status
-
-Not Run / Passed / Failed / Blocked
-
-#### Notes / Defects
-
-Reference defects discovered during execution.
-
-Copy and adapt this structure for each significant test case.
--->
-
-## Positive-Path Cases
-
-<!--
-TEAM CONTENT REQUIRED
-
-Ensure important valid workflows are covered.
-
-Do not assume successful-path testing alone demonstrates correctness.
-
-Use this section as an index or summary if useful.
-
-Remove this section if the catalog already provides enough clarity.
--->
-
-| Test Case ID | Behavior Verified | Result |
-|---|---|---|
-|  |  |  |
-
-## Negative-Path Cases
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify important invalid or prohibited conditions.
-
-Possible areas include:
-
-- missing required input;
-- malformed input;
-- unauthorized action;
-- invalid state transition;
-- duplicate operation;
-- missing resource;
-- dependency failure.
-
-Do not create negative cases merely to increase test count.
-
-Focus on meaningful behavior.
--->
-
-| Test Case ID | Negative Condition | Expected Protection / Behavior | Result |
-|---|---|---|---|
-|  |  |  |  |
-
-## Boundary and Edge Cases
-
-<!--
-TEAM CONTENT REQUIRED WHEN RELEVANT
-
-Boundary testing may include:
-
-- empty values;
-- maximum/minimum values;
-- duplicate input;
-- unusual sequence;
-- state transition boundary;
-- timing or ordering edge.
-
-Do not manufacture edge cases that are irrelevant to the system.
-
-Populate actual meaningful cases below.
--->
-
-| Test Case ID | Boundary / Edge Condition | Why It Matters | Result |
-|---|---|---|---|
-|  |  |  |  |
-
-## Security Cases
-
-<!--
-TEAM CONTENT REQUIRED WHEN SECURITY BEHAVIOR IS TESTED
-
-Reference:
-
-/docs/security/permission-boundaries.md
-
-Possible security test scenarios:
-
-- unauthenticated request denied;
-- unauthorized user denied;
-- resource ownership enforced;
-- invalid token handled;
-- sensitive data not exposed.
-
-Do not treat UI visibility as security verification.
-
-Populate actual security cases below.
-
-Remove this section if security cases are indexed elsewhere.
--->
-
-| Test Case ID | Security Rule | Expected Result | Evidence |
-|---|---|---|---|
-|  |  |  |  |
-
-## Regression Cases
-
-<!--
-TEAM CONTENT REQUIRED WHEN DEFECTS HAVE BEEN FIXED
-
-Reference:
-
-/docs/quality/defect-log.md
-
-A meaningful fixed defect should often produce regression coverage when
-practical.
-
-EXAMPLE ONLY:
-
-| Test Case ID | Defect ID | Behavior Protected | Evidence |
-|---|---|---|---|
-| TC-014 | DEF-006 | Whitespace-only description rejected | Automated integration test |
-
-DELETE the example and populate actual regression cases below.
--->
-
-| Test Case ID | Defect ID | Behavior Protected | Evidence |
-|---|---|---|---|
-|  |  |  |  |
-
-## Test Execution Results
-
-<!--
-TEAM CONTENT REQUIRED AS TESTS ARE EXECUTED
-
-Preserve actual execution results.
-
-Do not change a failed result to Passed without preserving evidence that the
-failure was corrected and the test rerun.
-
-Use execution identifiers when useful:
-
-TEST-RUN-###
-
-EXAMPLE ONLY:
-
-| Run ID | Date | Test Case | Environment | Result | Evidence | Defect / Follow-Up |
-|---|---|---|---|---|---|---|
-| TEST-RUN-001 | YYYY-MM-DD | TC-001 | CI | Passed | CI run reference | None |
-
-DELETE the example and populate actual executions below.
--->
-
-| Run ID | Date | Test Case | Environment | Result | Evidence | Defect / Follow-Up |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
-
-## Blocked or Not-Run Tests
-
-<!--
-TEAM CONTENT REQUIRED
-
-Do not silently omit tests that were expected but could not run.
-
-Document:
-
-- which test;
-- why it could not execute;
-- release impact;
-- planned action.
-
-A blank table is correct when all planned important tests were executed.
--->
-
-| Test Case ID | Reason Not Executed | Impact | Planned Action |
-|---|---|---|---|
-|  |  |  |  |
-
-## Test Case Changes
-
-<!--
-TEAM CONTENT REQUIRED WHEN TEST CASES CHANGE MATERIALLY
-
-A test case may change because:
-
-- requirement changed;
-- acceptance criterion changed;
-- interface changed;
-- defect exposed a missing condition;
-- test expectation was incorrect.
-
-Do not silently rewrite test history when a meaningful expectation changes.
-
-A blank table is intentional at project start.
--->
-
-| Date / Gate | Test Case ID | Change | Reason | Related Evidence |
+| ID | Acceptance Criterion | Scenario / Steps | Expected Result | Execution |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| TC-001 | AC-REQ-001-01 | Student A selects demo identity and submits valid title/category/description | Stored request with Submitted status and visible ID | Not Run |
+| TC-002 | AC-REQ-001-02 | Try blank, trimmed-out-of-range, and unsupported submission values | Validation error; no request created | Not Run |
+| TC-003 | AC-REQ-002-01 | Student A views request after reviewer updates and reopens it | Current stored status shown | Not Run |
+| TC-004 | AC-REQ-002-02 | Reviewer edits note; Student A views; reviewer reopens | Latest note visible and preserved | Not Run |
+| TC-005 | AC-REQ-002-03 | Student B lists or directly requests Student A's record; try unknown ID | No Student A data disclosed | Not Run |
+| TC-006 | AC-REQ-003-01 | Create two valid requests; inspect IDs, owner, timestamps; simulate failed write | Unique IDs and managed metadata; failed write never reports success | Not Run |
+| TC-007 | AC-REQ-003-02 | Persist status/note; restart application using same local store | ID, owner, fields, status and note retained | Not Run |
+| TC-008 | AC-REQ-004-01 | Create requests as both students; select Reviewer | Reviewer can list and inspect both | Not Run |
+| TC-009 | AC-REQ-004-02 | Student directly attempts reviewer actions; try invalid session and forged role fields | Denied with no data leak or mutation | Not Run |
+| TC-010 | AC-REQ-005-01 | Reviewer moves Submitted to In Progress to Resolved with note, then reopens | Only allowed transitions saved; note and ID preserved | Not Run |
+| TC-011 | AC-REQ-005-02 | Try invalid transition, missing resolution, unknown ID and failed status write | Rejected without false success or record changes | Not Run |
+| TC-012 | AC-REQ-006-01 | Reviewer saves/replaces note; test >2,000 characters, clearing while Resolved and failed write | Valid current note visible to owner; invalid actions rejected without mutation | Not Run |
 
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
+## Test Setup
+Use synthetic Student A, Student B, and Reviewer identities. Unless a case specifies otherwise, begin with a clean local test store and valid request title, category, and description. Verify both user-facing results and stored data or service responses where available. For direct unauthorized operations, do not rely solely on hiding buttons in the UI.
 
-Before submission:
+## Detailed Boundary and Failure Variants
+- **TC-002:** Test title lengths 4, 5, 100, and 101; description lengths 9, 10, 2,000, and 2,001; whitespace-only values; invalid category; and trimmed input.
+- **TC-005 / TC-009:** Try both listing and direct lookup/update paths, switching identities after request creation, missing session context, and form-supplied requester/role overrides.
+- **TC-006 / TC-007:** Check persistence before success messages, uniqueness across requests, retention after normal restart, and behavior after simulated storage failure. Use repeat submissions and concurrent updates to exercise ADR-003 once implementation supports them.
+- **TC-010 / TC-011:** Cover Submitted → In Progress, In Progress → Resolved with nonblank note, Resolved → In Progress with preserved note, and every unsupported transition.
+- **TC-012:** Test empty and whitespace-only notes, 2,000/2,001-character boundaries, replacement, clearing only when permitted, and failed writes.
 
-1. Include only test cases meaningful to project verification.
-2. Confirm requirement and acceptance-criteria references exist.
-3. Include negative and boundary behavior where relevant.
-4. Verify security cases against actual permission rules.
-5. Link fixed defects to regression tests where practical.
-6. Record actual execution results honestly.
-7. Do not claim Passed unless a test actually ran successfully.
-8. Record blocked or unexecuted important tests.
-9. Preserve meaningful test-case changes.
-10. Remove ALL instructional HTML comments.
+## Execution Record Template
+For each actual run, add a dated record containing:
 
-The completed artifact should show what important behaviors were tested and
-what actually happened when those tests were executed.
--->
+| Field | Required Value |
+|---|---|
+| Test case | TC identifier |
+| Baseline | Commit SHA / build |
+| Date and operator | Actual execution details |
+| Environment and data | Local setup, identity, store state |
+| Result | Pass / Fail / Blocked / Not Run |
+| Actual result | Observed behavior, not expectation |
+| Evidence | GitHub Actions link, test log, screenshot, or issue |
+| Defect / retest | Linked issue and follow-up result if needed |
+
+## Current Results and Known Gaps
+**Executed:** 0 of 12 documented cases. **Not Run:** 12 of 12. These counts refer only to the catalog's documentation status; no execution has been independently verified. Automated test implementations, CI integration, real results, and regression evidence are pending. Do not change a case to Pass without run-specific evidence.
+
+See [test-plan.md](test-plan.md), [test-strategy.md](test-strategy.md), and [ci-evidence.md](ci-evidence.md).
