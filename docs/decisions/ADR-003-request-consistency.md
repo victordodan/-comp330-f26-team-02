@@ -3,7 +3,7 @@
 **Project:** CampusConnect  
 **Team:** Codex Ramblers — Team 2  
 **Phase:** A3 — Architecture and Review  
-**Status:** Proposed — Pending Team Approval
+**Status:** Accepted — Cycle 1
 
 ## Context
 
@@ -11,7 +11,7 @@ CampusConnect allows simulated students to submit support requests and reviewers
 
 The system must maintain accurate request records while remaining simple enough for Cycle 1.
 
-## Proposed Decision
+## Decision
 
 ### Duplicate Submissions
 
@@ -77,5 +77,5 @@ Testing should include repeated submissions, conflicting updates, invalid operat
 ## Approval
 
 **Decision Owner:** Codex Ramblers Team  
-**Approval:** Pending team review  
+**Approval:** Approved by Victor Dodan (team lead) on October 16, 2026, following the project discussion  
 **Implementation Verification:** Not yet performed

@@ -2,7 +2,7 @@
 
 > **Status:** Proposed for Cycle 1; final A3 review pending
 > **Baseline version:** PR #48 working draft; final submission tag pending
-> **Last updated:** 2026-10-15
+> **Last updated:** 2026-10-16
 > **Owner:** Shú Perez · **Backup:** Giancarlo Herrera
 > **Team:** Codex Ramblers (Team 2)
 
@@ -65,8 +65,10 @@ services or a separate frontend application.
 Only the workflow service initiates business storage operations through the
 repository. The browser has no direct database access. Demo identity options
 are application-owned configuration; the selected identity is stored in the
-server session. The persistence technology and framework remain pending ADR
-choices. Spring Boot, Thymeleaf, Maven, and file-backed H2 are recommendations.
+server session. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. The Cycle 1
+stack is Java, Spring Boot, Thymeleaf, Maven, and file-backed H2. The decisions
+cover transactional/versioned updates and local persistence/recovery expectations;
+implementation and final package review remain pending.
 
 ---
 
@@ -107,7 +109,7 @@ flowchart LR
     end
     Browser -->|"Page requests and form actions"| UI
     UI -->|"Rendered HTML and feedback"| Browser
-    Repository --> Store[("Local persistent data store<br/>Technology pending ADR")]
+    Repository --> Store[("Local persistent data store<br/>File-backed H2; ADR-002")]
 ```
 
 The diagram is versioned in this document. It shows logical boundaries, not
@@ -123,7 +125,7 @@ paid service, or institutional integration is part of the Cycle 1 architecture.
 | Requester and Reviewer UI | Page rendering, form handling, user feedback, student views, and reviewer queue/detail views | Final workflow/permission decisions or direct storage access | In: page/form actions; Out: HTML, feedback, logical service operations | [Component responsibilities](component-responsibilities.md) |
 | Request Workflow Service | Validation, role/ownership enforcement, status/note rules, coordination of storage and success/failure responses | HTML rendering, database implementation, or real authentication | In: request data and session context; Out: authorized results and repository operations | [API-001 through API-007](api-contracts.md) |
 | Request Repository | Persistent request IDs, owners, fields, timestamps, current status/text, retrieval, and write results | Authorization policy or status-transition decisions | In: service storage operations; Out: records or storage failures | [API-006](api-contracts.md#api-006--request-repository-operations) |
-| Local persistent data store | Durable request records across ordinary restarts | Workflow policy, role decisions, or browser access | In/out: repository storage operations; technology pending | [Data/context ownership](data-context.md) |
+| Local persistent data store | Durable request records across ordinary restarts | Workflow policy, role decisions, or browser access | In/out: repository storage operations; file-backed H2; implementation pending | [Data/context ownership](data-context.md) |
 | Simulated Role Context | Fixed demo identities and selected session context | Real identity verification or final workflow authorization | In: validated demo selection/session state; Out: role and stable requester identity | [API-007](api-contracts.md#api-007--simulated-role-context) |
 | Proposed local logging | Diagnostic metadata for accepted/rejected operations and storage failures | Request descriptions, note bodies, credentials, or user-visible edit history | In: safe event metadata; output location/retention pending | [Proposed logging](data-context.md#6-logging-and-observability-expectations) |
 
@@ -139,7 +141,7 @@ Full logical component detail: [component-responsibilities.md](component-respons
 | Testability | Service-side validation/authorization and controlled repository failures supplement browser tests. | UI demonstrations alone cannot prove permission or failure behavior. |
 | Governability | Reviewer-only updates and explicit status/resolution rules; development AI use is disclosed separately. | Demo identity switching supports classroom testing but provides no real authentication. |
 | Reviewability | Link the overview to requirements, contracts, data/context rules, ADRs, and planned tests. | Cross-document alignment and review records need maintenance. |
-| Honesty about uncertainty | Keep framework/database, concurrency, retries, logging, and recovery decisions explicit. | Dependent implementation must wait for suitable decisions; no final readiness claim yet. |
+| Honesty about uncertainty | Apply accepted stack, concurrency, and persistence decisions; keep remaining retry, logging, and recovery implementation details explicit. | Dependent implementation must wait for suitable decisions; no final readiness claim yet. |
 
 ---
 
@@ -152,11 +154,11 @@ Full logical component detail: [component-responsibilities.md](component-respons
 | API-003 | Reviewer UI | Request Workflow Service | List/inspect all demo requests | Logical service operation behind local page handling; routes pending | REQ-004 | Proposed |
 | API-004 | Reviewer UI | Request Workflow Service | Change status under transition rules | Logical service operation behind local form handling; routes pending | REQ-005 | Proposed |
 | API-005 | Reviewer UI | Request Workflow Service | Save/replace note or resolution | Logical service operation behind local form handling; routes pending | REQ-006 | Proposed |
-| API-006 | Request Workflow Service | Request Repository | Persist/retrieve request records | Internal storage boundary; technology pending | REQ-001 through REQ-006 | Proposed |
+| API-006 | Request Workflow Service | Request Repository | Persist/retrieve request records | Internal storage boundary; file-backed H2, ADR-002 | REQ-001 through REQ-006 | Proposed |
 | API-007 | Request Workflow Service | Simulated Role Context | Obtain selected session identity/role | Internal session/context boundary; implementation pending | REQ-001 through REQ-006 | Proposed |
 
 These seven logical contracts do not require seven public endpoints or a JSON
-API. HTTP routes, form schemas, and framework details require a stack ADR.
+API. ADR-002 selects the stack; exact HTTP routes, form schemas, and framework configuration remain implementation work.
 
 **Valid status model:** Submitted → In Progress → Resolved, with Resolved →
 In Progress for reopening. Only Reviewer may change status; other transitions
@@ -191,8 +193,13 @@ confirmations. Failed listings must be distinguishable from empty lists.
 short current note/resolution without threaded messaging. Q-004's recorded
 answer uses the demo selector and server session. These meanings are preserved
 from [assumptions-open-questions.md](../requirements/assumptions-open-questions.md).
-Longer-term retention/reset policy, logging, retries, and concurrent edits need
-further decisions; no live identity or institutional integration is required.
+Accepted ADR-003 requires transactional updates and optimistic version checks
+for reviewer status and note changes. Reject stale writes and ask the reviewer
+to reload. Post/Redirect/Get reduces repeated submissions without guaranteeing
+deduplication. ADR-004 sets backup/recovery expectations. Longer-term retention,
+controlled reset policy, logging location/retention, exact retry handling, and
+executable recovery procedures remain follow-ups. No live identity or
+institutional integration is required.
 
 ---
 
@@ -254,7 +261,8 @@ All checks below are planned. No application execution or passing test is claime
 
 The 12 criteria are currently Proposed; baseline acceptance and executed test
 results are separate milestones. Full plan: [test-strategy.md](../testing/test-strategy.md).
-Retry and concurrency expectations must be decided before dependent tests.
+Plan concurrency, failed-transaction, repeated-submission, and recovery checks
+against accepted ADR-003 and ADR-004. Execution remains future work.
 
 ---
 
@@ -263,13 +271,14 @@ Retry and concurrency expectations must be decided before dependent tests.
 | ADR ID | Decision Title | Status | Owner | File / Evidence Link |
 |---|---|---|---|---|
 | ADR-001 | Defer final production technology stack decision | Accepted — Deferred | Giancarlo Herrera | [ADR-001](../decisions/ADR-001-defer-production-technology-stack.md) |
+| ADR-002 | Cycle 1 technology stack | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-002](../decisions/ADR-002-cycle-1-technology-stack.md) |
+| ADR-003 | Request consistency and concurrent updates | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-003](../decisions/ADR-003-request-consistency.md) |
+| ADR-004 | Local persistence and recovery | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-004](../decisions/ADR-004-local-persistence-and-recovery.md) |
 
-**Note:** retain ADR-001 as historical evidence. Java, server-rendered pages,
-and local execution are selected in the requirements baseline. Record the
-implementation framework, database, build/test tools, and relevant tradeoffs in
-new or superseding ADRs before dependent construction. Spring Boot, Thymeleaf,
-Maven, and file-backed H2 remain recommendations; this overview does not accept
-them or claim the ADR revisit is complete.
+**Note:** retain ADR-001 as historical evidence of the production-stack deferral.
+Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026, establishing
+the local Cycle 1 implementation decisions. This completes that decision
+confirmation; implementation verification and final A3 package review remain pending.
 
 ---
 
@@ -280,13 +289,15 @@ them or claim the ADR revisit is complete.
 | AR-001 | Demo selection permits impersonation; service-side roles and ownership must still hold within the selected context | Medium | Giancarlo Herrera | Test direct operations and forged form context; keep the authentication limitation explicit |
 | AR-002 | Uncontrolled status expansion could invalidate contracts and tests | Medium | Malec Tarabein | Preserve the three-state baseline; review future changes through requirements and ADRs |
 | AR-003 | Runtime AI or external integrations could expand the class-project scope or introduce costs | Medium | Shú Perez | Keep them excluded; require explicit scope/risk review for any future addition |
-| AR-004 | Framework/database choices remain pending despite ADR-001's A3 revisit trigger | Medium | Giancarlo Herrera | Evaluate recommendations, record the stack ADR, and review estimates before implementation |
-| AR-005 | Concurrent updates, retries, or storage failures could violate valid status/text combinations | High | Victor Dodan | Decide transaction/retry/concurrency behavior and local recovery; preserve the resolution invariant |
+| AR-004 | Implementation may diverge from the accepted framework/database decisions | Medium | Giancarlo Herrera | Apply ADR-002 and review estimate assumptions as implementation evidence develops |
+| AR-005 | Concurrent updates, retries, or storage failures could violate valid status/text combinations | High | Victor Dodan | Apply ADR-003 transactional/versioned updates and ADR-004 recovery expectations; define remaining retry/procedure details and preserve the resolution invariant |
 
 These concerns relate to R-001 (scope), R-002 (technology), R-004 (requirements),
-R-005 (integration), and R-006 (late testing) in the [risk register](../planning/risk-register.md).
-The detailed A3 planning and re-estimation update remains pending; this overview
-does not claim those updates or available team hours have been confirmed.
+R-005 (integration), R-006 (late testing), and confirmed active risks R-010
+(persistence), R-011 (conflicting updates), and R-012 (decision alignment) in
+the [risk register](../planning/risk-register.md). A3 planning updates retain
+existing estimate ranges. ADR approval does not confirm available team hours
+or establish that re-estimation is unnecessary.
 
 ---
 
@@ -301,14 +312,14 @@ does not claim those updates or available team hours have been confirmed.
 
 | Effective Gate | Change | Reason | Related Evidence |
 |---|---|---|---|
-| A3 draft | Align the overview and inline diagram with the local Java behavior baseline and merged components/data rules | Remove conflicting states, roles, identity/API references, and premature baseline claims | PR #43, #44, #46, #47/#49; final review and stack ADRs pending |
+| A3 draft | Align the overview and inline diagram with the local Java behavior baseline and merged components/data rules | Remove conflicting states, roles, identity/API references, and premature baseline claims | PR #43, #44, #46, #47/#49; ADR-002–004 accepted October 16, 2026; final review pending |
 
 ---
 
 ## Final Check
 
 - [x] Describes the proposed local system structure and logical boundaries.
-- [ ] Record and review the remaining stack, concurrency, retry, logging, and recovery decisions in the appropriate ADRs/design evidence.
+- [x] Record acceptance of ADR-002 through ADR-004 for the stack, consistency, and persistence/recovery expectations; exact retry, logging, and recovery-procedure details remain follow-ups.
 - [x] Links requirements, contracts, data/context rules, and planned verification without claiming passing tests.
 - [ ] Complete independent cross-document review and resolve or explicitly disposition remaining findings.
 - [ ] Confirm final A3 package readiness before creating the submission tag.

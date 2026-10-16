@@ -117,23 +117,23 @@ This estimate evidence should be reviewed together with the finalized Cycle 1 re
 
 ### Current Estimation Status
 
-During A3, the team developed architecture documentation and proposed additional engineering decisions for CampusConnect.
+During A3, the team developed architecture documentation and additional engineering decisions for CampusConnect. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026.
 
 The existing three-point estimates remain the current planning baseline. No numerical estimates have been changed because the team has not yet documented sufficient implementation evidence or a reviewed re-estimation decision.
 
-### Proposed Technology Stack Impact
+### Approved Technology Stack Impact
 
-ADR-002 proposes Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for the Cycle 1 application.
+ADR-002 selects Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for the Cycle 1 application.
 
-If approved, these technologies may affect development effort through framework configuration, database setup, dependency management, automated testing, and team learning requirements.
+These approved technologies may affect development effort through framework configuration, database setup, dependency management, automated testing, and team learning requirements.
 
-The proposed stack is intended to reduce infrastructure complexity by supporting local development and demonstration without paid hosting.
+The approved stack is intended to reduce infrastructure complexity by supporting local development and demonstration without paid hosting.
 
 ### Engineering Decision Impact
 
-ADR-003 proposes request consistency controls, including duplicate-submission handling, optimistic locking, and transactional updates.
+ADR-003 establishes request consistency controls, including duplicate-submission handling, optimistic locking, and transactional updates.
 
-ADR-004 proposes persistent local database storage and documented recovery procedures.
+ADR-004 establishes persistent local database storage and documented recovery procedures.
 
 These decisions introduce implementation and verification responsibilities that must be considered when the team reviews its existing estimates.
 
@@ -141,7 +141,7 @@ These decisions introduce implementation and verification responsibilities that 
 
 | Estimate | A3 Consideration | Potential Impact |
 |---|---|---|
-| EST-003 — Architecture and design | Finalize architecture documents, interfaces, and ADR approvals | Additional review or reconciliation may be needed |
+| EST-003 — Architecture and design | Finalize architecture documents and interfaces against the accepted ADRs | Additional review or reconciliation may be needed |
 | EST-004 — Implementation and integration | Configure Spring Boot, connect H2, implement request workflows, and handle conflicting updates | Development or integration effort may increase if technical difficulties occur |
 | EST-005 — Verification and release preparation | Verify request persistence, validation, authorization rules, status transitions, and concurrent updates | Additional testing may be required for database and consistency behavior |
 
@@ -157,7 +157,7 @@ The team should confirm member availability and review capacity before committin
 
 The team should revisit its estimates if:
 
-- The proposed ADRs are approved with significant changes.
+- The accepted ADRs change materially.
 - Framework or database configuration requires unexpected effort.
 - Concurrent-update handling or persistence introduces implementation complexity.
 - Architecture review identifies additional required work.

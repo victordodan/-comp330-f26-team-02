@@ -106,9 +106,9 @@ Verify that a reviewer can record a note or resolution and that it remains assoc
 - **AC-REQ-005-01 / 005-02:** Only Reviewer can transition Submitted → In Progress → Resolved and reopen Resolved → In Progress; resolution requires saved nonblank text, reopening preserves ID and note; invalid transitions, unknown IDs, and failed writes leave records unchanged.
 - **AC-REQ-006-01:** Reviewer can save or replace a student-visible note up to 2,000 trimmed characters; clearing while Resolved, oversized text, missing records, and failed writes are rejected without changing saved records.
 
-The proposed Cycle 1 demo uses Student A, Student B, and Reviewer identities selected through a server session, Java with server-rendered pages, and a local persistent store. The exact framework/database is not yet selected. Test both page flows and server-side operations, including forged form values, missing/invalid session context, restart persistence, and failed listings versus genuinely empty lists.
+The proposed Cycle 1 demo uses Student A, Student B, and Reviewer identities selected through a server session, Java with server-rendered pages, and a local persistent store. ADR-002 selects Spring Boot, Thymeleaf, Maven, and file-backed H2, approved by Victor Dodan on October 16, 2026. Test both page flows and server-side operations, including forged form values, missing/invalid session context, restart persistence, and failed listings versus genuinely empty lists.
 
-**Alignment note:** PR #46 defines three statuses (Submitted, In Progress, Resolved) and reopening; PR #47's data-context draft also mentions Closed. Resolve this inconsistency before the final architecture gate. Review API-001–007 against these proposed rules; no contract or implementation is claimed verified.
+**Alignment note:** Merged PRs #46, #43, and #47/#49 agree on Submitted, In Progress, Resolved, and reopening; the earlier Closed-state inconsistency was corrected. Accepted ADR-003 adds transactional updates and optimistic version checking. Review API-001–007 against these design rules; implementation verification and final package review remain pending.
 
 The team will maintain traceability between requirements, acceptance criteria, planned tests, and actual results. Planned tests will not be represented as passed tests.
 
@@ -129,7 +129,7 @@ Verify that status changes follow approved workflow rules and that invalid trans
 
 ### Data Integrity and Storage Failures
 
-Check that identifiers remain unique and that request records, statuses, and resolutions are stored consistently. Simulated persistence failures will be tested where practical.
+Check that identifiers remain unique and that request records, statuses, and resolutions are stored consistently. Under accepted ADR-003, plan tests for atomic status/note updates, stale reviewer versions, and unchanged records after transaction failures. Check that Post/Redirect/Get reduces refresh resubmission without claiming guaranteed deduplication. Under ADR-004, plan restart persistence and documented backup/recovery checks, including expected loss of changes made after a restored backup. These planned checks address active risks R-010 and R-011; no execution is claimed.
 
 ### Component Communication Failures
 
@@ -154,13 +154,14 @@ Negative tests will include:
 - Using an unsupported status or transition.
 - Missing or invalid simulated role context.
 - Repository failures during creation or updating.
-- Repeated submissions where duplicate-handling behavior remains undecided.
+- Repeated submissions under the Post/Redirect/Get decision in ADR-003, including its documented duplicate-prevention limits.
+- Stale versions and transaction failures during reviewer status and note updates.
 
 The team will prioritize failure scenarios that affect permissions, data integrity, and workflow reliability.
 
 ## 8. Automation Strategy
 
-The team intends to automate repeatable tests after selecting an implementation technology and suitable testing framework.
+The team intends to automate repeatable tests with the approved Java/Spring Boot/Maven stack. Exact testing dependencies and the test suite remain implementation work.
 
 Potential automated checks include validation, request creation, unique identifiers, authorization, status changes, repository operations, and regression tests.
 
@@ -222,7 +223,7 @@ Evidence should identify what was tested, the result, and the associated require
 ## 14. Known Testing Limitations
 
 - **No verified implementation:** This document defines planned testing, not completed execution.
-- **Technology pending:** Specific frameworks have not been approved.
+- **Implementation tooling pending:** ADR-002 approves the stack; exact versions, test dependencies, and CI configuration remain implementation work.
 - **Proposed requirements baseline:** PR #46 provides draft answers to Q-001–Q-004, but these still require team review and architecture/contract alignment.
 - **Synthetic-data scope:** Real institutional integrations are excluded.
 - **No confirmed CI or staging environment:** These may be introduced later.

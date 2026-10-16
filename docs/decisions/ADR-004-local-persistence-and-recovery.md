@@ -3,7 +3,7 @@
 **Project:** CampusConnect  
 **Team:** Codex Ramblers — Team 2  
 **Phase:** A3 — Architecture and Review  
-**Status:** Proposed — Pending Team Approval
+**Status:** Accepted — Cycle 1
 
 ## Context
 
@@ -11,9 +11,9 @@ CampusConnect must preserve support requests, statuses, ownership information, a
 
 The project is intended for local classroom demonstration using synthetic data. It does not require paid hosting or an external database service.
 
-## Proposed Decision
+## Decision
 
-CampusConnect will use a file-backed H2 database for Cycle 1, subject to approval of ADR-002.
+CampusConnect will use a file-backed H2 database for Cycle 1, as approved in ADR-002.
 
 The database will store:
 
@@ -65,7 +65,7 @@ Database configuration should remain separate from application source code.
 
 - No separate database server required.
 - Supports persistence across restarts.
-- Works with the proposed Java and Spring Boot application.
+- Works with the approved Java and Spring Boot stack.
 - Allows database-backed testing.
 - Suitable for a small local demonstration.
 
@@ -95,5 +95,5 @@ The testing plan must distinguish proposed behavior from successfully executed t
 ## Approval
 
 **Decision Owner:** Codex Ramblers Team  
-**Approval:** Pending team review  
+**Approval:** Approved by Victor Dodan (team lead) on October 16, 2026, following the project discussion  
 **Implementation Verification:** Not yet performed

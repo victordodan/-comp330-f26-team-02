@@ -109,17 +109,17 @@ The largest schedule uncertainties remain architecture/technology decisions, imp
 
 During A3, the team prepared architecture documentation covering component responsibilities, API contracts, data context, and the controlled CampusConnect support-request workflow.
 
-Architecture review and reconciliation remain in progress. The team must confirm that the architecture documents agree with the requirements and proposed engineering decisions before declaring the architecture baseline complete.
+Architecture review and reconciliation remain in progress. The team must confirm that the architecture documents agree with the requirements and accepted engineering decisions before declaring the architecture baseline complete.
 
 ### Engineering Decision Dependencies
 
-Three Architecture Decision Records have been proposed:
+Victor Dodan approved three Cycle 1 Architecture Decision Records on October 16, 2026:
 
 - **ADR-002:** Cycle 1 technology stack.
 - **ADR-003:** Request consistency and concurrent updates.
 - **ADR-004:** Local persistence and recovery.
 
-These decisions require team review before being treated as approved implementation commitments.
+These decisions establish the Cycle 1 technical direction. Dependent documents and implementation tasks must reflect them; final package review and implementation verification remain pending.
 
 ### Upcoming Integration and Testing Schedule
 
@@ -135,7 +135,7 @@ These periods reflect the existing planning baseline rather than newly approved 
 
 ### Schedule Dependencies
 
-Implementation readiness depends on resolving architecture decisions and confirming interface compatibility.
+Implementation readiness depends on applying the accepted architecture decisions and confirming interface compatibility.
 
 Testing depends on having reviewable implementation components and clearly defined acceptance criteria.
 
@@ -143,8 +143,8 @@ If architecture approval or implementation is delayed, the team must reassess af
 
 ### A3 Schedule Assessment
 
-The original architecture milestone was scheduled to finish on October 15, 2026. Any remaining architecture approvals or review findings create a potential overlap with the planned implementation period beginning October 16.
+The original architecture milestone was scheduled to finish on October 15, 2026. Any remaining package-review findings create a potential overlap with the planned implementation period beginning October 16.
 
 The team should confirm whether the implementation schedule remains realistic after architecture reconciliation.
 
-No implementation completion, successful test execution, or formal architecture approval is claimed by this update.
+No implementation completion, successful test execution, or final architecture-package approval is claimed by this update.

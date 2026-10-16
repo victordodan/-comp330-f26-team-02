@@ -3,8 +3,8 @@
 > **Status:** Draft for Cycle 1 (A3 architecture phase gate); implementation unverified
 > **Owner:** Shú Perez
 > **Backup:** Giancarlo Herrera
-> **Last updated:** 2026-10-15
-> **Related:** `architecture.md`, `component-responsibilities.md`, `api-contracts.md`, ADR-001
+> **Last updated:** 2026-10-16
+> **Related:** `architecture.md`, `component-responsibilities.md`, `api-contracts.md`, ADR-001 through ADR-004
 
 This document identifies authoritative request data, ownership, visibility,
 AI/tool access, and proposed logging. Component names and API IDs follow merged
@@ -137,8 +137,8 @@ Future AI storage and retention need decisions before implementation.
 
 These events are proposed to help diagnose the local workflow. REQ-005 and
 REQ-006 describe status and note behavior; they do not establish that logs or
-an audit history have been implemented or verified. Log location, retention,
-and recovery remain architecture decisions.
+an audit history have been implemented or verified. Log location and retention
+remain design follow-ups; accepted ADR-004 establishes database recovery expectations, not log recovery.
 
 | Event | Logged? | What is recorded | What is deliberately not recorded |
 |---|---|---|---|
@@ -171,8 +171,12 @@ The intended lifecycle follows the requirements baseline from PR #46:
 | Deletion | No user-facing deletion in Cycle 1. Future deletion or controlled fixture-reset behavior needs an explicit decision. |
 
 Rejected operations preserve stored records. Failed writes must not produce
-success confirmations. Retry and concurrent-update policies remain design
-follow-ups; they must preserve valid status and resolution combinations.
+success confirmations. Accepted ADR-003 requires transactional updates and optimistic
+version checking for status and note changes. Stale writes are rejected and the
+reviewer reloads the current record. Post/Redirect/Get reduces accidental repeat
+submissions without guaranteeing deduplication. Exact retry handling remains open.
+ADR-004 requires persistent storage and documented backup/recovery procedures;
+implementation and verification remain pending.
 
 ---
 
@@ -183,7 +187,7 @@ follow-ups; they must preserve valid status and resolution combinations.
 | ASM-001 | One current request status, as recorded in the requirements assumption register. | Store Submitted, In Progress, or Resolved; concurrent-update handling must preserve valid state. |
 | ASM-002 | One current note/resolution is sufficient, as recorded in the requirements assumption register. | Store editable current text; no thread or user-visible edit history. |
 | DC-DEP-001 | Simulated Role Context from merged PR #43 supplies identity through API-007. | Fixed demo identities and service-side ownership checks must align with the requirements baseline; no live identity provider. |
-| DC-DEP-002 | ADR-001's stack deferral must be revisited during A3. | Java, server-rendered pages, and local execution are selected in the requirements baseline; Spring Boot, Thymeleaf, Maven, and file-backed H2 remain recommendations. |
+| DC-DEP-002 | ADR-002 through ADR-004 were approved by Victor Dodan on October 16, 2026; ADR-001 remains the historical production-stack deferral. | Use Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 with transactional/versioned updates and local persistence/recovery expectations; implementation remains pending. |
 
 ---
 
@@ -193,7 +197,7 @@ follow-ups; they must preserve valid status and resolution combinations.
 |---|---|---|---|
 | DQ-001 | What is the retention or controlled-reset policy for synthetic data between cycles? | Malec Tarabein | Define it without changing persistence across ordinary application restarts |
 | DQ-002 | Should a future cycle introduce runtime AI, and under what boundaries? | Shú Perez | No feature is approved; decide through scope review and a new ADR before implementation |
-| DQ-003 | When ADR-001 is revisited, will the data store choice affect logging or visibility boundaries? | Shú Perez | Re-check when the stack ADR is finalized; confirm local retention and recovery rules |
+| DQ-003 | Does the accepted local data-store choice affect logging or visibility boundaries? | Shú Perez | ADR-002 selects H2 and ADR-004 defines recovery expectations; preserve visibility boundaries and define remaining log retention and recovery implementation details |
 
 ---
 

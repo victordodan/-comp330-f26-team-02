@@ -34,11 +34,11 @@ The following Architecture Decision Records document the team's technology and e
 | ADR | Description | Status |
 |---|---|---|
 | [ADR-001 — Defer Production Technology Stack](../decisions/ADR-001-defer-production-technology-stack.md) | Records the earlier decision to defer the permanent production technology stack. | Accepted historical decision |
-| [ADR-002 — Cycle 1 Technology Stack](../decisions/ADR-002-cycle-1-technology-stack.md) | Proposes Java, Spring Boot, Thymeleaf, Maven, and file-backed H2. | Proposed — Pending Team Approval |
-| [ADR-003 — Request Consistency](../decisions/ADR-003-request-consistency.md) | Proposes duplicate-submission handling, optimistic locking, and transactional updates. | Proposed — Pending Team Approval |
-| [ADR-004 — Local Persistence and Recovery](../decisions/ADR-004-local-persistence-and-recovery.md) | Proposes local database persistence, backup expectations, and recovery procedures. | Proposed — Pending Team Approval |
+| [ADR-002 — Cycle 1 Technology Stack](../decisions/ADR-002-cycle-1-technology-stack.md) | Selects Java, Spring Boot, Thymeleaf, Maven, and file-backed H2. | Accepted — Cycle 1 |
+| [ADR-003 — Request Consistency](../decisions/ADR-003-request-consistency.md) | Defines duplicate-submission handling, optimistic locking, and transactional updates. | Accepted — Cycle 1 |
+| [ADR-004 — Local Persistence and Recovery](../decisions/ADR-004-local-persistence-and-recovery.md) | Defines local database persistence, backup expectations, and recovery procedures. | Accepted — Cycle 1 |
 
-The proposed ADRs must be reviewed and approved or revised before being treated as the implementation baseline.
+Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. They establish the Cycle 1 implementation decisions; implementation verification and final package review remain pending.
 
 ## 4. Requirements and Acceptance Criteria
 
@@ -84,7 +84,7 @@ The architecture documentation has been prepared for A3 review.
 Before the architecture baseline is considered complete, the team should:
 
 1. Review and reconcile the architecture overview, component responsibilities, API contracts, and data context.
-2. Approve or revise ADR-002, ADR-003, and ADR-004.
+2. Confirm that dependent documents reflect accepted ADR-002, ADR-003, and ADR-004.
 3. Address outstanding architecture and security review findings.
 4. Confirm that the implementation plan and testing strategy align with the approved design.
 5. Record the relevant review and approval evidence in GitHub.
