@@ -25,7 +25,7 @@ The Cycle 1 scope uses synthetic data and simulated user roles. Real institution
 | [API Contracts](api-contracts.md) | Documents the expected application operations, validation rules, and request/response behavior. |
 | [Data Context](data-context.md) | Explains the request data model, ownership, persistence expectations, and data-handling boundaries. |
 
-The architecture overview should include or link to the architecture diagram when the diagram is finalized.
+The architecture overview includes the versioned [inline Mermaid diagram](architecture.md#4-architecture-diagram). It shows the current logical boundaries; final package review remains pending.
 
 ## 3. Architecture Decision Records
 
