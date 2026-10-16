@@ -69,3 +69,12 @@ The six Cycle 1 requirements REQ-001–REQ-006 and twelve acceptance criteria AC
 5. Victor must record final package authorization and the approved main-branch commit before creating the A3 tag.
 
 **Recommendation:** **Approve the documentation for final sign-off review, but do not tag yet.** The approval matrix remains the authoritative record of the remaining sign-offs.
+
+
+## 6. Architecture Lead Confirmation Reported to Quality Lead
+
+**Confirmation source:** Giancarlo Herrera reports that Shu Perez said her architecture work was okay. This is a **secondhand report of Shu's confirmation**, not a GitHub review or independently verified statement by Shu. No approval is posted under Shu's account.
+
+**Quality-review disposition for Shu's architecture documentation:** **Accepted for the A3 documentation review, subject to the stated limitations.** The architecture overview, component responsibilities, API contracts, data-context document, architecture PNG, and accepted ADRs are present. This acceptance is of the *documented design package*, not of implemented features or executed tests.
+
+**Still to record before final tag:** (1) Shu's attributable confirmation, preferably a GitHub comment or review, that the PNG and Mermaid reflect the intended same baseline; (2) explicit requirements-baseline acceptance; (3) Victor's final A3 gate authorization. If the diagram comparison reveals a substantive difference, the quality disposition must be revisited. Do not turn this reported confirmation into an attributed Shu sign-off without her own review evidence.
