@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers
 **Project:** CampusConnect
-**Current Phase:** A2 — Planning and Estimation
+**Current Phase:** A3 — Architecture and Review
 **Release Cycle:** Cycle 1
 
 This document consolidates Cycle 1 dependency evidence across the task plan,
@@ -164,4 +164,67 @@ GitHub issue, so every dependency can be traced end to end.
 
 ---
 
-_Last updated: 9/29/26 20:45_
+_Updated for A3 architecture review — October 2026_.
+
+## 7. A3 — Architecture and Implementation Dependencies
+
+### Current Dependency Assessment
+
+During A3, the CampusConnect team developed architecture documentation, component responsibilities, API contracts, data context, and architecture review evidence.
+
+The architecture baseline remains under review. The proposed engineering decisions must be reconciled with the architecture package before implementation assumptions are treated as approved.
+
+### Architecture Decision Dependencies
+
+| Decision | Related Tasks | Required Review | Downstream Impact |
+|---|---|---|---|
+| ADR-002 — Cycle 1 Technology Stack | TASK-012, TASK-013 | Confirm Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 | Framework configuration, implementation approach, and automated testing |
+| ADR-003 — Request Consistency | TASK-012, TASK-013, TASK-014 | Confirm duplicate-submission behavior, optimistic locking, and transactional updates | Workflow service, repository implementation, and consistency tests |
+| ADR-004 — Local Persistence and Recovery | TASK-012, TASK-013, TASK-015 | Confirm persistence and recovery expectations | Database configuration, restart testing, and recovery verification |
+
+All three ADRs remain proposed until reviewed and approved by the team.
+
+### Implementation and Testing Dependencies
+
+| Activity | Prerequisite | Responsible Team Members | Expected Evidence |
+|---|---|---|---|
+| Finalize architecture baseline | Reconcile architecture documents and ADRs | Shu Perez, Victor Dodan | Reviewed architecture package |
+| Configure application framework | Approved technology stack | Shu Perez, Venkata Aravind Mareddy | Configuration and implementation PRs |
+| Implement request persistence | Agreed data model and database decision | Development team | Repository implementation and persistence tests |
+| Implement reviewer updates | Approved status rules and concurrency approach | Development team | Workflow implementation and update tests |
+| Establish automated verification | Stable interfaces and reviewable functionality | Giancarlo Herrera, development team | Test cases, CI results, and review evidence |
+| Prepare Cycle 1 release | Integrated workflow and completed verification | Shelby Sierah, Victor Dodan, Giancarlo Herrera | Release evidence and documented limitations |
+
+### Critical Dependency Sequence
+
+The primary implementation dependency sequence is:
+
+1. Complete the A3 architecture review.
+2. Approve or revise the proposed engineering decisions.
+3. Confirm component responsibilities and API contracts.
+4. Implement the required student and reviewer workflow.
+5. Integrate persistence and status-update behavior.
+6. Execute applicable automated and manual tests.
+7. Address priority defects and prepare release evidence.
+
+Testing preparation may proceed alongside implementation, but successful execution depends on having functioning application components.
+
+### Risk and Estimate Alignment
+
+The A3 architecture decisions introduce additional considerations for EST-003, EST-004, and EST-005.
+
+The proposed risks R-010 through R-012 address database persistence, conflicting updates, and delayed architecture decisions.
+
+These risks require team confirmation before being treated as accepted additions to the active risk register.
+
+The existing estimate ranges remain unchanged until implementation evidence or an approved re-estimation justifies a revision.
+
+### A3 Dependency Conclusion
+
+The architecture documents and proposed ADRs provide a clearer technical direction for Cycle 1.
+
+However, documentation completion does not establish that implementation, integration, or verification has succeeded.
+
+The team must resolve outstanding architecture decisions and review findings before declaring the architecture baseline complete.
+
+Any resulting changes to task ownership, milestone dates, estimates, or risk status should be recorded in the corresponding planning artifacts.
