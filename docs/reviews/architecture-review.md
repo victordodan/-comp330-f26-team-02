@@ -4,17 +4,18 @@
 **Team:** Team 2 — Codex Ramblers
 **Assignment:** A3 — Cycle 1 Architecture and Review
 **Document Owner:** Giancarlo Herrera — Quality & Review Lead
-**Status:** In Progress — Partial Review
+**Status:** In Progress — Expanded Cross-Document Review
 
 ## Review Identification
 
-**Review Date:** October 14, 2026 (Chicago local time)
+**Initial Review Date:** October 14, 2026 (Chicago local time)
+**Follow-Up Review Date:** October 15, 2026 (Chicago local time)
 **Applicable Gate / Milestone:** Assignment 3 — Cycle 1 Architecture and Review
 **Architecture Baseline / Commit:** PR #43, commit `f15a048aacd6c338d19926d5583b4c7112b46e6c`
 **Reviewer:** Giancarlo Herrera
 **Review Evidence:** https://github.com/victordodan/-comp330-f26-team-02/pull/43#pullrequestreview-5527186657
 
-This review currently covers the proposed component responsibilities and API/tool contracts in PR #43. It is not yet a final review of the complete architecture baseline.
+The initial review covers PR #43. The follow-up assessment also compares the proposed requirements in PR #46, data/context ownership in PR #47, and the security/governance checklist in PR #45. These are open pull requests and do not yet constitute an accepted or merged architecture baseline.
 
 ## Review Scope
 
@@ -26,7 +27,7 @@ The initial review covered:
 - Proposed role and workflow boundaries
 - Planned failure handling and testability
 
-The architecture overview, diagram, data/context design, ADR alignment, and full risk review remain to be evaluated against their completed A3 versions.
+The data/context proposal and security checklist have received preliminary review; the finalized architecture overview, diagram, ADR alignment, and full risk review remain to be evaluated against completed A3 versions.
 
 ## Architecture Summary
 
@@ -78,7 +79,7 @@ The initial review considered:
 **Type:** Concern
 **Importance:** Low
 **Evidence:** Component Responsibilities review comment on PR #43
-**Finding:** The reviewed document contained remaining starter-template material that should be removed before final submission.
+**Finding:** The initial PR #43 review raised a starter-template cleanup concern. The currently fetched PR #43 document appears substantially populated; any remaining template text must be verified in the latest diff before treating this concern as open.
 **Action:** Venkata Mareddy should clean up the affected sections and request confirmation that the revised document is readable and consistent.
 
 ### ARF-004 — Final Architecture Alignment Pending
@@ -189,7 +190,7 @@ The final architecture review must check whether the overview, component contrac
 **Driver:** ARF-003
 **Suggested Owner:** Venkata Mareddy
 **Target:** Before final A3 submission
-**Status:** Review comment submitted; correction not yet verified
+**Status:** Initial comment submitted; recheck the latest PR #43 diff before concluding cleanup remains necessary
 **Evidence:** https://github.com/victordodan/-comp330-f26-team-02/pull/43#pullrequestreview-5527186657
 
 ### ARA-002 — Reconcile Architecture Documents
@@ -202,13 +203,60 @@ The final architecture review must check whether the overview, component contrac
 
 ### ARA-003 — Resolve or Explicitly Defer Open Questions
 
-**Driver:** Q-001 through Q-004
+**Driver:** Q-001 through Q-004 and PR #46 proposed resolutions
 **Suggested Owner:** Team Lead and relevant requirement owners
 **Target:** Before dependent implementation decisions
-**Status:** Pending
-**Evidence Needed:** Updated open-question records and affected contracts
+**Status:** Proposed answers documented in PR #46; pending review, acceptance, and propagation into PR #43 contracts
+**Evidence Needed:** Merged or accepted open-question records and updated component/API contracts
 
 These are proposed review actions. The team should confirm ownership and create or link GitHub Issues for work requiring tracking.
+
+## Follow-Up Review — October 15, 2026 (Open PRs)
+
+**Evidence reviewed:** [PR #43](https://github.com/victordodan/-comp330-f26-team-02/pull/43), [PR #46](https://github.com/victordodan/-comp330-f26-team-02/pull/46), [PR #47](https://github.com/victordodan/-comp330-f26-team-02/pull/47), and [PR #45](https://github.com/victordodan/-comp330-f26-team-02/pull/45). Findings refer to proposed branch content, not accepted implementation or executed tests.
+
+### ARF-005 — Requirements and Contracts Need Reconciliation
+
+**Type:** Concern  
+**Importance:** High  
+**Evidence:** PR #46 proposed requirements and acceptance criteria compared with PR #43 component responsibilities and API contracts.  
+**Finding:** PR #43 still describes Q-001 through Q-004 as unresolved and omits details proposed in PR #46: title (5–100 characters), category (Academic, IT, Campus Services, Other), description (10–2000 characters), simulated student A/B and reviewer server-session selection, statuses Submitted → In Progress → Resolved with Resolved → In Progress reopening, and editable reviewer notes (up to 2000 characters, not clearable while Resolved). PR #46 also proposes twelve acceptance checks. These details are not yet an accepted baseline.  
+**Action:** Update the affected API-001, API-004, API-005, API-007 and component documents after team agreement; align acceptance-criteria references and planned tests without claiming tests have passed.
+
+### ARF-006 — Data/Context Design Needs Status-Model Alignment
+
+**Type:** Concern  
+**Importance:** Medium  
+**Evidence:** PR #47 data-context proposal versus PR #46 proposed workflow; [review approval on PR #47](https://github.com/victordodan/-comp330-f26-team-02/pull/47#pullrequestreview-5541852388).  
+**Finding:** PR #47 describes a Closed state in its lifecycle, while PR #46 proposes only Submitted, In Progress, and Resolved. The PR #47 review was approved with an explicit consistency caveat; approval of that individual document is not approval of the entire architecture. Operational logging and development AI-use logging should also be distinguished.  
+**Action:** Reconcile lifecycle terminology and logging responsibilities before the final architecture gate.
+
+### ARF-007 — Security Checklist Overstates Implemented Controls
+
+**Type:** Concern  
+**Importance:** High  
+**Evidence:** PR #45 security-governance checklist and [review comment](https://github.com/victordodan/-comp330-f26-team-02/pull/45#pullrequestreview-5541888178).  
+**Finding:** The checklist describes authenticated user accounts and login credentials, which conflict with the proposed simulated-role-only Cycle 1 scope. It also labels security tests Passed and controls Complete without linked execution evidence.  
+**Action:** Correct the authentication language; label design intentions and unverified tests as planned or not yet verified until actual evidence exists.
+
+### ARF-008 — Architecture Overview and Diagram Are Not Yet Reviewable as a Final Set
+
+**Type:** Open Question  
+**Importance:** High  
+**Evidence:** The main-branch `docs/architecture/architecture.md` still contains starter guidance; `docs/architecture/architecture-diagram.png` and `docs/architecture/README.md` were not present in the checked main-branch architecture directory.  
+**Finding:** A full end-to-end architecture review cannot be completed against the current main-branch artifacts. Other work may be in progress outside the reviewed pull requests.  
+**Action:** Obtain completed overview, diagram, architecture index, and relevant ADRs, then check their consistency with component ownership, role boundaries, persistence, and API contracts.
+
+### Follow-Up Actions
+
+| Action | Suggested Owner | Status | Completion Evidence |
+|---|---|---|---|
+| ARA-004 — Align PR #43 with proposed PR #46 behavior after agreement | Venkata Mareddy, with Team Lead | Open; teammate notified separately | Revised component and API files, accepted requirements |
+| ARA-005 — Align PR #47 lifecycle and logging language | Architecture & Development Lead | Open; caveat recorded in approval | Revised data-context document and consistent status model |
+| ARA-006 — Correct PR #45 authentication and test-status claims | Operations & Evidence Lead | Open; GitHub review comment submitted | Updated checklist with accurate verification status |
+| ARA-007 — Review completed architecture overview, diagram, index, and ADRs | Architecture & Development Lead; Quality & Review Lead | Pending artifacts | Linked final files, review record, and dispositions |
+
+**Gate decision:** Not ready for final A3 architecture approval. The above findings require responses or explicitly accepted deferrals, and the complete architecture evidence package must be reviewed. This assessment does not assert that any implementation or test has been completed.
 
 ## Review Conclusion
 
@@ -216,7 +264,7 @@ These are proposed review actions. The team should confirm ownership and create 
 
 The reviewed component responsibilities and API contracts provide a reasonable starting point for the CampusConnect Cycle 1 architecture. The initial review identified useful responsibility boundaries and coverage of the six requirements.
 
-However, the overall architecture cannot yet be marked ready. Starter-template cleanup, cross-document alignment, unresolved requirements questions, and review of the completed architecture overview, diagram, data/context design, and ADRs remain outstanding.
+However, the overall architecture cannot yet be marked ready. Verification of starter-template cleanup, reconciliation of proposed requirements and contracts, correction of unsupported security-test claims, status-model alignment, and review of the completed architecture overview, diagram, and ADRs remain outstanding. PR #46 proposes resolutions for Q-001 through Q-004, but those resolutions have not yet been accepted and propagated through all documents.
 
 This conclusion applies to the current partial review only.
 
