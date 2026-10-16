@@ -1,8 +1,8 @@
 # Architecture Overview — CampusConnect
 
-> **Status:** Baselined for Cycle 1 (A3 architecture phase gate)
-> **Baseline version:** `a3-architecture-review` (Git tag)
-> **Last updated:** 10/ 15/ 2026
+> **Status:** Proposed for Cycle 1; final A3 review pending
+> **Baseline version:** PR #48 working draft; final submission tag pending
+> **Last updated:** 2026-10-15
 > **Owner:** Shú Perez · **Backup:** Giancarlo Herrera
 > **Team:** Codex Ramblers (Team 2)
 
@@ -44,7 +44,20 @@ The current release focus is the **Cycle 1 vertical slice** defined in the Campu
 
 ### Structural Approach
 
-CampusConnect uses a layered, client/server structure. Presentation (Requester UI / Reviewer UI), workflow logic (Request Workflow Service), and durable storage (Request Repository / local store) are separated so that responsibilities are testable and replaceable. The Request Workflow Service is the only component that writes to the repository boundary, and the UI never accesses the local store directly. Identity is treated as an external dependency and is simulated in Cycle 1. The final production technology stack is intentionally deferred (ADR-001); Cycle 1 uses Java with server-rendered pages and a local class demonstration.
+One local Java application contains the Requester and Reviewer UI, Request
+Workflow Service, Request Repository, and Simulated Role Context. Controllers
+and server-rendered templates implement the UI boundary. Services enforce
+validation, role/ownership checks, and workflow rules. Repository code owns
+storage operations. These logical components do not require separately deployed
+services or a separate frontend application.
+
+Only the workflow service initiates business storage operations through the
+repository. The browser has no direct database access. Demo identity options
+are application-owned configuration; the selected identity is stored in the
+server session. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. The Cycle 1
+stack is Java, Spring Boot, Thymeleaf, Maven, and file-backed H2. The decisions
+cover transactional/versioned updates and local persistence/recovery expectations;
+implementation and final package review remain pending.
 
 ---
 
@@ -63,14 +76,30 @@ CampusConnect uses a layered, client/server structure. Presentation (Requester U
 
 ## 4. Architecture Diagram
 
-[Cycle 1 architecture diagram](https://github.com/victordodan/-comp330-f26-team-02/blob/main/docs/architecture/architecture-diagram.png)
+```mermaid
+flowchart LR
+    Students["Student A / Student B"] --> Browser["Local browser"]
+    Reviewer["Reviewer"] --> Browser
+    subgraph App["One local Java application"]
+        UI["Requester and Reviewer UI<br/>Controllers and server-rendered templates"]
+        Workflow["Request Workflow Service<br/>Validation, roles, ownership, status and note rules"]
+        Context["Simulated Role Context<br/>Fixed demo identities and server session"]
+        Repository["Request Repository"]
+        Logs["Proposed local application logs<br/>Storage and retention pending design"]
+        UI -->|"API-001 to API-005 logical operations"| Workflow
+        UI -->|"Validated demo-user selection"| Context
+        Workflow -->|"API-007: selected identity and role"| Context
+        Workflow -->|"API-006: storage operations"| Repository
+        Workflow -.->|"Safe event metadata; proposed"| Logs
+    end
+    Browser -->|"Page requests and form actions"| UI
+    UI -->|"Rendered HTML and feedback"| Browser
+    Repository --> Store[("Local persistent data store<br/>File-backed H2; ADR-002")]
+```
 
-The diagram shows Cycle 1 as a layered client/server design running as one local Java application. Student A / Student B and the Reviewer 
-interact through a local browser, which talks to the Requester and Reviewer UI (controllers and server-rendered templates). The UI calls 
-the Request Workflow Service through API-001 to API-005; the service enforces validation, roles, ownership, and status and note rules. It 
-obtains the selected identity and role from the Simulated Role Context through API-007, and writes through the Request Repository (API-006) 
-to a local persistent data store. The data store technology remains pending ADR-001, and logging is proposed but not yet implemented 
-(storage and retention pending design).
+The diagram is versioned in this document. It shows logical boundaries, not
+separate servers. No external identity provider, administrator, runtime AI,
+paid service, or institutional integration is part of the Cycle 1 architecture.
 
 ---
 
@@ -78,14 +107,12 @@ to a local persistent data store. The data store technology remains pending ADR-
 
 | Component | Owns / Responsible For | Must Not Own | Inputs / Outputs | Evidence Link |
 |---|---|---|---|---|
-| Requester UI | Present request submission and student-owned request views; collect user input; initiate application actions | Authoritative workflow rules; durable data storage; authentication authority; direct DB access | In: user actions; Out: API calls to Request Workflow Service | Issue #10; PR #43 |
-| Reviewer UI | Present reviewer listing and inspection; update status; save or replace notes | Authoritative workflow rules; durable data storage; authentication authority | In: reviewer actions; Out: API calls to Request Workflow Service | Issue #10; PR #43 |
-| Request Workflow Service | Enforce workflow behavior; coordinate domain operations; make application-level authorization decisions; enforce role and ownership checks | UI rendering; identity-provider internals; physical database implementation | In: authenticated requests; Out: responses, state changes, repository operations | Issue #10; PR #43 |
-| Request Repository | Provide controlled durable storage and retrieval of request state | Workflow policy; presentation logic; user authentication | In: writes from service; Out: reads to service | Issue #10; PR #43 |
-| Local Data Store | Store authoritative request records, status, notes/resolutions, and timestamps | Business rules; presentation logic | In: repository writes; Out: reads | Issue #10 |
-| Simulated Role Context | Supply session role and identity (Student A, Student B, Reviewer) | Application workflow authorization and business rules | In: demo selector selection; Out: session role and identity | Issue #33; ADR-001; API-007 |
-| AI Assistant (optional, deferred to Cycle 2) | Suggest category, summary, or missing-info flag | Approve, resolve, close, or mutate any record | In: request text; Out: advisory suggestion | `/docs/ai/ai-use-log.md` |
-| Logging / Audit | Record important status changes and reviewer actions for inspection | Storing sensitive data or full request payloads | In: service events; Out: reviewable logs | `/docs/testing/test-strategy.md` |
+| Requester and Reviewer UI | Page rendering, form handling, user feedback, student views, and reviewer queue/detail views | Final workflow/permission decisions or direct storage access | In: page/form actions; Out: HTML, feedback, logical service operations | [Component responsibilities](component-responsibilities.md) |
+| Request Workflow Service | Validation, role/ownership enforcement, status/note rules, coordination of storage and success/failure responses | HTML rendering, database implementation, or real authentication | In: request data and session context; Out: authorized results and repository operations | [API-001 through API-007](api-contracts.md) |
+| Request Repository | Persistent request IDs, owners, fields, timestamps, current status/text, retrieval, and write results | Authorization policy or status-transition decisions | In: service storage operations; Out: records or storage failures | [API-006](api-contracts.md#api-006--request-repository-operations) |
+| Local persistent data store | Durable request records across ordinary restarts | Workflow policy, role decisions, or browser access | In/out: repository storage operations; file-backed H2; implementation pending | [Data/context ownership](data-context.md) |
+| Simulated Role Context | Fixed demo identities and selected session context | Real identity verification or final workflow authorization | In: validated demo selection/session state; Out: role and stable requester identity | [API-007](api-contracts.md#api-007--simulated-role-context) |
+| Proposed local logging | Diagnostic metadata for accepted/rejected operations and storage failures | Request descriptions, note bodies, credentials, or user-visible edit history | In: safe event metadata; output location/retention pending | [Proposed logging](data-context.md#6-logging-and-observability-expectations) |
 
 Full responsibility detail: `component-responsibilities.md` (PR #43).
 
@@ -97,11 +124,11 @@ The qualities below materially influenced the Cycle 1 architecture.
 
 | Quality / Concern | Architectural Response | Tradeoff / Consequence |
 |---|---|---|
-| Maintainability | Separate workflow logic from presentation and persistence responsibilities. | Adds explicit interfaces and some structural overhead. |
-| Testability | The Request Workflow Service is the only writer to the repository boundary; role and ownership rules are enforced server-side. | Requires server-side tests, not just UI tests; the UI cannot be the sole verification point. |
-| Governability | AI is advisory, logged, and human-reviewed; AI behavior is defined by the AI Use Policy rather than invented in code. | Limits how much AI can accelerate user-facing paths; every suggestion needs a reviewer decision. |
-| Reviewability | Architecture claims are linked to issues, PRs, ADRs, and AI-use evidence. | Requires ongoing evidence maintenance; stale links weaken the architecture record. |
-| Honesty about uncertainty | Unresolved decisions are recorded as open questions or deferred ADRs instead of being presented as settled. | Some architectural details remain provisional until ADR-001 is revisited. |
+| Maintainability | Separate page handling, workflow rules, session context, and persistence within one application. | Requires clear internal interfaces and consistent names. |
+| Testability | Service-side validation/authorization and controlled repository failures supplement browser tests. | UI demonstrations alone cannot prove permission or failure behavior. |
+| Governability | Reviewer-only updates and explicit status/resolution rules; development AI use is disclosed separately. | Demo identity switching supports classroom testing but provides no real authentication. |
+| Reviewability | Link the overview to requirements, contracts, data/context rules, ADRs, and planned tests. | Cross-document alignment and review records need maintenance. |
+| Honesty about uncertainty | Apply accepted stack, concurrency, and persistence decisions; keep remaining retry, logging, and recovery implementation details explicit. | Dependent implementation must wait for suitable decisions; no final readiness claim yet. |
 
 ---
 
@@ -109,24 +136,24 @@ The qualities below materially influenced the Cycle 1 architecture.
 
 | Interface / Tool | Consumer | Provider | Purpose | Protocol | Requirement | Status |
 |---|---|---|---|---|---|---|
-| API-001 | Requester UI | Request Workflow Service | Submit support request | HTTPS / JSON | REQ-001, REQ-003 | Proposed |
-| API-002 | Requester UI | Request Workflow Service | Retrieve student-owned requests | HTTPS / JSON | REQ-002 | Proposed |
-| API-003 | Reviewer UI | Request Workflow Service | List and inspect requests | HTTPS / JSON | REQ-004 | Proposed |
-| API-004 | Reviewer UI | Request Workflow Service | Update request status | HTTPS / JSON | REQ-005 | Proposed |
-| API-005 | Reviewer UI | Request Workflow Service | Save or replace note or resolution | HTTPS / JSON | REQ-006 | Proposed |
-| API-006 | Request Workflow Service | Request Repository | Persist and retrieve records | Internal | REQ-001 through REQ-006 | Proposed |
-| API-007 | Request Workflow Service | Simulated Role Context | Obtain session role and identity | Internal | REQ-001 through REQ-006 | Proposed |
-| AI suggestion (optional, deferred to Cycle 2) | AI Assistant | Support Reviewer | Suggest category/summary/missing info | Internal | — | Advisory only |
+| API-001 | Requester UI | Request Workflow Service | Submit valid request | Logical service operation behind local page/form handling; routes pending | REQ-001, REQ-003 | Proposed |
+| API-002 | Requester UI | Request Workflow Service | List/view student-owned requests | Logical service operation behind local page handling; routes pending | REQ-002 | Proposed |
+| API-003 | Reviewer UI | Request Workflow Service | List/inspect all demo requests | Logical service operation behind local page handling; routes pending | REQ-004 | Proposed |
+| API-004 | Reviewer UI | Request Workflow Service | Change status under transition rules | Logical service operation behind local form handling; routes pending | REQ-005 | Proposed |
+| API-005 | Reviewer UI | Request Workflow Service | Save/replace note or resolution | Logical service operation behind local form handling; routes pending | REQ-006 | Proposed |
+| API-006 | Request Workflow Service | Request Repository | Persist/retrieve request records | Internal storage boundary; file-backed H2, ADR-002 | REQ-001 through REQ-006 | Proposed |
+| API-007 | Request Workflow Service | Simulated Role Context | Obtain selected session identity/role | Internal session/context boundary; implementation pending | REQ-001 through REQ-006 | Proposed |
 
-**Valid status model:** `Submitted → In Progress → Resolved`. Permitted transitions are:
+These seven logical contracts do not require seven public endpoints or a JSON
+API. ADR-002 selects the stack; exact HTTP routes, form schemas, and framework configuration remain implementation work.
 
-- `Submitted → In Progress` (reviewer authorization)
-- `In Progress → Resolved` (reviewer authorization and saved nonblank resolution text)
-- `Resolved → In Progress` (reviewer authorization; preserves existing note or resolution)
-
-All other status transitions and unsupported status values are rejected. Transitions are enforced in the Request Workflow Service.
-
-Full contract detail: `api-contracts.md` (PR #43). Specific HTTP paths, request/response schemas, framework choices, and database technology remain subject to accepted architecture decisions.
+**Valid status model:** Submitted → In Progress → Resolved, with Resolved →
+In Progress for reopening. Only Reviewer may change status; other transitions
+are rejected. Resolving requires saved nonblank note/resolution text. Reopening
+preserves the text, request ID, and owner. Reviewer may edit the current text
+(up to 2,000 trimmed characters) but cannot clear it while Resolved. See the
+[requirements](../requirements/requirements.md) and [full contracts](api-contracts.md)
+for field validation, permissions, and failure behavior.
 
 ---
 
@@ -136,17 +163,30 @@ Full detail is in `data-context.md`. Summary:
 
 | Data / Context | Authoritative Owner | Persistence | Visible To | Logging Expectation |
 |---|---|---|---|---|
-| Workflow request (id, title, category, description, status, note/resolution) | Request Workflow Service | Local data store via Request Repository | Owning student; reviewer | Log state transitions, not raw payloads |
-| Request status | Request Workflow Service | Local data store via Request Repository | Owning student; reviewer | Log state transitions |
-| Reviewer note / resolution | Request Workflow Service | Local data store via Request Repository | Owning student; reviewer | Log that a note was saved, not its body |
-| User identity | Simulated Role Context | Server session | Application consumes; does not own | Log demo identity selection only |
-| Role assignments (Student A, Student B, Reviewer) | Simulated Role Context | Server session | System | Log demo identity selection |
-| AI suggestion context (deferred to Cycle 2) | Request Workflow Service | Not persisted beyond the suggestion | AI boundary only | Log that a suggestion was requested/returned |
-| Operational logs / audit events | Request Workflow Service | Local data store | Operations / review workflow | Avoid sensitive data exposure; keep logs reviewable |
+| Request (id, title, category, description, requester id, status, note/resolution, created/updated timestamps) | Request Workflow Service controls changes; stored records are authoritative | Local store via Request Repository | Owning student; Reviewer | Proposed operation/state metadata only; no request text |
+| Demo identity | Application-owned fixed configuration, exposed by Simulated Role Context | Stable demo IDs; current selection in server session | Demo selector options visible to users; current context consumed by service | Proposed synthetic identity-selection metadata; no session tokens |
+| Student/reviewer role mapping | Application-owned demo configuration | Fixed identity-to-role mapping | Application and users inspecting demo options | No role-management workflow or real-authentication log |
+| Runtime AI context | Not applicable in Cycle 1 | None | No runtime AI access | Development AI assistance is recorded separately |
+| Operational logs | Request Workflow Service | Proposed local logs; location/retention pending design | Developers inspecting the local demonstration | No note bodies, descriptions, credentials, or session cookies |
 
-**Data rules:** synthetic data only — no real student records, grades, private university data, or regulated records. No live institutional integration. External APIs require instructor approval and a documented risk review.
+**Data rules:** synthetic data only. The server assigns ID, owner, timestamps,
+and initial status Submitted; normal form values cannot override them. Request
+data and stable owner identities survive ordinary restarts. Successful updates
+preserve ID, owner, and creation time and update last-updated time. Rejected
+operations leave records unchanged; failed writes must not produce success
+confirmations. Failed listings must be distinguishable from empty lists.
 
-**Assumption ASM-001:** Authentication remains simulated in Cycle 1; identity is supplied by a Simulated Role Context through API-007, and how the implementation represents or selects the demo roles is tracked as open question Q-004 in `docs/requirements/assumptions-open-questions.md`.
+**Assumptions:** ASM-001 means one current request status; ASM-002 means one
+short current note/resolution without threaded messaging. Q-004's recorded
+answer uses the demo selector and server session. These meanings are preserved
+from [assumptions-open-questions.md](../requirements/assumptions-open-questions.md).
+Accepted ADR-003 requires transactional updates and optimistic version checks
+for reviewer status and note changes. Reject stale writes and ask the reviewer
+to reload. Post/Redirect/Get reduces repeated submissions without guaranteeing
+deduplication. ADR-004 sets backup/recovery expectations. Longer-term retention,
+controlled reset policy, logging location/retention, exact retry handling, and
+executable recovery procedures remain follow-ups. No live identity or
+institutional integration is required.
 
 ---
 
@@ -192,22 +232,20 @@ For a representative example of how the team applies these rules in practice, se
 
 | Architecture Claim | What Must Be Tested or Reviewed | Owner | Evidence Link |
 |---|---|---|---|
-| Request creation | Student can create a request and receive a unique ID; initial status is Submitted | Giancarlo Herrera | AC-REQ-001-01, AC-REQ-003-01; `/docs/testing/test-strategy.md` |
-| Status transitions | Submitted → In Progress succeeds; unsupported transitions rejected | Giancarlo Herrera | AC-REQ-005-01; `/docs/testing/test-strategy.md` |
-| Resolve requires text | In Progress → Resolved is rejected without saved nonblank resolution text | Giancarlo Herrera | AC-REQ-005-01; `/docs/testing/test-strategy.md` |
-| Reopening preserves text | Resolved → In Progress preserves request ID, owner, and note | Giancarlo Herrera | AC-REQ-005-01; `/docs/testing/test-strategy.md` |
-| Role boundary | Students cannot change status or save notes; reviewer-only actions enforced | Giancarlo Herrera | AC-REQ-004-02; `/docs/testing/test-strategy.md` |
-| Ownership boundary | Student A cannot view Student B's requests | Giancarlo Herrera | AC-REQ-002-01; `/docs/testing/test-strategy.md` |
-| API-001 contract | Invalid required input must not create a request; field limits enforced | Mareddy Venkata Aravind | `/docs/architecture/api-contracts.md` (API-001) |
-| API-002 contract | Caller must not receive protected info solely by knowing an ID | Mareddy Venkata Aravind | `/docs/architecture/api-contracts.md` (API-002) |
-| API-006 persistence | Records survive ordinary application restart | Mareddy Venkata Aravind | `/docs/architecture/api-contracts.md` (API-006) |
-| API-007 session context | Missing or invalid session context is rejected | Mareddy Venkata Aravind | `/docs/architecture/api-contracts.md` (API-007) |
-| Data/context control | Only synthetic data used; AI sees only permitted request text | Giancarlo Herrera | AI-use log; `/docs/testing/test-strategy.md` |
-| AI suggestion (if used) | Suggestion is reviewed before any action | Giancarlo Herrera | AI-use log |
-| Operational observability | Important status changes and reviewer actions are inspectable | Giancarlo Herrera | `/docs/testing/test-strategy.md` |
-| Recovery | Manual workflow works if AI is unavailable | Giancarlo Herrera | Release notes (future) |
+| Request creation | Valid fields produce a stored Submitted request, unique ID, owner, and timestamps; invalid input creates none | Giancarlo Herrera | AC-REQ-001-01, AC-REQ-001-02, AC-REQ-003-01; [criteria](../requirements/acceptance-criteria.md) |
+| Status transitions | Three permitted transitions; resolution requires text; reopening preserves ID/note; reject invalid changes | Giancarlo Herrera | AC-REQ-005-01, AC-REQ-005-02, AC-REQ-002-01 |
+| Role boundary | Reviewer sees both students' requests; students cannot call reviewer operations or override roles with form data | Giancarlo Herrera | AC-REQ-004-01, AC-REQ-004-02 |
+| Resolution note | Reviewer saves/replaces current text; owner sees it; oversized text and clearing while Resolved are rejected | Giancarlo Herrera | AC-REQ-006-01, AC-REQ-002-02 |
+| API-001 contract | Exercise trimmed title/description boundaries, category validation, and failed storage | Mareddy Venkata Aravind | AC-REQ-001-02; [contracts](api-contracts.md) |
+| API-002 contract | Student B cannot list or directly retrieve Student A's records; unknown IDs disclose no unrelated data | Mareddy Venkata Aravind | AC-REQ-002-03; [contracts](api-contracts.md) |
+| Data/context control | Synthetic data only, stable ownership across identity changes, and no runtime AI access | Giancarlo Herrera | [Data/context rules](data-context.md); [test strategy](../testing/test-strategy.md) |
+| Restart persistence | Status, owner, fields, and current text remain available after an ordinary restart and identity reselection | Giancarlo Herrera | AC-REQ-003-02 |
+| Operational observability | Review proposed safe event metadata; simulate failures and distinguish failed listings from empty ones | Giancarlo Herrera | [Proposed logging](data-context.md#6-logging-and-observability-expectations); [test strategy](../testing/test-strategy.md) |
 
-Full plan: `/docs/testing/test-strategy.md` (PR #44).
+The 12 criteria are currently Proposed; baseline acceptance and executed test
+results are separate milestones. Full plan: [test-strategy.md](../testing/test-strategy.md).
+Plan concurrency, failed-transaction, repeated-submission, and recovery checks
+against accepted ADR-003 and ADR-004. Execution remains future work.
 
 ---
 
@@ -215,9 +253,15 @@ Full plan: `/docs/testing/test-strategy.md` (PR #44).
 
 | ADR ID | Decision Title | Status | Owner | File / Evidence Link |
 |---|---|---|---|---|
-| ADR-001 | Defer final production technology stack decision | Accepted — Deferred | Giancarlo Herrera | `/docs/decisions/ADR-001-defer-production-technology-stack.md`; Issue #33 |
+| ADR-001 | Defer final production technology stack decision | Accepted — Deferred | Giancarlo Herrera | [ADR-001](../decisions/ADR-001-defer-production-technology-stack.md) |
+| ADR-002 | Cycle 1 technology stack | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-002](../decisions/ADR-002-cycle-1-technology-stack.md) |
+| ADR-003 | Request consistency and concurrent updates | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-003](../decisions/ADR-003-request-consistency.md) |
+| ADR-004 | Local persistence and recovery | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-004](../decisions/ADR-004-local-persistence-and-recovery.md) |
 
-**Note:** ADR-001 is scheduled for reconsideration **during A3**, before implementation begins. Cycle 1 uses Java with server-rendered pages and a local class demonstration; Spring Boot, Thymeleaf, Maven, and file-backed H2 are recommendations, not approved implementation choices (see `api-contracts.md` §6). If the team commits to a specific stack, that decision should be captured in a new or superseding ADR (e.g., ADR-002) and added to this index.
+**Note:** retain ADR-001 as historical evidence of the production-stack deferral.
+Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026, establishing
+the local Cycle 1 implementation decisions. This completes that decision
+confirmation; implementation verification and final A3 package review remain pending.
 
 ---
 
@@ -225,14 +269,18 @@ Full plan: `/docs/testing/test-strategy.md` (PR #44).
 
 | ID | Risk / Question | Impact | Owner | Next Action |
 |---|---|---|---|---|
-| AR-001 | Auth is simulated in Cycle 1; role enforcement must still be server-side | Medium | Giancarlo Herrera | Verify role checks in tests; document in ADR |
-| AR-002 | Status model may need expansion in Cycle 2 (e.g., reassignment) | Medium | Malec Tarabein | Revisit from Cycle 1 evidence (brief §10) |
-| AR-003 | Optional AI feature could drift into a product chatbot | Medium | Shú Perez | Keep AI advisory-only; enforce human approval gate |
-| AR-004 | ADR-001 deferral could become permanent by default | Medium | Giancarlo Herrera | Revisit during A3; document selected approach |
-| AR-005 | Persistence, retry, and concurrent-update policies remain undecided | Medium | Shú Perez | Define transaction, retry, and concurrency behavior before implementation |
-| AR-006 | Logging is proposed, not implemented; location and retention undecided | Low | Giancarlo Herrera | Confirm logging approach before construction |
+| AR-001 | Demo selection permits impersonation; service-side roles and ownership must still hold within the selected context | Medium | Giancarlo Herrera | Test direct operations and forged form context; keep the authentication limitation explicit |
+| AR-002 | Uncontrolled status expansion could invalidate contracts and tests | Medium | Malec Tarabein | Preserve the three-state baseline; review future changes through requirements and ADRs |
+| AR-003 | Runtime AI or external integrations could expand the class-project scope or introduce costs | Medium | Shú Perez | Keep them excluded; require explicit scope/risk review for any future addition |
+| AR-004 | Implementation may diverge from the accepted framework/database decisions | Medium | Giancarlo Herrera | Apply ADR-002 and review estimate assumptions as implementation evidence develops |
+| AR-005 | Concurrent updates, retries, or storage failures could violate valid status/text combinations | High | Victor Dodan | Apply ADR-003 transactional/versioned updates and ADR-004 recovery expectations; define remaining retry/procedure details and preserve the resolution invariant |
 
-These risks are reflected in `/docs/planning/risk-register.md` (Issue #39) and any re-estimation notes (Issue #32).
+These concerns relate to R-001 (scope), R-002 (technology), R-004 (requirements),
+R-005 (integration), R-006 (late testing), and confirmed active risks R-010
+(persistence), R-011 (conflicting updates), and R-012 (decision alignment) in
+the [risk register](../planning/risk-register.md). A3 planning updates retain
+existing estimate ranges. ADR approval does not confirm available team hours
+or establish that re-estimation is unnecessary.
 
 ---
 
@@ -247,15 +295,14 @@ These risks are reflected in `/docs/planning/risk-register.md` (Issue #39) and a
 
 | Effective Gate | Change | Reason | Related Evidence |
 |---|---|---|---|
-| A3 | Cycle 1 architecture baseline established | A3 architecture phase gate | This document; `data-context.md`; PRs #43, #44 |
-| A3 | Status model aligned to Submitted → In Progress → Resolved; APIs aligned to API-001 through API-007; identity aligned to simulated roles | Review feedback; alignment with PR #43 and PR #46 | PR review comments |
+| A3 draft | Align the overview and inline diagram with the local Java behavior baseline and merged components/data rules | Remove conflicting states, roles, identity/API references, and premature baseline claims | PR #43, #44, #46, #47/#49; ADR-002–004 accepted October 16, 2026; final review pending |
 
 ---
 
 ## Final Check
 
-- [x] Explains the current system structure without becoming a dumping ground for every decision.
-- [x] Every significant decision is linked through the ADR index.
-- [x] Architecture claims connect to issues, PRs, tests, reviews, AI-use logs, or release evidence.
-- [x] Another engineering team can inspect the architecture evidence without relying on private explanation.
-- [x] Supports engineering understanding, review, governance, and operational reasoning.
+- [x] Describes the proposed local system structure and logical boundaries.
+- [x] Record acceptance of ADR-002 through ADR-004 for the stack, consistency, and persistence/recovery expectations; exact retry, logging, and recovery-procedure details remain follow-ups.
+- [x] Links requirements, contracts, data/context rules, and planned verification without claiming passing tests.
+- [ ] Complete independent cross-document review and resolve or explicitly disposition remaining findings.
+- [ ] Confirm final A3 package readiness before creating the submission tag.

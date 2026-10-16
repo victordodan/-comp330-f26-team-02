@@ -45,7 +45,7 @@ Tradeoff decisions, deferred-scope rationale, and major engineering decisions ar
 
 [`../decisions/`](../decisions/)
 
-The current decision evidence includes the accepted deferral of the final production technology stack until the A3 architecture phase. Planning artifacts should not present an architecture or implementation choice as committed until the team has actually established that decision
+ADR-001 preserves the historical deferral of the final production technology stack. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026, establishing the local Cycle 1 stack, consistency controls, and persistence/recovery expectations. R-010 through R-012 and their owners are confirmed for active monitoring. Implementation verification and final architecture-package review remain pending.
 
 ### AI-Assisted Engineering
 

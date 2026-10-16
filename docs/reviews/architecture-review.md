@@ -273,3 +273,48 @@ This conclusion applies to the current partial review only.
 The Quality & Review Lead will revisit PR #43 after the requested cleanup and compare its proposed components and contracts with the other completed A3 architecture documents.
 
 Follow-up findings and action status will be updated using actual GitHub review evidence. Final architecture readiness will be assessed only after the relevant documents and decisions have been reviewed.
+
+
+---
+
+## Follow-Up Review — October 16, 2026 (Current Main Baseline)
+
+**Reviewer:** Giancarlo Herrera, Quality & Review Lead  
+**Status:** Cross-document review updated; final A3 approval remains pending.
+
+**Interpretation:** This dated update supersedes the earlier *open PR*, *missing file*, and *unresolved decision* descriptions above where the main-branch evidence has changed. Earlier findings remain as a historical review record; they should not be read as current GitHub status.
+
+### Evidence Reviewed
+
+- [Architecture overview](../architecture/architecture.md), including Section 4's editable Mermaid diagram.
+- [Architecture diagram PNG](../architecture/architecture-diagram.png), now present on `main`; PR [#50](https://github.com/victordodan/-comp330-f26-team-02/pull/50) is still open and should be reconciled with the revised main-branch image.
+- [Architecture package index](../architecture/README.md), [component responsibilities](../architecture/component-responsibilities.md), [API contracts](../architecture/api-contracts.md), and [data/context ownership](../architecture/data-context.md).
+- [Requirements](../requirements/requirements.md), [acceptance criteria](../requirements/acceptance-criteria.md), and [security governance checklist](../security/security-governance-checklist.md).
+- Accepted Cycle 1 ADR-002, ADR-003, and ADR-004, as recorded in the [architecture package index](../architecture/README.md), which records Victor's October 16 approval.
+
+### Finding Dispositions
+
+| Finding / Action | October 16 Disposition | Evidence / Remaining Work |
+|---|---|---|
+| ARF-001 / ARF-004 — Component and overview alignment | **Substantially addressed at design level** | Overview, components, contracts, and Mermaid diagram use UI, Workflow Service, Repository, and Simulated Role Context. Final package approval still required. |
+| ARF-002 / ARF-005 — Requirements and contracts | **Improved; final approval pending** | REQ-001–REQ-006 and API-001–API-007 cover submission, owner-only retrieval, reviewer actions, persistence, and role context. Requirements and some component/contract headings still describe the behavior as proposed/draft; team should confirm baseline status. |
+| ARF-003 / ARA-001 — Starter-template concern | **Recheck substantially addressed** | Current component responsibilities file contains a populated matrix and detailed boundaries. Original review concern should be closed only if the reviewer confirms the specific old template lines are absent. |
+| ARF-006 / ARA-005 — Status-model mismatch | **Resolved in current data/context text** | Data/context now explicitly says *no Closed state* and uses Submitted, In Progress, Resolved, matching the other architecture files. |
+| ARF-007 / ARA-006 — Security checklist claims | **Documentation correction completed** | PR #45 merged; checklist now states simulated identities, no real login, and planned rather than passed verification where appropriate. Security enforcement and testing remain unverified. |
+| ARF-008 / ARA-007 — Missing overview, diagram, index, ADRs | **Required artifacts now present; visual comparison pending** | Overview, inline Mermaid, PNG, architecture index, and ADR records are on main. Compare PNG visually against Mermaid before accepting a single diagram baseline; PR #50 remains open. |
+| ARA-003 — Q-001 to Q-004 | **Documented design answers; acceptance check pending** | Requirements specify fields, statuses, editable notes, and simulated session identities. Confirm team approval and align any remaining 'draft' language. |
+
+### Accepted Engineering Decisions and Remaining Verification
+
+The architecture index records ADR-002 (Java/Spring Boot/Thymeleaf/Maven/file-backed H2), ADR-003 (duplicate-submission and optimistic-locking/transaction consistency expectations), and ADR-004 (local persistence and recovery) as accepted for Cycle 1. These decisions supersede the earlier unresolved implementation-stack question while preserving ADR-001 as a historical production-stack deferral. Acceptance of an ADR is not evidence that code, backup recovery, concurrent updates, or tests work.
+
+The architecture documents consistently describe a local, synthetic-data demonstration with simulated Student A, Student B, and Reviewer identities; no real institutional authentication, runtime AI, or external service is in scope. Server-side role and ownership enforcement is a proposed responsibility, not an implemented security guarantee.
+
+### Open Follow-Up Before Final Gate
+
+1. **Shu / Architecture Lead:** Compare the current PNG against Section 4's editable Mermaid diagram and decide whether to embed the PNG in the overview; reconcile the still-open PR #50 with the PNG already on main.
+2. **Victor / Requirements Owners:** Confirm whether proposed Q-001–Q-004 behavior is formally accepted and update draft/proposed status language consistently across requirements, component, and API documents.
+3. **Giancarlo / Quality & Review Lead:** Record final review disposition after the diagram and baseline decisions are confirmed; check planned tests against acceptance criteria without representing them as executed.
+4. **Team Lead:** Record final A3 gate approval and evidence links before tagging/submission.
+
+**October 16 gate assessment:** Documentation coverage is materially improved and several earlier findings are resolved. **Final A3 architecture approval is still pending** the diagram reconciliation, baseline confirmation, and recorded team review. No running implementation, passing tests, successful recovery, or production readiness is claimed.

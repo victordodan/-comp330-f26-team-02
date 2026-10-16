@@ -22,7 +22,7 @@ These responsibilities describe proposed architecture, not implemented or verifi
 |---|---|---|---|---|---|
 | Requester and Reviewer UI | Provide server-rendered student and reviewer views; collect and display request details; initiate submission, retrieval, status-change, and note-edit operations; display validation and failure feedback | Authoritative role and ownership checks, workflow transitions, persistent storage | Request Workflow Service | Student A, Student B, Reviewer | REQ-001 through REQ-006 |
 | Request Workflow Service | Validate request fields; enforce server-session roles and ownership; coordinate request creation and retrieval; validate status transitions and note rules; confirm operations only after successful storage | UI rendering, physical storage, real institutional authentication | Simulated Role Context, Request Repository | Requester and Reviewer UI | REQ-001 through REQ-006 |
-| Request Repository | Persist request IDs, stable owners, title/category/description, timestamps, current statuses, and note/resolution text; retrieve student-owned and reviewer-visible records; retain data across restarts | Authorization policy, user interface, status-transition decisions, role selection | Local persistent data store (technology pending) | Request Workflow Service | REQ-001 through REQ-006 |
+| Request Repository | Persist request IDs, stable owners, title/category/description, timestamps, current statuses, and note/resolution text; retrieve student-owned and reviewer-visible records; retain data across restarts | Authorization policy, user interface, status-transition decisions, role selection | File-backed H2 local persistent data store (ADR-002) | Request Workflow Service | REQ-001 through REQ-006 |
 | Simulated Role Context | Provide Student A, Student B, or Reviewer identity from the server session; supply stable requester context for ownership enforcement | Real authentication, Loyola identity verification, final workflow authorization decisions | Demo selector and server-session mechanism (implementation pending) | Request Workflow Service | REQ-001 through REQ-006 |
 
 ## 3. Component Inputs, Outputs, and Failure Responsibilities
@@ -118,7 +118,7 @@ It is responsible for:
 
 The repository must not become an alternate route for bypassing the workflow service's authorization checks.
 
-Database selection, transaction handling, concurrent updates, retries, and identifier-generation details require accepted architecture decisions.
+Accepted ADR-002 selects file-backed H2. ADR-003 requires transactional updates and optimistic version checking: stale reviewer changes are rejected and the reviewer reloads the latest record. ADR-004 sets persistence and recovery expectations. Retry handling and identifier-generation implementation details remain to be defined.
 
 ### Simulated Role Context
 
@@ -136,7 +136,7 @@ The selected session identity determines which operations the workflow service p
 
 Stable stored requester identities preserve ownership when users switch demo roles or the application restarts.
 
-The exact framework-specific session implementation remains an architecture decision.
+ADR-002 selects Spring Boot for the server-side implementation; the exact session configuration remains implementation work.
 
 ## 5. Data Ownership and Consistency
 
@@ -170,7 +170,7 @@ Successful updates preserve the original request ID, owner, and creation timesta
 - Live institutional integrations are not required.
 - User-facing AI is excluded from the current baseline.
 - External APIs or services require instructor approval and documented risk review.
-- Spring Boot, Thymeleaf, Maven, and file-backed H2 remain recommendations rather than accepted implementation choices in this document.
+- ADR-002 selects Spring Boot, Thymeleaf, Maven, and file-backed H2 for Cycle 1; Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026.
 - The team prioritizes a complete support-request workflow over additional features.
 
 ## 7. Assumptions and Draft Decisions
@@ -186,7 +186,7 @@ Successful updates preserve the original request ID, owner, and creation timesta
 
 These resolutions are selected for draft review and are not implementation-verified.
 
-Remaining architecture decisions include framework and database selection, transaction and concurrency behavior, retry handling, logging, and recovery.
+ADR-002 through ADR-004 establish the stack, transactional/versioned updates, and persistence/recovery expectations. Remaining implementation detail includes retry handling, logging location/retention, identifier generation, and executable backup/recovery procedures. Final package review remains pending.
 
 ## 8. Requirements and Acceptance-Criteria Traceability
 

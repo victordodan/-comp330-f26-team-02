@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A2 — Planning and Estimation  
+**Current Phase:** A3 — Architecture and Review
 **Release Cycle:** Cycle 1  
 
 ## Estimation Approach
@@ -112,3 +112,64 @@ As estimated tasks are completed, the team will compare actual effort with the a
 **Tracking issue:** #15 — Create Cycle 1 estimates and schedule for A2
 
 This estimate evidence should be reviewed together with the finalized Cycle 1 requirements, task plan, schedule, scope, and risk register before the A2 planning baseline is considered complete.
+
+## A3 — Architecture and Estimation Review
+
+### Current Estimation Status
+
+During A3, the team developed architecture documentation and additional engineering decisions for CampusConnect. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026.
+
+The existing three-point estimates remain the current planning baseline. No numerical estimates have been changed because the team has not yet documented sufficient implementation evidence or a reviewed re-estimation decision.
+
+### Approved Technology Stack Impact
+
+ADR-002 selects Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for the Cycle 1 application.
+
+These approved technologies may affect development effort through framework configuration, database setup, dependency management, automated testing, and team learning requirements.
+
+The approved stack is intended to reduce infrastructure complexity by supporting local development and demonstration without paid hosting.
+
+### Engineering Decision Impact
+
+ADR-003 establishes request consistency controls, including duplicate-submission handling, optimistic locking, and transactional updates.
+
+ADR-004 establishes persistent local database storage and documented recovery procedures.
+
+These decisions introduce implementation and verification responsibilities that must be considered when the team reviews its existing estimates.
+
+### Estimate Review by Work Area
+
+| Estimate | A3 Consideration | Potential Impact |
+|---|---|---|
+| EST-003 — Architecture and design | Finalize architecture documents and interfaces against the accepted ADRs | Additional review or reconciliation may be needed |
+| EST-004 — Implementation and integration | Configure Spring Boot, connect H2, implement request workflows, and handle conflicting updates | Development or integration effort may increase if technical difficulties occur |
+| EST-005 — Verification and release preparation | Verify request persistence, validation, authorization rules, status transitions, and concurrent updates | Additional testing may be required for database and consistency behavior |
+
+### Capacity and Ownership Considerations
+
+The Architecture & Development Lead and development team remain responsible for implementation planning and technical integration.
+
+The Quality & Review Lead will coordinate verification planning and review evidence.
+
+The team should confirm member availability and review capacity before committing to revised estimates or milestone dates.
+
+### Re-estimation Conditions
+
+The team should revisit its estimates if:
+
+- The accepted ADRs change materially.
+- Framework or database configuration requires unexpected effort.
+- Concurrent-update handling or persistence introduces implementation complexity.
+- Architecture review identifies additional required work.
+- Testing discovers significant defects or missing functionality.
+- Available team capacity cannot support the existing schedule.
+
+Any numerical revision should document the previous estimate, revised estimate, supporting evidence, and reason for the change.
+
+### A3 Estimation Conclusion
+
+The existing Cycle 1 estimate ranges remain unchanged pending team review.
+
+Architecture decisions have become more specific, but their implementation costs and testing outcomes have not yet been verified.
+
+The team will use implementation progress, review findings, and recorded effort to determine whether future re-estimation is necessary.
