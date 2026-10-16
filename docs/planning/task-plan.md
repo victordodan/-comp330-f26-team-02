@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A2 — Planning and Estimation  
+**Current Phase:** A3 — Architecture and Review
 **Release Cycle:** Cycle 1
 
 This task plan records the major work Codex Ramblers expects to complete throughout the Fall semester. Tasks are maintained at a level where ownership, dependencies, progress, and completion can be clearly tracked. More detailed tasks may be added as requirements, architecture, implementation, testing, and release decisions become more specific.
@@ -80,3 +80,59 @@ As the project progresses:
 
 The task plan should remain consistent with the requirements, scope, estimates, schedule, risk register, traceability evidence, and GitHub Project throughout the Cycle 1 lifecycle.
 
+## A3 — Architecture and Review Planning Update
+
+### Current Progress
+
+The team has progressed from the A2 planning baseline into A3 architecture and review activities. Current work focuses on documenting the CampusConnect system architecture, defining component responsibilities and interfaces, reviewing engineering decisions, and preparing the project for Cycle 1 implementation.
+
+The architecture package includes component responsibilities, API contracts, data context, and architecture review evidence. These documents establish the expected behavior of the student support-request workflow before implementation.
+
+### Technology and Engineering Decisions
+
+ADR-001 remains the historical A2 decision to defer the final production technology stack.
+
+The following A3 decisions have been drafted for team review:
+
+- **ADR-002:** Proposes Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for Cycle 1.
+- **ADR-003:** Proposes duplicate-submission handling, optimistic locking, and transactional updates.
+- **ADR-004:** Proposes local database persistence, backup expectations, and recovery procedures.
+
+These ADRs are proposed decisions, not approved or implemented capabilities. Their impact on implementation tasks and estimates must be reviewed before the architecture baseline is finalized.
+
+### A3 Task Coordination
+
+| Task | Primary Owner | Supporting Reviewer | Current Planning Status |
+|---|---|---|---|
+| Architecture overview and component integration | Shu Perez | Venkata Aravind Mareddy | Under review |
+| Component responsibilities and API contracts | Venkata Aravind Mareddy | Shu Perez | Documentation merged; architecture alignment pending |
+| Technology and engineering ADRs | Giancarlo Herrera | Shu Perez | Drafted; pending team approval |
+| Architecture review and quality strategy | Giancarlo Herrera | Victor Dodan | Initial evidence merged; follow-up review needed |
+| Security and governance checklist | Shelby Sierah | Giancarlo Herrera | Under review |
+| Architecture package reconciliation | Shu Perez | Victor Dodan | Pending final review |
+| A3 planning alignment and submission readiness | Victor Dodan | Codex Ramblers team | In progress |
+
+### Integration and Review Dependencies
+
+Before Cycle 1 implementation is treated as ready to begin, the team should:
+
+1. Review and approve or revise the proposed ADRs.
+2. Confirm that architecture, API contracts, and component responsibilities agree.
+3. Resolve outstanding security and governance review findings.
+4. Revisit implementation estimates and technology-learning risks.
+5. Confirm responsibilities for database persistence, status updates, and automated testing.
+6. Verify that the A3 evidence package is linked and ready for final team review.
+
+### Planning Impact
+
+The existing Cycle 1 implementation and verification estimates remain unchanged until the team has sufficient evidence to justify revising them.
+
+The proposed technology stack introduces specific areas for review, including framework setup, database persistence, concurrency handling, and recovery testing.
+
+Any approved changes affecting scope, schedule, ownership, or effort should be recorded in the appropriate planning documents and GitHub evidence.
+
+### A3 Completion Evidence
+
+A3 planning alignment will be considered complete when the updated planning documents are reviewed, the relevant architecture decisions are resolved, and the team can trace its implementation tasks to the agreed architecture and requirements.
+
+Documentation being merged does not, by itself, demonstrate that implementation or testing has been completed.

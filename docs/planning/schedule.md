@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A2 — Planning and Estimation  
+**Current Phase:** A3 — Architecture and Review
 **Release Cycle:** Cycle 1  
 
 ## Schedule Basis
@@ -25,7 +25,7 @@ Sakai deadlines remain the authoritative course deadlines. Internal milestones a
 |---|---|---|---|---|---|---|---|
 | MS-001 | Project Launch baseline | Sep 10–Sep 20, 2026 | Establish initial team, repository, scope, planning, and engineering evidence. | Team formation and project direction | EST-001 | Codex Ramblers | Complete |
 | MS-002 | A2 planning and requirements baseline | Sep 22–Sep 29, 2026 | Finalize/refine Cycle 1 requirements, acceptance criteria, scope, estimates, task plan, schedule, risks, and traceability. | MS-001 | TASK-010, TASK-011, EST-002 | Planning and Requirements owners | In Progress |
-| MS-003 | Architecture baseline | Sep 30–Oct 15, 2026 | Establish system structure, interfaces, technology decisions, and major ADRs required for implementation. | MS-002 | TASK-012, EST-003 | Architecture & Development Lead | Planned |
+| MS-003 | Architecture baseline | Sep 30–Oct 15, 2026 | Establish system structure, interfaces, technology decisions, and major ADRs required for implementation. | MS-002 | TASK-012, EST-003 | Architecture & Development Lead | In Progress |
 | MS-004 | Cycle 1 implementation baseline | Oct 16–Oct 29, 2026 | Complete the controlled CampusConnect support-request workflow and integrate its major components. | MS-003 | TASK-013, TASK-014, EST-004 | Development team | Planned |
 | MS-005 | Cycle 1 verification and release readiness | Oct 30–Nov 10, 2026 | Verify the required workflow, resolve material defects, document limitations, and prepare release evidence. | MS-004 | TASK-015, TASK-016, EST-005 | Quality & Review Lead / team | Planned |
 | MS-006 | Cycle 2 maturity planning | Nov 11–Nov 24, 2026 | Use Cycle 1 evidence to select a limited set of justified maturity improvements. | MS-005 | TASK-017, EST-006 | Codex Ramblers | Planned |
@@ -103,3 +103,48 @@ When one of these conditions occurs, the team will update the affected estimate,
 The Cycle 1 plan is currently achievable under the documented estimate ranges provided that the required workflow remains intentionally small, requirements are stabilized before major construction, and integration and testing are not postponed until the end of the cycle.
 
 The largest schedule uncertainties remain architecture/technology decisions, implementation and integration effort, and requirement changes. These uncertainties are represented in the three-point estimates and risks and will trigger re-estimation if the current assumptions no longer hold.
+## A3 — Schedule and Integration Update
+
+### Architecture Review Progress
+
+During A3, the team prepared architecture documentation covering component responsibilities, API contracts, data context, and the controlled CampusConnect support-request workflow.
+
+Architecture review and reconciliation remain in progress. The team must confirm that the architecture documents agree with the requirements and proposed engineering decisions before declaring the architecture baseline complete.
+
+### Engineering Decision Dependencies
+
+Three Architecture Decision Records have been proposed:
+
+- **ADR-002:** Cycle 1 technology stack.
+- **ADR-003:** Request consistency and concurrent updates.
+- **ADR-004:** Local persistence and recovery.
+
+These decisions require team review before being treated as approved implementation commitments.
+
+### Upcoming Integration and Testing Schedule
+
+| Planned Period | Activity | Responsible Team Members | Expected Evidence |
+|---|---|---|---|
+| A3 architecture review | Reconcile architecture documents, ADRs, and outstanding review findings | Shu Perez, Giancarlo Herrera, Victor Dodan | Reviewed architecture package and decisions |
+| Oct 16–Oct 29 | Implement student submission, request persistence, reviewer workflow, and status updates | Shu Perez, Venkata Aravind Mareddy | Source code, pull requests, and implementation reviews |
+| Oct 16–Oct 29 | Prepare and run applicable automated tests as functionality becomes available | Giancarlo Herrera, development team | Test cases, test execution results, and CI evidence |
+| Oct 30–Nov 5 | Integrate and verify the complete student-to-reviewer workflow | Development team, Giancarlo Herrera | Integration results and documented defects |
+| Nov 6–Nov 10 | Complete verification, correct priority defects, and prepare release evidence | Giancarlo Herrera, Shelby Sierah, Victor Dodan | Verification records and release documentation |
+
+These periods reflect the existing planning baseline rather than newly approved deadlines.
+
+### Schedule Dependencies
+
+Implementation readiness depends on resolving architecture decisions and confirming interface compatibility.
+
+Testing depends on having reviewable implementation components and clearly defined acceptance criteria.
+
+If architecture approval or implementation is delayed, the team must reassess affected milestones and estimates rather than treating the original schedule as automatically achievable.
+
+### A3 Schedule Assessment
+
+The original architecture milestone was scheduled to finish on October 15, 2026. Any remaining architecture approvals or review findings create a potential overlap with the planned implementation period beginning October 16.
+
+The team should confirm whether the implementation schedule remains realistic after architecture reconciliation.
+
+No implementation completion, successful test execution, or formal architecture approval is claimed by this update.
