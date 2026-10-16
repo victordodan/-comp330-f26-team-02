@@ -1,27 +1,24 @@
 # Data and Context Ownership — CampusConnect
 
-> **Status:** Draft for Cycle 1 (A3 architecture phase gate)
+> **Status:** Draft for Cycle 1 (A3 architecture phase gate); implementation unverified
 > **Owner:** Shú Perez
 > **Backup:** Giancarlo Herrera
-> **Last updated:** 10/ 15/ 2026
+> **Last updated:** 2026-10-15
 > **Related:** `architecture.md`, `component-responsibilities.md`, `api-contracts.md`, ADR-001
 
-This document identifies the authoritative data in CampusConnect, the owners of
-that data, who can see it, what context AI or tools may access, and what
-logging is expected. It supports the architecture overview (`architecture.md`)
-and the API/interface contracts (`api-contracts.md`).
+This document identifies authoritative request data, ownership, visibility,
+AI/tool access, and proposed logging. Component names and API IDs follow merged
+PR [#43](https://github.com/victordodan/-comp330-f26-team-02/pull/43). Behavior follows
+the [requirements baseline from PR #46](https://github.com/victordodan/-comp330-f26-team-02/blob/c0d6782ed4bdf9899765477f6f2f4b4fb7ab4211/docs/requirements/requirements.md),
+now merged into main. Full cross-document architecture review remains pending.
 
-The CampusConnect project brief (§6) and the team's own planning evidence
-constrain this document:
+The requirements and scope constrain this document:
 
-- **Synthetic data only.** No real student records, grades, private university
-  data, or regulated records (`scope.md`, Out of Scope).
-- **No live institutional integration.** External services require instructor
-  approval and a documented risk review (`scope.md`, Out of Scope).
-- **Real authentication is not required in Cycle 1.** Roles are simulated
-  (`scope.md`, Out of Scope).
-- **AI must be bounded, reviewable, and human-controlled.** User-facing AI is
-  deferred to Cycle 2 (`scope.md`, Deferred Scope).
+- **Synthetic data only.** No real student records, grades, private university data, or regulated records.
+- **No live institutional integration.** External services require instructor approval and documented risk review.
+- **Simulated identities.** No institutional login or real authentication in Cycle 1.
+- **Local Java demonstration.** Server-rendered pages and local persistence; no paid hosting or required cloud services.
+- **No runtime AI in Cycle 1.** A future cycle may reconsider it through scope and architecture review; no feature is committed.
 
 ---
 
@@ -29,46 +26,46 @@ constrain this document:
 
 | Data / State | Authoritative Owner | Persistence | Visibility | Notes |
 |---|---|---|---|---|
-| Workflow request (id, requestType, description, status, resolution note) | Application Service | Database via Persistence Layer | Owning requester and reviewers | Created via API-001 (REQ-001); read via API-002 (REQ-002) |
-| Request status | Application Service | Database via Persistence Layer | Owning requester and reviewers | Updated by reviewer (REQ-005) |
-| Reviewer resolution note | Application Service | Database via Persistence Layer | Owning requester and reviewers | Recorded by reviewer (REQ-006) |
-| User identity | Simulated (see Section 2) | Seeded configuration | Consumed by Application Service; not owned by CampusConnect | Real authentication is out of scope (`scope.md`) |
-| Role assignments (student / reviewer / administrator) | Application Service | Database / seeded configuration | System; administrators | Seeded synthetic users in Cycle 1 (`scope.md`) |
-| AI suggestion context (if user-facing AI is added in Cycle 2) | Application Service | Not persisted beyond the suggestion | AI boundary only | Deferred to Cycle 2 (`scope.md`) |
-| Operational logs / audit events | Application Service | Persistence Layer | Operations / review workflow | See Section 5 |
+| Workflow request (id, title, category, description, requester id, status, note/resolution, created/updated timestamps) | Request Workflow Service | Local data store via Request Repository | Owning requester and reviewers | Created via API-001 (REQ-001, REQ-003); requester read via API-002; reviewer read via API-003 |
+| Request status | Request Workflow Service | Local data store via Request Repository | Owning requester and reviewers | Submitted, In Progress, or Resolved; reviewer updates via API-004 (REQ-005) |
+| Reviewer note/resolution | Request Workflow Service | Local data store via Request Repository | Owning requester and reviewers | One editable current value via API-005 (REQ-006); preserved on reopening |
+| Demo identities | Application-owned demo configuration, exposed through Simulated Role Context | Stable configured IDs; selected identity in server session | Demo options visible to users; selected context consumed by Request Workflow Service | Student A, Student B, Reviewer; no external identity source |
+| Demo roles (student / reviewer) | Application-owned demo configuration | Fixed identity-to-role mapping | Application and users inspecting the demo options | No administrator role or role-management workflow |
+| Runtime AI context | Not applicable in Cycle 1 | None | No runtime AI access | Future context policy requires a separate decision |
+| Operational logs | Request Workflow Service | Proposed local application logs; location and retention pending design | Developers inspecting the local demonstration | Proposed events in Section 6; no implemented audit trail claimed |
 
-**Authoritative data rule:** the Application Service is the single authority for
-workflow state. The Web Client never holds authoritative state. The Persistence
-Layer stores but does not interpret workflow meaning. Identity is simulated in
-Cycle 1 and is consumed by the Application Service but not owned by it.
+**Authoritative data rule:** stored request records are authoritative. The
+Request Workflow Service enforces validation, permissions, and workflow rules;
+the Request Repository stores and retrieves records through API-006. The
+Requester and Reviewer UI renders results and cannot establish ownership or
+status. Demo identities are application-owned configuration, not consumed
+external identity data. Their IDs remain stable across application restarts.
 
 ---
 
 ## 2. Identity and Role Simulation
 
-Real authentication is **not required in Cycle 1** (`scope.md`, Out of Scope).
-The team uses **simulated users and roles** to distinguish student requester
-behavior from support reviewer behavior (`requirements.md`, Cycle 1 Constraints).
+Cycle 1 uses simulated users to distinguish student and reviewer behavior.
 
 | Concern | Cycle 1 rule |
 |---|---|
 | Real Loyola authentication / SSO | Out of scope |
-| Simulated roles | Required — student and reviewer behavior must remain distinguishable even when authentication is simulated (`requirements.md`) |
-| Where simulated users are defined | Seeded configuration / seed data owned by the Application Service |
-| How API-003 is treated in Cycle 1 | The contract exists; the provider is a simulated identity source rather than a live institutional service |
+| Simulated roles | Student A and Student B are requesters; Reviewer inspects all requests and performs reviewer updates |
+| Where simulated users are defined | Fixed application-owned demo configuration; a validated selector stores the chosen identity in the server session |
+| How API-007 is treated in Cycle 1 | Simulated Role Context supplies the selected identity and role to the Request Workflow Service; API-003 is reviewer request access |
 
-**Note:** `api-contracts.md` API-003 describes obtaining a trusted identity from
-an Identity Provider. In Cycle 1, that provider is simulated. If the team later
-integrates a real provider, this section must be updated and the change
-documented through a new or superseding ADR.
+**Note:** API IDs follow the logical contracts merged in PR #43. The selector intentionally allows
+switching among all three identities for demonstration. It is not authentication
+or a production privacy control. Normal request forms cannot supply a trusted
+role or requester identity. The service checks session context and ownership on
+every operation, rejecting missing or invalid context. Switching users changes
+subsequent permissions without changing stored request ownership.
 
 ---
 
 ## 3. Sensitive and Protected Data
 
-CampusConnect uses **synthetic data only** in Cycle 1 (`requirements.md`,
-`scope.md`). No real student records, grades, private university data, or
-regulated records may be stored, processed, or shared with AI tools.
+Only synthetic request data may be stored, processed, or shared during Cycle 1.
 
 | Concern | Rule |
 |---|---|
@@ -79,8 +76,8 @@ regulated records may be stored, processed, or shared with AI tools.
 | Confidential project information | Not shared with AI tools |
 | Private personal information | Not shared with AI tools |
 
-These rules are also stated in the team's AI Use Policy
-(`/docs/ai/ai-policy.md`, §"Sensitive and Protected Information").
+These restrictions also follow the [AI Use Policy](../ai/ai-policy.md),
+"Sensitive and Protected Information."
 
 ---
 
@@ -88,60 +85,51 @@ These rules are also stated in the team's AI Use Policy
 
 | Context | Who may see it | Who may not see it | Rule |
 |---|---|---|---|
-| A requester's own request | The owning requester; reviewers | Other requesters | Requesters cannot read other users' requests even if they know the ID (`api-contracts.md` API-002) |
-| All requests | Reviewers | Requesters | Reviewers view requests to triage them (REQ-004) |
-| User identity | Application Service; the authenticated (simulated) user | Other users | Identity is consumed, not exposed broadly |
-| Role assignments | System; administrators | Requesters; reviewers (except their own role) | Managed by Application Service |
-| AI context (if added in Cycle 2) | AI tool boundary only | Other users; the repository | Minimum text needed for a suggestion |
-| Operational logs | Operations / review workflow | End users | Logs must remain reviewable and free of sensitive payloads |
+| A requester's own request | Owning requester; Reviewer | Other requester identities | Knowing the ID is insufficient; service checks session ownership (API-002) |
+| All requests | Reviewer | Student requester identities | Reviewer listing and detail access use API-003 (REQ-004) |
+| Demo identity options | Anyone using the local demo selector | No secrecy is claimed for synthetic identity options | Current selection is stored in the server session |
+| Demo role mapping | Application and users inspecting the demo options | Request forms cannot redefine the mapping | Fixed student/reviewer roles; no role-management interface |
+| Runtime AI context | Not applicable in Cycle 1 | Runtime models and external tools have no request access | Future access requires scope and architecture decisions |
+| Operational logs | Developers inspecting the local demonstration | Not exposed through student or reviewer application pages | Local machine access is outside the demo-role permission model |
 
-**Boundary rule:** knowing a request identifier must not be sufficient to access
-protected request information. Authorization is decided by the Application
-Service based on the (simulated) authenticated identity. This is reflected in
-`api-contracts.md` API-002 ("A caller must not receive protected request
-information solely because they know a request identifier").
+**Boundary rule:** the Request Workflow Service enforces permissions based on
+the selected session identity and request ownership. The selector permits
+switching to another demo user, so the checks demonstrate role behavior rather
+than protection from someone who controls the local demonstration.
 
 ---
 
 ## 5. AI Context Sources and Limits
 
-User-facing AI is **deferred to Cycle 2** (`scope.md`, Deferred Scope). This
-section therefore describes the current Cycle 1 position and the boundary rules
-that would apply if user-facing AI were added later.
+Runtime AI is excluded from Cycle 1. The scope allows reconsideration in Cycle 2
+planning; no model, runtime feature, or integration has been selected.
 
 ### 5.1 Engineering AI assistance (used throughout the project)
 
-AI tools may be used with project artifacts (requirements, planning documents,
-architecture drafts, code, tests). Team members are responsible for reviewing
-and understanding AI-assisted work before it enters the repository.
+AI may assist with project artifacts such as requirements, architecture, code,
+and tests. Team members review and understand assisted work before accepting it.
 
-- **What AI may see:** project artifacts already committed or shared with the
-  team, plus the team member's own working context.
-- **What AI must not see:** credentials, tokens, private keys, confidential
-  project information, or private personal information.
-- **What is logged:** significant AI use is recorded in `/docs/ai/ai-use-log.md`
-  with the tool, purpose, artifact affected, human verification, and result.
+- **What AI may see:** approved project artifacts and working context, subject to the data restrictions above.
+- **What AI must not see:** credentials, private keys, confidential information, or private personal information.
+- **What is logged:** significant development assistance in [ai-use-log.md](../ai/ai-use-log.md), including purpose, affected artifact, actual human verification, and result.
 
-### 5.2 User-facing AI (deferred to Cycle 2)
+### 5.2 User-facing AI (future consideration)
 
-User-facing AI is **not part of Cycle 1** (`scope.md`, Deferred Scope). If it is
-introduced in Cycle 2, the following boundary rules would apply, consistent
-with the team's AI Use Policy.
+The following table records Cycle 1 exclusions; it does not approve future AI behavior.
 
 | Boundary Question | Rule for CampusConnect |
 |---|---|
-| **Read** | AI may read only the minimum request text needed to produce a suggestion. It may not read other requests, user identities, role assignments, or logs. |
-| **Infer** | AI may suggest a category, summary, or missing-info flag. It may not infer priority, approvals, or resolution. |
-| **Call** | No external tool calls from the running system unless separately approved and documented. |
-| **Change** | AI may not create, update, resolve, close, or notify. It is read-only with respect to records. |
-| **Approve** | Any suggestion requires human reviewer acceptance before it is applied. |
-| **Observe** | Suggestion requests, returns, and reviewer accept/reject decisions are logged for review. |
-| **Log** | Suggestion inputs, outputs, and reviewer decisions are recorded in the AI Use Log. |
-| **Recover** | If AI is unavailable or fails, the reviewer categorizes manually. No workflow is blocked. |
+| **Read** | No runtime model receives request data. |
+| **Infer** | No runtime AI inference is performed. |
+| **Call** | No runtime model or external tool calls are required. |
+| **Change** | No runtime AI may create or modify request records. |
+| **Approve** | A future integration requires scope/risk review, a new ADR, and applicable instructor approval. |
+| **Observe** | Runtime AI monitoring is not applicable; future requirements remain undecided. |
+| **Log** | No runtime prompts or responses exist. The repository AI Use Log records development assistance only. |
+| **Recover** | The core workflow has no runtime AI dependency. |
 
-**Retention rule:** AI suggestion context is not persisted beyond what is needed
-for the suggestion and its review record. Request text already stored in the
-Database is not duplicated into AI-specific storage.
+**Retention rule:** no runtime AI context is created or retained in Cycle 1.
+Future AI storage and retention need decisions before implementation.
 
 ---
 
@@ -171,7 +159,7 @@ introduce a user-visible status history or comment thread.
 
 ## 7. Data Lifecycle (Cycle 1 scope)
 
-The intended lifecycle follows the Task 1 behavior draft:
+The intended lifecycle follows the requirements baseline from PR #46:
 
 | Phase | Behavior |
 |---|---|
@@ -194,8 +182,8 @@ follow-ups; they must preserve valid status and resolution combinations.
 |---|---|---|
 | ASM-001 | One current request status, as recorded in the requirements assumption register. | Store Submitted, In Progress, or Resolved; concurrent-update handling must preserve valid state. |
 | ASM-002 | One current note/resolution is sufficient, as recorded in the requirements assumption register. | Store editable current text; no thread or user-visible edit history. |
-| DC-DEP-001 | Simulated Role Context in proposed PR #43 supplies identity through API-007. | Fixed demo identities and service-side ownership checks must align with Task 1; no live identity provider. |
-| DC-DEP-002 | ADR-001's stack deferral must be revisited during A3. | Java, server-rendered pages, and local execution are selected in the Task 1 draft; Spring Boot, Thymeleaf, Maven, and file-backed H2 remain recommendations. |
+| DC-DEP-001 | Simulated Role Context from merged PR #43 supplies identity through API-007. | Fixed demo identities and service-side ownership checks must align with the requirements baseline; no live identity provider. |
+| DC-DEP-002 | ADR-001's stack deferral must be revisited during A3. | Java, server-rendered pages, and local execution are selected in the requirements baseline; Spring Boot, Thymeleaf, Maven, and file-backed H2 remain recommendations. |
 
 ---
 
@@ -211,18 +199,18 @@ follow-ups; they must preserve valid status and resolution combinations.
 
 ## 10. Related Evidence
 
-- Architecture overview: [architecture.md](architecture.md) — still a starter template on this branch; alignment and a reciprocal link are pending.
-- Component responsibilities: [component-responsibilities.md](component-responsibilities.md) — proposed replacement in PR [#43](https://github.com/victordodan/-comp330-f26-team-02/pull/43).
-- API contracts: [api-contracts.md](api-contracts.md) — API-001 through API-007 follow PR #43, not the older template on this branch.
-- Requirements: [requirements.md](../requirements/requirements.md) — reconcile with the pending Task 1 draft linked above.
-- Acceptance criteria: [acceptance-criteria.md](../requirements/acceptance-criteria.md) — Task 1 adds validation, ownership, permission, persistence, and transition checks.
-- Assumptions: [assumptions-open-questions.md](../requirements/assumptions-open-questions.md) — preserve ASM-001/ASM-002 and reconcile draft answers Q-001 through Q-004.
+- Architecture overview: [architecture.md](architecture.md) — the replacement overview is under review in PR [#48](https://github.com/victordodan/-comp330-f26-team-02/pull/48); final alignment is pending.
+- Component responsibilities: [component-responsibilities.md](component-responsibilities.md) — logical boundaries merged in PR [#43](https://github.com/victordodan/-comp330-f26-team-02/pull/43).
+- API contracts: [api-contracts.md](api-contracts.md) — API-001 through API-007 follow merged PR #43.
+- Requirements: [requirements.md](../requirements/requirements.md) — behavior baseline merged in PR #46, linked above.
+- Acceptance criteria: [acceptance-criteria.md](../requirements/acceptance-criteria.md) — 12 proposed checks from PR #46, including validation, ownership, permissions, persistence, and transitions.
+- Assumptions: [assumptions-open-questions.md](../requirements/assumptions-open-questions.md) — preserve ASM-001/ASM-002 and the recorded answers to Q-001 through Q-004.
 - Scope: [scope.md](../planning/scope.md).
 - Risk register: [risk-register.md](../planning/risk-register.md).
 - ADR-001: [stack deferral](../decisions/ADR-001-defer-production-technology-stack.md).
 - AI Use Policy: [ai-policy.md](../ai/ai-policy.md).
 - AI Use Log: [ai-use-log.md](../ai/ai-use-log.md) — development assistance only.
-- Test strategy: [test-strategy.md](../testing/test-strategy.md) — proposed replacement in PR [#44](https://github.com/victordodan/-comp330-f26-team-02/pull/44).
+- Test strategy: [test-strategy.md](../testing/test-strategy.md) — planned test coverage merged in PR [#44](https://github.com/victordodan/-comp330-f26-team-02/pull/44).
 
 ---
 
@@ -234,3 +222,5 @@ follow-ups; they must preserve valid status and resolution combinations.
 - [x] Defines visibility boundaries between roles.
 - [x] States what AI may and may not access.
 - [x] Defines proposed logging without claiming implementation or storing request text in logs.
+- [ ] Complete cross-document review against the corrected architecture overview and diagram; final A3 approval is pending.
+- [x] Records open questions rather than inventing answers.
