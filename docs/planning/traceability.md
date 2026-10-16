@@ -5,7 +5,7 @@
 **Current Phase:** A3 — Architecture & Review (proposed evidence; A2 planning retained)  
 **Release Cycle:** Cycle 1  
 
-A3 adds proposed architecture and test-planning links. PR #43, PR #46, and PR #47 remain under review; their contents are not an approved architecture baseline. No implementation or test execution is claimed.
+A3 links the merged requirements, architecture, and planned verification evidence from PRs #43, #44, #46, #47/#49, and #48. ADR-002 through ADR-004 are accepted for Cycle 1; final architecture-package review remains pending. No implementation or test execution is claimed.
 
 The current requirements package contains proposed CampusConnect requirements and acceptance criteria. These are used as the current planning baseline while team review and finalization continue. Pending relationships are identified explicitly rather than inferred or invented.
 
@@ -26,7 +26,7 @@ Current scope, task, ownership, and estimate relationships are linked below usin
 
 ## A3 Proposed Architecture and Verification Traceability (October 15, 2026)
 
-The relationships below are **proposed design and test coverage**, not completed tests. PR #46 proposes expanded acceptance criteria and detailed workflow rules; its approval and cross-document propagation remain pending.
+The relationships below are **proposed design and test coverage**, not completed tests. Merged PR #46 records twelve acceptance criteria and detailed workflow rules, reflected in the merged component/contracts and data/context documents. Final package review remains pending.
 
 | Requirement | Proposed Logical Contract(s) — PR #43 | Planned Verification — PR #44 | Cross-Document Review |
 |---|---|---|---|
@@ -34,22 +34,25 @@ The relationships below are **proposed design and test coverage**, not completed
 | REQ-002 — View own status and resolution | API-002, API-007 | Owner retrieval, Student B denial, unknown ID, note visibility; AC-REQ-002-01/02/03 proposed | Confirm ownership and reopened-note behavior |
 | REQ-003 — Unique ID and persistence | API-001, API-006 | Unique identifiers, failed writes, restart persistence; AC-REQ-003-01/02 proposed | Confirm storage and lifecycle rules in PR #47 |
 | REQ-004 — Reviewer access | API-003, API-007 | Reviewer listing and direct unauthorized-operation rejection; AC-REQ-004-01/02 proposed | Confirm simulated-role-only design, not real login |
-| REQ-005 — Reviewer status changes | API-004, API-006, API-007 | Allowed/invalid transitions, reopen, missing IDs, failed writes; AC-REQ-005-01/02 proposed | Resolve PR #46 three-status model versus PR #47 mention of Closed |
+| REQ-005 — Reviewer status changes | API-004, API-006, API-007 | Allowed/invalid transitions, reopen, missing IDs, failed writes; AC-REQ-005-01/02 proposed | Merged documents agree on the three-status model and reopening; verify implementation later |
 | REQ-006 — Reviewer notes | API-005, API-006, API-007 | Save/replace note, visibility, input bounds, clearing restrictions, failed writes; AC-REQ-006-01 proposed | Align note editing and resolved-state rules |
 
 **Proposed component owners of behavior:** Requester and Reviewer UI (interaction); Request Workflow Service (validation, authorization, transitions); Request Repository (persistence); Simulated Role Context (demo role and requester identity). These are design responsibilities, not assignments to individual team members.
 
 **Source and review evidence:** [PR #43 — component responsibilities and API contracts](https://github.com/victordodan/-comp330-f26-team-02/pull/43), [PR #46 — proposed requirements and 12 acceptance checks](https://github.com/victordodan/-comp330-f26-team-02/pull/46), [PR #47 — data/context design](https://github.com/victordodan/-comp330-f26-team-02/pull/47), [PR #44 — test strategy and architecture review](https://github.com/victordodan/-comp330-f26-team-02/pull/44), and [PR #45 — security checklist review](https://github.com/victordodan/-comp330-f26-team-02/pull/45).
 
-**Open A3 gaps:** final architecture overview and diagram, accepted status model, reconciliation of API contracts, security checklist verification labels, accepted ADR alignment, and recorded dispositions for review findings ARF-005–008. Actual code/test evidence is expected in later construction and verification work.
+**ADR confirmation:** Victor Dodan approved ADR-002 through ADR-004 and confirmed active risks R-010 through R-012 and their owners on October 16, 2026. The overview and inline diagram are merged. Final cross-document review, review-finding dispositions, planning reconciliation, and implementation detail remain outstanding. Actual code/test evidence is expected in later construction and verification work.
 
 ## Decision Traceability
 
-ADR-001 records the team's decision to defer selection of the final production technology stack until sufficient architecture and implementation evidence exists. This preserves the current Cycle 1 scope without treating an unsupported technology choice as a permanent commitment.
+ADR-001 preserves the historical A2 deferral of the final production technology stack. ADR-002 through ADR-004, approved by Victor Dodan on October 16, 2026, establish local Cycle 1 technology, consistency, and persistence/recovery decisions. They do not establish completed implementation or a permanent production architecture.
 
 | **Decision** | **Drivers / Inputs** | **Affected Architecture / Implementation** | **Verification / Follow-Up** |
 | ------------ | -------------------- | ------------------------------------------ | ---------------------------- |
-| ADR-001 — Defer final production technology stack | Cycle 1 requirements, `scope.md`, current planning evidence, limited architecture and implementation evidence | Final framework, database, hosting, and related production technology choices remain uncommitted during A2 | Reconsider the decision when architecture or implementation requires a committed technology stack and update affected estimates, risks, schedule, and traceability as needed. |
+| ADR-001 — Defer final production technology stack | Cycle 1 requirements, `scope.md`, A2 planning evidence | Historical deferral of permanent production choices; Cycle 1 decisions now recorded in ADR-002–004 | Preserve history and distinguish local Cycle 1 decisions from production choices. |
+| ADR-002 — Cycle 1 technology stack | Local Java/server-rendered demonstration; REQ-001–006 | Spring Boot, Thymeleaf, Maven, and file-backed H2; TASK-012/013, EST-003/004 | Accepted October 16, 2026; verify setup and implementation during construction. |
+| ADR-003 — Request consistency | Request integrity and failure behavior; R-011 | Post/Redirect/Get, transactional updates, optimistic version checks; API-001/004/005/006 | Accepted October 16, 2026; plan repeated-submission, stale-write, and rollback checks. |
+| ADR-004 — Local persistence and recovery | Restart persistence; R-010 | File-backed storage, backup and recovery expectations; API-006, EST-004/005 | Accepted October 16, 2026; document and test restart and recovery procedures during implementation. |
 
 ## Risk and Assumption Traceability
 
@@ -62,6 +65,9 @@ ADR-001 records the team's decision to defer selection of the final production t
 | R-005 — Independently developed components fail to integrate | MS-003, MS-004, EST-004 | Interfaces should be defined before implementation and integration should occur throughout construction. |
 | R-006 — Testing begins too late | EST-004, EST-005, MS-004, MS-005 | Testing and verification should develop alongside implementation instead of being postponed until the end of Cycle 1. |
 | R-007 — Repository evidence becomes incomplete or outdated | `task-plan.md`, `docs/team/working-agreements.md`, GitHub repository | Engineering evidence should be updated as work occurs and reviewed before each phase gate. |
+| R-010 — Local persistence failure | ADR-002/004, API-006, EST-004/005 | Active monitoring; Shu Perez confirmed as owner; document and verify persistence and recovery. |
+| R-011 — Conflicting reviewer updates | ADR-003, API-004/005/006, EST-004/005 | Active monitoring; Venkata Aravind Mareddy confirmed as owner; verify transactional version checks and rejection of stale changes. |
+| R-012 — Inconsistent architecture assumptions | ADR-002–004, TASK-012/013, MS-003/004 | Active monitoring; Victor Dodan confirmed as owner; reconcile accepted decisions and final review findings. |
 
 ## Change Impact Traceability
 
@@ -69,7 +75,7 @@ The transition from A1 to A2 established REQ-001 through REQ-006 and their corre
 
 Current scope, task, ownership, and estimate relationships can now be traced to these requirements. The requirements remain Proposed, so downstream planning evidence must be reviewed if a requirement or acceptance criterion changes during team review.
 
-Architecture, implementation, and completed verification relationships will be added as those artifacts are established. ADR-001 now provides the current decision traceability for the deferred production technology stack.
+Architecture, implementation, and completed verification relationships will be added as those artifacts are established. ADR-001 preserves the production-stack deferral; ADR-002 through ADR-004 provide the accepted local Cycle 1 decision traceability.
 
 ## Traceability Gaps
 
@@ -77,7 +83,7 @@ Architecture, implementation, and completed verification relationships will be a
 |---|---|---|---|---|
 | Cycle 1 requirements remain Proposed. | REQ-001 through REQ-006 provide the current planning baseline, but later requirement changes may require downstream traceability updates. | Shelby Sierah | Review and stabilize the current requirements package and resolve material requirement-level uncertainty. | A2 |
 | Acceptance criteria remain Proposed. | Existing AC identifiers can now be traced, but changes during team review may affect planning and later verification evidence. | Shelby Sierah | Review and stabilize `docs/requirements/acceptance-criteria.md`. | A2 |
-| Architecture evidence is proposed but not yet finalized. | PR #43 proposes components and API-001–007; PR #47 proposes data/context ownership. The final architecture overview and diagram still require review. | Architecture & Development Lead | Reconcile proposed contracts with PR #46 and complete the architecture overview, diagram, and ADR alignment. | A3 |
+| Architecture evidence is proposed but not yet finalized. | Component/API and data/context documents and the overview/inline diagram are merged. ADR-002–004 are accepted; final cross-document review remains pending. | Architecture & Development Lead | Finish the cross-document review and record finding dispositions against the accepted ADRs and current merged documents. | A3 |
 | Implementation evidence does not yet exist. | Requirements cannot yet be traced to source code or implementation pull requests. | Development team | Add implementation references during Construction. | A4 |
 | Verification evidence does not yet exist. | Requirements and acceptance criteria cannot yet be traced to tests or other proof of behavior. | Quality & Review Lead / team | Add test and verification references as evidence becomes available. | A4–A5 |
 
