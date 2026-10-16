@@ -1,413 +1,314 @@
-# Architecture
+# Architecture Overview — CampusConnect
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+> **Status:** Proposed for Cycle 1; final A3 review pending
+> **Baseline version:** PR #48 working draft; final submission tag pending
+> **Last updated:** 2026-10-15
+> **Owner:** Shú Perez · **Backup:** Giancarlo Herrera
+> **Team:** Codex Ramblers (Team 2)
 
-This file is the authoritative system-level description of your architecture.
+This document describes the proposed CampusConnect structure and workflow. It
+aligns with the requirements from merged PR #46, component/API contracts from
+merged PR #43, planned testing from merged PR #44, and data/context document
+from merged PR #47 (including #49). It does not claim a running application or
+final architecture approval. Significant technology decisions belong in ADRs.
 
-It should explain:
+---
 
-- what the system is and what surrounds it;
-- how the system is structurally organized;
-- the major components and their responsibilities;
-- important interfaces and dependencies;
-- significant constraints and assumptions;
-- the current architecture diagram; and
-- the significant decisions that shaped the architecture.
+## 1. Project Information
 
-At early gates, some architectural elements may still be proposed or
-incomplete. State uncertainty explicitly rather than inventing detail.
+| Item | Team Response |
+|---|---|
+| Project name | CampusConnect |
+| Team number / name | Team 2 — Codex Ramblers |
+| Repository URL (clone) | https://github.com/victordodan/-comp330-f26-team-02.git |
+| Architecture owner | Shú Perez |
+| Backup owner | Giancarlo Herrera |
+| Cycle 1 vertical slice | Student submits a synthetic request; Reviewer processes and resolves it; the owner views the result. Reviewer may reopen it. Local Java application with server-rendered pages and persistent local data. |
+| AI governance | Development assistance follows the [AI Use Policy](../ai/ai-policy.md) and [AI Use Log](../ai/ai-use-log.md). Runtime AI is excluded from Cycle 1. |
 
-Do not use this file as a source-code inventory. Focus on meaningful
-architectural structure and engineering reasoning.
+---
 
-IMPORTANT:
+## 2. System Overview
 
-- Text inside HTML comments like this is Starter Kit guidance.
-- Delete instructional comments before the applicable phase-gate submission.
-- Sample tables and examples are provided only to demonstrate structure.
-- Replace all sample project data with your team's actual engineering evidence.
-- Do not simply rename the sample components and treat the example as your architecture.
--->
+CampusConnect provides one bounded student support-request workflow. Students
+submit and view their own synthetic requests. A reviewer inspects requests,
+changes status, and records an editable student-visible note or resolution.
 
-## System Context
+The intended path is **student submission → validation and storage → reviewer
+inspection → In Progress → saved resolution → Resolved → student views result**.
+Reviewer may reopen Resolved to In Progress while preserving the current note.
 
-<!--
-TEAM CONTENT REQUIRED
+Cycle 1 runs locally for a classroom demonstration, using Java and
+server-rendered pages. No paid hosting, paid runtime services, shared deployed
+website, or external runtime integration is required. The rules are proposed
+behavior; implementation and verification remain future work.
 
-Describe the system from the outside looking in.
+**Cycle 1 vertical slice:**
 
-Identify, where relevant:
+1. Select Student A or Student B and submit title, category, and description.
+2. Validate the request, assign its ID/owner/timestamps and status Submitted, and persist it before confirming success.
+3. Select Reviewer and inspect requests from both students.
+4. Move Submitted to In Progress.
+5. Save a nonblank resolution and move In Progress to Resolved; reopen to In Progress if needed, preserving text.
+6. Select the owning student and view the current stored status and note/resolution.
+7. Preserve requirement, contract, review, and later test evidence as that work occurs; verify persistence across ordinary application restarts.
 
-- primary users or actors;
-- external systems or services;
-- important data sources or destinations;
-- trust or organizational boundaries; and
-- what is inside versus outside the system being engineered.
+### Structural Approach
 
-Keep this at the SYSTEM level. Detailed component interactions belong later.
+One local Java application contains the Requester and Reviewer UI, Request
+Workflow Service, Request Repository, and Simulated Role Context. Controllers
+and server-rendered templates implement the UI boundary. Services enforce
+validation, role/ownership checks, and workflow rules. Repository code owns
+storage operations. These logical components do not require separately deployed
+services or a separate frontend application.
 
-EXAMPLE ONLY — DELETE AND REPLACE:
+Only the workflow service initiates business storage operations through the
+repository. The browser has no direct database access. Demo identity options
+are application-owned configuration; the selected identity is stored in the
+server session. The persistence technology and framework remain pending ADR
+choices. Spring Boot, Thymeleaf, Maven, and file-backed H2 are recommendations.
 
-"The Workflow System allows students to submit requests and authorized staff
-to review and process them. Users access the system through a web application.
-The system relies on an external identity provider for authentication and a
-database for persistent workflow records."
+---
 
-Replace this entire comment with your team's actual system-context description.
--->
+## 3. Users, Roles, and Permissions
 
-## Architectural Structure
+| User / Role | Primary Goals | Allowed Actions | Limitations / Approvals |
+|---|---|---|---|
+| Student Requester (Student A / Student B) | Submit a request and view its progress | Submit valid requests; list/view only their own requests, current status, and current note/resolution | Cannot change status, edit reviewer notes, access reviewer operations, or edit/delete submitted requests |
+| Support Reviewer (Reviewer) | Inspect and process requests | List/inspect both students' requests; make permitted status changes; save or replace note/resolution text | Cannot use student-only submission; resolving requires saved nonblank text; clearing text while Resolved is prohibited |
 
-<!--
-TEAM CONTENT REQUIRED
+**Trust boundaries:** browser inputs and normal form-supplied roles/requester IDs
+are untrusted. Workflow operations use server-session identity and check roles
+and ownership on every call. Missing or invalid context is rejected. The demo
+selector validates a selection from Student A, Student B, and Reviewer, then
+updates the session; it deliberately permits switching identities and is not
+real authentication or production privacy protection. Switching users does not
+reassign stored requests. No administrator or role-management workflow exists.
 
-Describe the overall architectural approach.
+---
 
-Possible structures might include:
+## 4. Architecture Diagram
 
-- layered application;
-- client/server;
-- modular monolith;
-- service-oriented architecture;
-- event-driven architecture;
-- another justified structure; or
-- a combination of patterns.
+```mermaid
+flowchart LR
+    Students["Student A / Student B"] --> Browser["Local browser"]
+    Reviewer["Reviewer"] --> Browser
+    subgraph App["One local Java application"]
+        UI["Requester and Reviewer UI<br/>Controllers and server-rendered templates"]
+        Workflow["Request Workflow Service<br/>Validation, roles, ownership, status and note rules"]
+        Context["Simulated Role Context<br/>Fixed demo identities and server session"]
+        Repository["Request Repository"]
+        Logs["Proposed local application logs<br/>Storage and retention pending design"]
+        UI -->|"API-001 to API-005 logical operations"| Workflow
+        UI -->|"Validated demo-user selection"| Context
+        Workflow -->|"API-007: selected identity and role"| Context
+        Workflow -->|"API-006: storage operations"| Repository
+        Workflow -.->|"Safe event metadata; proposed"| Logs
+    end
+    Browser -->|"Page requests and form actions"| UI
+    UI -->|"Rendered HTML and feedback"| Browser
+    Repository --> Store[("Local persistent data store<br/>Technology pending ADR")]
+```
 
-Do not choose an architectural label merely because it sounds appropriate.
-Explain how the actual system is organized.
+The diagram is versioned in this document. It shows logical boundaries, not
+separate servers. No external identity provider, administrator, runtime AI,
+paid service, or institutional integration is part of the Cycle 1 architecture.
 
-Consider:
+---
 
-- separation of concerns;
-- major execution boundaries;
-- data flow;
-- control flow;
-- state ownership;
-- deployment boundaries; and
-- major architectural patterns.
+## 5. Component Responsibility Map
 
-If the architecture is still provisional, state that explicitly.
-
-Replace this entire comment with your team's actual architectural description.
--->
-
-## Major Components and Responsibilities
-
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize the major architectural components.
-
-Keep this table at a high level. More detailed responsibility boundaries
-belong in:
-
-/docs/architecture/component-responsibilities.md
-
-Use stable component names consistently across:
-
-- architecture.md;
-- component-responsibilities.md;
-- api-contracts.md;
-- architecture diagrams;
-- decision records;
-- implementation; and
-- verification evidence.
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH YOUR ACTUAL COMPONENTS.
--->
-
-| Component | Primary Responsibility | Key Dependencies |
-|---|---|---|
-| Web Client | Provides the user-facing workflow interface and communicates user actions to the application service. | Application Service |
-| Application Service | Enforces application workflows and coordinates domain operations. | Identity Provider, Persistence Layer |
-| Persistence Layer | Stores and retrieves durable workflow data. | Database |
-| Identity Provider | Authenticates users and provides trusted identity information. | External service |
-
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
-
-Do not list every class, file, package, or library.
-
-A component should represent a meaningful architectural responsibility or
-boundary.
--->
-
-## Interfaces and Dependencies
-
-<!--
-TEAM CONTENT REQUIRED
-
-Describe the important interactions among components and external systems.
-
-Focus on dependencies that matter architecturally.
-
-For each important interaction, consider:
-
-- direction of dependency;
-- type of interface;
-- data exchanged;
-- synchronous versus asynchronous behavior;
-- failure behavior;
-- trust boundaries;
-- security implications; and
-- whether a formal interface contract is required.
-
-Detailed contracts belong in:
-
-/docs/architecture/api-contracts.md
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH YOUR ACTUAL INTERACTIONS.
--->
-
-| Source | Target | Interaction | Interface / Protocol | Notes |
+| Component | Owns / Responsible For | Must Not Own | Inputs / Outputs | Evidence Link |
 |---|---|---|---|---|
-| Web Client | Application Service | Submit and retrieve workflow requests | HTTPS / JSON | Authenticated requests |
-| Application Service | Identity Provider | Obtain trusted user identity | Provider-defined protocol | External dependency |
-| Application Service | Persistence Layer | Store and retrieve workflow state | Internal interface | Application-controlled boundary |
+| Requester and Reviewer UI | Page rendering, form handling, user feedback, student views, and reviewer queue/detail views | Final workflow/permission decisions or direct storage access | In: page/form actions; Out: HTML, feedback, logical service operations | [Component responsibilities](component-responsibilities.md) |
+| Request Workflow Service | Validation, role/ownership enforcement, status/note rules, coordination of storage and success/failure responses | HTML rendering, database implementation, or real authentication | In: request data and session context; Out: authorized results and repository operations | [API-001 through API-007](api-contracts.md) |
+| Request Repository | Persistent request IDs, owners, fields, timestamps, current status/text, retrieval, and write results | Authorization policy or status-transition decisions | In: service storage operations; Out: records or storage failures | [API-006](api-contracts.md#api-006--request-repository-operations) |
+| Local persistent data store | Durable request records across ordinary restarts | Workflow policy, role decisions, or browser access | In/out: repository storage operations; technology pending | [Data/context ownership](data-context.md) |
+| Simulated Role Context | Fixed demo identities and selected session context | Real identity verification or final workflow authorization | In: validated demo selection/session state; Out: role and stable requester identity | [API-007](api-contracts.md#api-007--simulated-role-context) |
+| Proposed local logging | Diagnostic metadata for accepted/rejected operations and storage failures | Request descriptions, note bodies, credentials, or user-visible edit history | In: safe event metadata; output location/retention pending | [Proposed logging](data-context.md#6-logging-and-observability-expectations) |
 
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
+Full logical component detail: [component-responsibilities.md](component-responsibilities.md).
 
-## Data and State Ownership
+---
 
-<!--
-TEAM CONTENT REQUIRED WHEN DATA OR STATE OWNERSHIP IS ARCHITECTURALLY SIGNIFICANT
-
-Identify where important system state is authoritative.
-
-This is not intended to become a complete database design.
-
-Consider:
-
-- Which component owns important state?
-- Where is authoritative persistent data stored?
-- Which data is derived or cached?
-- Which external systems remain authoritative for information they provide?
-- Which components are permitted to modify important state?
-- What consistency assumptions exist?
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM WITH YOUR ACTUAL STATE OWNERSHIP.
-
-If this section is genuinely not useful for your architecture, the team may
-remove the section after making that decision.
--->
-
-| Data / State | Authoritative Owner | Persistence | Notes |
-|---|---|---|---|
-| Workflow request | Application Service | Database | Persistence Layer provides durable storage |
-| User identity | Identity Provider | External | Application consumes identity but does not own it |
-
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
-
-## Constraints and Assumptions
-
-<!--
-TEAM CONTENT REQUIRED
-
-Record constraints and assumptions that materially influence the architecture.
-
-A CONSTRAINT is something the architecture must operate within.
-
-Examples may include:
-
-- required deployment platform;
-- required programming language;
-- required external service;
-- security requirement;
-- institutional technology limitation; or
-- compatibility requirement.
-
-An ASSUMPTION is something currently being treated as true without sufficient
-confirmation.
-
-Do not recreate detailed assumption tracking here.
-
-Reference authoritative assumptions in:
-
-/docs/requirements/assumptions-open-questions.md
-
-Similarly, reference risks and decision records rather than duplicating them.
-
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT WITH ACTUAL PROJECT EVIDENCE.
--->
-
-| ID / Reference | Type | Description | Architectural Impact |
-|---|---|---|---|
-| ASM-001 | Assumption | Users authenticate through an institution-supported identity provider. | Architecture relies on external authentication rather than local credential storage. |
-
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
-
-## Architecture Diagram
-
-<!--
-TEAM CONTENT REQUIRED
-
-Replace this comment with your team's current architecture diagram.
-
-A diagram should make important system structure easier to understand than
-prose alone.
-
-Mermaid is acceptable because GitHub renders Mermaid diagrams.
-
-EXAMPLE ONLY — DO NOT RETAIN AS YOUR PROJECT ARCHITECTURE:
-
-    ```mermaid
-    flowchart LR
-        User[User]
-        Web[Web Client]
-        App[Application Service]
-        Identity[Identity Provider]
-        Data[Persistence Layer]
-        DB[(Database)]
-
-        User --> Web
-        Web --> App
-        App --> Identity
-        App --> Data
-        Data --> DB
-    ```
-
-Your actual diagram should:
-
-- use the same component names as the architecture documentation;
-- show important system and external boundaries;
-- show meaningful interaction or dependency directions;
-- remain understandable without requiring source-code knowledge; and
-- remain current when the architecture changes.
-
-DELETE THIS ENTIRE COMMENT and replace it with your actual diagram.
--->
-
-## Architectural Qualities and Tradeoffs
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify qualities that materially influence your architecture.
-
-Examples might include:
-
-- maintainability;
-- reliability;
-- security;
-- testability;
-- scalability;
-- performance;
-- usability;
-- recoverability; or
-- deployability.
-
-Do not create a generic list of desirable qualities.
-
-Document qualities that actually influenced architectural choices and explain
-the consequences or tradeoffs involved.
-
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT WITH ACTUAL PROJECT EVIDENCE.
--->
+## 5.5 Architectural Qualities and Tradeoffs
 
 | Quality / Concern | Architectural Response | Tradeoff / Consequence |
 |---|---|---|
-| Maintainability | Separate workflow logic from presentation and persistence responsibilities. | Adds explicit interfaces and some structural overhead. |
+| Maintainability | Separate page handling, workflow rules, session context, and persistence within one application. | Requires clear internal interfaces and consistent names. |
+| Testability | Service-side validation/authorization and controlled repository failures supplement browser tests. | UI demonstrations alone cannot prove permission or failure behavior. |
+| Governability | Reviewer-only updates and explicit status/resolution rules; development AI use is disclosed separately. | Demo identity switching supports classroom testing but provides no real authentication. |
+| Reviewability | Link the overview to requirements, contracts, data/context rules, ADRs, and planned tests. | Cross-document alignment and review records need maintenance. |
+| Honesty about uncertainty | Keep framework/database, concurrency, retries, logging, and recovery decisions explicit. | Dependent implementation must wait for suitable decisions; no final readiness claim yet. |
 
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
+---
 
-## Key Architectural Decisions
+## 6. Interfaces, APIs, and Tool Boundaries
 
-<!--
-TEAM CONTENT REQUIRED
+| Interface / Tool | Consumer | Provider | Purpose | Protocol | Requirement | Status |
+|---|---|---|---|---|---|---|
+| API-001 | Requester UI | Request Workflow Service | Submit valid request | Logical service operation behind local page/form handling; routes pending | REQ-001, REQ-003 | Proposed |
+| API-002 | Requester UI | Request Workflow Service | List/view student-owned requests | Logical service operation behind local page handling; routes pending | REQ-002 | Proposed |
+| API-003 | Reviewer UI | Request Workflow Service | List/inspect all demo requests | Logical service operation behind local page handling; routes pending | REQ-004 | Proposed |
+| API-004 | Reviewer UI | Request Workflow Service | Change status under transition rules | Logical service operation behind local form handling; routes pending | REQ-005 | Proposed |
+| API-005 | Reviewer UI | Request Workflow Service | Save/replace note or resolution | Logical service operation behind local form handling; routes pending | REQ-006 | Proposed |
+| API-006 | Request Workflow Service | Request Repository | Persist/retrieve request records | Internal storage boundary; technology pending | REQ-001 through REQ-006 | Proposed |
+| API-007 | Request Workflow Service | Simulated Role Context | Obtain selected session identity/role | Internal session/context boundary; implementation pending | REQ-001 through REQ-006 | Proposed |
 
-Summarize significant architectural decisions here without duplicating the
-complete decision records.
+These seven logical contracts do not require seven public endpoints or a JSON
+API. HTTP routes, form schemas, and framework details require a stack ADR.
 
-Reference the authoritative ADR or other decision artifact.
+**Valid status model:** Submitted → In Progress → Resolved, with Resolved →
+In Progress for reopening. Only Reviewer may change status; other transitions
+are rejected. Resolving requires saved nonblank note/resolution text. Reopening
+preserves the text, request ID, and owner. Reviewer may edit the current text
+(up to 2,000 trimmed characters) but cannot clear it while Resolved. See the
+[requirements](../requirements/requirements.md) and [full contracts](api-contracts.md)
+for field validation, permissions, and failure behavior.
 
-A decision belongs here when it materially shapes the architecture.
+---
 
-If a decision has not yet been made, reference the appropriate open question
-rather than pretending the architecture is settled.
+## 7. Data and Context Ownership
 
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT WITH ACTUAL PROJECT DECISIONS.
--->
+Full detail is in [data-context.md](data-context.md).
 
-| Decision | Summary | Evidence |
+| Data / Context | Authoritative Owner | Persistence | Visible To | Logging Expectation |
+|---|---|---|---|---|
+| Request (id, title, category, description, requester id, status, note/resolution, created/updated timestamps) | Request Workflow Service controls changes; stored records are authoritative | Local store via Request Repository | Owning student; Reviewer | Proposed operation/state metadata only; no request text |
+| Demo identity | Application-owned fixed configuration, exposed by Simulated Role Context | Stable demo IDs; current selection in server session | Demo selector options visible to users; current context consumed by service | Proposed synthetic identity-selection metadata; no session tokens |
+| Student/reviewer role mapping | Application-owned demo configuration | Fixed identity-to-role mapping | Application and users inspecting demo options | No role-management workflow or real-authentication log |
+| Runtime AI context | Not applicable in Cycle 1 | None | No runtime AI access | Development AI assistance is recorded separately |
+| Operational logs | Request Workflow Service | Proposed local logs; location/retention pending design | Developers inspecting the local demonstration | No note bodies, descriptions, credentials, or session cookies |
+
+**Data rules:** synthetic data only. The server assigns ID, owner, timestamps,
+and initial status Submitted; normal form values cannot override them. Request
+data and stable owner identities survive ordinary restarts. Successful updates
+preserve ID, owner, and creation time and update last-updated time. Rejected
+operations leave records unchanged; failed writes must not produce success
+confirmations. Failed listings must be distinguishable from empty lists.
+
+**Assumptions:** ASM-001 means one current request status; ASM-002 means one
+short current note/resolution without threaded messaging. Q-004's recorded
+answer uses the demo selector and server session. These meanings are preserved
+from [assumptions-open-questions.md](../requirements/assumptions-open-questions.md).
+Longer-term retention/reset policy, logging, retries, and concurrent edits need
+further decisions; no live identity or institutional integration is required.
+
+---
+
+## 8. AI / Tool Boundary and Governance Model
+
+The [AI Use Policy](../ai/ai-policy.md) governs development assistance. The
+[AI Use Log](../ai/ai-use-log.md) records actual assistance and human checking.
+Runtime AI is excluded from Cycle 1. A future integration requires explicit
+scope/risk review, an ADR, and applicable instructor approval.
+
+### Governance references
+
+| Question | Where the answer lives |
+|---|---|
+| What is permitted or prohibited? | [AI Use Policy](../ai/ai-policy.md) |
+| What AI use has actually occurred? | [AI Use Log](../ai/ai-use-log.md) |
+| Where is detailed verification recorded? | [AI verification notes](../ai/ai-verification-notes.md) |
+| What did the team accept, modify, or reject? | The AI Use Log's Result / Action column; no unperformed review is claimed |
+
+### AI boundary questions
+
+This table distinguishes the selected Cycle 1 runtime exclusion from the
+policy for development assistance; it does not approve future AI functionality.
+
+| Boundary Question | How the AI Use Policy governs it | Where evidence is recorded |
 |---|---|---|
-| ADR-001 | Use a modular application structure for the initial system. | `/docs/decisions/ADR-001.md` |
+| **Read** | Development tools may use approved project artifacts under the data restrictions; runtime models receive no request data. | AI Use Policy; data-context.md |
+| **Infer** | Development suggestions require review; no runtime inference is performed. | AI Use Log; review records |
+| **Call** | No runtime model, external tool, or paid service calls are required. | api-contracts.md; data-context.md |
+| **Change** | No runtime AI changes records. Assisted repository changes follow the authorized development/review workflow. | AI Use Log; commits and PRs |
+| **Approve** | Humans review assisted work; a future runtime integration needs separate scope and architecture approval. | AI Use Policy; review records; future ADR if applicable |
+| **Observe** | Record significant development assistance and actual checking; runtime AI monitoring is not applicable. | AI Use Log; AI verification notes |
+| **Log** | The repository AI Use Log records development assistance, not runtime prompts or operational request events. | AI Use Log; data-context.md |
+| **Recover** | Review and correct unsuitable assisted work and affected artifacts. The application has no runtime AI dependency. | AI Use Policy; corrective commits/reviews |
 
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
+### How to read this section
 
-## Architecture Evolution
+Development AI disclosure does not establish an operational AI component,
+audit service, or passing application tests. Proposed operational events and
+sensitive-data exclusions are described separately in [data-context.md](data-context.md).
 
-<!--
-Architecture may evolve as:
+---
 
-- requirements become clearer;
-- implementation produces evidence;
-- assumptions are validated or invalidated;
-- risks are discovered; and
-- engineering decisions change.
+## 9. Testing and Review Implications
 
-When the architecture changes materially:
+All checks below are planned. No application execution or passing test is claimed.
 
-1. update this file;
-2. update affected diagrams;
-3. update component-responsibilities.md;
-4. update api-contracts.md;
-5. record significant decisions;
-6. review affected requirements and acceptance criteria;
-7. review affected risks; and
-8. update relevant tests and operational evidence.
+| Architecture Claim | What Must Be Tested or Reviewed | Owner | Evidence Link |
+|---|---|---|---|
+| Request creation | Valid fields produce a stored Submitted request, unique ID, owner, and timestamps; invalid input creates none | Giancarlo Herrera | AC-REQ-001-01, AC-REQ-001-02, AC-REQ-003-01; [criteria](../requirements/acceptance-criteria.md) |
+| Status transitions | Three permitted transitions; resolution requires text; reopening preserves ID/note; reject invalid changes | Giancarlo Herrera | AC-REQ-005-01, AC-REQ-005-02, AC-REQ-002-01 |
+| Role boundary | Reviewer sees both students' requests; students cannot call reviewer operations or override roles with form data | Giancarlo Herrera | AC-REQ-004-01, AC-REQ-004-02 |
+| Resolution note | Reviewer saves/replaces current text; owner sees it; oversized text and clearing while Resolved are rejected | Giancarlo Herrera | AC-REQ-006-01, AC-REQ-002-02 |
+| API-001 contract | Exercise trimmed title/description boundaries, category validation, and failed storage | Mareddy Venkata Aravind | AC-REQ-001-02; [contracts](api-contracts.md) |
+| API-002 contract | Student B cannot list or directly retrieve Student A's records; unknown IDs disclose no unrelated data | Mareddy Venkata Aravind | AC-REQ-002-03; [contracts](api-contracts.md) |
+| Data/context control | Synthetic data only, stable ownership across identity changes, and no runtime AI access | Giancarlo Herrera | [Data/context rules](data-context.md); [test strategy](../testing/test-strategy.md) |
+| Restart persistence | Status, owner, fields, and current text remain available after an ordinary restart and identity reselection | Giancarlo Herrera | AC-REQ-003-02 |
+| Operational observability | Review proposed safe event metadata; simulate failures and distinguish failed listings from empty ones | Giancarlo Herrera | [Proposed logging](data-context.md#6-logging-and-observability-expectations); [test strategy](../testing/test-strategy.md) |
 
-Use the table below only for meaningful architectural changes.
+The 12 criteria are currently Proposed; baseline acceptance and executed test
+results are separate milestones. Full plan: [test-strategy.md](../testing/test-strategy.md).
+Retry and concurrency expectations must be decided before dependent tests.
 
-A blank table is intentional at project start.
--->
+---
+
+## 10. ADR Index
+
+| ADR ID | Decision Title | Status | Owner | File / Evidence Link |
+|---|---|---|---|---|
+| ADR-001 | Defer final production technology stack decision | Accepted — Deferred | Giancarlo Herrera | [ADR-001](../decisions/ADR-001-defer-production-technology-stack.md) |
+
+**Note:** retain ADR-001 as historical evidence. Java, server-rendered pages,
+and local execution are selected in the requirements baseline. Record the
+implementation framework, database, build/test tools, and relevant tradeoffs in
+new or superseding ADRs before dependent construction. Spring Boot, Thymeleaf,
+Maven, and file-backed H2 remain recommendations; this overview does not accept
+them or claim the ADR revisit is complete.
+
+---
+
+## 11. Known Architecture Risks and Open Questions
+
+| ID | Risk / Question | Impact | Owner | Next Action |
+|---|---|---|---|---|
+| AR-001 | Demo selection permits impersonation; service-side roles and ownership must still hold within the selected context | Medium | Giancarlo Herrera | Test direct operations and forged form context; keep the authentication limitation explicit |
+| AR-002 | Uncontrolled status expansion could invalidate contracts and tests | Medium | Malec Tarabein | Preserve the three-state baseline; review future changes through requirements and ADRs |
+| AR-003 | Runtime AI or external integrations could expand the class-project scope or introduce costs | Medium | Shú Perez | Keep them excluded; require explicit scope/risk review for any future addition |
+| AR-004 | Framework/database choices remain pending despite ADR-001's A3 revisit trigger | Medium | Giancarlo Herrera | Evaluate recommendations, record the stack ADR, and review estimates before implementation |
+| AR-005 | Concurrent updates, retries, or storage failures could violate valid status/text combinations | High | Victor Dodan | Decide transaction/retry/concurrency behavior and local recovery; preserve the resolution invariant |
+
+These concerns relate to R-001 (scope), R-002 (technology), R-004 (requirements),
+R-005 (integration), and R-006 (late testing) in the [risk register](../planning/risk-register.md).
+The detailed A3 planning and re-estimation update remains pending; this overview
+does not claim those updates or available team hours have been confirmed.
+
+---
+
+## 12. Review & Change Control
+
+- **Baseline under review:** PR #48's current proposed revision. Record the exact reviewed commit in the architecture review; create `a3-architecture-review` only at the final reviewed submission commit.
+- **Peer review findings:** [architecture-review.md](../reviews/architecture-review.md) contains the partial review. Update findings and dispositions against the corrected overview, diagram, contracts, and data/context document; no final approval is implied.
+- **Action tracking:** follow-up PRs and review actions must link actual corrections and closure evidence. The merged #43/#46 and #47 corrections need a follow-up review entry; historical findings must not be treated as current defects without rechecking them.
+- **Change control:** material changes update affected requirements, overview/diagram, contracts, ADRs, tests, and planning evidence together. Preserve the A2 checkpoint.
+
+### Architecture Evolution
 
 | Effective Gate | Change | Reason | Related Evidence |
 |---|---|---|---|
-|  |  |  |  |
+| A3 draft | Align the overview and inline diagram with the local Java behavior baseline and merged components/data rules | Remove conflicting states, roles, identity/API references, and premature baseline claims | PR #43, #44, #46, #47/#49; final review and stack ADRs pending |
 
-## Expectations
+---
 
-- Describe the actual architecture rather than an aspirational architecture.
-- Use consistent component and interface names across engineering artifacts.
-- Keep system context, structure, responsibilities, and dependencies current.
-- Maintain a useful architecture diagram.
-- Separate requirements from architecture and architecture from low-level implementation detail.
-- Reference assumptions, risks, decisions, and contracts rather than unnecessarily duplicating them.
-- Make significant architectural tradeoffs explicit.
-- Record uncertainty rather than manufacturing architectural certainty.
-- Update related engineering evidence when the architecture materially changes.
+## Final Check
 
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Replace all sample project data.
-2. Replace all placeholder sections with actual team content.
-3. Confirm component names agree with component-responsibilities.md.
-4. Confirm important interfaces agree with api-contracts.md.
-5. Confirm decision and assumption references are valid.
-6. Confirm the architecture diagram represents the current system.
-7. Review the document for stale or contradictory information.
-8. Remove all instructional HTML comments.
-
-A reviewer should be able to understand the major system structure and the
-engineering reasoning behind it without reading the source code.
--->
+- [x] Describes the proposed local system structure and logical boundaries.
+- [ ] Record and review the remaining stack, concurrency, retry, logging, and recovery decisions in the appropriate ADRs/design evidence.
+- [x] Links requirements, contracts, data/context rules, and planned verification without claiming passing tests.
+- [ ] Complete independent cross-document review and resolve or explicitly disposition remaining findings.
+- [ ] Confirm final A3 package readiness before creating the submission tag.
