@@ -18,7 +18,7 @@ The primary security concerns include:
 - Preventing exposure of credentials or hidden configurations
 - Maintaining the review trails for accountability and system governance
 
-The system uses synthetic data for development and testing. Authentication and authorization controls has the purpose to restrict access to authorized/verified users only.
+The system uses synthetic data for development and testing. Simulated students and authorization controls have the purpose of restricting access to authorized/verified users only.
 
 ## Governance Checklist
 
@@ -46,7 +46,7 @@ CampusConnect uses validated user accounts to verify user identity before the ap
 Failed authentication attempts result in denied access and error messages. Credentials are never stored in project documentation or repository files. The application trusts authenticated credentials only after successful verification.
 
 ## Authorization Review
-Authorization decisions are made by the application service rather than the user interface.
+Authorization decisions are made by the simulated student service rather than the user interface.
 
 Students may:
 - Create support requests
@@ -102,11 +102,11 @@ If a secret is released and exposed, it will be treated as compromised and rotat
 
 | Security Concern | Verification | Result | Evidence |
 |---|---|---|---|
-| Unauthorized access prevention | Assigned-role access testing | Passed | Testing Evidence |
-| Authentication failures | Invalid credential testing | Passed | Authentication Tests |
-| Input validation | Submission validation testing | Passed | Verified Records |
-| Data integrity | Request update testing | Passed | Application Tests |
-| Secret exposure prevention | Repository review | Passed | Code Review Evidence |
+| Unauthorized access prevention | Assigned-role access testing | Planned | Testing Evidence |
+| Student user failures | Invalid credential testing | Planned | Student Tests |
+| Input validation | Submission validation testing | Planned | Verified Records |
+| Data integrity | Request update testing | Planned | Application Tests |
+| Secret exposure prevention | Repository review | Planned | Code Review Evidence |
 
 ## Security Risks and Open Questions
 
@@ -134,6 +134,6 @@ If a secret is released and exposed, it will be treated as compromised and rotat
 | SEC-ACT-004 | Review permission boundaries against execution | Architecture Review | Shelby | A4 | Planned |
 
 ## Review Conclusion
-The A3 review shows that CampusConnect has established basic security controls including authentication, authorization boundaries, input validation responsibilites, sensitive data identification, governance ownership, and risk tracking. As of now, the current evident supports the reality of planned access-control mechanisms, data-handling procedures, and repository-level secret management actions.
+The A3 review shows that CampusConnect has established basic security controls including simulated student and reviewer roles, authorization boundaries, input validation responsibilites, sensitive data identification, governance ownership, and risk tracking. As of now, the current evident supports the reality of planned access-control mechanisms, data-handling procedures, and repository-level secret management actions.
 While basic, core security expectations have been documented and partially verified, more authorization testing, deployment security review, and operational monitoring activities remain planned for future goals and milestones. Security risks are constantly being tracked through the project risk-management process, and governance responsibilities have been assigned to team members to support ongoing review and improvement.
 -->
