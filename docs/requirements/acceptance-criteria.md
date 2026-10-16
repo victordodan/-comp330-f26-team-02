@@ -37,7 +37,7 @@
 
 At A3, these 12 proposed criteria define the intended observable behavior for Cycle 1. The original seven IDs are retained, with five additions covering invalid input, requester ownership, restart persistence, permissions, and invalid status changes. Detailed boundary and failure scenarios belong in later test cases; they do not each require another acceptance criterion.
 
-These are planned checks, not executed results. All criteria remain Proposed pending baseline review. Verification references will be strengthened as construction proceeds. Test permissions through application operations as well as the UI. Reconcile the test strategy in PR #44 and central planning traceability with these criteria during the A3 update.
+These are planned checks, not executed results. All criteria remain Proposed pending baseline review. Verification references will be strengthened as construction proceeds. Test permissions through application operations as well as the UI. The test strategy from merged PR #44 and the twelve-case catalog from merged PR #56 provide planned traceability; confirm their alignment with central planning during final A3 review.
 
 Criteria should not be marked **Verified** until repository-visible evidence demonstrates that the behavior has been satisfied.
 

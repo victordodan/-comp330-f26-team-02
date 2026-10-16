@@ -1,0 +1,54 @@
+# A3 Final Baseline and Architecture Gate — Approval Record
+
+**Project:** CampusConnect — Team 2 (Codex Ramblers)  
+**Phase:** A3 Cycle 1 Architecture and Review  
+**Prepared by:** Giancarlo Herrera, Quality & Review Lead (assisted documentation)  
+**Decision status:** **AWAITING AUTHORIZED TEAM SIGN-OFF — NOT APPROVED BY THIS DOCUMENT**  
+**Tag restriction:** Do not create `a3-architecture-review` until the approvals and evidence below are recorded.
+
+## 1. Baseline Proposed for Approval
+
+The six Cycle 1 requirements REQ-001–REQ-006 and twelve acceptance criteria AC-REQ-001-01 through AC-REQ-006-01 define a single synthetic student support-request workflow. Scope includes simulated Student A, Student B and Reviewer roles; student submission and ownership-restricted status/note viewing; unique request ID; reviewer listing, allowed status transitions, and editable note/resolution; and local persistence. It excludes real institutional authentication, external integrations, production deployment, and runtime AI.
+
+**Behavior decisions to affirm (Q-001–Q-004):**
+
+| ID | Proposed Decision | Acceptance |
+|---|---|---|
+| Q-001 | Title 5–100 characters, category Academic/IT/Campus Services/Other, description 10–2,000 characters, trim before validation | Pending |
+| Q-002 | Submitted → In Progress → Resolved; Resolved → In Progress reopening; reviewer-only; resolution requires a saved nonblank note | Pending |
+| Q-003 | One editable student-visible note/resolution up to 2,000 characters; preserve on reopening; clearing only in Submitted/In Progress | Pending |
+| Q-004 | Demo selector for Student A/Student B/Reviewer stored in server session; server-side ownership checks; no real authentication | Pending |
+
+**Existing approved architecture decisions:** ADR-002 (Java/Spring Boot/Thymeleaf/Maven/file-backed H2), ADR-003 (request consistency, PRG, optimistic versioning and transactions), ADR-004 (local persistence and recovery expectations) were recorded as accepted by Victor on October 16, 2026. ADR-001 remains a historical production-stack deferral. These decisions do not imply implemented functionality or passed tests.
+
+## 2. Review Evidence and Remaining Conditions
+
+| Gate Check | Evidence | Disposition |
+|---|---|---|
+| Requirements and acceptance criteria documented | [Requirements](../requirements/requirements.md), [Acceptance criteria](../requirements/acceptance-criteria.md) | Documents present; formal acceptance pending |
+| Architecture overview, component boundaries, interfaces, data ownership | [Architecture](../architecture/architecture.md), [Responsibilities](../architecture/component-responsibilities.md), [Contracts](../architecture/api-contracts.md), [Data context](../architecture/data-context.md) | Present; final reconciliation/approval pending |
+| Architecture diagram | [PNG](../architecture/architecture-diagram.png), [Mermaid in overview](../architecture/architecture.md) | Present; architecture lead must confirm these represent the same approved baseline |
+| Independent review | [Architecture review](architecture-review.md), merged PR #54 | Review recorded; final finding dispositions and sign-off pending |
+| Testing readiness | [Test strategy](../testing/test-strategy.md), [Test plan](../testing/test-plan.md), [Test cases](../testing/test-cases.md), merged PR #56 | Planned, 12 cases; not executed |
+| CI readiness | [CI evidence](../testing/ci-evidence.md), merged PR #57 | Starter guard only; no project CI build/tests |
+| Planning and AI governance | [Planning](../planning/README.md), [AI use log](../ai/ai-use-log.md) | Present; confirm final evidence alignment and log completeness |
+| Outstanding PRs and issues | GitHub repository PR/issue lists | Confirm clean at sign-off; prior open PR #50 diagram must be dispositioned |
+
+## 3. Required Human Decisions Before Tagging
+
+- [ ] **Requirements owner(s) and Victor:** Explicitly accept Q-001–Q-004, REQ-001–REQ-006 and all twelve acceptance criteria, or list requested changes. Approval must be attributable in a GitHub review/comment/commit.
+- [ ] **Shu (Architecture & Development Lead):** Confirm architecture overview, Mermaid, PNG, component responsibilities, contracts, and data context are consistent with accepted requirements and ADRs; document any remaining limitation.
+- [ ] **Giancarlo (Quality & Review Lead):** Finish cross-document verification, close/disposition review findings, and update `architecture-review.md` with an evidence-linked conclusion. No fabricated test pass claims.
+- [ ] **Victor (Team Lead):** Review the evidence and explicitly approve or reject the A3 architecture/review package in a GitHub comment or PR review.
+- [ ] **Victor:** Only after approval, create the `a3-architecture-review` tag on the approved main-branch commit, record the tag URL and exact commit, and update the Word submission index.
+
+## 4. Approval Record — Fill Only After Actual Human Review
+
+| Role | Reviewer | Decision | GitHub Review/Comment Link | Date |
+|---|---|---|---|---|
+| Requirements baseline | Requirements owner(s) / Victor | **PENDING** | — | — |
+| Architecture baseline | Shu Perez | **PENDING** | — | — |
+| Quality gate | Giancarlo Herrera | **PENDING** | — | — |
+| Final A3 authorization | Victor Dodan | **PENDING** | — | — |
+
+**Approval interpretation:** A merged documentation PR is not equivalent to these sign-offs. A3 may accept documented future implementation/test work; it must not claim working features, passing CI, or production readiness. The final tag must refer to the version the team actually approved.

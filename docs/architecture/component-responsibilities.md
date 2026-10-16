@@ -4,7 +4,7 @@
 **Project:** CampusConnect  
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A3 — Cycle 1 Architecture and Review  
-**Status:** Proposed — aligned with PR #46 draft requirements; pending team architecture review
+**Status:** Documented Cycle 1 proposal — final baseline acceptance pending
 
 ## 1. Purpose and Scope
 
@@ -12,7 +12,7 @@ This document defines the proposed component responsibilities, dependencies, own
 
 CampusConnect supports one end-to-end workflow: a simulated student submits a synthetic support request, receives a unique identifier, and views its current status and note or resolution. A simulated reviewer can inspect requests from both students, change status using permitted transitions, and save or replace a note or resolution.
 
-The design follows the draft requirements and acceptance criteria in PR #46. Final component names and boundaries must be reconciled with the team's architecture overview, diagram, and ADRs.
+The design follows the requirements and acceptance criteria merged in PR #46, subject to explicit final baseline acceptance. Component names and boundaries must be checked against the architecture overview, diagram, and accepted ADRs.
 
 These responsibilities describe proposed architecture, not implemented or verified functionality.
 
