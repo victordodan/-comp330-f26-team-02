@@ -127,7 +127,7 @@ These are the draft rules established by Q-004.
 - Rejected operations must leave stored records unchanged.
 - Unknown identifiers and unauthorized access must not expose another student's request information.
 - Failed retrieval or listing must be distinguishable from an empty result.
-- Retry, duplicate-submission, transaction, and concurrent-update policies remain architecture decisions.
+- Accepted ADR-003 requires Post/Redirect/Get for practical repeat-submission protection, transactional updates, and optimistic version checking. Stronger duplicate prevention and exact retry handling remain implementation follow-ups.
 
 ### Failure categories
 
@@ -193,7 +193,7 @@ The application assigns the unique request ID, requester identity, creation and 
 - Persist the request and its ownership before confirming successful submission.
 - Do not allow students to edit or delete submitted requests.
 - Do not report success unless storage succeeds.
-- Retry and duplicate-submission behavior remain pending architecture decisions.
+- Use Post/Redirect/Get as accepted in ADR-003. It does not guarantee duplicate prevention; stronger submission tokens/idempotency and exact retry handling remain follow-ups.
 
 **Planned verification**
 
@@ -344,7 +344,7 @@ The application assigns the unique request ID, requester identity, creation and 
 - Preserve the current note or resolution when reopening.
 - Update last-updated time after a successful status change.
 - Validate authorization and transition rules before persisting.
-- Concurrent-update handling remains an unresolved architecture decision.
+- Under accepted ADR-003, carry the version loaded by the reviewer into the save operation. Check that version and persist atomically; reject a stale change without modifying the record and ask the reviewer to reload.
 
 **Planned verification**
 
@@ -452,8 +452,8 @@ The application assigns the unique request ID, requester identity, creation and 
 - Rejected operations must not modify stored records.
 - Failed retrieval must be distinguishable from an empty result.
 - Persistence must survive ordinary application restarts using the same local store.
-- The database technology remains subject to an accepted architecture decision.
-- Transaction, retry, identifier-generation, and concurrent-update details require team decisions.
+- Use file-backed H2 as selected in accepted ADR-002.
+- Accepted ADR-003 requires transactional persistence and atomic optimistic version checks for status and note updates. Persist a request version and compare it with the version loaded by the reviewer. Identifier-generation and exact retry details remain implementation work; persistence/recovery expectations follow accepted ADR-004.
 
 **Planned verification**
 
@@ -534,11 +534,11 @@ Q-001 through Q-004 have draft resolutions in PR #46. They are not treated as im
 | Q-002 | Submitted, In Progress, Resolved, and permitted transitions | API-002, API-004, API-006 |
 | Q-003 | One editable note or resolution field with clearing restrictions | API-002, API-005, API-006 |
 | Q-004 | Student A, Student B, Reviewer; server-session context and stable ownership | API-001 through API-007 |
-| Architecture ADR | Final framework, database, transport, and deployment design | All relevant contracts |
-| Retry and concurrency | Duplicate submissions, transaction boundaries, concurrent updates, and recovery | API-001, API-004, API-005, API-006 |
-| Logging and recovery | Operational evidence, error handling, and retention | API-001 through API-006 |
+| Architecture ADR | ADR-002 selects Java, Spring Boot, Thymeleaf, Maven, file-backed H2, and local execution; exact routes/forms remain implementation detail | All relevant contracts |
+| Retry and concurrency | ADR-003 selects Post/Redirect/Get, transactional updates, and optimistic version checking; exact retry handling remains open | API-001, API-004, API-005, API-006 |
+| Logging and recovery | ADR-004 establishes local persistence and backup/recovery expectations; logging retention and executable recovery procedures remain implementation detail | API-001 through API-006 |
 
-The requirements specify Java with server-rendered pages and a local demonstration. Spring Boot, Thymeleaf, Maven, and file-backed H2 are recommendations, not approved implementation choices in this document.
+Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. The Cycle 1 stack is Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for local server-rendered pages. This records accepted design decisions; implementation and final package review remain pending.
 
 Architecture-critical decisions must be accepted or explicitly deferred with owners and decision points before dependent construction.
 
