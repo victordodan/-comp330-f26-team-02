@@ -2,31 +2,31 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A3 — Architecture & Review (proposed evidence; A2 planning retained)  
+**Current Phase:** A3 — Architecture & Review (approved design; A2 planning retained)  
 **Release Cycle:** Cycle 1  
 
-A3 links the merged requirements, architecture, and planned verification evidence from PRs #43, #44, #46, #47/#49, and #48. ADR-002 through ADR-004 are accepted for Cycle 1; final architecture-package review remains pending. No implementation or test execution is claimed.
+A3 links the merged requirements, architecture, and planned verification evidence from PRs #43, #44, #46, #47/#49, and #48. ADR-002 through ADR-004 are accepted for Cycle 1; Victor’s final A3 documentation authorization is recorded in [the approval record](../reviews/a3-final-gate-approval.md). No implementation or test execution is claimed.
 
-The current requirements package contains proposed CampusConnect requirements and acceptance criteria. These are used as the current planning baseline while team review and finalization continue. Pending relationships are identified explicitly rather than inferred or invented.
+Victor Dodan approves the six requirements, twelve acceptance criteria, and their documented architecture/test-planning relationships for A3. Implementation and executed verification remain later work.
 
 ## Requirements Traceability Matrix
 
-The current CampusConnect requirements package contains six proposed Cycle 1 requirements.
+The current CampusConnect requirements package contains six approved Cycle 1 requirements.
 
-Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Proposed architecture and planned test evidence are linked below. Implementation and completed verification evidence will be added when those lifecycle artifacts exist.
+Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Approved architecture and planned test evidence are linked below. Implementation and completed verification evidence will be added when those lifecycle artifacts exist.
 
 | Requirement | Acceptance Criteria | Task / Planning Evidence | Owner | Estimate | Verification | Risk / Assumption | Status |
 |---|---|---|---|---|---|---|---|
-| REQ-001 — Student requester submits a support request containing the information required for Cycle 1 processing | AC-REQ-001-01 | SCP-001, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
-| REQ-002 — Student requester views the current status and available resolution information for a submitted request | AC-REQ-002-01, AC-REQ-002-02 | SCP-006, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
-| REQ-003 — System stores a submitted support request and assigns a unique identifier | AC-REQ-003-01 | SCP-002, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
-| REQ-004 — Support reviewer views submitted support requests | AC-REQ-004-01 | SCP-003, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
-| REQ-005 — Support reviewer changes the current status of a support request | AC-REQ-005-01 | SCP-004, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
-| REQ-006 — Support reviewer records a short note or resolution for a support request | AC-REQ-006-01 | SCP-005, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-001 — Student requester submits a support request containing the information required for Cycle 1 processing | AC-REQ-001-01 | SCP-001, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Approved |
+| REQ-002 — Student requester views the current status and available resolution information for a submitted request | AC-REQ-002-01, AC-REQ-002-02 | SCP-006, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Approved |
+| REQ-003 — System stores a submitted support request and assigns a unique identifier | AC-REQ-003-01 | SCP-002, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Approved |
+| REQ-004 — Support reviewer views submitted support requests | AC-REQ-004-01 | SCP-003, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Approved |
+| REQ-005 — Support reviewer changes the current status of a support request | AC-REQ-005-01 | SCP-004, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Approved |
+| REQ-006 — Support reviewer records a short note or resolution for a support request | AC-REQ-006-01 | SCP-005, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Approved |
 
 ## A3 Proposed Architecture and Verification Traceability (October 15, 2026)
 
-The relationships below are **proposed design and test coverage**, not completed tests. Merged PR #46 records twelve acceptance criteria and detailed workflow rules, reflected in the merged component/contracts and data/context documents. Final package review remains pending.
+The relationships below are **approved design and planned test coverage**, not completed tests. Merged PR #46 records twelve acceptance criteria and detailed workflow rules, reflected in the merged component/contracts and data/context documents. Victor accepts this A3 documentation baseline and its stated limitations.
 
 | Requirement | Proposed Logical Contract(s) — PR #43 | Planned Verification — PR #44 | Cross-Document Review |
 |---|---|---|---|
@@ -73,7 +73,7 @@ ADR-001 preserves the historical A2 deferral of the final production technology 
 
 The transition from A1 to A2 established REQ-001 through REQ-006 and their corresponding acceptance-criteria identifiers as the current Cycle 1 planning baseline.
 
-Current scope, task, ownership, and estimate relationships can now be traced to these requirements. The requirements remain Proposed, so downstream planning evidence must be reviewed if a requirement or acceptance criterion changes during team review.
+Current scope, task, ownership, and estimate relationships can now be traced to these requirements. The requirements and criteria are approved; review downstream planning evidence whenever an accepted requirement or criterion changes.
 
 Architecture, implementation, and completed verification relationships will be added as those artifacts are established. ADR-001 preserves the production-stack deferral; ADR-002 through ADR-004 provide the accepted local Cycle 1 decision traceability.
 
@@ -81,9 +81,9 @@ Architecture, implementation, and completed verification relationships will be a
 
 | Gap | Why It Matters | Owner | Planned Resolution | Target Gate |
 |---|---|---|---|---|
-| Cycle 1 requirements remain Proposed. | REQ-001 through REQ-006 provide the current planning baseline, but later requirement changes may require downstream traceability updates. | Shelby Sierah | Review and stabilize the current requirements package and resolve material requirement-level uncertainty. | A2 |
-| Acceptance criteria remain Proposed. | Existing AC identifiers can now be traced, but changes during team review may affect planning and later verification evidence. | Shelby Sierah | Review and stabilize `docs/requirements/acceptance-criteria.md`. | A2 |
-| Architecture evidence is proposed but not yet finalized. | Component/API and data/context documents and the overview/inline diagram are merged. ADR-002–004 are accepted; final cross-document review remains pending. | Architecture & Development Lead | Finish the cross-document review and record finding dispositions against the accepted ADRs and current merged documents. | A3 |
+| Closed — Cycle 1 requirements approved by Victor. | REQ-001 through REQ-006 provide the current planning baseline, but later requirement changes may require downstream traceability updates. | Shelby Sierah | Victor explicitly accepts the six requirements and Q-001–Q-004 in the final approval record. | A2 |
+| Closed — twelve acceptance criteria approved by Victor. | Existing AC identifiers can now be traced, but changes during team review may affect planning and later verification evidence. | Shelby Sierah | Victor explicitly accepts all twelve criteria; runtime checks remain future work. | A2 |
+| A3 documentation baseline approved by Victor; execution evidence follows later. | Component/API and data/context documents and the overview/inline diagram are merged. ADR-002–004 are accepted; Victor’s final gate record accepts the current documentation and stated limitations. | Architecture & Development Lead | Victor accepts the current A3 documentation and stated review limitations in the final approval record; implementation evidence follows later. | A3 |
 | Implementation evidence does not yet exist. | Requirements cannot yet be traced to source code or implementation pull requests. | Development team | Add implementation references during Construction. | A4 |
 | Verification evidence does not yet exist. | Requirements and acceptance criteria cannot yet be traced to tests or other proof of behavior. | Quality & Review Lead / team | Add test and verification references as evidence becomes available. | A4–A5 |
 
