@@ -11,7 +11,7 @@ CampusConnect Cycle 1 is limited to one end-to-end student support-request workf
 
 The system will allow a student requester to submit a support request using synthetic data. The request will be stored and assigned a unique identifier. A support reviewer will be able to view the request, update its status, and record a note or resolution. The student will then be able to view the current status and resolution information for their request.
 
-The following A3 behavior decisions are drafted from the project discussion; requirements remain Proposed pending repository review. Completing the A2 refinement documents did not itself establish acceptance or verification.
+The following A3 behavior decisions form the documented **proposed Cycle 1 baseline**. They are ready for explicit requirements-owner and team-lead acceptance at the final A3 gate; a merged PR alone does not prove that acceptance or implementation verification occurred.
 
 Requests require a title (5–100 characters), category (Academic, IT, Campus Services, or Other), and description (10–2,000 characters). Trim surrounding whitespace before validation and storage; limits are inclusive. These categories and limits are proposed defaults. The application assigns the request ID, selected student identity, creation/last-updated timestamps, and initial status Submitted. Students cannot edit or delete submitted requests.
 
@@ -60,7 +60,7 @@ Each requirement:
 - is intended to be independently reviewable and verifiable; and
 - avoids introducing functionality outside the agreed Cycle 1 scope.
 
-Draft resolutions and remaining architecture decisions are maintained in `assumptions-open-questions.md`. PR #43 and PR #44 must be reconciled with these decisions before final A3 review; this update does not change either PR.
+Draft resolutions and remaining architecture decisions are maintained in `assumptions-open-questions.md`. PR #43 and PR #44 are merged; the final cross-document review must confirm consistency with their architecture and testing artifacts. Any remaining differences must be recorded before A3 approval.
 
 ## Requirements and Acceptance Criteria
 
