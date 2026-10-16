@@ -1,381 +1,236 @@
+
 # Component Responsibilities
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Project:** CampusConnect  
+**Team:** Team 2 — Codex Ramblers  
+**Assignment:** A3 — Cycle 1 Architecture and Review  
+**Status:** Proposed — aligned with PR #46 draft requirements; pending team architecture review
 
-This file defines the responsibilities and boundaries of the system's major
-architectural components.
+## 1. Purpose and Scope
 
-It should make clear:
+This document defines the proposed component responsibilities, dependencies, ownership boundaries, and failure-handling responsibilities for CampusConnect Cycle 1.
 
-- what each component owns;
-- what each component is responsible for;
-- what each component explicitly does NOT own;
-- what each component depends on;
-- what depends on each component; and
-- where important architectural responsibility boundaries exist.
+CampusConnect supports one end-to-end workflow: a simulated student submits a synthetic support request, receives a unique identifier, and views its current status and note or resolution. A simulated reviewer can inspect requests from both students, change status using permitted transitions, and save or replace a note or resolution.
 
-This is NOT a source-code directory, package inventory, class list, or list
-of every technical dependency.
+The design follows the draft requirements and acceptance criteria in PR #46. Final component names and boundaries must be reconciled with the team's architecture overview, diagram, and ADRs.
 
-Use the same component names used in:
+These responsibilities describe proposed architecture, not implemented or verified functionality.
 
-/docs/architecture/architecture.md
-
-IMPORTANT:
-
-- Text inside HTML comments like this is Starter Kit guidance.
-- Delete instructional comments before the applicable phase-gate submission.
-- Sample rows and sample component descriptions must be replaced with your
-  team's actual architecture.
-- Do not simply rename the sample components and retain the example design.
--->
-
-## Component Responsibility Matrix
-
-<!--
-TEAM CONTENT REQUIRED
-
-Replace the sample rows below with your team's actual major components.
-
-COLUMN GUIDANCE
-
-Component
-Use the authoritative architectural component name.
-
-Primary Responsibilities
-Describe what the component is accountable for.
-
-Does Not Own
-Explicitly identify responsibilities that could otherwise become ambiguous.
-This helps prevent responsibility leakage and architectural drift.
-
-Depends On
-Identify significant architectural dependencies.
-
-Used By
-Identify significant consumers.
-
-Related Requirements
-Reference requirements materially implemented, constrained, or supported by
-the component.
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM.
--->
+## 2. Component Responsibility Matrix
 
 | Component | Primary Responsibilities | Does Not Own | Depends On | Used By | Related Requirements |
 |---|---|---|---|---|---|
-| Web Client | Present workflow information, collect user input, and initiate application actions | Authoritative workflow rules, durable data storage, authentication authority | Application Service | End Users | REQ-001, REQ-002 |
-| Application Service | Enforce workflow behavior, coordinate domain operations, and make application-level authorization decisions | User-interface rendering, identity-provider internals, physical database implementation | Identity Provider, Persistence Layer | Web Client | REQ-001, REQ-002 |
-| Persistence Layer | Provide controlled durable storage and retrieval of application state | Workflow policy, presentation logic, user authentication | Database | Application Service | REQ-001, REQ-002 |
-| Identity Provider | Establish authenticated user identity | Application workflow authorization and business rules | External identity infrastructure | Application Service | REQ-001 |
+| Requester and Reviewer UI | Provide server-rendered student and reviewer views; collect and display request details; initiate submission, retrieval, status-change, and note-edit operations; display validation and failure feedback | Authoritative role and ownership checks, workflow transitions, persistent storage | Request Workflow Service | Student A, Student B, Reviewer | REQ-001 through REQ-006 |
+| Request Workflow Service | Validate request fields; enforce server-session roles and ownership; coordinate request creation and retrieval; validate status transitions and note rules; confirm operations only after successful storage | UI rendering, physical storage, real institutional authentication | Simulated Role Context, Request Repository | Requester and Reviewer UI | REQ-001 through REQ-006 |
+| Request Repository | Persist request IDs, stable owners, title/category/description, timestamps, current statuses, and note/resolution text; retrieve student-owned and reviewer-visible records; retain data across restarts | Authorization policy, user interface, status-transition decisions, role selection | Local persistent data store (technology pending) | Request Workflow Service | REQ-001 through REQ-006 |
+| Simulated Role Context | Provide Student A, Student B, or Reviewer identity from the server session; supply stable requester context for ownership enforcement | Real authentication, Loyola identity verification, final workflow authorization decisions | Demo selector and server-session mechanism (implementation pending) | Request Workflow Service | REQ-001 through REQ-006 |
 
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
+## 3. Component Inputs, Outputs, and Failure Responsibilities
 
-Do not create a component merely because a repository folder or package exists.
+| Component | Inputs | Outputs | Failure Responsibilities |
+|---|---|---|---|
+| Requester and Reviewer UI | Student request fields, request identifiers, user actions, reviewer status and note inputs | Submission confirmations, validation feedback, student-owned request details, reviewer listings, current status and note information | Display errors without false success; do not expose unauthorized records; distinguish empty lists from retrieval failures |
+| Request Workflow Service | Validated session context, submissions, retrieval requests, proposed status changes, note replacements | Authorized responses, persisted request confirmations, rejected-operation results | Reject invalid fields, unauthorized roles, ownership violations, invalid transitions, prohibited note changes, and failed writes |
+| Request Repository | Create, retrieve, list, and update operations from the workflow service | Persisted records, unique identifiers, current data, storage-operation results | Report missing records and storage failures; preserve existing data on failed operations; distinguish empty results from retrieval errors |
+| Simulated Role Context | Demo selection and server-session state | Selected role and stable student identity, when applicable | Report missing or invalid session context; never treat form-supplied roles as authoritative |
 
-A component should represent a meaningful architectural responsibility or
-boundary.
--->
+## 4. Responsibility Boundaries and Design Rationale
 
-## Detailed Component Responsibilities
+### Requester and Reviewer UI
 
-<!--
-TEAM CONTENT REQUIRED WHERE ADDITIONAL DETAIL IS USEFUL
+The UI provides Java server-rendered pages for local demonstration.
 
-Use one subsection for each major component when the responsibility matrix
-alone is not sufficient.
+Student-facing views allow Student A or Student B to:
 
-Suggested structure:
+- Submit a request with title, category, and description.
+- Receive a successful submission confirmation and request identifier.
+- List or inspect only their own requests.
+- View current status and available reviewer note or resolution text.
 
-### Component Name
+Reviewer-facing views allow Reviewer to:
 
-**Purpose**
+- List and inspect requests from both simulated students.
+- Request permitted status changes.
+- Save or replace the current note or resolution.
 
-Describe why the component exists.
+The UI may provide validation feedback and hide unavailable actions, but it is not the authoritative permission boundary. Students cannot edit or delete submitted requests.
 
-**Owns**
+### Request Workflow Service
 
-- Important responsibility or state owned by this component.
+The Request Workflow Service owns the business rules and application-level authorization.
 
-**Does Not Own**
+For request submission, it:
 
-- Related responsibility intentionally assigned elsewhere.
+- Accepts title, category, and description from a selected student.
+- Trims surrounding whitespace.
+- Validates title length of 5–100 characters.
+- Validates category against Academic, IT, Campus Services, and Other.
+- Validates description length of 10–2,000 characters.
+- Uses the student identity from server-session context.
+- Coordinates unique ID assignment, timestamps, initial `Submitted` status, and persistence.
+- Confirms success only after the request has been stored.
 
-**Inputs**
+For access control, it:
 
-- Important commands, events, requests, or data received.
+- Permits only students to submit requests and view their own requests.
+- Permits Reviewer to inspect requests from both students.
+- Restricts status and note modifications to Reviewer.
+- Rejects missing or invalid session context.
+- Rejects attempts to override role or ownership using form values.
+- Applies ownership checks to both direct request retrieval and student request listings.
 
-**Outputs**
+For status changes, it enforces:
 
-- Important responses, events, state changes, or information produced.
+| Current Status | Requested Status | Allowed? | Condition |
+|---|---|---|---|
+| Submitted | In Progress | Yes | Reviewer authorization |
+| In Progress | Resolved | Yes | Reviewer authorization and saved nonblank resolution text |
+| Resolved | In Progress | Yes | Reviewer authorization; preserve existing note |
+| Any other transition | Any unsupported or unpermitted status | No | Reject without modifying stored data |
 
-**Dependencies**
+For note or resolution updates, it:
 
-- Important internal or external dependencies.
+- Maintains one current student-visible text field per request.
+- Permits Reviewer to save or replace the text.
+- Trims the text and enforces the 2,000-character maximum.
+- Allows clearing while status is `Submitted` or `In Progress`.
+- Rejects clearing while status is `Resolved`.
+- Preserves the text when a resolved request is reopened.
+- Does not require threaded messaging or edit history.
 
-**Failure Responsibilities**
+The workflow service also ensures that successful updates preserve the request identifier, owner, and creation timestamp while updating the last-updated timestamp.
 
-Describe what the component is responsible for when:
+### Request Repository
 
-- input is invalid;
-- a dependency fails;
-- an operation cannot be completed; or
-- another meaningful failure occurs.
+The Request Repository owns storage operations, not business authorization.
 
-**Related Evidence**
+It is responsible for:
 
-- Requirements:
-- Acceptance Criteria:
-- API / Interface Contracts:
-- Decisions:
-- Tests:
+- Persisting unique request identifiers.
+- Storing validated request fields and stable student ownership.
+- Storing creation and last-updated timestamps.
+- Storing the current request status and current note or resolution.
+- Retrieving a request by identifier.
+- Retrieving requests for a specific student or the reviewer.
+- Persisting authorized updates.
+- Retaining stored records across ordinary application restarts against the same local store.
+- Reporting storage failures accurately.
 
-The two sections below are WORKED EXAMPLES ONLY.
+The repository must not become an alternate route for bypassing the workflow service's authorization checks.
 
-DELETE AND REPLACE THEM WITH ACTUAL COMPONENT DESCRIPTIONS.
--->
+Database selection, transaction handling, concurrent updates, retries, and identifier-generation details require accepted architecture decisions.
 
-### Web Client
+### Simulated Role Context
 
-<!--
-SAMPLE COMPONENT — DELETE AND REPLACE BEFORE SUBMISSION
--->
+The Simulated Role Context supplies the selected demo identity from the server session.
 
-**Purpose**
+The proposed identities are:
 
-Provide the interactive interface through which users access workflow capabilities.
+- Student A
+- Student B
+- Reviewer
 
-**Owns**
+The demo selector intentionally permits switching between these identities for classroom testing. It is not real authentication.
 
-- presentation of workflow information;
-- collection of user input;
-- client-side interaction state; and
-- communication of user-initiated operations to the Application Service.
+The selected session identity determines which operations the workflow service permits. Form-supplied role values and requester IDs must not override the server session.
 
-**Does Not Own**
+Stable stored requester identities preserve ownership when users switch demo roles or the application restarts.
 
-- authoritative workflow rules;
-- durable workflow state;
-- authentication authority; or
-- direct database access.
+The exact framework-specific session implementation remains an architecture decision.
 
-**Inputs**
+## 5. Data Ownership and Consistency
 
-- user actions;
-- application responses; and
-- authenticated session context.
+| Data or Rule | Responsible Component |
+|---|---|
+| Student and reviewer page presentation | Requester and Reviewer UI |
+| Required field validation | Request Workflow Service |
+| Role and request ownership enforcement | Request Workflow Service |
+| Status-transition policy | Request Workflow Service |
+| Note editing and clearing rules | Request Workflow Service |
+| Current simulated identity and role context | Simulated Role Context |
+| Persisted request records and unique IDs | Request Repository |
+| Persisted owner and timestamps | Request Repository |
+| Persisted current status and note/resolution | Request Repository |
+| Storage success or failure reporting | Request Repository, coordinated by Request Workflow Service |
 
-**Outputs**
+The workflow service must confirm that storage succeeded before reporting successful creation or update.
 
-- application requests; and
-- rendered user-visible state.
+Rejected operations must leave records unchanged. A failed request listing must be distinguishable from a successful empty list.
 
-**Dependencies**
+Successful updates preserve the original request ID, owner, and creation timestamp, and update the last-updated timestamp.
 
-- Application Service.
+## 6. Architecture Constraints
 
-**Failure Responsibilities**
+- Only synthetic or made-up request data is permitted.
+- The baseline specifies Java with server-rendered pages and local classroom execution.
+- Paid hosting, paid runtime services, and required cloud deployment are excluded.
+- Real Loyola authentication and single sign-on are outside Cycle 1 scope.
+- Student and reviewer roles are simulated through a demo selector and server session.
+- Real email or text-message integration is excluded.
+- Live institutional integrations are not required.
+- User-facing AI is excluded from the current baseline.
+- External APIs or services require instructor approval and documented risk review.
+- Spring Boot, Thymeleaf, Maven, and file-backed H2 remain recommendations rather than accepted implementation choices in this document.
+- The team prioritizes a complete support-request workflow over additional features.
 
-The client should present application or connectivity failures without
-manufacturing successful state or silently hiding relevant failures.
+## 7. Assumptions and Draft Decisions
 
-**Related Evidence**
-
-- Requirements: `REQ-001`, `REQ-002`
-- API / Interface Contracts: `API-001`, `API-002`
-
-### Application Service
-
-<!--
-SAMPLE COMPONENT — DELETE AND REPLACE BEFORE SUBMISSION
--->
-
-**Purpose**
-
-Coordinate application behavior and enforce workflow-level rules.
-
-**Owns**
-
-- workflow orchestration;
-- application-level validation;
-- application authorization decisions based on trusted identity;
-- coordination of persistence operations; and
-- application-level error handling.
-
-**Does Not Own**
-
-- browser presentation;
-- external authentication mechanisms; or
-- physical database implementation details.
-
-**Inputs**
-
-- authenticated application requests.
-
-**Outputs**
-
-- application responses;
-- workflow state changes; and
-- persistence operations.
-
-**Dependencies**
-
-- Identity Provider;
-- Persistence Layer.
-
-**Failure Responsibilities**
-
-The service must reject invalid or unauthorized operations and must not report
-a successful state change when the required operation was not completed.
-
-**Related Evidence**
-
-- Requirements: `REQ-001`, `REQ-002`
-- API / Interface Contracts: `API-001`, `API-002`
-
-<!--
-DELETE AND REPLACE THE SAMPLE COMPONENT SECTIONS ABOVE.
-
-You do not need a lengthy detailed subsection for every component if the
-responsibility matrix already makes the boundary clear.
-
-Use additional detail where ownership, failure behavior, or architectural
-boundaries would otherwise remain ambiguous.
--->
-
-## Responsibility Boundaries
-
-<!--
-TEAM CONTENT REQUIRED FOR IMPORTANT OR EASILY CONFUSED BOUNDARIES
-
-Document boundaries where ambiguity could create defects or architectural
-drift.
-
-Questions to consider where relevant:
-
-- Where is input validated?
-- Where are authoritative authorization decisions made?
-- Which component owns authoritative state?
-- Which components may modify that state?
-- Where are business rules enforced?
-- Who handles retries or failures?
-- Who converts between internal and external representations?
-- Who owns audit or logging responsibilities?
-- Where are transaction boundaries established?
-
-Do not answer irrelevant questions merely to fill the table.
-
-THE ROWS BELOW ARE SAMPLE DATA.
-DELETE AND REPLACE THEM.
--->
-
-| Concern | Owning Component | Boundary / Rule |
+| Reference | Draft Resolution | Component Impact |
 |---|---|---|
-| Workflow rule enforcement | Application Service | User-interface code may guide users but does not establish authoritative workflow validity. |
-| Persistent workflow state | Persistence Layer / Database | Application components access durable state through the persistence boundary. |
-| User authentication | Identity Provider | The application consumes trusted identity but does not manage user credentials. |
+| ASM-001 | One current request status at a time | Workflow Service and Repository |
+| ASM-002 | One short note or resolution without threaded messaging | Workflow Service, Repository, UI |
+| Q-001 | Title 5–100 characters; four categories; description 10–2,000 characters | UI, Workflow Service, Repository |
+| Q-002 | Submitted → In Progress → Resolved, with Resolved → In Progress reopening | Workflow Service, Repository, UI |
+| Q-003 | One editable student-visible note/resolution, maximum 2,000 trimmed characters; clearing prohibited while Resolved | Workflow Service, Repository, UI |
+| Q-004 | Student A, Student B, Reviewer; demo selector stored in server session | Simulated Role Context, Workflow Service, UI |
 
-<!--
-DELETE AND REPLACE ALL SAMPLE ROWS ABOVE.
--->
+These resolutions are selected for draft review and are not implementation-verified.
 
-## Shared Responsibilities
+Remaining architecture decisions include framework and database selection, transaction and concurrency behavior, retry handling, logging, and recovery.
 
-<!--
-Some concerns legitimately span multiple components.
+## 8. Requirements and Acceptance-Criteria Traceability
 
-Examples may include:
-
-- security;
-- observability;
-- validation;
-- error handling;
-- performance;
-- logging; or
-- traceability.
-
-Do not assign an important cross-cutting concern vaguely to "everyone."
-
-Describe how responsibility is divided.
-
-THE ROW BELOW IS SAMPLE DATA.
-DELETE AND REPLACE IT.
-
-If this section adds no meaningful information to your architecture, the team
-may remove it after making that decision.
--->
-
-| Concern | Components | Responsibility Split |
+| Component | Requirements Supported | Acceptance Criteria Supported |
 |---|---|---|
-| Security | Web Client, Application Service, Identity Provider | Identity Provider establishes identity; Application Service enforces authorization; Web Client presents permitted actions but is not the authoritative security boundary. |
+| Requester and Reviewer UI | REQ-001 through REQ-006 | AC-REQ-001-01, AC-REQ-001-02, AC-REQ-002-01, AC-REQ-002-02, AC-REQ-002-03, AC-REQ-004-01, AC-REQ-004-02, AC-REQ-005-01, AC-REQ-005-02, AC-REQ-006-01 |
+| Request Workflow Service | REQ-001 through REQ-006 | All 12 proposed acceptance criteria |
+| Request Repository | REQ-001 through REQ-006 | AC-REQ-003-01, AC-REQ-003-02, and persistence behavior supporting the remaining criteria |
+| Simulated Role Context | REQ-001 through REQ-006 | AC-REQ-002-03, AC-REQ-004-02, and role behavior supporting the remaining criteria |
 
-<!--
-DELETE AND REPLACE THE SAMPLE ROW ABOVE.
--->
+The acceptance criteria are design targets, not completed verification results.
 
-## Component Changes
+## 9. Review and Verification Dependencies
 
-<!--
-Component boundaries may evolve.
+Before final A3 acceptance, the team must:
 
-When a component is:
+1. Reconcile this document with the architecture overview and diagram.
+2. Confirm component names and responsibilities match the API contracts.
+3. Review and accept or explicitly defer the Q-001 through Q-004 draft resolutions.
+4. Confirm architectural decisions and ownership of remaining open issues.
+5. Record independent reviewer findings and their dispositions.
+6. Reconcile planned verification with the test strategy in PR #44.
+7. Update planning traceability, risks, and estimates when design decisions affect them.
+8. Link the accepted design and review evidence to the A3 submission.
 
-- added;
-- removed;
-- split;
-- merged; or
-- given materially different responsibilities;
+No completed implementation or verification is claimed.
 
-review and update:
+## 10. Related Engineering Evidence
 
-1. this file;
-2. architecture.md;
-3. the architecture diagram;
-4. api-contracts.md;
-5. significant decision records;
-6. affected requirements and acceptance criteria;
-7. tests; and
-8. relevant risk or operational evidence.
+- `docs/requirements/requirements.md`
+- `docs/requirements/acceptance-criteria.md`
+- `docs/requirements/assumptions-open-questions.md`
+- `docs/architecture/architecture.md`
+- `docs/architecture/api-contracts.md`
+- `docs/planning/traceability.md`
+- `docs/planning/risk-register.md`
+- `docs/decisions/ADR-001-defer-production-technology-stack.md`
+- `docs/testing/test-strategy.md`
+- `docs/ai/ai-use-log.md`
 
-Use the table below for meaningful changes.
+**Related pull requests**
 
-A blank table is intentional at project start.
--->
+- PR #43 — Component Responsibilities and API Contracts.
+- PR #46 — Draft Requirements and Acceptance Criteria Updates.
+- PR #44 — Test Strategy Alignment.
 
-| Effective Gate | Component | Change | Reason | Related Decision |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Expectations
-
-- Use the same component names throughout architecture evidence.
-- Assign clear primary responsibilities.
-- Make important non-responsibilities explicit where ambiguity could matter.
-- Identify meaningful architectural dependencies.
-- Document important failure responsibilities.
-- Link components to relevant requirements and interface contracts.
-- Avoid duplicating source-code structure without architectural meaning.
-- Avoid vague shared ownership of critical responsibilities.
-- Update component boundaries when the architecture changes.
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Delete and replace all sample component data.
-2. Confirm every listed component exists in the current architecture.
-3. Confirm component names agree with architecture.md.
-4. Confirm interactions agree with api-contracts.md.
-5. Review for missing, overlapping, or ambiguous responsibilities.
-6. Confirm referenced requirements and contracts exist.
-7. Remove all instructional HTML comments.
-
-A reviewer should be able to use this file to answer:
-
-"Which component is responsible for this behavior, state, or architectural
-decision?"
--->
+**Evidence status:** Proposed component design only. No implemented or verified behavior is claimed.
