@@ -4,7 +4,7 @@
 **Team:** Codex Ramblers — Team 2  
 **Phase:** A3 — Architecture and Review  
 **Release Cycle:** Cycle 1  
-**Status:** Architecture package assembled — final gate sign-off pending
+**Status:** Approved by Victor Dodan — A3 documentation baseline
 
 ## 1. Overview
 
@@ -25,7 +25,7 @@ The Cycle 1 scope uses synthetic data and simulated user roles. Real institution
 | [API Contracts](api-contracts.md) | Documents the expected application operations, validation rules, and request/response behavior. |
 | [Data Context](data-context.md) | Explains the request data model, ownership, persistence expectations, and data-handling boundaries. |
 
-The architecture overview includes the versioned [inline Mermaid diagram](architecture.md#4-architecture-diagram). It shows the current logical boundaries; final package review remains pending.
+The architecture overview links the completed [architecture diagram PNG](architecture-diagram.png). It shows the current logical boundaries; Victor’s final authorization is recorded in the [A3 approval record](../reviews/a3-final-gate-approval.md).
 
 ## 3. Architecture Decision Records
 
@@ -38,7 +38,7 @@ The following Architecture Decision Records document the team's technology and e
 | [ADR-003 — Request Consistency](../decisions/ADR-003-request-consistency.md) | Defines duplicate-submission handling, optimistic locking, and transactional updates. | Accepted — Cycle 1 |
 | [ADR-004 — Local Persistence and Recovery](../decisions/ADR-004-local-persistence-and-recovery.md) | Defines local database persistence, backup expectations, and recovery procedures. | Accepted — Cycle 1 |
 
-Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. They establish the Cycle 1 implementation decisions; implementation verification and final package review remain pending.
+Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. They establish the Cycle 1 implementation decisions; implementation verification remains later work; Victor’s final A3 authorization is now recorded.
 
 ## 4. Requirements and Acceptance Criteria
 
@@ -54,7 +54,7 @@ The architecture should remain consistent with the documented requirements, vali
 
 ## 5. Testing and Quality Review
 
-Testing and review evidence supports the evaluation of the proposed architecture.
+Testing and review evidence supports the evaluation of the approved A3 design.
 
 | Document | Purpose |
 |---|---|
@@ -79,9 +79,9 @@ Implementation readiness depends on resolving outstanding architecture decisions
 
 ## 7. Review and Approval Status
 
-The architecture documentation has been prepared for A3 review.
+Victor Dodan explicitly approves the current A3 architecture/review package, completed diagram, requirements, acceptance criteria, and documented limitations. The [final approval record](../reviews/a3-final-gate-approval.md) preserves the actual review and reported-confirmation sources.
 
-Before the architecture baseline is considered complete, the team should:
+The accepted A3 documentation baseline covers the following review areas:
 
 1. Review and reconcile the architecture overview, component responsibilities, API contracts, and data context.
 2. Confirm that dependent documents reflect accepted ADR-002, ADR-003, and ADR-004.
@@ -93,7 +93,7 @@ Before the architecture baseline is considered complete, the team should:
 **Quality & Review Lead:** Giancarlo Herrera  
 **Team Lead:** Victor Dodan
 
-**Current status:** Pending final team review and approval.
+**Current status:** Approved by Victor Dodan. Final merge, tag creation, and submission are delivery steps; runtime verification remains later work.
 
 ## 8. Cycle 1 Scope and Limitations
 
