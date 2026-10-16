@@ -4,7 +4,7 @@
 **Project:** CampusConnect  
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A3 — Cycle 1 Architecture and Review  
-**Status:** Proposed — aligned with PR #46 draft requirements; pending team architecture review
+**Status:** Documented Cycle 1 proposal — final baseline acceptance pending
 
 ## 1. Purpose and Scope
 
@@ -16,7 +16,7 @@ These contracts describe proposed component boundaries and observable behavior. 
 
 Cycle 1 uses synthetic data, Java with server-rendered pages, and a local class demonstration. Real Loyola authentication, institutional integrations, notifications, paid services, and user-facing AI are outside the required workflow.
 
-The detailed behavior reflects the draft resolutions in PR #46. Those decisions remain subject to team review and are not implementation evidence.
+The detailed behavior reflects the documented requirements merged in PR #46, pending explicit baseline acceptance. Those decisions remain subject to team review and are not implementation evidence.
 
 ## 2. Contract Summary
 
