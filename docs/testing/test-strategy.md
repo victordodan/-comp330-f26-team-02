@@ -1,456 +1,238 @@
 # Test Strategy
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Project:** CampusConnect
+**Team:** Team 2 — Codex Ramblers
+**Assignment:** A3 — Cycle 1 Architecture and Review
+**Primary Owner:** Giancarlo Herrera — Quality & Review Lead
+**Backup Owner:** Shelby Sierah (pending confirmation)
+**Status:** Proposed — Pending Team Review
 
-This file defines the team's overall approach to testing and verification.
+## 1. Testing Objectives
 
-A test strategy should answer questions such as:
+The purpose of this testing strategy is to define how our team plans to verify that CampusConnect meets its requirements and provides a reliable support-request workflow for students and reviewers.
 
-- What kinds of defects are we trying to detect?
-- What testing levels matter for this system?
-- Which risks require deeper verification?
-- What should be automated?
-- What still requires human review or manual verification?
-- How do requirements and acceptance criteria connect to tests?
-- How do we handle negative paths, failures, and regression risk?
-- What evidence will demonstrate that testing actually occurred?
+Testing will focus on the six Cycle 1 requirements: submitting requests, viewing status and resolution, storing requests with unique identifiers, viewing requests as a reviewer, updating request statuses, and recording notes or resolutions.
 
-This file defines the overall testing APPROACH.
+Our main objectives are to identify defects involving invalid inputs, unauthorized access, incorrect status updates, and storage or retrieval failures. Since Assignment 3 focuses on architecture and review, this document describes planned testing rather than completed test execution.
 
-Detailed execution planning belongs in:
+## 2. Testing Principles
 
-/docs/testing/test-plan.md
+- **Requirement-based testing:** Important tests will connect to approved requirements and acceptance criteria.
+- **Positive and negative testing:** We will verify both successful operations and expected failures.
+- **Early defect detection:** We will review architectural boundaries before implementation.
+- **Risk-based testing:** Authorization, data integrity, and workflow changes will receive additional attention.
+- **Repeatable verification:** We will automate suitable tests when the implementation technology is selected.
+- **Human review:** Team members will verify test expectations and results.
+- **Documented evidence:** Actual test results and defects will be recorded when testing occurs.
 
-Specific test scenarios belong in:
+## 3. Test Levels
 
-/docs/testing/test-cases.md
+### Unit Testing
 
-Automated pipeline evidence belongs in:
+Unit testing will focus on individual workflow rules, including request validation, identifier uniqueness, and allowed status transitions. These tests will help identify logic errors without requiring the complete application.
 
-/docs/testing/ci-evidence.md
+### Component and Integration Testing
 
-IMPORTANT:
+Integration testing will examine communication between the Requester and Reviewer UI, Request Workflow Service, Request Repository, and Simulated Role Context.
 
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
-- Do not claim a testing practice exists unless the team actually intends to use it.
--->
+For example, we will verify that a valid submission reaches the repository and that a storage failure does not result in a false success message.
 
-## Testing Objectives
+### API and Contract Testing
 
-<!--
-TEAM CONTENT REQUIRED
+Contract testing will verify the seven proposed interfaces, API-001 through API-007, documented in `docs/architecture/api-contracts.md`.
 
-Describe what the team is trying to accomplish through testing.
+Tests will examine inputs, outputs, authorization, failure handling, and component boundaries. These interfaces are proposed and have not yet been implemented or verified.
 
-Possible objectives include:
+### End-to-End and Acceptance Testing
 
-- verify requirements;
-- verify acceptance criteria;
-- detect regressions;
-- validate important architecture boundaries;
-- verify failure handling;
-- verify security behavior;
-- verify operational behavior;
-- reduce release risk.
+End-to-end testing will follow a request from student submission through reviewer processing and resolution.
 
-Do not simply write:
+These tests will help determine whether the complete workflow meets the approved acceptance criteria.
 
-"Make sure the system works."
+## 4. Test Types
 
-Replace this comment with the team's actual testing objectives.
--->
+- **Functional:** Verify the six CampusConnect requirements.
+- **Negative-path:** Check invalid requests, missing records, and failed operations.
+- **Security and permissions:** Verify that requester and reviewer actions remain separated.
+- **Data integrity:** Confirm unique identifiers and correct storage of request information.
+- **Regression:** Recheck working functionality after changes or defect corrections.
+- **Usability:** Manually review whether the workflow and error messages are understandable.
+- **Failure and recovery:** Check how the system responds to storage and service failures.
 
-## Testing Principles
+## 5. Requirements and Acceptance-Criteria Coverage
 
-<!--
-TEAM CONTENT REQUIRED
+### REQ-001 — Submit Support Request
 
-Define the principles that guide testing decisions.
+Verify that a student can submit a valid support request using synthetic data. Invalid or missing required information must be rejected according to the approved input specification.
 
-Examples ONLY:
+**Related contract:** API-001
 
-- Test behavior against requirements, not implementation assumptions.
-- Verify both successful and unsuccessful paths.
-- Automate repeatable verification where practical.
-- Use human review where judgment is required.
-- Preserve evidence of meaningful test execution.
-- Add regression coverage when a significant defect is fixed.
+### REQ-002 — View Request Status and Resolution
 
-Do not retain generic principles merely because they sound good.
+Verify that a student can retrieve their own request and view its current status and available resolution information. Requests belonging to another simulated student must not be accessible.
 
-Replace this comment with principles the team actually intends to follow.
--->
+**Related contract:** API-002
 
-## Test Levels
+### REQ-003 — Store Request with Unique Identifier
 
-<!--
-TEAM CONTENT REQUIRED
+Verify that each successfully submitted request is stored with a unique identifier and that storage failures do not produce false confirmation.
 
-Define which test levels are appropriate for this system.
+**Related contracts:** API-001, API-006
 
-Possible levels include:
+### REQ-004 — Reviewer Views Requests
 
-- Unit
-- Component
-- Integration
-- Contract
-- System
-- End-to-End
-- Acceptance
-- Runtime / Operational
+Verify that an authorized reviewer can view submitted requests and that requester-role operations cannot access reviewer-only functionality.
 
-Do NOT include every possible test level automatically.
+**Related contracts:** API-003, API-007
 
-For each level, explain:
+### REQ-005 — Reviewer Updates Status
 
-- what it verifies;
-- what boundary it exercises;
-- what kinds of defects it is intended to detect.
+Verify that an authorized reviewer can change a request's status. Unsupported values and transitions must be rejected once the approved status model is established.
 
-EXAMPLE ONLY:
+**Related contract:** API-004
 
-| Test Level | Purpose | Typical Scope | Primary Defects Detected |
-|---|---|---|---|
-| Unit | Verify isolated business logic | Individual function or module | Logic and boundary-condition defects |
-| Integration | Verify interaction among components | Application Service and Persistence | Interface and state-management defects |
+### REQ-006 — Reviewer Records Note or Resolution
 
-DELETE the example and populate the actual table below.
--->
+Verify that a reviewer can record a note or resolution and that it remains associated with the correct request.
 
-| Test Level | Purpose | Typical Scope | Primary Defects Detected |
-|---|---|---|---|
-|  |  |  |  |
+**Related contract:** API-005
 
-## Test Types
+### PR #46 — Proposed Acceptance Criteria (12 checks)
 
-<!--
-TEAM CONTENT REQUIRED
+- **AC-REQ-001-01 / 001-02:** Valid title (5–100 trimmed characters), category (Academic, IT, Campus Services, Other), and description (10–2,000 trimmed characters) create a Submitted request; invalid or unsupported input creates none.
+- **AC-REQ-002-01 / 002-02 / 002-03:** The owning student sees updated status and the current editable note, including after reopening; Student B cannot list or directly access Student A's request, and unknown IDs disclose no other records.
+- **AC-REQ-003-01 / 003-02:** Successful storage assigns a unique ID, requester identity, and timestamps; failed writes are not confirmed; request data, owner, status, and note survive restart against the same local store.
+- **AC-REQ-004-01 / 004-02:** Reviewer can list and inspect both students' requests; student access to reviewer listing, status updates, and note edits is rejected, including direct operations and forged role/form context.
+- **AC-REQ-005-01 / 005-02:** Only Reviewer can transition Submitted → In Progress → Resolved and reopen Resolved → In Progress; resolution requires saved nonblank text, reopening preserves ID and note; invalid transitions, unknown IDs, and failed writes leave records unchanged.
+- **AC-REQ-006-01:** Reviewer can save or replace a student-visible note up to 2,000 trimmed characters; clearing while Resolved, oversized text, missing records, and failed writes are rejected without changing saved records.
 
-Identify test types relevant to the actual system.
+The proposed Cycle 1 demo uses Student A, Student B, and Reviewer identities selected through a server session, Java with server-rendered pages, and a local persistent store. The exact framework/database is not yet selected. Test both page flows and server-side operations, including forged form values, missing/invalid session context, restart persistence, and failed listings versus genuinely empty lists.
 
-Possible types include:
+**Alignment note:** PR #46 defines three statuses (Submitted, In Progress, Resolved) and reopening; PR #47's data-context draft also mentions Closed. Resolve this inconsistency before the final architecture gate. Review API-001–007 against these proposed rules; no contract or implementation is claimed verified.
 
-- Functional
-- Negative-path
-- Regression
-- Security
-- Performance
-- Reliability
-- Usability
-- Accessibility
-- Compatibility
-- Recovery
-- Deployment verification
+The team will maintain traceability between requirements, acceptance criteria, planned tests, and actual results. Planned tests will not be represented as passed tests.
 
-Do not add a category merely because it appears in this list.
+**Related documents:**
+- `docs/requirements/requirements.md`
+- `docs/requirements/acceptance-criteria.md`
+- `docs/planning/traceability.md`
 
-EXAMPLE ONLY:
+## 6. Risk-Based Testing
 
-| Test Type | Why It Matters | Where Applied |
-|---|---|---|
-| Negative-path testing | Ensures invalid input does not create invalid state | Workflow submission and authorization |
-| Regression testing | Prevents previously corrected defects from returning | Automated CI suite |
+### Unauthorized Access
 
-Populate actual testing types below.
--->
+Test whether a requester can access another student's request or perform reviewer-only operations. The Request Workflow Service must enforce permissions rather than relying only on the user interface.
 
-| Test Type | Why It Matters | Where Applied |
-|---|---|---|
-|  |  |  |
+### Incorrect Status Updates
 
-## Requirements and Acceptance-Criteria Coverage
+Verify that status changes follow approved workflow rules and that invalid transitions are rejected.
 
-<!--
-TEAM CONTENT REQUIRED
+### Data Integrity and Storage Failures
 
-Testing should connect to engineering expectations.
+Check that identifiers remain unique and that request records, statuses, and resolutions are stored consistently. Simulated persistence failures will be tested where practical.
 
-Reference:
+### Component Communication Failures
 
-/docs/requirements/requirements.md
-/docs/requirements/acceptance-criteria.md
-/docs/planning/traceability.md
+Test how the workflow responds when repository operations fail or role context is missing or invalid.
 
-A useful chain is:
+### Unresolved Design Decisions
 
-Requirement
-  ->
-Acceptance Criterion
-  ->
-Test
-  ->
-Test Result
-  ->
-Release Evidence
+PR #46 proposes specific input fields, status transitions, editable notes, and simulated session roles. These remain Proposed until reviewed and must be reconciled with the architecture and API contracts before final A3 approval.
 
-Do not require every low-level unit test to map directly to a requirement.
+**Related document:** `docs/planning/risk-register.md`
 
-Traceability matters most for meaningful behavior and release claims.
+## 7. Positive and Negative Testing
 
-Replace this comment with the team's actual traceability approach.
--->
+Positive tests will verify valid request submission, status retrieval, reviewer updates, and resolution recording.
 
-## Risk-Based Testing
+Negative tests will include:
 
-<!--
-TEAM CONTENT REQUIRED
+- Missing or invalid request information.
+- Accessing another requester's record.
+- Performing reviewer-only operations as a requester.
+- Updating a nonexistent request.
+- Using an unsupported status or transition.
+- Missing or invalid simulated role context.
+- Repository failures during creation or updating.
+- Repeated submissions where duplicate-handling behavior remains undecided.
 
-Not every part of the system deserves equal testing depth.
+The team will prioritize failure scenarios that affect permissions, data integrity, and workflow reliability.
 
-Use risk to guide verification effort.
+## 8. Automation Strategy
 
-Consider areas with:
+The team intends to automate repeatable tests after selecting an implementation technology and suitable testing framework.
 
-- high impact if incorrect;
-- complex logic;
-- security significance;
-- data integrity consequences;
-- external dependencies;
-- repeated defect history;
-- difficult recovery;
-- architectural uncertainty.
+Potential automated checks include validation, request creation, unique identifiers, authorization, status changes, repository operations, and regression tests.
 
-Reference:
+Manual verification will remain important for usability, architecture consistency, requirements interpretation, and reviewing test evidence.
 
-/docs/planning/risk-register.md
+No automated pipeline or testing framework is claimed to be operational at this stage.
 
-EXAMPLE ONLY:
+## 9. Regression Strategy
 
-| Risk / Concern | Additional Testing Approach | Related Evidence |
-|---|---|---|
-| Unauthorized data access | Multi-user authorization tests and negative-path API verification | R-004, permission-boundaries.md |
+When a meaningful defect is corrected, the team will recheck the affected behavior and related requirements.
 
-DELETE the example and populate actual risk-based testing below.
--->
+Where practical, an automated test will be added or updated to detect the same defect if it returns.
 
-| Risk / Concern | Additional Testing Approach | Related Evidence |
-|---|---|---|
-|  |  |  |
+Regression testing will also be considered when component responsibilities, API contracts, or workflow rules change.
 
-## Positive and Negative Testing
+**Related document:** `docs/quality/defect-log.md`
 
-<!--
-TEAM CONTENT REQUIRED
+## 10. Test Data Strategy
 
-Describe how the team will verify both:
+CampusConnect will use synthetic data only. Real student records, Loyola credentials, and sensitive institutional information will not be used.
 
-POSITIVE PATHS
-Expected valid behavior.
+Test data will include sample requests, simulated requester and reviewer identities, valid and invalid identifiers, and different approved request statuses.
 
-NEGATIVE PATHS
-Invalid, unauthorized, missing, conflicting, or failed conditions.
+Separate simulated requester identities will help verify ownership restrictions.
 
-Examples of negative conditions may include:
+**Related document:** `docs/security/data-handling-notes.md`
 
-- missing required input;
-- malformed data;
-- unauthorized operation;
-- duplicate request;
-- unavailable dependency;
-- unknown resource;
-- invalid state transition.
+## 11. Environment Strategy
 
-Do not test negative conditions merely for volume.
+The team plans to begin testing in local development environments when implementation becomes available.
 
-Prioritize those that matter to requirements, security, integrity, and risk.
+If a continuous integration workflow is later configured, suitable automated tests may run during pull request review.
 
-Replace this comment with the team's actual approach.
--->
+The team has not yet confirmed a staging environment, deployed test environment, or automated testing pipeline. Actual environments and limitations will be documented when established.
 
-## Automation Strategy
+## 12. AI-Assisted Testing
 
-<!--
-TEAM CONTENT REQUIRED
+AI tools may assist with identifying edge cases, drafting test scenarios, and reviewing testing coverage.
 
-Explain what the team intends to automate and why.
+AI-generated suggestions are not proof of correct system behavior. Team members must review proposed tests, verify expectations, and independently confirm actual results.
 
-Possible automated checks include:
+AI assistance used in preparing this strategy will be recorded in the team AI Use Log.
 
-- unit tests;
-- integration tests;
-- contract tests;
-- regression tests;
-- static checks;
-- build verification;
-- deployment checks.
+**Related documents:**
+- `docs/ai/ai-policy.md`
+- `docs/ai/ai-use-log.md`
 
-Also identify what remains manual and why.
+## 13. Test Evidence
 
-Do not claim "everything is automated" unless that is actually true.
--->
+When tests are executed, the team will preserve relevant evidence in GitHub, including test results, pull request reviews, defect records, and automated output where available.
 
-| Verification Area | Automated / Manual / Mixed | Reason |
-|---|---|---|
-|  |  |  |
+Evidence should identify what was tested, the result, and the associated requirement or interface contract.
 
-## Regression Strategy
+**Related documents:**
+- `docs/testing/test-plan.md`
+- `docs/testing/test-cases.md`
+- `docs/testing/ci-evidence.md`
 
-<!--
-TEAM CONTENT REQUIRED
+## 14. Known Testing Limitations
 
-Describe how the team prevents previously fixed behavior from breaking again.
+- **No verified implementation:** This document defines planned testing, not completed execution.
+- **Technology pending:** Specific frameworks have not been approved.
+- **Proposed requirements baseline:** PR #46 provides draft answers to Q-001–Q-004, but these still require team review and architecture/contract alignment.
+- **Synthetic-data scope:** Real institutional integrations are excluded.
+- **No confirmed CI or staging environment:** These may be introduced later.
 
-A practical rule may be:
+The team will revisit these limitations as architecture and implementation progress.
 
-"When a meaningful defect is fixed, add or update an automated test where
-practical so the defect would be detected if it returned."
+## 15. Review and Maintenance
 
-Reference:
+Giancarlo Herrera, as Quality & Review Lead, will coordinate review of test coverage and identify gaps affecting the Cycle 1 workflow.
 
-/docs/quality/defect-log.md
+Team members will review testing assumptions, verify their component contracts, and contribute evidence as implementation progresses.
 
-Replace this comment with the team's actual regression approach.
--->
-
-## Test Data Strategy
-
-<!--
-TEAM CONTENT REQUIRED
-
-Describe how test data will be created and controlled.
-
-Consider:
-
-- synthetic data;
-- test accounts;
-- boundary values;
-- invalid data;
-- duplicate data;
-- security-sensitive cases.
-
-Reference:
-
-/docs/security/data-handling-notes.md
-
-Do not place real sensitive personal information into tests merely because it
-is convenient.
-
-Replace this comment with the team's actual test-data approach.
--->
-
-## Environment Strategy
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify where different kinds of tests run.
-
-Examples might include:
-
-- local developer environment;
-- CI;
-- test deployment;
-- staging-like environment;
-- deployed course environment.
-
-Explain meaningful differences that could affect results.
-
-Do not create fictional environments.
--->
-
-| Environment | Testing Purpose | Important Differences / Limitations |
-|---|---|---|
-|  |  |  |
-
-## AI-Assisted Testing
-
-<!--
-TEAM CONTENT REQUIRED WHEN AI IS USED TO ASSIST TESTING
-
-AI may assist with:
-
-- identifying edge cases;
-- proposing test scenarios;
-- reviewing test completeness;
-- suggesting failure conditions;
-- generating initial test code.
-
-AI output is not verification by itself.
-
-The team remains responsible for:
-
-- deciding whether proposed tests are valid;
-- understanding generated test code;
-- verifying test expectations;
-- ensuring tests actually exercise meaningful behavior.
-
-Reference:
-
-/docs/ai/ai-policy.md
-/docs/ai/ai-use-log.md
-
-Remove this section if AI-assisted testing is not used.
--->
-
-## Test Evidence
-
-<!--
-TEAM CONTENT REQUIRED
-
-Define what evidence the team preserves.
-
-Possible evidence includes:
-
-- CI run;
-- test report;
-- test-case result;
-- runtime evidence;
-- pull request;
-- screenshot when appropriate;
-- defect verification.
-
-Do not store large amounts of redundant evidence without purpose.
-
-The evidence should be reviewable enough to support important engineering claims.
-
-Replace this comment with the team's actual evidence approach.
--->
-
-## Known Testing Limitations
-
-<!--
-TEAM CONTENT REQUIRED
-
-Record limitations honestly.
-
-Examples ONLY:
-
-- no sustained-load testing;
-- one external integration verified manually;
-- browser compatibility limited;
-- recovery testing incomplete;
-- performance baseline not yet established.
-
-Reference:
-
-/docs/release/known-limitations.md
-
-when the limitation affects a release.
--->
-
-| Limitation | Impact | Planned Improvement | Related Evidence |
-|---|---|---|---|
-|  |  |  |  |
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Define testing objectives that actually matter to the project.
-2. Include only test levels and types the team genuinely uses.
-3. Connect important verification to requirements and acceptance criteria.
-4. Use risk to guide test depth.
-5. Include meaningful negative-path testing.
-6. Be explicit about what is automated versus manual.
-7. Describe regression and test-data practices.
-8. Identify real test environments.
-9. State testing limitations honestly.
-10. Remove ALL instructional HTML comments.
-
-The completed strategy should explain WHY the team tests the way it does, not
-serve as a generic catalog of testing terminology.
--->
+This strategy will be updated when approved requirements, architecture decisions, or interface contracts change.

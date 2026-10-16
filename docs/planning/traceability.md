@@ -2,10 +2,10 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A2 — Planning & Estimation  
+**Current Phase:** A3 — Architecture & Review (proposed evidence; A2 planning retained)  
 **Release Cycle:** Cycle 1  
 
-Traceability will be expanded as additional engineering evidence becomes available.
+A3 adds proposed architecture and test-planning links. PR #43, PR #46, and PR #47 remain under review; their contents are not an approved architecture baseline. No implementation or test execution is claimed.
 
 The current requirements package contains proposed CampusConnect requirements and acceptance criteria. These are used as the current planning baseline while team review and finalization continue. Pending relationships are identified explicitly rather than inferred or invented.
 
@@ -13,7 +13,7 @@ The current requirements package contains proposed CampusConnect requirements an
 
 The current CampusConnect requirements package contains six proposed Cycle 1 requirements.
 
-Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Architecture, implementation, and concrete verification evidence will be added as those lifecycle artifacts are established.
+Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Proposed architecture and planned test evidence are linked below. Implementation and completed verification evidence will be added when those lifecycle artifacts exist.
 
 | Requirement | Acceptance Criteria | Task / Planning Evidence | Owner | Estimate | Verification | Risk / Assumption | Status |
 |---|---|---|---|---|---|---|---|
@@ -23,6 +23,25 @@ Current scope, task, ownership, and estimate relationships are linked below usin
 | REQ-004 — Support reviewer views submitted support requests | AC-REQ-004-01 | SCP-003, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-005 — Support reviewer changes the current status of a support request | AC-REQ-005-01 | SCP-004, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-006 — Support reviewer records a short note or resolution for a support request | AC-REQ-006-01 | SCP-005, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+
+## A3 Proposed Architecture and Verification Traceability (October 15, 2026)
+
+The relationships below are **proposed design and test coverage**, not completed tests. PR #46 proposes expanded acceptance criteria and detailed workflow rules; its approval and cross-document propagation remain pending.
+
+| Requirement | Proposed Logical Contract(s) — PR #43 | Planned Verification — PR #44 | Cross-Document Review |
+|---|---|---|---|
+| REQ-001 — Submit request | API-001, API-007 | Valid and invalid fields, requester context, failed storage; AC-REQ-001-01/02 proposed in PR #46 | Validate fields/limits and simulated-role session rules against PR #46 |
+| REQ-002 — View own status and resolution | API-002, API-007 | Owner retrieval, Student B denial, unknown ID, note visibility; AC-REQ-002-01/02/03 proposed | Confirm ownership and reopened-note behavior |
+| REQ-003 — Unique ID and persistence | API-001, API-006 | Unique identifiers, failed writes, restart persistence; AC-REQ-003-01/02 proposed | Confirm storage and lifecycle rules in PR #47 |
+| REQ-004 — Reviewer access | API-003, API-007 | Reviewer listing and direct unauthorized-operation rejection; AC-REQ-004-01/02 proposed | Confirm simulated-role-only design, not real login |
+| REQ-005 — Reviewer status changes | API-004, API-006, API-007 | Allowed/invalid transitions, reopen, missing IDs, failed writes; AC-REQ-005-01/02 proposed | Resolve PR #46 three-status model versus PR #47 mention of Closed |
+| REQ-006 — Reviewer notes | API-005, API-006, API-007 | Save/replace note, visibility, input bounds, clearing restrictions, failed writes; AC-REQ-006-01 proposed | Align note editing and resolved-state rules |
+
+**Proposed component owners of behavior:** Requester and Reviewer UI (interaction); Request Workflow Service (validation, authorization, transitions); Request Repository (persistence); Simulated Role Context (demo role and requester identity). These are design responsibilities, not assignments to individual team members.
+
+**Source and review evidence:** [PR #43 — component responsibilities and API contracts](https://github.com/victordodan/-comp330-f26-team-02/pull/43), [PR #46 — proposed requirements and 12 acceptance checks](https://github.com/victordodan/-comp330-f26-team-02/pull/46), [PR #47 — data/context design](https://github.com/victordodan/-comp330-f26-team-02/pull/47), [PR #44 — test strategy and architecture review](https://github.com/victordodan/-comp330-f26-team-02/pull/44), and [PR #45 — security checklist review](https://github.com/victordodan/-comp330-f26-team-02/pull/45).
+
+**Open A3 gaps:** final architecture overview and diagram, accepted status model, reconciliation of API contracts, security checklist verification labels, accepted ADR alignment, and recorded dispositions for review findings ARF-005–008. Actual code/test evidence is expected in later construction and verification work.
 
 ## Decision Traceability
 
@@ -58,7 +77,7 @@ Architecture, implementation, and completed verification relationships will be a
 |---|---|---|---|---|
 | Cycle 1 requirements remain Proposed. | REQ-001 through REQ-006 provide the current planning baseline, but later requirement changes may require downstream traceability updates. | Shelby Sierah | Review and stabilize the current requirements package and resolve material requirement-level uncertainty. | A2 |
 | Acceptance criteria remain Proposed. | Existing AC identifiers can now be traced, but changes during team review may affect planning and later verification evidence. | Shelby Sierah | Review and stabilize `docs/requirements/acceptance-criteria.md`. | A2 |
-| Architecture evidence does not yet exist. | Requirements cannot yet be traced to specific architectural components or interfaces. | Architecture & Development Lead | Add architecture relationships as Module 3 evidence is created. | A3 |
+| Architecture evidence is proposed but not yet finalized. | PR #43 proposes components and API-001–007; PR #47 proposes data/context ownership. The final architecture overview and diagram still require review. | Architecture & Development Lead | Reconcile proposed contracts with PR #46 and complete the architecture overview, diagram, and ADR alignment. | A3 |
 | Implementation evidence does not yet exist. | Requirements cannot yet be traced to source code or implementation pull requests. | Development team | Add implementation references during Construction. | A4 |
 | Verification evidence does not yet exist. | Requirements and acceptance criteria cannot yet be traced to tests or other proof of behavior. | Quality & Review Lead / team | Add test and verification references as evidence becomes available. | A4–A5 |
 
