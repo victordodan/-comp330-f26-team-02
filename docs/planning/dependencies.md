@@ -199,9 +199,9 @@ All three ADRs remain proposed until reviewed and approved by the team.
 
 The primary implementation dependency sequence is:
 
-1. Complete the A3 architecture review.
-2. Approve or revise the proposed engineering decisions.
-3. Confirm component responsibilities and API contracts.
+1. Approve or revise the proposed engineering decisions.
+2. Confirm component responsibilities and API contracts against those decisions.
+3. Complete the final A3 architecture review and record finding dispositions.
 4. Implement the required student and reviewer workflow.
 5. Integrate persistence and status-update behavior.
 6. Execute applicable automated and manual tests.
