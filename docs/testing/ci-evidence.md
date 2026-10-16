@@ -1,345 +1,88 @@
-# CI Evidence
+# Continuous Integration (CI) Evidence — CampusConnect
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Project:** CampusConnect  
+**Team:** Team 2 — Codex Ramblers  
+**Phase:** A3 — Cycle 1 Architecture and Review  
+**Documentation Owner:** Giancarlo Herrera — Quality & Review Lead  
+**Status:** CI not configured for project-specific build or tests; no successful CI verification claimed  
+**Review Date:** October 16, 2026
 
-This file records evidence produced by Continuous Integration (CI).
+## 1. Current CI Configuration
 
-CI is useful because it provides repeatable, repository-connected evidence that
-important automated checks executed against a specific code baseline.
+The repository currently contains [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml). This is the **Starter Kit guard workflow**, named **CI - Configuration Required**. It is **not** a project-specific CI pipeline.
 
-CI evidence may include:
+| Item | Current Verified Repository Configuration |
+|---|---|
+| Workflow file | `.github/workflows/ci.yml` |
+| Workflow name | `CI - Configuration Required` |
+| Trigger | Manual `workflow_dispatch` only |
+| Job | `ci-not-configured` |
+| Runner | `ubuntu-latest` |
+| Behavior | Prints a configuration-required error and exits with code 1 |
+| Project build | Not configured |
+| Automated project tests | Not configured |
+| PR/push validation triggers | Not configured |
+| Successful build/test evidence | Not established |
 
-- build result;
-- automated test result;
-- static analysis;
-- formatting or linting checks;
-- security scanning where actually used;
-- packaging;
-- deployment validation.
+**Important:** A deliberate failure of the starter guard means CI is unconfigured. It is **not** evidence that CampusConnect code failed its own build or tests. This review inspects the workflow definition; it does not claim a specific GitHub Actions run occurred.
 
-A green CI result does NOT automatically mean:
+## 2. Intended CI Checks — Not Yet Implemented
 
-- all requirements are satisfied;
-- all acceptance criteria are verified;
-- the release is ready;
-- the system has no defects.
+The Cycle 1 architecture records Java, Spring Boot, Thymeleaf, Maven, and a local file-backed H2 data store under ADR-002. Once executable project files are present and reviewed, the team should replace the guard with checks appropriate to the actual project:
 
-CI proves only what its configured checks actually evaluate.
+1. Check out the reviewed repository commit.
+2. Configure a compatible Java runtime and Maven environment.
+3. Compile/package the application, failing the job on build errors.
+4. Execute meaningful automated unit and integration tests, failing the job on test errors.
+5. Report test results and preserve useful logs or artifacts.
+6. Enable appropriate pull-request and/or push triggers after team agreement.
+7. Keep workflow permissions minimal; do not commit secrets or real student data.
 
-This file should make that boundary clear.
+These steps are **recommendations and intended checks**, not existing workflow behavior. The architecture/development lead and team lead should approve the final implementation and CI scope.
 
-IMPORTANT:
+## 3. Requirements and Test Traceability
 
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
-- Do not fabricate CI runs or claim checks exist when they do not.
--->
+The team has [12 proposed acceptance criteria](../requirements/acceptance-criteria.md) covering REQ-001 through REQ-006. The [test strategy](test-strategy.md) describes verification levels; the [test plan](test-plan.md) and [test-case catalog](test-cases.md) define intended coverage. The plan and catalog are proposed in [PR #56](https://github.com/victordodan/-comp330-f26-team-02/pull/56) as of this review.
 
-## CI System
-
-<!--
-TEAM CONTENT REQUIRED
-
-Describe the actual CI system used.
-
-Examples might include:
-
-- GitHub Actions;
-- GitLab CI;
-- Azure Pipelines;
-- another configured system.
-
-Identify:
-
-- workflow or pipeline name;
-- trigger conditions;
-- repository location;
-- what checks it performs.
-
-Replace this comment with the team's actual CI setup.
--->
-
-**CI Platform:**  
-**Workflow / Pipeline:**  
-**Configuration Location:**  
-
-## CI Checks
-
-<!--
-TEAM CONTENT REQUIRED
-
-Document important checks actually performed by CI.
-
-Do not list hypothetical checks.
-
-EXAMPLE ONLY:
-
-| Check | Purpose | Command / Mechanism | Required to Pass? |
-|---|---|---|---|
-| Unit tests | Verify isolated application logic | pytest | Yes |
-| Integration tests | Verify service and persistence interaction | pytest integration suite | Yes |
-
-DELETE the example and populate actual CI checks below.
--->
-
-| Check | Purpose | Command / Mechanism | Required to Pass? |
-|---|---|---|---|
-|  |  |  |  |
-
-## Trigger Conditions
-
-<!--
-TEAM CONTENT REQUIRED
-
-Explain when CI runs.
-
-Examples:
-
-- every pull request;
-- push to main;
-- manual workflow;
-- release tag.
-
-Explain why important checks run before or after merge.
-
-Replace this comment with the team's actual trigger behavior.
--->
-
-## CI Run Evidence
-
-<!--
-TEAM CONTENT REQUIRED
-
-Record significant CI executions.
-
-You do not need to record every development run.
-
-Preserve runs meaningful to:
-
-- phase-gate evidence;
-- pull-request approval;
-- release candidate;
-- regression verification;
-- deployment.
-
-Use stable evidence IDs when useful:
-
-CI-###
-
-EXAMPLE ONLY:
-
-| Evidence ID | Date | Commit / PR | Workflow | Result | Evidence Link / Reference | Purpose |
-|---|---|---|---|---|---|---|
-| CI-001 | YYYY-MM-DD | PR #21 | Build and Test | Passed | GitHub Actions run | Release candidate verification |
-
-DELETE the example and populate actual CI runs below.
--->
-
-| Evidence ID | Date | Commit / PR | Workflow | Result | Evidence Link / Reference | Purpose |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
-
-## Test Results
-
-<!--
-TEAM CONTENT REQUIRED WHEN CI EXECUTES TESTS
-
-Summarize what tests actually ran.
-
-Do not write only:
-
-"CI passed."
-
-Identify meaningful test categories and result counts where available.
-
-EXAMPLE ONLY:
-
-| CI Evidence ID | Test Type | Executed | Passed | Failed | Skipped | Notes |
-|---|---|---:|---:|---:|---:|---|
-| CI-001 | Unit | 42 | 42 | 0 | 0 | All unit tests passed |
-| CI-001 | Integration | 12 | 12 | 0 | 0 | Test database used |
-
-DELETE the example and populate actual evidence below.
--->
-
-| CI Evidence ID | Test Type | Executed | Passed | Failed | Skipped | Notes |
-|---|---|---:|---:|---:|---:|---|
-|  |  |  |  |  |  |  |
-
-## Failed CI Runs
-
-<!--
-TEAM CONTENT REQUIRED WHEN A SIGNIFICANT CI RUN FAILS
-
-A failed CI run is useful engineering evidence.
-
-Do not hide it.
-
-Record:
-
-- what failed;
-- why;
-- whether the failure identified a defect or environment problem;
-- what action was taken;
-- whether a later run confirmed resolution.
-
-EXAMPLE ONLY:
-
-| CI Evidence ID | Failure | Cause | Action | Resolution Evidence |
-|---|---|---|---|---|
-| CI-004 | Integration test failure | Persistence schema mismatch | Migration corrected | CI-005 |
-
-DELETE the example and populate actual significant failures below.
-
-A blank table is correct when no meaningful recorded failure exists.
--->
-
-| CI Evidence ID | Failure | Cause | Action | Resolution Evidence |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## CI-to-Requirement Traceability
-
-<!--
-TEAM CONTENT REQUIRED WHEN CI PROVIDES REQUIREMENT OR ACCEPTANCE EVIDENCE
-
-CI may execute tests that support acceptance criteria.
-
-Reference:
-
-/docs/testing/test-cases.md
-/docs/planning/traceability.md
-
-Do not claim that the entire CI pipeline verifies a requirement unless the
-relationship is real.
-
-EXAMPLE ONLY:
-
-| CI Evidence ID | Test / Test Case | Related Requirement / Criterion | Result |
-|---|---|---|---|
-| CI-001 | TC-001 | REQ-001 / AC-REQ-001-01 | Passed |
-
-DELETE the example and populate actual relationships below.
--->
-
-| CI Evidence ID | Test / Test Case | Related Requirement / Criterion | Result |
-|---|---|---|---|
-|  |  |  |  |
-
-## Branch / Merge Protection
-
-<!--
-TEAM CONTENT REQUIRED WHEN CI IS USED AS A MERGE CONTROL
-
-Document whether CI is required before merge.
-
-Possible controls include:
-
-- required status checks;
-- pull-request review;
-- protected main branch;
-- no direct pushes;
-- test workflow required.
-
-Do not claim repository protections that are not configured.
-
-Replace this comment with actual repository behavior.
--->
-
-## CI Limitations
-
-<!--
-TEAM CONTENT REQUIRED
-
-CI has boundaries.
-
-Examples ONLY:
-
-- does not test external identity provider;
-- does not test production configuration;
-- does not exercise browser behavior;
-- does not perform sustained-load testing;
-- security scanning not configured;
-- integration uses mock external dependency.
-
-Do not imply CI provides broader assurance than it actually does.
-
-Populate actual limitations below.
--->
-
-| Limitation | Impact | Additional Verification |
+| Verification Area | Related Requirements | CI Evidence Status |
 |---|---|---|
-|  |  |  |
+| Input validation and request creation | REQ-001, REQ-003 | Not configured / Not verified |
+| Owner-only request access | REQ-002 | Not configured / Not verified |
+| Reviewer visibility and role restrictions | REQ-004 | Not configured / Not verified |
+| Allowed status transitions and failures | REQ-005 | Not configured / Not verified |
+| Reviewer note/resolution validation | REQ-006 | Not configured / Not verified |
+| Persistence, restart, consistency and concurrency | REQ-003 and related ADRs | Not configured / Not verified |
 
-## Release CI Evidence
+A future passing build is not automatically proof that every acceptance criterion passed. Link individual executed tests to the criteria they actually verify.
 
-<!--
-TEAM CONTENT REQUIRED FOR RELEASE OR PHASE-GATE BASELINES
+## 4. Run Evidence Register
 
-Identify the CI run supporting the actual release candidate.
+**No project-specific CI execution evidence has been verified or recorded in this document.** Do not infer that the starter workflow ran merely because its YAML exists.
 
-Reference the same commit/tag used by:
+| Workflow Run | Commit / Branch | Date | Checks Executed | Result | Evidence Link |
+|---|---|---|---|---|---|
+| None verified for CampusConnect project checks | — | — | No project-specific checks configured | Not Verified | — |
 
-/docs/release/release-notes.md
-/docs/release/traceability-summary.md
+When real CI is configured and runs, replace or supplement the table with actual GitHub Actions run URLs, exact commit SHAs, observed conclusions, and the checks performed. Preserve failed-run evidence and any issue/PR that addresses a failure.
 
-Do not use a CI run from a different commit and present it as evidence for the
-release baseline.
--->
+## 5. Merge Protection and Evidence Limits
 
-**Release / Gate:**  
-**Commit / Tag:**  
-**CI Evidence ID:**  
-**Result:**  
+The presence of a workflow file does not establish required status checks, branch protection, test execution, or a passing release gate. These settings and results have **not been verified** for this review.
 
-## CI Evidence Integrity
+Current limits:
+- No Java/Maven build or automated test is configured in the starter workflow.
+- No test results, coverage percentages, security scan results, or deployment results are established here.
+- No CI evidence demonstrates authorization, persistence, concurrency, or recovery behavior.
+- No production-readiness or successful release claim is made.
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+## 6. Follow-Up Actions
 
-CI evidence is strongest when it is tied to the exact repository state being
-reviewed.
+| Action | Suggested Owner | Evidence Needed |
+|---|---|---|
+| Replace Starter Kit guard with a real project build/test workflow when code is ready | Shu Perez — Architecture & Development Lead, with developers | Reviewed workflow PR and project-specific YAML |
+| Add meaningful automated checks aligned to the approved requirements and test plan | Developers with Giancarlo — Quality & Review Lead | Test code and criterion mapping |
+| Confirm CI triggers and any branch/merge rules | Victor Dodan — Team Lead | GitHub settings or documented team decision |
+| Record real runs, failures, and retests without inventing outcomes | Giancarlo — Quality & Review Lead | Actions run links, exact commit SHAs, test results |
+| Review data handling and secrets before enabling CI | Shelby Sierah — Operations & Evidence Lead | Security review evidence |
 
-A useful chain is:
-
-Git Commit / PR
-  ->
-CI Workflow
-  ->
-Executed Tests / Checks
-  ->
-Results
-  ->
-Requirement / Acceptance Evidence
-  ->
-Release Baseline
-
-Do not:
-
-- claim a green run belongs to a different commit;
-- omit skipped tests that matter;
-- describe a failed check as passed;
-- claim a CI check exists when it is not configured.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Identify the actual CI platform and configuration.
-2. List only checks CI really performs.
-3. Record meaningful CI runs tied to specific commits or PRs.
-4. Preserve significant failed-run evidence and resolution.
-5. Report test counts or categories when available.
-6. Link CI tests to requirements only where the relationship is real.
-7. Document branch or merge controls only if actually configured.
-8. Identify CI limitations honestly.
-9. Confirm release CI evidence matches the exact release baseline.
-10. Remove ALL instructional HTML comments.
-
-The completed artifact should show exactly what automated evidence CI produced
-and, equally importantly, what that evidence does not prove.
--->
+**A3 gate interpretation:** This document provides an accurate CI readiness assessment. It does not claim that CI is complete. Final A3 approval remains a team decision, and later implementation gates will need real automated execution evidence.
