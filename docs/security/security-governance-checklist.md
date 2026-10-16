@@ -1,404 +1,139 @@
 # Security Governance Checklist
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file provides a project-level review of important security responsibilities
-and the evidence supporting them.
-
-The purpose is NOT to create a generic cybersecurity checklist.
-
-The purpose is to help the team ask:
-
-- What security concerns actually matter to this system?
-- Where are those concerns addressed?
-- What evidence shows the control exists?
-- What remains incomplete or uncertain?
-- Who owns follow-up?
-
-Security should be treated as an engineering responsibility that spans
-requirements, architecture, implementation, verification, deployment, and
-operations.
-
-This file should reference authoritative evidence elsewhere rather than
-duplicating detailed requirements, architecture, or tests.
-
-Relevant evidence may include:
-
-/docs/requirements/
-/docs/architecture/
-/docs/decisions/
-/docs/security/permission-boundaries.md
-/docs/security/data-handling-notes.md
-/docs/quality/
-/docs/operations/
-/docs/observability/
-/docs/planning/risk-register.md
-
-IMPORTANT:
-
-- Everything inside HTML comments like this is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples inside comments are guidance only.
-- Do not claim a security control exists unless actual evidence supports it.
-- Do not invent enterprise security controls that are irrelevant to the project.
--->
-
 ## Security Review Identification
 
-**Review Date:**  
-**Applicable Gate / Milestone:**  
-**System / Release Baseline:**  
-**Reviewer(s):**  
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify the actual engineering baseline being reviewed.
-
-Where practical, reference:
-
-- Git commit;
-- release tag;
-- phase-gate baseline;
-- deployed version.
-
-Do not leave placeholder metadata in the completed artifact.
--->
+**Review Date:**  October 2026
+**Applicable Gate / Milestone:** A3 Architecture and Security Review  
+**System / Release Baseline:** CampusConnect A3 Baseline
+**Reviewer(s):** Sierah Shelby (Data & Governance Lead), Codex Ramblers Team
 
 ## Security Context
+CampusConnect allows students to submit support requests and allow authorized reviewers to manage and fix those requests. The system stores the request information, user account information, status updates, resolved notes, and review records.
 
-<!--
-TEAM CONTENT REQUIRED
+The primary security concerns include:
+- Preventing unauthorized access to support requests
+- Protecting the user's information stored in the application
+- Keeping up the division between student and reviewer permissions
+- Making sure the request data cannot be improperly modified
+- Preventing exposure of credentials or hidden configurations
+- Maintaining the review trails for accountability and system governance
 
-Briefly describe the security context of the system.
-
-Consider:
-
-- who uses the system;
-- what valuable or sensitive data exists;
-- what external services are trusted;
-- what actions require authorization;
-- what could go wrong if access controls fail;
-- what deployment environment is used.
-
-Do not attempt to write a complete threat model here.
-
-Replace this comment with your team's actual security context.
--->
+The system uses synthetic data for development and testing. Authentication and authorization controls has the purpose to restrict access to authorized/verified users only.
 
 ## Governance Checklist
 
-<!--
-TEAM CONTENT REQUIRED
-
-Review each item based on your ACTUAL system.
-
-Status values may include:
-
-- Complete
-- Partial
-- Planned
-- Not Applicable
-- Gap
-
-Evidence should reference real repository or runtime evidence.
-
-Owner identifies who is responsible for resolving a gap or keeping the area
-current.
-
-Do not mark an item Complete merely because the team discussed it.
--->
-
 | Security Area | Status | Evidence | Owner | Notes / Required Action |
 |---|---|---|---|---|
-| Authentication approach is defined |  |  |  |  |
-| Authorization responsibilities are defined |  |  |  |  |
-| Permission boundaries are documented |  |  |  |  |
-| Sensitive data is identified |  |  |  |  |
-| Data handling expectations are documented |  |  |  |  |
-| Secrets and credentials are kept out of source control |  |  |  |  |
-| Important security requirements are documented |  |  |  |  |
-| Security-relevant assumptions and risks are visible |  |  |  |  |
-| Important trust boundaries are understood |  |  |  |  |
-| Input validation responsibilities are defined |  |  |  |  |
-| Security-relevant failure behavior is defined |  |  |  |  |
-| Important security behavior has verification evidence |  |  |  |  |
-| Security-sensitive logging avoids inappropriate data exposure |  |  |  |  |
-| Deployment configuration does not expose known secrets |  |  |  |  |
-| Known security limitations are documented |  |  |  |  |
-
-<!--
-The checklist items above are intended to remain part of the finished artifact.
-
-They are not sample project answers.
-
-For items that genuinely do not apply, use "Not Applicable" and explain why.
-
-Do not delete a checklist item merely because the answer is inconvenient.
--->
+| Authentication approach is defined | Complete  | Architecture Documentation | Development Team | Login process documented |
+| Authorization responsibilities are defined | Complete | Permission Boundaries Document | Development Team | Role responsibilities identified |
+| Permission boundaries are documented | Complete | Security Documentation | Shelby | Maintain updates as roles evolve |
+| Sensitive data is identified | Complete | Data Handling Notes | Shelby | Review during future releases |
+| Data handling expectations are documented | Complete | Data Handling Notes | Shelby | Continue governance reviews |
+| Secrets and credentials are kept out of source control | Complete | Repository Review | Development Team | Environment variables used when able |
+| Important security requirements are documented | Complete | Requirements Documentation | Team Lead (Victor Dodan) | Traceability maintained |
+| Security-relevant assumptions and risks are visible | Complete | Risk Register | Shelby | Monitor throughout the project's progress |
+| Important trust boundaries are understood | Complete | Architecture Documentation | Shelby | Consistently check deployment planning |
+| Input validation responsibilities are defined | Complete | API Contracts | Development Team | Validation performed from the server-side |
+| Security-relevant failure behavior is defined | Partial | Architecture Documentation | Development Team | any additional error(s) handling evidence planned |
+| Important security behavior has verification evidence | Partial | Testing Evidence | QA Lead (Giancarlo Herrera) | More authorization planned via testing |
+| Security-sensitive logging avoids inappropriate data exposure | Complete | Logging Design | Development Team | No sensitivity regarding credential logging |
+| Deployment configuration does not expose known secrets | Complete | Repository Review | Development Team | Verify and check before release |
+| Known security limitations are documented | Complete | Known Limitations | Shelby | Review before progressing to A4 |
 
 ## Authentication Review
 
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize the current authentication approach.
-
-Questions to consider:
-
-- Who establishes user identity?
-- Is authentication handled internally or by an external provider?
-- Where is authenticated identity trusted?
-- What happens when authentication fails?
-- Does the system store credentials?
-
-Reference architecture, requirements, or ADRs rather than duplicating them.
-
-Replace this comment with the actual authentication review.
--->
+CampusConnect uses validated user accounts to verify user identity before the application is granted access. Authentication happens before users can submit, review, or alter the support requests.
+Failed authentication attempts result in denied access and error messages. Credentials are never stored in project documentation or repository files. The application trusts authenticated credentials only after successful verification.
 
 ## Authorization Review
+Authorization decisions are made by the application service rather than the user interface.
 
-<!--
-TEAM CONTENT REQUIRED
+Students may:
+- Create support requests
+- View their personal requests
+- View request status updates
 
-Summarize how authorization decisions are made.
+Reviewers may:
+- View submitted requests
+- Update request status
+- Add review notes
+- Record solutions
 
-Reference:
-
-/docs/security/permission-boundaries.md
-
-Important questions include:
-
-- What component makes authoritative authorization decisions?
-- Is authorization enforced server-side or at another trusted boundary?
-- Are UI restrictions incorrectly being treated as security controls?
-- Are resource-level permissions required?
-- What happens when access is denied?
-
-Replace this comment with the actual review.
--->
+Administrative functions, if put in place, are restricted to authorized personnel. User-interface restrictions alone are not used as security controls.
+Unauthorized access attempts are denied in access and logging in where it is appropriate.
 
 ## Sensitive Data Review
 
-<!--
-TEAM CONTENT REQUIRED
+CampusConnect handles various categories of data:
+- User account information
+- Support request details
+- Status history
+- Resolution notes
+- Review records
 
-Summarize security concerns related to stored or transmitted data.
-
-Reference:
-
-/docs/security/data-handling-notes.md
-
-Consider:
-
-- authentication information;
-- personal information;
-- application records;
-- logs;
-- secrets;
-- identifiers;
-- external-service data.
-
-Do not duplicate the complete data-handling artifact.
--->
+The project uses synthetic development data and does not intentionally keep sensitive institutional records. Access to stored information is restricted according to verified and authorized roles and permission limitations.
+Logs are designed to support troubleshooting and governance without releasing credentials or useless personal information.
 
 ## Secrets and Credential Handling
 
-<!--
-TEAM CONTENT REQUIRED
+CampusConnect follows the principle that secrets must never be submitted to source control.
+Controls include:
+- Environment variables for configuration values
+- Sensitive configuration files excluded through .gitignore
+- Repository reviews before merges
+- No passwords, API keys, or credentials stored in documnentation
+- Team members review commits for accidental secret information exposed
 
-Document how the project avoids exposing secrets.
-
-Consider:
-
-- environment variables;
-- deployment secret stores;
-- local configuration;
-- .gitignore;
-- repository history;
-- CI/CD secrets.
-
-DO NOT place actual secret values in this file.
-
-If secrets were accidentally committed, do not merely delete the current file.
-Treat exposed credentials as compromised and rotate them as appropriate.
-
-Replace this comment with the team's actual approach.
--->
+If a secret is released and exposed, it will be treated as compromised and rotated or solved/replaced immediately.
 
 ## Input and Boundary Validation
 
-<!--
-TEAM CONTENT REQUIRED
 
-Identify where untrusted input enters the system and which component is
-responsible for authoritative validation.
-
-Consider:
-
-- browser or UI input;
-- API requests;
-- file uploads;
-- query parameters;
-- external-service responses;
-- configuration.
-
-Client-side validation may improve usability but should not be treated as
-authoritative when requests can bypass it.
-
-Reference component responsibilities and API contracts where useful.
--->
 
 | Input / Boundary | Source | Authoritative Validator | Failure Behavior | Evidence |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| Login Credentials | User | Authentication Module | Access denied | Authentication Design |
+| Support Request Submission | Student User | Application Service | Validation error returned | Request Management Module |
+| Status Updates | Reviewer | Application Service | Rejected if unauthorized or verified | Permission Boundaries |
+| Resolution Notes | Reviewer | Application Service |  Validation error returned | API Contracts |
+| Database Transactions | Application Service | Database Constraints |  Transaction rollback | Database Design |
 
 ## Security Verification
 
-<!--
-TEAM CONTENT REQUIRED
-
-Identify actual verification performed for important security behavior.
-
-Examples might include:
-
-- unauthorized-access test;
-- authentication-failure test;
-- input-validation test;
-- permission-boundary verification;
-- secret scanning;
-- code review;
-- dependency review;
-- runtime evidence.
-
-Do not claim penetration testing, security auditing, or automated scanning
-unless it actually occurred.
-
-EXAMPLE ONLY:
-
 | Security Concern | Verification | Result | Evidence |
 |---|---|---|---|
-| Unauthorized request access | Integration test using second user identity | Passed | AC-REQ-008-02 / test reference |
-
-DELETE the example and populate the actual table below.
--->
-
-| Security Concern | Verification | Result | Evidence |
-|---|---|---|---|
-|  |  |  |  |
+| Unauthorized access prevention | Assigned-role access testing | Passed | Testing Evidence |
+| Authentication failures | Invalid credential testing | Passed | Authentication Tests |
+| Input validation | Submission validation testing | Passed | Verified Records |
+| Data integrity | Request update testing | Passed | Application Tests |
+| Secret exposure prevention | Repository review | Passed | Code Review Evidence |
 
 ## Security Risks and Open Questions
 
-<!--
-TEAM CONTENT REQUIRED
-
-Reference rather than duplicate authoritative evidence from:
-
-/docs/planning/risk-register.md
-/docs/requirements/assumptions-open-questions.md
-
-Include only risks or questions that materially affect security.
--->
-
 | Risk / Question | Security Impact | Current Action / Monitoring |
 |---|---|---|
-|  |  |  |
+| Incomplete authorization testing | Potential access-control defects | Additional test coverage planned |
+| Future deployment configuration updates | Possible security errors | Review during deployment planning |
+| Authentication execution updates | Potential privilege build-up risk | Watch through architecture reviews |
+| Increased user volume | Additional security validation required | Reaccess during future goals |
 
 ## Known Security Limitations
-
-<!--
-TEAM CONTENT REQUIRED
-
-Document actual security limitations that remain.
-
-Examples might include:
-
-- authorization model not yet fully implemented;
-- recovery path not verified;
-- external identity dependency;
-- audit evidence incomplete;
-- security verification limited to manual testing.
-
-Do not hide important limitations.
-
-Reference:
-
-/docs/release/known-limitations.md
-
-when the limitation affects a release.
--->
-
 | Limitation | Impact | Disposition | Related Evidence |
 |---|---|---|---|
-|  |  |  |  |
+| Security testing maintains its limitations to the project's scope | Some attack scenarios untested | Additional testing planned | Testing Documentation |
+| Deployment environment not offical/finalized | Infrastructure controls not fully verified | Review during the preparation of release |  Architecture Documentation|
+| Limited operational monitoring | Reduced visibility into future production issues |  | Operations Planning |
 
 ## Required Security Actions
 
-<!--
-TEAM CONTENT REQUIRED
-
-Convert meaningful gaps into concrete actions.
-
-Use stable IDs when useful:
-
-SEC-ACT-###
-
-EXAMPLE ONLY:
-
 | Action ID | Required Action | Driver | Owner | Target | Status |
 |---|---|---|---|---|---|
-| SEC-ACT-001 | Add resource-level authorization test for workflow history | Authorization review gap | Quality & Review Lead | A4 | Planned |
-
-DELETE the example and populate actual actions below.
--->
-
-| Action ID | Required Action | Driver | Owner | Target | Status |
-|---|---|---|---|---|---|
-|  |  |  |  |  |  |
+| SEC-ACT-001 | Expand the authorization test coverage | Security Verification Gap | QA Lead (Giancarlo Herrera) | A4 | Planned |
+| SEC-ACT-002 | Review the deployment security structure | Release Preparation | Development Team | A4 | Planned |
+| SEC-ACT-003 | Validate review logging requirements | Governance Review | Shelby | A4 | Planned |
+| SEC-ACT-004 | Review permission boundaries against execution | Architecture Review | Shelby | A4 | Planned |
 
 ## Review Conclusion
-
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize the current security posture based on actual evidence.
-
-Do not write:
-
-"System is secure."
-
-Security is not a permanent binary state.
-
-Instead, describe:
-
-- what important controls are currently supported;
-- what has been verified;
-- what remains incomplete;
-- what risk remains.
-
-Replace this comment with the team's evidence-based conclusion.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Complete the security review identification.
-2. Review every checklist item against actual evidence.
-3. Use Not Applicable only with a clear reason.
-4. Confirm permission references agree with permission-boundaries.md.
-5. Confirm data references agree with data-handling-notes.md.
-6. Confirm security risks exist in the authoritative risk register where appropriate.
-7. Confirm verification claims point to real evidence.
-8. Do not expose secrets or protected data in this file.
-9. Record known security limitations honestly.
-10. Convert meaningful gaps into owned actions.
-11. Remove ALL instructional HTML comments.
-
-The completed artifact should show how the team governs security-relevant
-engineering decisions and evidence without pretending that a checklist alone
-makes the system secure.
+The A3 review shows that CampusConnect has established basic security controls including authentication, authorization boundaries, input validation responsibilites, sensitive data identification, governance ownership, and risk tracking. As of now, the current evident supports the reality of planned access-control mechanisms, data-handling procedures, and repository-level secret management actions.
+While basic, core security expectations have been documented and partially verified, more authorization testing, deployment security review, and operational monitoring activities remain planned for future goals and milestones. Security risks are constantly being tracked through the project risk-management process, and governance responsibilities have been assigned to team members to support ongoing review and improvement.
 -->
