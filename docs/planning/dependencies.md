@@ -172,17 +172,17 @@ _Updated for A3 architecture review — October 2026_.
 
 During A3, the CampusConnect team developed architecture documentation, component responsibilities, API contracts, data context, and architecture review evidence.
 
-The architecture baseline remains under review. The proposed engineering decisions must be reconciled with the architecture package before implementation assumptions are treated as approved.
+The architecture package remains under final review. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026; dependent documents and implementation tasks must reflect those accepted decisions.
 
 ### Architecture Decision Dependencies
 
 | Decision | Related Tasks | Required Review | Downstream Impact |
 |---|---|---|---|
-| ADR-002 — Cycle 1 Technology Stack | TASK-012, TASK-013 | Confirm Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 | Framework configuration, implementation approach, and automated testing |
-| ADR-003 — Request Consistency | TASK-012, TASK-013, TASK-014 | Confirm duplicate-submission behavior, optimistic locking, and transactional updates | Workflow service, repository implementation, and consistency tests |
-| ADR-004 — Local Persistence and Recovery | TASK-012, TASK-013, TASK-015 | Confirm persistence and recovery expectations | Database configuration, restart testing, and recovery verification |
+| ADR-002 — Cycle 1 Technology Stack | TASK-012, TASK-013 | Apply the approved Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 stack | Framework configuration, implementation approach, and automated testing |
+| ADR-003 — Request Consistency | TASK-012, TASK-013, TASK-014 | Apply accepted duplicate-submission behavior, optimistic locking, and transactional updates | Workflow service, repository implementation, and consistency tests |
+| ADR-004 — Local Persistence and Recovery | TASK-012, TASK-013, TASK-015 | Apply accepted persistence and recovery expectations | Database configuration, restart testing, and recovery verification |
 
-All three ADRs remain proposed until reviewed and approved by the team.
+All three ADRs are accepted for Cycle 1. Implementation and verification remain pending.
 
 ### Implementation and Testing Dependencies
 
@@ -199,7 +199,7 @@ All three ADRs remain proposed until reviewed and approved by the team.
 
 The primary implementation dependency sequence is:
 
-1. Approve or revise the proposed engineering decisions.
+1. Use ADR-002 through ADR-004, approved by Victor Dodan on October 16, 2026, as the Cycle 1 decision baseline.
 2. Confirm component responsibilities and API contracts against those decisions.
 3. Complete the final A3 architecture review and record finding dispositions.
 4. Implement the required student and reviewer workflow.
@@ -213,18 +213,18 @@ Testing preparation may proceed alongside implementation, but successful executi
 
 The A3 architecture decisions introduce additional considerations for EST-003, EST-004, and EST-005.
 
-The proposed risks R-010 through R-012 address database persistence, conflicting updates, and delayed architecture decisions.
+The confirmed active risks R-010 through R-012 address database persistence, conflicting updates, and delayed architecture decisions.
 
-These risks require team confirmation before being treated as accepted additions to the active risk register.
+Victor Dodan confirmed these risks and their existing owners on October 16, 2026. They remain under monitoring, with mitigation verification pending.
 
 The existing estimate ranges remain unchanged until implementation evidence or an approved re-estimation justifies a revision.
 
 ### A3 Dependency Conclusion
 
-The architecture documents and proposed ADRs provide a clearer technical direction for Cycle 1.
+The architecture documents and accepted ADRs provide a clearer technical direction for Cycle 1.
 
 However, documentation completion does not establish that implementation, integration, or verification has succeeded.
 
-The team must resolve outstanding architecture decisions and review findings before declaring the architecture baseline complete.
+The team must reconcile the accepted decisions and resolve outstanding package-review findings before declaring the architecture baseline complete.
 
 Any resulting changes to task ownership, milestone dates, estimates, or risk status should be recorded in the corresponding planning artifacts.
