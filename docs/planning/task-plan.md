@@ -92,13 +92,13 @@ The architecture package includes component responsibilities, API contracts, dat
 
 ADR-001 remains the historical A2 decision to defer the final production technology stack.
 
-The following A3 decisions have been drafted for team review:
+Victor Dodan approved the following A3 decisions on October 16, 2026:
 
-- **ADR-002:** Proposes Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for Cycle 1.
-- **ADR-003:** Proposes duplicate-submission handling, optimistic locking, and transactional updates.
-- **ADR-004:** Proposes local database persistence, backup expectations, and recovery procedures.
+- **ADR-002:** Selects Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for Cycle 1.
+- **ADR-003:** Defines duplicate-submission handling, optimistic locking, and transactional updates.
+- **ADR-004:** Defines local database persistence, backup expectations, and recovery procedures.
 
-These ADRs are proposed decisions, not approved or implemented capabilities. Their impact on implementation tasks and estimates must be reviewed before the architecture baseline is finalized.
+These ADRs are accepted Cycle 1 design decisions. Their impact on implementation tasks and estimates must be reconciled before the final architecture package review. Implementation and verification remain pending.
 
 ### A3 Task Coordination
 
@@ -106,7 +106,7 @@ These ADRs are proposed decisions, not approved or implemented capabilities. The
 |---|---|---|---|
 | Architecture overview and component integration | Shu Perez | Venkata Aravind Mareddy | Under review |
 | Component responsibilities and API contracts | Venkata Aravind Mareddy | Shu Perez | Documentation merged; architecture alignment pending |
-| Technology and engineering ADRs | Giancarlo Herrera | Shu Perez | Drafted; pending team approval |
+| Technology and engineering ADRs | Giancarlo Herrera | Shu Perez | Accepted by Victor Dodan on October 16, 2026; implementation pending |
 | Architecture review and quality strategy | Giancarlo Herrera | Victor Dodan | Initial evidence merged; follow-up review needed |
 | Security and governance checklist | Shelby Sierah | Giancarlo Herrera | Under review |
 | Architecture package reconciliation | Shu Perez | Victor Dodan | Pending final review |
@@ -116,7 +116,7 @@ These ADRs are proposed decisions, not approved or implemented capabilities. The
 
 Before Cycle 1 implementation is treated as ready to begin, the team should:
 
-1. Review and approve or revise the proposed ADRs.
+1. Apply the accepted ADRs and confirm affected implementation dependencies.
 2. Confirm that architecture, API contracts, and component responsibilities agree.
 3. Resolve outstanding security and governance review findings.
 4. Revisit implementation estimates and technology-learning risks.
@@ -127,7 +127,7 @@ Before Cycle 1 implementation is treated as ready to begin, the team should:
 
 The existing Cycle 1 implementation and verification estimates remain unchanged until the team has sufficient evidence to justify revising them.
 
-The proposed technology stack introduces specific areas for review, including framework setup, database persistence, concurrency handling, and recovery testing.
+The approved technology stack introduces specific areas for review, including framework setup, database persistence, concurrency handling, and recovery testing.
 
 Any approved changes affecting scope, schedule, ownership, or effort should be recorded in the appropriate planning documents and GitHub evidence.
 
