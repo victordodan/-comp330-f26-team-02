@@ -97,6 +97,19 @@ Verify that a reviewer can record a note or resolution and that it remains assoc
 
 **Related contract:** API-005
 
+### PR #46 — Proposed Acceptance Criteria (12 checks)
+
+- **AC-REQ-001-01 / 001-02:** Valid title (5–100 trimmed characters), category (Academic, IT, Campus Services, Other), and description (10–2,000 trimmed characters) create a Submitted request; invalid or unsupported input creates none.
+- **AC-REQ-002-01 / 002-02 / 002-03:** The owning student sees updated status and the current editable note, including after reopening; Student B cannot list or directly access Student A's request, and unknown IDs disclose no other records.
+- **AC-REQ-003-01 / 003-02:** Successful storage assigns a unique ID, requester identity, and timestamps; failed writes are not confirmed; request data, owner, status, and note survive restart against the same local store.
+- **AC-REQ-004-01 / 004-02:** Reviewer can list and inspect both students' requests; student access to reviewer listing, status updates, and note edits is rejected, including direct operations and forged role/form context.
+- **AC-REQ-005-01 / 005-02:** Only Reviewer can transition Submitted → In Progress → Resolved and reopen Resolved → In Progress; resolution requires saved nonblank text, reopening preserves ID and note; invalid transitions, unknown IDs, and failed writes leave records unchanged.
+- **AC-REQ-006-01:** Reviewer can save or replace a student-visible note up to 2,000 trimmed characters; clearing while Resolved, oversized text, missing records, and failed writes are rejected without changing saved records.
+
+The proposed Cycle 1 demo uses Student A, Student B, and Reviewer identities selected through a server session, Java with server-rendered pages, and a local persistent store. The exact framework/database is not yet selected. Test both page flows and server-side operations, including forged form values, missing/invalid session context, restart persistence, and failed listings versus genuinely empty lists.
+
+**Alignment note:** PR #46 defines three statuses (Submitted, In Progress, Resolved) and reopening; PR #47's data-context draft also mentions Closed. Resolve this inconsistency before the final architecture gate. Review API-001–007 against these proposed rules; no contract or implementation is claimed verified.
+
 The team will maintain traceability between requirements, acceptance criteria, planned tests, and actual results. Planned tests will not be represented as passed tests.
 
 **Related documents:**
@@ -124,7 +137,7 @@ Test how the workflow responds when repository operations fail or role context i
 
 ### Unresolved Design Decisions
 
-Open questions about required input fields, status transitions, note editing, and simulated role representation may affect expected test behavior. The team will update testing plans when these decisions are resolved.
+PR #46 proposes specific input fields, status transitions, editable notes, and simulated session roles. These remain Proposed until reviewed and must be reconciled with the architecture and API contracts before final A3 approval.
 
 **Related document:** `docs/planning/risk-register.md`
 
@@ -210,7 +223,7 @@ Evidence should identify what was tested, the result, and the associated require
 
 - **No verified implementation:** This document defines planned testing, not completed execution.
 - **Technology pending:** Specific frameworks have not been approved.
-- **Open requirements questions:** Some expected behaviors depend on unresolved decisions.
+- **Proposed requirements baseline:** PR #46 provides draft answers to Q-001–Q-004, but these still require team review and architecture/contract alignment.
 - **Synthetic-data scope:** Real institutional integrations are excluded.
 - **No confirmed CI or staging environment:** These may be introduced later.
 
