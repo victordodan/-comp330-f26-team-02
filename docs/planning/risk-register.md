@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A2 — Planning and Estimation  
+**Current Phase:** A3 — Architecture and Review
 **Release Cycle:** Cycle 1  
 
 ## Risk Register
@@ -57,3 +57,45 @@ No tracked risks have been closed or formally accepted yet.
 The team will review the risk register before each phase-gate submission and whenever a major change to scope, requirements, architecture, estimates, or schedule occurs.
 
 Risks may be added, updated, closed, or marked as materialized as the project develops. If a risk affects another planning artifact, the related scope, task, estimate, or schedule evidence should also be updated.
+
+## A3 — Architecture and Engineering Risk Update
+
+### Risk Review Overview
+
+During A3, the team developed architecture documentation and proposed engineering decisions for the CampusConnect support-request workflow.
+
+The existing risks R-001 through R-009 remain part of the project risk register. The following additional risks address uncertainties introduced by the proposed technology stack, data consistency requirements, and architecture review process.
+
+These risks are proposed for team review and have not been recorded as materialized incidents.
+
+### Additional A3 Risks
+
+| ID | Risk | Likelihood | Impact | Mitigation | Contingency / Response | Proposed Owner | Status | Related Evidence |
+|---|---|---|---|---|---|---|---|---|
+| R-010 | If the local H2 database fails or stored files become unavailable, support-request records may be lost or inaccessible. | Medium | High | Use file-backed persistence, database transactions, and a documented backup procedure. | Restore a verified backup when available or recreate synthetic demonstration data while documenting any data loss. | Shu Perez | Proposed — Monitoring | ADR-002, ADR-004, EST-004 |
+| R-011 | If two reviewer operations modify the same request without conflict detection, a status change or resolution note may be overwritten. | Medium | High | Use version checking and optimistic locking as proposed in ADR-003. | Reject conflicting updates, reload current request information, and investigate any inconsistent records. | Venkata Aravind Mareddy | Proposed — Monitoring | ADR-003, API contracts, EST-004 |
+| R-012 | If architecture decisions or outstanding reviews remain unresolved, implementation may begin with inconsistent technical assumptions. | Medium | High | Complete ADR review and reconcile architecture documents before treating the design as approved. | Prioritize required architecture decisions, document remaining limitations, and reassess affected implementation milestones. | Victor Dodan | Proposed — Monitoring | ADR-002, ADR-003, ADR-004, MS-003, MS-004 |
+
+### A3 Risk Triggers and Monitoring
+
+| Risk ID | Trigger / Indicator | Monitoring Evidence |
+|---|---|---|
+| R-010 | Persistence fails across a restart, a database operation reports an error, or a recovery attempt cannot restore expected data. | Database tests, implementation reviews, recovery procedure evidence |
+| R-011 | Concurrent updates overwrite information, version conflicts are not detected, or reviewer actions produce inconsistent request records. | Concurrency tests, defect reports, API and repository implementation |
+| R-012 | ADR approval remains pending, architecture documents disagree, or implementation begins without an agreed technical baseline. | ADR status, architecture review findings, GitHub pull requests, schedule checkpoints |
+
+### Risk Ownership and Approval
+
+The proposed owners reflect current team responsibilities and must be confirmed by the team before these risks are accepted into the active register.
+
+The Quality & Review Lead will help verify that the planned testing strategy addresses the identified risks.
+
+Risk likelihood and impact ratings are preliminary planning judgments. They should be revisited when implementation and testing provide stronger evidence.
+
+### A3 Risk Assessment
+
+The proposed Java and Spring Boot architecture, file-backed H2 database, and concurrency controls provide a more specific direction for Cycle 1 development, but they also introduce implementation and verification responsibilities.
+
+The team should prioritize approval of architecture decisions, early database testing, and incremental integration to reduce the chance of schedule delays and data consistency problems.
+
+No successful implementation, backup restoration, or concurrency testing is claimed in this risk update.
