@@ -11,9 +11,9 @@ CampusConnect Cycle 1 is limited to one end-to-end student support-request workf
 
 The system will allow a student requester to submit a support request using synthetic data. The request will be stored and assigned a unique identifier. A support reviewer will be able to view the request, update its status, and record a note or resolution. The student will then be able to view the current status and resolution information for their request.
 
-The following A3 behavior decisions form the documented **proposed Cycle 1 baseline**. They are ready for explicit requirements-owner and team-lead acceptance at the final A3 gate; a merged PR alone does not prove that acceptance or implementation verification occurred.
+Victor Dodan explicitly approves the following Cycle 1 behavior baseline, all six requirements, and Q-001–Q-004. His final A3 authorization is recorded in [the approval record](../reviews/a3-final-gate-approval.md). Design approval does not establish implementation verification.
 
-Requests require a title (5–100 characters), category (Academic, IT, Campus Services, or Other), and description (10–2,000 characters). Trim surrounding whitespace before validation and storage; limits are inclusive. These categories and limits are proposed defaults. The application assigns the request ID, selected student identity, creation/last-updated timestamps, and initial status Submitted. Students cannot edit or delete submitted requests.
+Requests require a title (5–100 characters), category (Academic, IT, Campus Services, or Other), and description (10–2,000 characters). Trim surrounding whitespace before validation and storage; limits are inclusive. These categories and limits are approved Cycle 1 rules. The application assigns the request ID, selected student identity, creation/last-updated timestamps, and initial status Submitted. Students cannot edit or delete submitted requests.
 
 Only reviewers change status: Submitted → In Progress, In Progress → Resolved, or Resolved → In Progress. Other transitions and unsupported values are rejected. Resolution requires a saved nonblank note/resolution. Reopening preserves the existing text. The field is student-visible, editable only by reviewers, and limited to 2,000 characters after trimming. It may be empty in Submitted or In Progress, but cannot be cleared while Resolved. Replacing it updates the current value; comment threads and edit history are outside Cycle 1.
 
@@ -23,12 +23,12 @@ Successful storage must precede success confirmation. Rejected operations leave 
 
 | ID | Requirement | Rationale | Priority | Acceptance Criteria Reference | Status |
 |---|---|---|---|---|---|
-| REQ-001 | The system shall allow a student requester to submit a support request with a valid title, category, and description. | Students need a controlled way to initiate the support-request workflow. | Must | AC-REQ-001-01, AC-REQ-001-02 | Proposed |
-| REQ-002 | The system shall allow a student requester to view only their own requests, including current status and available note or resolution information. | Students need visibility into the progress and outcome of their support requests. | Must | AC-REQ-002-01, AC-REQ-002-02, AC-REQ-002-03 | Proposed |
-| REQ-003 | The system shall persist each successfully submitted support request and assign it a unique identifier, retaining its data across application restarts. | Requests must remain identifiable and available for later review and tracking. | Must | AC-REQ-003-01, AC-REQ-003-02 | Proposed |
-| REQ-004 | The system shall allow a support reviewer to view submitted support requests and reject student access to reviewer operations. | Reviewers must be able to inspect submitted requests before taking workflow actions. | Must | AC-REQ-004-01, AC-REQ-004-02 | Proposed |
-| REQ-005 | The system shall allow only a support reviewer to change status using the permitted transitions, including reopening; resolution requires nonblank resolution text. | Request status must reflect the current point in the review workflow. | Must | AC-REQ-005-01, AC-REQ-005-02, AC-REQ-004-02 | Proposed |
-| REQ-006 | The system shall allow only a support reviewer to save or replace one student-visible note or resolution per request under the stated editing rules. | The result of reviewing a request must be preserved and available to the requester. | Must | AC-REQ-006-01, AC-REQ-004-02 | Proposed |
+| REQ-001 | The system shall allow a student requester to submit a support request with a valid title, category, and description. | Students need a controlled way to initiate the support-request workflow. | Must | AC-REQ-001-01, AC-REQ-001-02 | Approved |
+| REQ-002 | The system shall allow a student requester to view only their own requests, including current status and available note or resolution information. | Students need visibility into the progress and outcome of their support requests. | Must | AC-REQ-002-01, AC-REQ-002-02, AC-REQ-002-03 | Approved |
+| REQ-003 | The system shall persist each successfully submitted support request and assign it a unique identifier, retaining its data across application restarts. | Requests must remain identifiable and available for later review and tracking. | Must | AC-REQ-003-01, AC-REQ-003-02 | Approved |
+| REQ-004 | The system shall allow a support reviewer to view submitted support requests and reject student access to reviewer operations. | Reviewers must be able to inspect submitted requests before taking workflow actions. | Must | AC-REQ-004-01, AC-REQ-004-02 | Approved |
+| REQ-005 | The system shall allow only a support reviewer to change status using the permitted transitions, including reopening; resolution requires nonblank resolution text. | Request status must reflect the current point in the review workflow. | Must | AC-REQ-005-01, AC-REQ-005-02, AC-REQ-004-02 | Approved |
+| REQ-006 | The system shall allow only a support reviewer to save or replace one student-visible note or resolution per request under the stated editing rules. | The result of reviewing a request must be preserved and available to the requester. | Must | AC-REQ-006-01, AC-REQ-004-02 | Approved |
 
 
 ## Cycle 1 Constraints
@@ -60,7 +60,7 @@ Each requirement:
 - is intended to be independently reviewable and verifiable; and
 - avoids introducing functionality outside the agreed Cycle 1 scope.
 
-Draft resolutions and remaining architecture decisions are maintained in `assumptions-open-questions.md`. PR #43 and PR #44 are merged; the final cross-document review must confirm consistency with their architecture and testing artifacts. Any remaining differences must be recorded before A3 approval.
+Approved behavior resolutions and remaining implementation follow-ups are maintained in `assumptions-open-questions.md`. The final approval record accepts the current A3 design and its documented limitations while preserving actual peer-review evidence. Implementation and executed verification remain later work.
 
 ## Requirements and Acceptance Criteria
 
