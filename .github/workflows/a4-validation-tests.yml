@@ -4,8 +4,15 @@ name: A4 Request Validation Tests
 on:
   push:
     branches:
+      - main
       - a4-aravind-request-validation
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+      - '.github/workflows/a4-validation-tests.yml'
   pull_request:
+    branches:
+      - main
     paths:
       - 'src/**'
       - 'pom.xml'
