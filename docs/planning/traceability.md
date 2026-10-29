@@ -49,6 +49,8 @@ For each implementation slice, update the corresponding ledger row **after evide
 5. AI-use log disclosure and AI code review, if applicable; dependency/version/license/security review if changed.
 6. Known defects, deferred work and architecture/ADR changes.
 
+**Implementation review references:** [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) was merged as `c43784fc` following independent review; its issue identifier has not been verified here. [PRs #68–73](https://github.com/victordodan/-comp330-f26-team-02/pulls) are separate open proposals and must not be counted as integrated code. The documented [validation run](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/40778855959) is earlier successful evidence, not a claim that all twelve acceptance tests passed.
+
 **Review process evidence:** [A4 quality-review PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) is merged process documentation. PR #67 has independent review and a recorded merge decision; its test results cover validator unit tests only. PRs #68–73 have requested-changes reviews and remain open, not approved or merged.
 
 **Ownership:** Quality & Review Lead Giancarlo Herrera maintains this ledger and checks evidence completeness; feature developers supply code and test evidence, independent reviewers record decisions, and Victor coordinates final gate readiness.
