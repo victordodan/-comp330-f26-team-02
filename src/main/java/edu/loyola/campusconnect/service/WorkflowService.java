@@ -2,8 +2,8 @@ package edu.loyola.campusconnect.service;
 
 import edu.loyola.campusconnect.model.SupportRequest;
 import org.springframework.stereotype.Service;
-import java.time.Instant;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -11,39 +11,33 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class WorkflowService {
     // Thread-safe in-memory storage for support requests
-    private final Map<String, SupportRequest> requestStore = new ConcurrentHashMap<>();
-    
+    private final ConcurrentHashMap<String, SupportRequest> requestStore = new ConcurrentHashMap<>();
+
     // Counter for generating unique request IDs (i.e. REQ-1001)
-    private final AtomicLong idCounter = new AtomicLong(1000);
+    private final AtomicLong idSequence = new AtomicLong(1000);
 
-    // Creates and stores a new support request with default initial state ("New")
-    public SupportRequest createRequest(String title, String category, String description) {
-        String requestId = "REQ-" + idCounter.incrementAndGet();
+    // Creates and stores a new support request with default initial state ("Submitted")
+    public SupportRequest createRequest(String studentID, String title, String category, String description) {
+        String id = "REQ-" + idSequence.incrementAndGet();
 
-      // Create a new SupportRequest object using the constructor which takes 7 arguments
-        SupportRequest request = new SupportRequest(
-          // Top 4 provided by caller
-            requestId,
-            title,
-            category,
-            description,
-          // Default lifecycle status
-            "New",
-          // Default empty resolution note
-            "",
-          // Creation timestamp
-            Instant.now()
-        );
+      // Create a new SupportRequest object using the 5-argument constructor
+        // which fills in default status, resolution note, and timestamp
+        SupportRequest request = new SupportRequest(id, studentID, title, category, description);
       // Store the new request in the map (in-memory "database")
-        // Keys are requestId
+        // Keys are the generated id
         // Values are the request object
-        requestStore.put(requestId, request);
+        requestStore.put(id, request);
         return request;
     }
 
-    // Retrieves all support requests currently stored in memory
-    public List<SupportRequest> getAllRequests() {
-        return new ArrayList<>(requestStore.values());
+    // Retrieves support requests visible to a user, filtered by role
+    public List<SupportRequest> getRequestsForUser(String userID, String userRole) {
+        if ("REVIEWER".equalsIgnoreCase(userRole)) {
+            return List.copyOf(requestStore.values());
+        }
+        return requestStore.values().stream()
+            .filter(req -> req.studentID().equalsIgnoreCase(userID))
+            .toList();
     }
 
     // Retrieves a single support request by its ID
@@ -53,24 +47,15 @@ public class WorkflowService {
 
     // Updates the status and resolution note of an existing support request
     public Optional<SupportRequest> updateStatus(String id, String newStatus, String resolutionNote) {
-      // Look up the existing request in the store by its ID
-        // If no request with that ID exists, 'existing' will be null
-      SupportRequest existing = requestStore.get(id);
-        if (existing == null) {
-            return Optional.empty();
-        }
-      // Build a NEW SupportRequest object (immutable update pattern)
-        // Copy fields and replace only the ones that are being changed (status + resolution)
-        SupportRequest updated = new SupportRequest(
+    return Optional.ofNullable(requestStore.computeIfPresent(id, (reqId, existing) ->
+        new SupportRequest(
             existing.id(),
-            existing.title(),
-            existing.category(),
-            existing.description(),
+            existing.studentID(),
+            existing.title(), existing.category(), existing.description(),
             newStatus,
-            resolutionNote != null ? resolutionNote.strip() : "",
+            resolutionNote,
             existing.createdAt()
-        );
-        requestStore.put(id, updated);
-        return Optional.of(updated);
+        )
+    ));
     }
 }
