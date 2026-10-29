@@ -2,16 +2,16 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A3 — Architecture & Review (proposed evidence; A2 planning retained)  
+**Current Phase:** A4 — Construction & Integration (A2/A3 evidence retained)  
 **Release Cycle:** Cycle 1  
 
-A3 links the merged requirements, architecture, and planned verification evidence from PRs #43, #44, #46, #47/#49, and #48. ADR-002 through ADR-004 are accepted for Cycle 1; final architecture-package review remains pending. No implementation or test execution is claimed.
+A4 carries forward the merged A3 requirements, architecture, and planned verification evidence from PRs #43, #44, #46, #47/#49, and #48. ADR-002 through ADR-004 are accepted for Cycle 1; final architecture-package review remains pending. No implementation or test execution is claimed.
 
 The current requirements package contains proposed CampusConnect requirements and acceptance criteria. These are used as the current planning baseline while team review and finalization continue. Pending relationships are identified explicitly rather than inferred or invented.
 
 ## Requirements Traceability Matrix
 
-The current CampusConnect requirements package contains six proposed Cycle 1 requirements.
+The current CampusConnect requirements package contains six Cycle 1 requirements whose final acceptance status remains documented in the requirements files.
 
 Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Proposed architecture and planned test evidence are linked below. Implementation and completed verification evidence will be added when those lifecycle artifacts exist.
 
@@ -23,6 +23,46 @@ Current scope, task, ownership, and estimate relationships are linked below usin
 | REQ-004 — Support reviewer views submitted support requests | AC-REQ-004-01 | SCP-003, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-005 — Support reviewer changes the current status of a support request | AC-REQ-005-01 | SCP-004, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-006 — Support reviewer records a short note or resolution for a support request | AC-REQ-006-01 | SCP-005, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+
+## A4 Construction Traceability Ledger — October 23, 2026
+
+**Status distinction:** The table below maps **documented requirements and planned tests**, not completed implementation. `src/` and `tests/` each currently contain only a README; there is no verified executable feature or automated test code. The CI workflow remains the deliberately failing starter guard. No A4 implementation issue, commit, PR, or passing CI run is claimed.
+
+| Requirement | Acceptance criteria | Planned test cases | Logical contracts (A3) | Implementation issue / branch / PR | Executed test / CI evidence | A4 status |
+|---|---|---|---|---|---|---|
+| REQ-001 — Submit request | AC-REQ-001-01, AC-REQ-001-02 | TC-001, TC-002 | API-001, API-007 | Not linked yet | None verified | Planned |
+| REQ-002 — Own status and note | AC-REQ-002-01, AC-REQ-002-02, AC-REQ-002-03 | TC-003, TC-004, TC-005 | API-002, API-007 | Not linked yet | None verified | Planned |
+| REQ-003 — Unique ID and persistence | AC-REQ-003-01, AC-REQ-003-02 | TC-006, TC-007 | API-001, API-006 | Not linked yet | None verified | Planned |
+| REQ-004 — Reviewer access | AC-REQ-004-01, AC-REQ-004-02 | TC-008, TC-009 | API-003, API-007 | Not linked yet | None verified | Planned |
+| REQ-005 — Status changes | AC-REQ-005-01, AC-REQ-005-02 | TC-010, TC-011; TC-009 also checks reviewer authorization | API-004, API-006, API-007 | Not linked yet | None verified | Planned |
+| REQ-006 — Reviewer notes | AC-REQ-006-01 | TC-012; TC-009 also checks reviewer authorization | API-005, API-006, API-007 | Not linked yet | None verified | Planned |
+
+**Cross-cutting acceptance coverage:** AC-REQ-004-02 / TC-009 also tests unauthorized reviewer operations relevant to REQ-005 and REQ-006; it is not an additional thirteenth criterion.
+
+### A4 Evidence Link Protocol
+
+For each implementation slice, update the corresponding ledger row **after evidence exists**, including:
+1. A GitHub Issue with a requirement/AC ID, assigned owner, bounded change and risk.
+2. Branch name, commit SHA and PR URL; list changed source and test files.
+3. Independent reviewer feedback, author response, risk severity and merge/no-merge decision.
+4. CI run URL, exact commit and actual build/test result; link test logs or manual execution evidence by TC ID.
+5. AI-use log disclosure and AI code review, if applicable; dependency/version/license/security review if changed.
+6. Known defects, deferred work and architecture/ADR changes.
+
+**Review process evidence:** [A4 quality-review PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) proposes the review checklist and AI-assisted review template. It is process documentation, **not** evidence that implementation was reviewed or verified.
+
+**Ownership:** Quality & Review Lead Giancarlo Herrera maintains this ledger and checks evidence completeness; feature developers supply code and test evidence, independent reviewers record decisions, and Victor coordinates final gate readiness.
+
+### A4 Traceability Gaps and Next Actions
+
+| Gap | Responsible role | Required next evidence |
+|---|---|---|
+| Requirements still marked Proposed | Requirements owners / Victor | Attributable baseline acceptance or recorded changes |
+| No feature-specific implementation issue/PR | Shu and developers / Victor | Issues and small implementation PRs mapped to the ledger |
+| No executable tests or actual results | Developers / Giancarlo | Test code, run output and TC mappings |
+| Starter CI guard only | Developers / operations | Real PR-triggered build/test workflow and run URLs |
+| No AI/dependency review of implementation | PR authors / Giancarlo / operations | Disclosures and evidence when actual changes arrive |
+| No A4 release/phase gate | Victor / team | Reviewed evidence package and final tagged commit |
 
 ## A3 Proposed Architecture and Verification Traceability (October 15, 2026)
 
