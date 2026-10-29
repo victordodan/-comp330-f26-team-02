@@ -21,7 +21,7 @@ This is the navigation and accountability record for the A4 engineering evidence
 | Changed-file index since A3 and rationale for unchanged files | `docs/reviews/assignment4-changed-files.md` (to create); final Word summary | Shelby Sierah | Giancarlo Herrera | Not started; identify confirmed A3 baseline |
 | Architecture-review findings and dispositions | [architecture review](architecture-review.md) | Shu Perez | Giancarlo Herrera | Needs A4 update; link findings to code/fixes |
 | Requirements → issues → commits → PRs → CI/tests | [traceability](../planning/traceability.md), [PR #62](https://github.com/victordodan/-comp330-f26-team-02/pull/62) | Giancarlo Herrera | Shelby Sierah | Merged via PR #62; PR #67 validation/CI linked, remaining REQs pending |
-| PR template and substantive review trail | [PR template](../../.github/pull_request_template.md), [quality template PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) | Giancarlo Herrera | Victor Dodan | PR #61 and PR template on main; PR #67 independently reviewed; integrated review trail pending |
+| PR template and substantive review trail | [PR template](../../.github/pull_request_template.md), [quality template PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) | Giancarlo Herrera | Victor Dodan | PR #61 and PR template on main; PR #67 independently reviewed; PR #72 has two independent change-request reviews with unresolved findings |
 | Definition of Done and merge decision discipline | [PR #63](https://github.com/victordodan/-comp330-f26-team-02/pull/63) | Giancarlo Herrera | Victor Dodan | Merged via PR #63; team adoption pending |
 | AI-assisted code review findings and dispositions | [AI review template PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61), per-PR findings TBD | Giancarlo Herrera | Shu Perez | Template merged via PR #61; PRs #68–73 received change requests; AI-specific findings and fixes pending |
 | AI use disclosures, accepted/rejected suggestions, human checks | [AI use log](../ai/ai-use-log.md) | Giancarlo Herrera | Shelby Sierah | Four A4 entries merged via PR #74; further disclosures/verification as applicable |
@@ -43,6 +43,13 @@ This is the navigation and accountability record for the A4 engineering evidence
 
 PRs #61–65 and #74 are now merged into `main` (as of October 29). [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) is merged with six passing validator unit tests and review evidence. Shu's [PRs #68–73](https://github.com/victordodan/-comp330-f26-team-02/pulls) remain open with outstanding quality-review feedback. **Open PRs are not merged evidence.** Recheck statuses and exact CI results before submission.
 
+## Substantive technical review evidence — PR #72 (October 29)
+
+- **Implementation under review:** [PR #72 — RequestController](https://github.com/victordodan/-comp330-f26-team-02/pull/72), authored by Shu Perez; **open, not merged**.
+- **Independent review:** [Mareddy's CHANGES_REQUESTED review](https://github.com/victordodan/-comp330-f26-team-02/pull/72#pullrequestreview-5704379886), with [authorization finding](https://github.com/victordodan/-comp330-f26-team-02/pull/72#discussion_r4417431922) (REQ-002/REQ-004: all-request listing and reviewer status changes lack visible role/ownership enforcement) and [status-model finding](https://github.com/victordodan/-comp330-f26-team-02/pull/72#discussion_r4417458265) (AC-REQ-001-01: `New` differs from required initial `Submitted`).
+- **Quality Lead review:** [Giancarlo's CHANGES_REQUESTED review](https://github.com/victordodan/-comp330-f26-team-02/pull/72#pullrequestreview-5697921975) also identifies failing CI, integration/dependency issues, authorization, status transitions, and missing tests.
+- **Disposition:** Findings remain **open** pending author's corrections/response, relevant authorization and status tests, successful CI, and independent re-review. These review comments are substantive A4 **review-process evidence**, **not** proof the controller is secure, requirements-compliant, tested, or merged. Shu owns the implementation fixes; Giancarlo tracks review evidence and rechecks when updated.
+
 ## A4 evidence completeness checks
 
 - [ ] Confirm owners and backup owners with Victor and each teammate.
@@ -63,7 +70,7 @@ PRs #61–65 and #74 are now merged into `main` (as of October 29). [PR #67](htt
 
 1. **Partial implementation only:** validator source and six JUnit tests are on `main` via PR #67; the full application and end-to-end acceptance checks are not verified.
 2. **CI is split:** a dedicated validation workflow has passing unit-test evidence, while the original starter guard and integrated application-wide CI still need reconciliation.
-3. **Implementation reviews exist:** PR #67 was reviewed and merged; PRs #68–73 have requested changes and are open. A4 AI-assisted code-review findings and dispositions require further evidence where applicable.
+3. **Implementation reviews exist:** PR #67 was reviewed and merged; PRs #68–73 have requested changes and are open; Mareddy's substantive PR #72 technical review is linked below. A4 AI-assisted code-review findings and dispositions require further evidence where applicable.
 4. **A3 baseline not yet confirmed** for an accurate changed-file report.
 5. **Primary/backup assignments require confirmation**; they are proposals, not recorded team commitments.
 
