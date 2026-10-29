@@ -38,7 +38,7 @@ public class RequestController {
 
     @PostMapping
     public ResponseEntity<?> createRequest(@RequestBody CreateRequestDto dto) {
-      // Turn the incoming JSON body into a CreateRequestsDTO
+      // Turn the incoming JSON body into a CreateRequestDto
         // Validator checks these
         ValidationResult validation = RequestValidator.validate(
             dto.title(),
@@ -52,7 +52,7 @@ public class RequestController {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("errors", validation.errors()));
         }
-      // Validation passes, creates request vi service
+      // Validation passes, creates request via service
         // Passes validation not DTO because input may be trimmed/ cleaned up
         SupportRequest created = workflowService.createRequest(
             dto.studentID() != null ? dto.studentID() : "student-123",
@@ -66,27 +66,50 @@ public class RequestController {
     }
 
     // GET /api/requests
-      // Retrieves all support requests for review.
+      // REQ-002: Student Request Isolation via Headers
     @GetMapping
-    public ResponseEntity<List<SupportRequest>> getAllRequests() {
-      // Delegates entirely to the servise, the wrap the list
-        // If 200 OK, spring serialized the list to JSON
-        return ResponseEntity.ok(workflowService.getAllRequests());
+    public ResponseEntity<List<SupportRequest>> getRequests(
+        // User ID comes from request header (falls back to a default student)
+            @RequestHeader(value = "X-User-ID", defaultValue = "student-123") String userID,
+        // User role comes from request header (falls back to STUDENT)
+            @RequestHeader(value = "X-User-Role", defaultValue = "STUDENT") String userRole) {
+      // Delegates entirely to the service
+        // Service returns all requests for REVIEWER, only own requests for STUDENT
+        // 200 OK wraps the list; Spring serializes it to JSON
+        return ResponseEntity.ok(workflowService.getRequestsForUser(userID, userRole));
     }
+
     // PATCH /api/requests/{id}/status
-      // Reviewer updates ticket status and attaches resolution notes.
+      // REQ-004: Reviewer-only status updates with resolution note requirement
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> updateStatus(
         // ID from URL path
             @PathVariable String id,
+        // Role comes from request header (falls back to STUDENT)
+            @RequestHeader(value = "X-User-Role", defaultValue = "STUDENT") String userRole,
       // JSON body with status + note
             @RequestBody UpdateStatusDto dto) {
+      // Restrict status updates to REVIEWER role only
+        // Students get 403 Forbidden
+        if (!"REVIEWER".equalsIgnoreCase(userRole)) {
+            return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(Map.of("error", "Access denied: Only reviewers can update request status."));
+        }
       // Guard-rail for status
         // Present and values allowed, otherwise 400 and message
         if (dto.status() == null || !VALID_STATUSES.contains(dto.status())) {
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("error", "Status must be Submitted, In Review, Needs Information, Resolved, or Closed."));
+                .body(Map.of("error", "Invalid status value provided."));
+        }
+      // Require a resolution note when resolving or closing
+        // 400 Bad Request if Resolved/Closed without a note
+        if (("Resolved".equals(dto.status()) || "Closed".equals(dto.status()))
+                && (dto.resolutionNote() == null || dto.resolutionNote().isBlank())) {
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", "A resolution note is required when resolving or closing a request."));
         }
       // Delegates to service, returns present or empty
         // If present, wrap updated request in 200 OK
