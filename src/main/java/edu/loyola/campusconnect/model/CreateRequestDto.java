@@ -5,8 +5,9 @@ package edu.loyola.campusconnect.model;
 
 // Create public record called Create Requests DTO
 // Using record because its immutable and automatically converts HTTP JSON requests
-// Create strings for title, category, and description
+// Create strings for student's ID, title, category, and description on this DTO
 public record CreateRequestDto(
+  String studentID,
   String title,
   String category,
   String description
