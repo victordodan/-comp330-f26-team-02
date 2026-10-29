@@ -22,7 +22,7 @@ public class RequestController {
 
   // Whitelist of allowed status values, anything else is rejected
     private static final Set<String> VALID_STATUSES = Set.of(
-        "New", "In Review", "Needs Information", "Resolved", "Closed"
+        "Submitted", "In Review", "Needs Information", "Resolved", "Closed", "Reopened"
     );
   // Service layer, holdes the business logic
     private final WorkflowService workflowService;
@@ -55,6 +55,7 @@ public class RequestController {
       // Validation passes, creates request vi service
         // Passes validation not DTO because input may be trimmed/ cleaned up
         SupportRequest created = workflowService.createRequest(
+            dto.studentID() != null ? dto.studentID() : "student-123",
             validation.title(),
             validation.category(),
             validation.description()
@@ -85,7 +86,7 @@ public class RequestController {
         if (dto.status() == null || !VALID_STATUSES.contains(dto.status())) {
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("error", "Status must be New, In Review, Needs Information, Resolved, or Closed."));
+                .body(Map.of("error", "Status must be Submitted, In Review, Needs Information, Resolved, or Closed."));
         }
       // Delegates to service, returns present or empty
         // If present, wrap updated request in 200 OK
