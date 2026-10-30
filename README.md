@@ -8,13 +8,11 @@ CampusConnect focuses on one small end-to-end workflow rather than a complete un
 
 ## Project Status
 
-**Current Phase Gate:** A1 — Project Launch  
+**Current Phase Gate:** A4 — Construction & Integration
 **Release Cycle:** Cycle 1  
 **Status:** Active Development
 
-The team is currently establishing the initial engineering baseline for CampusConnect, with some documentation awaiting completion. Team processes, project scope, planning, risk evidence, AI-use governance, and other A1 artifacts are being completed before architecture and implementation begin.
-
-Initial Requirements package and Initial Decision Record have not yet reached their final A1 state. Additional engineering evidence will be added as the project moves through later lifecycle stages.
+The repository is implementing the Cycle 1 workflow in reviewed increments. PR #73 supplies the local Spring Boot HTTP bootstrap. The request model (#69), startup test (#77), persistent workflow (#71), and HTTP API (#72) are separate reviewed increments. Consult each PR and its tests for the features present on your checkout. Server-rendered pages remain follow-up work.
 
 ## Team
 
@@ -51,7 +49,8 @@ The repository is organized to preserve both the CampusConnect software and the 
 | Path | Purpose |
 |---|---|
 | `src/` | Application source code |
-| `tests/` | Automated tests and supporting test code |
+| `src/test/java/` | Executed Java unit and integration tests |
+| `tests/` | Starter/other test scaffolding |
 | `test-evidence/` | Preserved testing and verification evidence |
 | `data/` | Synthetic sample, fixture, seed, or project data |
 | `scripts/` | Development, verification, setup, or maintenance utilities |
@@ -60,35 +59,35 @@ The repository is organized to preserve both the CampusConnect software and the 
 
 ## Build, Run, and Test
 
-CampusConnect is currently in the A1 Project Launch phase. The technology stack and application architecture have not yet been finalized, so project-specific setup, build, run, and test commands are not yet available.
-
-These instructions will be updated as architecture and implementation decisions are made. Commands will only be added once they represent the actual project environment.
-
 ### Prerequisites
 
-Application-specific prerequisites have not yet been finalized.
+- JDK 17 (`java -version`).
+- Maven 3.6.3 or newer (`mvn -version`); local verification uses Maven 3.9.9.
+- Maven Central access for initial dependency resolution.
 
-Git and access to the project GitHub repository are currently required for repository-based engineering work.
+Spring Boot 3.5.16 is pinned in the parent POM, which manages compatible framework, test-library, and build-plugin versions. The selected dependency versions and review limits are recorded in [the build dependency assessment](docs/reviews/a4-build-dependency-assessment.md).
 
-### Setup
+### Verify and package
 
-Application setup instructions are not yet available because implementation has not begun.
+```sh
+mvn -B clean verify
+```
 
-### Build
+Maven runs the tests present in the checkout and packages the application. PR #77 adds HTTP startup coverage; #71 and #72 add workflow and controller coverage.
 
-A project build procedure has not yet been established.
+### Run locally
 
-### Run
+```sh
+mvn spring-boot:run
+```
 
-The CampusConnect application is not yet available to run during A1.
+Alternatively, after verification:
 
-### Test
+```sh
+java -jar target/campusconnect-0.1.0-SNAPSHOT.jar
+```
 
-The automated test procedure will be documented as implementation and verification work begins.
-
-Detailed testing evidence will be maintained under:
-
-[`docs/testing/`](docs/testing/)
+The application binds to `http://127.0.0.1:8080`. The root URL has no page, so HTTP 404 at `/` is expected. The workflow API and usage guide are introduced in [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72). Stop it with Ctrl+C. It uses no institutional authentication, external university integration, or real student data. Simulated-role checks and persistent storage must be verified with the later workflow integration.
 
 ## Engineering Practices
 
