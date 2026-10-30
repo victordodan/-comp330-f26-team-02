@@ -323,3 +323,24 @@ The architecture documents consistently describe a local, synthetic-data demonst
 ## Final Gate Control — Approval Record
 
 The final review and baseline acceptance must be recorded in [A3 Final Baseline and Architecture Gate — Approval Record](a3-final-gate-approval.md). This document reconciles the now-merged A3 PR evidence and defines the explicit sign-offs required before the `a3-architecture-review` tag. Earlier findings are retained as review history. **Do not interpret a merged PR, completed documentation, or this preparation as Victor's or Shu's approval.** The final gate remains pending until authorized reviewers record decisions and evidence links.
+
+
+## A4 Construction Follow-Up — October 29, 2026
+
+**Reviewer:** Giancarlo Herrera (Quality & Review Lead). **Scope:** Follow-up against merged A4 validator/DTO work and open integration PRs. This is not a new A3 approval or a claim of complete runtime verification.
+
+| Earlier finding / action | A4 construction evidence | Disposition and next proof |
+|---|---|---|
+| ARF-005 / ARA-004 — requirements and API contracts | [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) merged input validation and six JUnit tests; [PR #68](https://github.com/victordodan/-comp330-f26-team-02/pull/68) merged request DTO | **Partially addressed:** request-field validation exists. Full API-001 and REQ-001 end-to-end persistence and identity tests still required |
+| ARF-006 — inconsistent lifecycle vocabulary | [PR #70](https://github.com/victordodan/-comp330-f26-team-02/pull/70) merged status DTO; [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72) proposes additional statuses | **Open:** accepted Submitted → In Progress → Resolved / reopen semantics must be reconciled across controller, DTO, service and tests |
+| ARF-007 — security controls overstated | [Mareddy's review of PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72#pullrequestreview-5704379886) and [Giancarlo's review](https://github.com/victordodan/-comp330-f26-team-02/pull/72#pullrequestreview-5697921975) identify missing visible role/ownership enforcement | **Open, high priority:** negative student A/B ownership and reviewer-only update tests plus server-side enforcement and re-review |
+| ARF-004 / ARF-008 / ARA-002 — architecture alignment | [PR #71](https://github.com/victordodan/-comp330-f26-team-02/pull/71) workflow service and [PR #73](https://github.com/victordodan/-comp330-f26-team-02/pull/73) app entry point are open; [PR #76](https://github.com/victordodan/-comp330-f26-team-02/pull/76) proposes Spring Boot dependencies | **Pending:** verify controller/service/repository/role boundaries, actual startup, and ADR-002–004 alignment after integration |
+| ARA-003 — resolve or defer design questions | Accepted requirements/ADRs are referenced in [traceability](../planning/traceability.md) | **Partially addressed at planning level:** executed status, role, note, persistence and concurrency behavior not verified |
+| ARA-005 / persistence and concurrency concerns | No merged H2/recovery/optimistic-version test evidence in the reviewed validator/DTO slice | **Open:** prove file-backed persistence, conflict detection and recovery or explicitly disclose gaps |
+
+### Review and merge control
+
+- [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) has substantive review and passing focused validator CI. It **does not** close application-level architecture findings.
+- [PRs #69, #71–73, #76–77](https://github.com/victordodan/-comp330-f26-team-02/pulls) remain proposed changes at this snapshot. Review findings on #72 are not considered resolved solely because its branch has changed.
+- Do not mark architecture alignment, security, database persistence, or release readiness approved until implementation, CI and tests substantiate them.
+- **Next check:** re-review integrated PR heads, confirm ADR decisions and update this matrix with actual fix commits and test/run links.
