@@ -5,7 +5,7 @@
 **Current Phase:** A4 — Construction & Integration (A2/A3 evidence retained)  
 **Release Cycle:** Cycle 1  
 
-A4 carries forward the merged A3 requirements, architecture, and planned verification evidence from PRs #43, #44, #46, #47/#49, and #48. ADR-002 through ADR-004 are accepted for Cycle 1; final architecture-package review remains pending. No implementation or test execution is claimed.
+A4 carries forward the merged A3 requirements, architecture, and planned verification evidence from PRs #43, #44, #46, #47/#49, and #48. ADR-002 through ADR-004 are accepted for Cycle 1; final architecture-package review remains pending. Merged PR #67 now provides a limited request-field validation implementation and six JUnit unit tests; this does not establish an end-to-end workflow.
 
 The current requirements package contains proposed CampusConnect requirements and acceptance criteria. These are used as the current planning baseline while team review and finalization continue. Pending relationships are identified explicitly rather than inferred or invented.
 
@@ -13,24 +13,24 @@ The current requirements package contains proposed CampusConnect requirements an
 
 The current CampusConnect requirements package contains six Cycle 1 requirements whose final acceptance status remains documented in the requirements files.
 
-Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Proposed architecture and planned test evidence are linked below. Implementation and completed verification evidence will be added when those lifecycle artifacts exist.
+Current scope, task, ownership, and estimate relationships are linked below using the planning evidence that now exists. Proposed architecture and planned test evidence are linked below. Partial REQ-001 validation implementation and test evidence is now linked below; all other feature and acceptance coverage remains pending.
 
 | Requirement | Acceptance Criteria | Task / Planning Evidence | Owner | Estimate | Verification | Risk / Assumption | Status |
 |---|---|---|---|---|---|---|---|
-| REQ-001 — Student requester submits a support request containing the information required for Cycle 1 processing | AC-REQ-001-01 | SCP-001, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
+| REQ-001 — Student requester submits a support request containing the information required for Cycle 1 processing | AC-REQ-001-01 | SCP-001, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Field-validation unit tests verified in PR #67; end-to-end submission remains pending | R-004 | Proposed |
 | REQ-002 — Student requester views the current status and available resolution information for a submitted request | AC-REQ-002-01, AC-REQ-002-02 | SCP-006, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-003 — System stores a submitted support request and assigns a unique identifier | AC-REQ-003-01 | SCP-002, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-004 — Support reviewer views submitted support requests | AC-REQ-004-01 | SCP-003, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-005 — Support reviewer changes the current status of a support request | AC-REQ-005-01 | SCP-004, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 | REQ-006 — Support reviewer records a short note or resolution for a support request | AC-REQ-006-01 | SCP-005, TASK-010, TASK-013 | Shelby Sierah — requirements; Shu Perez — implementation | EST-002, EST-004 | Automated test / demonstration planned; no verification evidence yet | R-004 | Proposed |
 
-## A4 Construction Traceability Ledger — October 23, 2026
+## A4 Construction Traceability Ledger — October 23 baseline, refreshed October 29, 2026
 
-**Status distinction:** The table below maps **documented requirements and planned tests**, not completed implementation. `src/` and `tests/` each currently contain only a README; there is no verified executable feature or automated test code. The CI workflow remains the deliberately failing starter guard. No A4 implementation issue, commit, PR, or passing CI run is claimed.
+**Status distinction:** The ledger maps documented requirements and planned acceptance tests. Merged PR #67 implements **field validation only**, with six JUnit tests and a passing focused CI run; it does not implement request submission, persistence, simulated access control, or the twelve planned end-to-end acceptance test cases. The separate starter CI guard remains distinct from the A4 validation workflow. PRs #68 and #70 are merged DTO scaffolding. PRs #69, #71, #72, #73, #76 and #77 remain open and are **not merged implementation evidence**.
 
 | Requirement | Acceptance criteria | Planned test cases | Logical contracts (A3) | Implementation issue / branch / PR | Executed test / CI evidence | A4 status |
 |---|---|---|---|---|---|---|
-| REQ-001 — Submit request | AC-REQ-001-01, AC-REQ-001-02 | TC-001, TC-002 | API-001, API-007 | Not linked yet | None verified | Planned |
+| REQ-001 — Submit request | AC-REQ-001-01, AC-REQ-001-02 | TC-001, TC-002 | API-001, API-007 | [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67), merge `c43784fc`; `src/main/java/edu/loyola/campusconnect/validation/RequestValidator.java` and `src/test/java/edu/loyola/campusconnect/validation/RequestValidatorTest.java` | [Validation evidence](../testing/a4-request-validation-evidence.md), [successful Actions run](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/40778855959): six JUnit tests; **TC-001/002 not executed end-to-end** | Partial: validation only |
 | REQ-002 — Own status and note | AC-REQ-002-01, AC-REQ-002-02, AC-REQ-002-03 | TC-003, TC-004, TC-005 | API-002, API-007 | Not linked yet | None verified | Planned |
 | REQ-003 — Unique ID and persistence | AC-REQ-003-01, AC-REQ-003-02 | TC-006, TC-007 | API-001, API-006 | Not linked yet | None verified | Planned |
 | REQ-004 — Reviewer access | AC-REQ-004-01, AC-REQ-004-02 | TC-008, TC-009 | API-003, API-007 | Not linked yet | None verified | Planned |
@@ -49,7 +49,9 @@ For each implementation slice, update the corresponding ledger row **after evide
 5. AI-use log disclosure and AI code review, if applicable; dependency/version/license/security review if changed.
 6. Known defects, deferred work and architecture/ADR changes.
 
-**Review process evidence:** [A4 quality-review PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) proposes the review checklist and AI-assisted review template. It is process documentation, **not** evidence that implementation was reviewed or verified.
+**Implementation review references:** [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) was merged as `c43784fc` following independent review; its issue identifier has not been verified here. PRs #68 and #70 are merged DTO scaffolding; [PRs #69, #71, #72, #73, #76 and #77](https://github.com/victordodan/-comp330-f26-team-02/pulls) remain separate open proposals and must not be counted as integrated application behavior. The documented [validation run](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/40778855959) is earlier successful evidence, not a claim that all twelve acceptance tests passed.
+
+**Review process evidence:** [A4 quality-review PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) is merged process documentation. PR #67 has independent review and a recorded merge decision; its test results cover validator unit tests only. PRs #68 and #70 are merged. PRs #69, #71, #72 and #73 retain requested-changes reviews and remain open; build PR #76 and context-test PR #77 are also open. No integrated acceptance verification is claimed.
 
 **Ownership:** Quality & Review Lead Giancarlo Herrera maintains this ledger and checks evidence completeness; feature developers supply code and test evidence, independent reviewers record decisions, and Victor coordinates final gate readiness.
 
@@ -58,10 +60,10 @@ For each implementation slice, update the corresponding ledger row **after evide
 | Gap | Responsible role | Required next evidence |
 |---|---|---|
 | Requirements still marked Proposed | Requirements owners / Victor | Attributable baseline acceptance or recorded changes |
-| No feature-specific implementation issue/PR | Shu and developers / Victor | Issues and small implementation PRs mapped to the ledger |
-| No executable tests or actual results | Developers / Giancarlo | Test code, run output and TC mappings |
-| Starter CI guard only | Developers / operations | Real PR-triggered build/test workflow and run URLs |
-| No AI/dependency review of implementation | PR authors / Giancarlo / operations | Disclosures and evidence when actual changes arrive |
+| Feature implementation remains partial; issue links not verified | Shu and developers / Victor | Complete the workflow in reviewed PRs and link real issues, branches, commits and acceptance IDs |
+| Six validator unit tests exist; no verified end-to-end TC-001–012 results | Developers / Giancarlo | Add integration, role/security, persistence and acceptance-test evidence |
+| Focused Maven CI passed for PR #67; integrated build and starter workflow reconciliation pending | Developers / operations | Link passing application-wide CI on integrated code and reconcile starter guard |
+| PR #67 ChatGPT requirements-guidance disclosure logged; dependency review incomplete | PR authors / Giancarlo / operations | Complete evidence-based AI review where applicable and resolved dependency/license/security assessment |
 | No A4 release/phase gate | Victor / team | Reviewed evidence package and final tagged commit |
 
 ## A3 Proposed Architecture and Verification Traceability (October 15, 2026)
@@ -124,8 +126,8 @@ Architecture, implementation, and completed verification relationships will be a
 | Cycle 1 requirements remain Proposed. | REQ-001 through REQ-006 provide the current planning baseline, but later requirement changes may require downstream traceability updates. | Shelby Sierah | Review and stabilize the current requirements package and resolve material requirement-level uncertainty. | A2 |
 | Acceptance criteria remain Proposed. | Existing AC identifiers can now be traced, but changes during team review may affect planning and later verification evidence. | Shelby Sierah | Review and stabilize `docs/requirements/acceptance-criteria.md`. | A2 |
 | Architecture evidence is proposed but not yet finalized. | Component/API and data/context documents and the overview/inline diagram are merged. ADR-002–004 are accepted; final cross-document review remains pending. | Architecture & Development Lead | Finish the cross-document review and record finding dispositions against the accepted ADRs and current merged documents. | A3 |
-| Implementation evidence does not yet exist. | Requirements cannot yet be traced to source code or implementation pull requests. | Development team | Add implementation references during Construction. | A4 |
-| Verification evidence does not yet exist. | Requirements and acceptance criteria cannot yet be traced to tests or other proof of behavior. | Quality & Review Lead / team | Add test and verification references as evidence becomes available. | A4–A5 |
+| End-to-end implementation evidence remains incomplete. | PR #67 covers request-field validation only; submission, persistence and access control are not verified. | Development team | Integrate reviewed feature PRs and link evidence per requirement. | A4 |
+| Full acceptance verification remains incomplete. | Six validator unit tests pass, but TC-001–TC-012 and integration/security/restart behavior are not verified. | Quality & Review Lead / team | Link actual acceptance and integration test results as executed. | A4–A5 |
 
 ## Traceability Maintenance
 

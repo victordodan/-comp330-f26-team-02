@@ -4,67 +4,76 @@
 **Project:** CampusConnect — Cycle 1  
 **Index maintainer:** Giancarlo Herrera (Quality & Review Lead)  
 **Status:** Working evidence index; not a phase-gate approval or claim of completed implementation  
-**Last checked:** October 23, 2026  
+**Last checked:** October 29, 2026  
 **Repository clone URL:** `https://github.com/victordodan/-comp330-f26-team-02.git`
 
 ## How to use this index
 
 This is the navigation and accountability record for the A4 engineering evidence package. Each deliverable must have a working repository path or PR link, a **primary** and **backup** owner, a current status, and an evidence-backed completion decision. Ownership below is a **proposed working allocation** to be confirmed by Victor and the named teammates, not a claim they accepted assignments. Where an artifact exists but contains only A3 planning or starter material, its status is **Needs A4 update**.
 
-**Status meanings:** `Ready for review` = proposed A4 documentation exists in an open PR; `Needs A4 update` = older or placeholder artifact exists; `Not started` = required A4 evidence absent; `Pending verification` = work exists but outcome is unverified; `Complete` = linked, independently checked evidence is present.
+**Status meanings:** `Ready for review` = proposed A4 documentation awaits peer review; `Needs A4 update` = older or placeholder artifact exists; `Not started` = required A4 evidence absent; `Pending verification` = work exists but outcome is unverified; `Complete` = linked, independently checked evidence is present. `Merged; follow-up pending` = a document is on main but its outstanding evidence or adoption checks remain open.
 
 ## Deliverable index and owner matrix
 
 | A4 deliverable | Repository path / evidence | Proposed primary | Proposed backup | Status / next proof |
 |---|---|---|---|---|
-| A4 package index and ownership | `docs/reviews/assignment4-review-package.md` (this PR) | Giancarlo Herrera | Shelby Sierah | Ready for review; confirm owners |
-| Changed-file index since A3 and rationale for unchanged files | `docs/reviews/assignment4-changed-files.md` (to create); final Word summary | Shelby Sierah | Giancarlo Herrera | Not started; identify confirmed A3 baseline |
-| Architecture-review findings and dispositions | [architecture review](architecture-review.md) | Shu Perez | Giancarlo Herrera | Needs A4 update; link findings to code/fixes |
-| Requirements → issues → commits → PRs → CI/tests | [traceability](../planning/traceability.md), [PR #62](https://github.com/victordodan/-comp330-f26-team-02/pull/62) | Giancarlo Herrera | Shelby Sierah | Ready for review; implementation links pending |
-| PR template and substantive review trail | [PR template](../../.github/pull_request_template.md), [quality template PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) | Giancarlo Herrera | Victor Dodan | Needs A4 implementation PR and reviewer comments |
-| Definition of Done and merge decision discipline | [PR #63](https://github.com/victordodan/-comp330-f26-team-02/pull/63) | Giancarlo Herrera | Victor Dodan | Ready for review; team adoption pending |
-| AI-assisted code review findings and dispositions | [AI review template PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61), per-PR findings TBD | Giancarlo Herrera | Shu Perez | Ready for review template only; actual review pending |
-| AI use disclosures, accepted/rejected suggestions, human checks | [AI use log](../ai/ai-use-log.md) | Giancarlo Herrera | Shelby Sierah | Needs A4 updates; log this and other A4 AI assistance |
-| Build/test CI and real run evidence | [workflow](../../.github/workflows/ci.yml), [CI evidence](../testing/ci-evidence.md) | Shu Perez | Venkata Aravind Mareddy | Not configured; starter guard is not successful CI |
-| Executable feature implementation and integration | [source directory](../../src/), relevant PRs TBD | Shu Perez | Venkata Aravind Mareddy | Not started on main; only README in src |
-| Automated tests and acceptance verification | [test cases](../testing/test-cases.md), [tests directory](../../tests/) | Venkata Aravind Mareddy | Giancarlo Herrera | Planned cases only; no executed results verified |
-| Dependency/version/license/maintenance/security review | [PR #64](https://github.com/victordodan/-comp330-f26-team-02/pull/64) | Giancarlo Herrera | Shu Perez | Ready for review framework; actual dependency scan pending |
-| Risk register and deferred work | [risk register](../planning/risk-register.md) | Malec Tarabein | Giancarlo Herrera | Needs A4 risk review and dispositions |
+| A4 package index and ownership | `docs/reviews/assignment4-review-package.md` (this PR) | Giancarlo Herrera | Shelby Sierah | Merged via PR #65; confirm owners and update status as evidence changes |
+| Changed-file index since A3 and rationale for unchanged files | [A3-to-main changed-file index](assignment4-changed-files.md); final Word summary | Shelby Sierah | Giancarlo Herrera | Prepared in PR #75 from verified `a3-architecture-review` tag; 14 changed paths at Oct 29 snapshot; refresh after later merges and confirm unchanged-file dispositions |
+| Architecture-review findings and dispositions | [architecture review](architecture-review.md) | Shu Perez | Giancarlo Herrera | A4 follow-up prepared in PR #75; integration/authorization findings still open |
+| Requirements → issues → commits → PRs → CI/tests | [traceability](../planning/traceability.md), [PR #62](https://github.com/victordodan/-comp330-f26-team-02/pull/62) | Giancarlo Herrera | Shelby Sierah | Merged via PR #62; PR #67 validation/CI linked, remaining REQs pending |
+| PR template and substantive review trail | [PR template](../../.github/pull_request_template.md), [quality template PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) | Giancarlo Herrera | Victor Dodan | PR #61 and PR template on main; AI-assistance disclosure in the actual PR template remains pending; PR #67 independently reviewed; PR #72 has two independent change-request reviews with unresolved findings |
+| Definition of Done and merge decision discipline | [PR #63](https://github.com/victordodan/-comp330-f26-team-02/pull/63) | Giancarlo Herrera | Victor Dodan | Merged via PR #63; team adoption pending |
+| AI-assisted code review findings and dispositions | [review findings](a4-code-review-findings.md), [template PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) | Giancarlo Herrera | Shu Perez | A4 risk/lens review prepared in PR #75; implementation findings remain open, AI authorship not presumed |
+| AI use disclosures, accepted/rejected suggestions, human checks | [AI use log](../ai/ai-use-log.md) | Giancarlo Herrera | Shelby Sierah | Four A4 entries merged via PR #74; further disclosures/verification as applicable |
+| Build/test CI and real run evidence | [workflow](../../.github/workflows/ci.yml), [CI evidence](../testing/ci-evidence.md) | Shu Perez | Venkata Aravind Mareddy | Dedicated `.github/workflows/a4-validation-tests.yml` passed PR #67 unit tests; starter guard/integrated CI pending |
+| Executable feature implementation and integration | [source directory](../../src/), relevant PRs TBD | Shu Perez | Venkata Aravind Mareddy | Validator and DTO scaffolding merged via #67/#68/#70; #69/#71/#72/#73/#76/#77 remain open implementation/build proposals |
+| Automated tests and acceptance verification | [test cases and A4 readiness review](../testing/test-cases.md), [tests directory](../../tests/) | Venkata Aravind Mareddy | Giancarlo Herrera | A4 test-readiness gap analysis prepared in PR #75; six validator unit tests passed, TC-001–012 still not executed |
+| Dependency/version/license/maintenance/security review | [PR #64](https://github.com/victordodan/-comp330-f26-team-02/pull/64) | Giancarlo Herrera | Shu Perez | PR #64 framework merged; `pom.xml` inventory refreshed, license/security/tree checks pending |
+| Risk register and deferred work | [risk register](../planning/risk-register.md) | Malec Tarabein (original; reassignment pending Victor confirmation) | Giancarlo Herrera (A4 update author) | A4 planning/risk review in separate [PR #78](https://github.com/victordodan/-comp330-f26-team-02/pull/78); reassessed R-003/005/006/007/010/011/012 and added R-013–016; ownership/mitigations pending |
 | Known limitations and release readiness | [known limitations](../release/known-limitations.md) | Shelby Sierah | Victor Dodan | Needs A4 content; starter guidance present |
 | Runtime/logging/recovery evidence (if applicable) | `docs/testing/` and `docs/release/` — links TBD | Shu Perez | Shelby Sierah | Pending implementation and actual observations |
 | Final Word submission, changed-file summary, repo clone URL, A4 tag | Final `.docx` submitted to Sakai by Victor; Git tag `a4-construction-integration` | Victor Dodan | Shelby Sierah | Not started; submit only after evidence review |
 
-## Existing review PRs awaiting independent review
+## Merged documentation PRs and open implementation reviews
 
 - [PR #61 — Quality and AI code review templates](https://github.com/victordodan/-comp330-f26-team-02/pull/61)
 - [PR #62 — Requirements-to-test traceability](https://github.com/victordodan/-comp330-f26-team-02/pull/62)
 - [PR #63 — Definition of Done](https://github.com/victordodan/-comp330-f26-team-02/pull/63)
 - [PR #64 — Dependency and supply-chain review](https://github.com/victordodan/-comp330-f26-team-02/pull/64)
 
-All four were open at the time this index was prepared. **Open PRs are not merged evidence.** Recheck status, review comments, and target commit before submission.
+PRs #61–65 and #74 are now merged into `main` (as of October 29). [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) is merged with six passing validator unit tests and review evidence. PRs #68/#70 are merged DTO scaffolding. Shu's #69/#71/#72/#73 and build/startup #76/#77 remain open; existing requested-changes reviews require re-review. **Open PRs are not merged evidence.** Recheck statuses and exact CI results before submission.
+
+## Substantive technical review evidence — PR #72 (October 29)
+
+- **Implementation under review:** [PR #72 — RequestController](https://github.com/victordodan/-comp330-f26-team-02/pull/72), authored by Shu Perez; **open, not merged**.
+- **Independent review:** [Mareddy's CHANGES_REQUESTED review](https://github.com/victordodan/-comp330-f26-team-02/pull/72#pullrequestreview-5704379886), with [authorization finding](https://github.com/victordodan/-comp330-f26-team-02/pull/72#discussion_r4417431922) (REQ-002/REQ-004: all-request listing and reviewer status changes lack visible role/ownership enforcement) and [status-model finding](https://github.com/victordodan/-comp330-f26-team-02/pull/72#discussion_r4417458265) (AC-REQ-001-01: `New` differs from required initial `Submitted`).
+- **Quality Lead review:** [Giancarlo's CHANGES_REQUESTED review](https://github.com/victordodan/-comp330-f26-team-02/pull/72#pullrequestreview-5697921975) also identifies failing CI, integration/dependency issues, authorization, status transitions, and missing tests.
+- **Disposition:** Findings remain **open** pending author's corrections/response, relevant authorization and status tests, successful CI, and independent re-review. These review comments are substantive A4 **review-process evidence**, **not** proof the controller is secure, requirements-compliant, tested, or merged. Shu owns the implementation fixes; Giancarlo tracks review evidence and rechecks when updated.
 
 ## A4 evidence completeness checks
 
 - [ ] Confirm owners and backup owners with Victor and each teammate.
-- [ ] Confirm the A3 baseline tag or exact commit before producing the changed-file index.
-- [ ] Review/merge the A4 process documentation PRs with meaningful independent feedback.
-- [ ] Implement a bounded end-to-end Cycle 1 feature slice and link issues, branches, commits and PRs.
+- [x] Confirm A3 baseline tag `a3-architecture-review` (`255c335343c2`) and prepare changed-file index in PR #75; [ ] refresh after final merges.
+- [x] A4 process documentation PRs #61–65 merged; confirm any remaining team adoption/review follow-up.
+- [ ] Validator unit-test slice merged via PR #67; complete an end-to-end Cycle 1 feature and link issues, branches, commits and PRs.
 - [ ] Capture substantive review comments, author responses and merge/no-merge decisions.
-- [ ] Run a real build/test workflow against the relevant commit; record actual CI URLs/results.
+- [x] Focused validation CI passed for PR #67; [run evidence](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/40778855959). [ ] Integrated application CI remains pending.
 - [ ] Execute and record tests with mapped acceptance criteria, including negative/security cases.
 - [ ] Complete AI code review and AI-use log entries with human verification.
 - [ ] Review actual dependency versions, licenses, maintenance and security advisories.
 - [ ] Reconcile architecture findings, risk register, known limitations, and deferred work.
-- [ ] Produce final changed-file index, Word evidence summary and clone URL.
+- [x] Prepare [changed-file index](assignment4-changed-files.md) and Word template; [ ] refresh final index and complete submission after merges.
 - [ ] Have Victor verify and create/push `a4-construction-integration` tag for the approved commit.
 - [ ] Victor submits the Word document and clone URL to Sakai.
 
 ## Open blockers and decisions
 
-1. **No verified executable implementation or tests on main.** `src/` and `tests/` contained only README files when checked.
-2. **CI is a deliberate configuration guard**, not project build/test evidence.
-3. **No A4 implementation PR review or AI code-review findings yet**; the existing A4 PRs are documentation work.
-4. **A3 baseline not yet confirmed** for an accurate changed-file report.
+1. **Partial implementation only:** validator source and six JUnit tests are on `main` via PR #67; the full application and end-to-end acceptance checks are not verified.
+2. **CI is split:** a dedicated validation workflow has passing unit-test evidence, while the original starter guard and integrated application-wide CI still need reconciliation.
+3. **Implementation reviews exist:** PR #67 was reviewed and merged; PRs #68/#70 are merged; #69/#71/#72/#73 retain requested-changes reviews and remain open; #76/#77 are open build/startup proposals; Mareddy's substantive PR #72 technical review is linked above. A4 AI-assisted code-review findings and dispositions require further evidence where applicable.
+4. **A3 baseline confirmed:** `a3-architecture-review` tag at `255c335343c2`; the changed-file snapshot requires refreshing after new merges.
 5. **Primary/backup assignments require confirmation**; they are proposals, not recorded team commitments.
+
+**October 29 quality checkpoint:** Giancarlo's responsibility is to keep the review ledger, dependency assessment, traceability, and evidence index current; Shu and the developers own code corrections and tests, Victor coordinates ownership and final submission. No teammate's implementation was changed by this evidence refresh.
 
 **Integrity rule:** Keep planned checks separate from executed checks, open PRs separate from merged work, and proposed ownership separate from accepted responsibility. Do not infer approvals, successful tests, or resolved findings.
