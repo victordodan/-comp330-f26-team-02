@@ -99,3 +99,40 @@ The approved Java and Spring Boot stack, file-backed H2 database, and concurrenc
 The team should prioritize applying the approved decisions, early database testing, and incremental integration to reduce the chance of schedule delays and data consistency problems.
 
 No successful implementation, backup restoration, or concurrency testing is claimed in this risk update.
+
+
+## A4 — Construction, Integration, and Review Risk Update (October 29, 2026)
+
+**Prepared by:** Giancarlo Herrera, Quality & Review Lead, as an A4 evidence update to support the team's planning/process work. **Original risk owners remain as recorded above until Victor confirms any reassignment.** This is an evidence-based review of GitHub at the stated snapshot, not a claim of formal team risk acceptance.
+
+### Current evidence and risk reassessment
+
+- **R-003 — Team availability / late work:** Active schedule exposure. Several interdependent implementation PRs are open close to the A4 submission target. Victor should confirm backup assignments and the final integration sequence. [Open PRs](https://github.com/victordodan/-comp330-f26-team-02/pulls).
+- **R-005 — Integration failure:** Elevated attention warranted. [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) merged a validator and six JUnit tests; [#68](https://github.com/victordodan/-comp330-f26-team-02/pull/68) and [#70](https://github.com/victordodan/-comp330-f26-team-02/pull/70) merged DTOs. Service/controller/application PRs [#71](https://github.com/victordodan/-comp330-f26-team-02/pull/71), [#72](https://github.com/victordodan/-comp330-f26-team-02/pull/72), and [#73](https://github.com/victordodan/-comp330-f26-team-02/pull/73) remain open at this snapshot. Passing a focused validation CI job does not prove end-to-end integration.
+- **R-006 — Testing delay:** Active evidence gap. The six validator tests have passing [CI evidence](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/40778855959); the planned TC-001–TC-012 acceptance, ownership/authorization, state-transition, persistence, and recovery checks are not shown as executed by that result.
+- **R-007 — Evidence traceability:** Partially mitigated by merged [PRs #61–65](https://github.com/victordodan/-comp330-f26-team-02/pulls?q=is%3Apr+is%3Amerged) and [#74](https://github.com/victordodan/-comp330-f26-team-02/pull/74). The [A4 index](../reviews/assignment4-review-package.md), [changed-file index](../reviews/assignment4-changed-files.md), and PR #75 reconciliation still need review/merge and final refresh.
+- **R-010 — Persistence/recovery:** Not verified. The accepted file-backed H2 design requires actual restart/recovery and transaction evidence; the merged validator/DTO slice does not provide it.
+- **R-011 — Concurrent updates:** Not verified. The accepted optimistic-locking/version strategy requires implementation and conflicting-update tests before it can be marked mitigated.
+- **R-012 — Architecture drift:** Active review concern. [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72) received substantive change requests about authorization and status consistency; corrections, aligned ADRs and tests require verification.
+
+**Correction to the earlier “Materialized Risks” section:** Its statement that no risks had materialized describes the prior A3 review, not an independently verified A4 status. The current A4 evidence shows schedule/integration/test *exposures* and open review findings; it does not establish an incident or verified loss of data. No risk is closed by this addendum.
+
+### Additional A4 risks requiring disposition
+
+| ID | Risk and evidence | Likelihood | Impact | Mitigation / required verification | Response if unresolved | Proposed coordinator | Status |
+|---|---|---|---|---|---|---|---|
+| R-013 | **Authorization / privacy:** Without server-enforced simulated role and student ownership checks, a student could retrieve another student's requests or invoke reviewer operations. [PR #72 review](https://github.com/victordodan/-comp330-f26-team-02/pull/72#pullrequestreview-5704379886). | Medium | High | Require role/ownership checks in service/controller; execute negative student A/B and reviewer tests; independent re-review. | Block affected behavior from being represented as secure or complete; document limitation. | Shu (implementation); Giancarlo (review) | Open finding; not verified fixed |
+| R-014 | **Workflow/state drift:** Controller status options and transitions may diverge from accepted Submitted → In Progress → Resolved / reopen rules. [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72). | Medium | High | Align enums/DTO/controller/service with accepted criteria; test invalid transitions and required resolution notes. | Record discrepancy and defer unverified workflow claims. | Shu (implementation); Giancarlo (review) | Open finding; not verified fixed |
+| R-015 | **Dependency / CI evidence:** Spring Boot integration and transitive dependency/security review are not yet complete on the merged snapshot. [PR #76](https://github.com/victordodan/-comp330-f26-team-02/pull/76) proposes Spring Boot 3.2.5; [quality review](https://github.com/victordodan/-comp330-f26-team-02/pull/76#pullrequestreview-5706305897). | Medium | High | Review/merge compatible POM, rerun integrated CI, document exact dependency tree, licenses and advisories; verify startup. | Keep dependency approval and integrated build claims pending; disclose unsupported features. | Shu (build); Giancarlo (dependency review) | Pending verification |
+| R-016 | **Phase-gate reproducibility:** If final A4 tag or Word index is created before the last reviewed merge, the submitted baseline may not match the evidence. [A4 package index](../reviews/assignment4-review-package.md). | Medium | High | Recheck merged PRs, A3 comparison, final CI, evidence links, and create/verify `a4-construction-integration` tag on the approved final commit. | Correct the baseline before Sakai submission; explicitly identify gaps if unresolved. | Victor (submitter); Giancarlo (quality support) | Open until final submission verified |
+
+These ratings are provisional reviewer assessments, not approvals by the named coordinators.
+
+### A4 risk actions for the phase gate
+
+1. **Victor:** Confirm who owns the planning/risk-register A4 follow-up and who is backup; reconcile outstanding PR merge decisions and the final tag.
+2. **Shu and Mareddy:** Supply runnable integration and negative/security tests for the accepted workflow; close or document authorization, state, persistence and concurrency findings.
+3. **Giancarlo:** Re-review PR fixes, update the evidence index/traceability, and record the exact dependency and CI verification outcomes.
+4. **Team:** Copy any confirmed deferred behavior into [known limitations](../release/known-limitations.md), without claiming unexecuted tests passed.
+
+**A4 disposition:** The risk register has been reviewed and extended; **risk mitigation, final owner reassignment, integrated test results, and release readiness remain pending**.
