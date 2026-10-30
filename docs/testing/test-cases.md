@@ -51,3 +51,19 @@ For each actual run, add a dated record containing:
 **Executed:** 0 of 12 documented cases. **Not Run:** 12 of 12. These counts refer only to the catalog's documentation status; no execution has been independently verified. Automated test implementations, CI integration, real results, and regression evidence are pending. Do not change a case to Pass without run-specific evidence.
 
 See [test-plan.md](test-plan.md), [test-strategy.md](test-strategy.md), and [ci-evidence.md](ci-evidence.md).
+
+
+## A4 Quality Lead — Acceptance and Negative-Test Readiness Review (October 29, 2026)
+
+**Reviewer:** Giancarlo Herrera. The twelve TC-001–TC-012 entries above remain **Not Run** unless an actual case-specific execution record is linked. [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) contains six passing JUnit request-validator tests, which are **unit-level partial coverage**, not execution of the twelve end-to-end acceptance scenarios.
+
+| Review focus | Relevant requirements / planned tests | Required additional evidence before Pass |
+|---|---|---|
+| Valid request boundaries and categories | REQ-001; TC-001, TC-002 | Verify 5/100-character titles, 10/2000-character descriptions, valid/invalid categories, whitespace and server rejection using actual submission endpoint; distinguish unit validation from persisted request |
+| Student data isolation | REQ-002, REQ-004; relevant student/reviewer cases | Student A cannot view Student B's request by ID or list; simulated student cannot invoke reviewer update; role checks occur server-side, not only in UI |
+| Unique IDs and retrieval | REQ-003 | Two submitted requests get distinct identifiers; stored records remain retrievable across expected lifecycle |
+| Status transitions and notes | REQ-005, REQ-006 | Submitted → In Progress → Resolved; reject invalid transitions; require resolution note; reopen Resolved → In Progress; preserve and edit notes per accepted rule |
+| Persistence and conflict handling | ADR-003, ADR-004 | Restart file-backed H2 and confirm data survives; conflicting updates reject stale versions; test failure paths and transaction consistency |
+| Integration/build evidence | REQ-001–006 | CI build plus application context/startup, integration tests, actual test logs and PR checks linked to the reviewed commit |
+
+**Current execution claim:** Only the six unit tests reported in [A4 validation evidence](a4-request-validation-evidence.md) have reported pass results. The additional cases above are **test design/review recommendations**, not executed tests. Developers/test owners must implement and run them, then attach dated commit-specific evidence. Do not infer that passing CI on a single PR verifies authorization, persistence or release readiness.
