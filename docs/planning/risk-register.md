@@ -136,3 +136,11 @@ These ratings are provisional reviewer assessments, not approvals by the named c
 4. **Team:** Copy any confirmed deferred behavior into [known limitations](../release/known-limitations.md), without claiming unexecuted tests passed.
 
 **A4 disposition:** The risk register has been reviewed and extended; **risk mitigation, final owner reassignment, integrated test results, and release readiness remain pending**.
+
+### Post-merge evidence update — October 30, 2026
+
+This update supersedes the earlier open-PR, dependency-version, and unverified implementation statements.
+
+PRs #69, #71, #72, #73, #75, #76, and #77 are merged. The build uses Spring Boot 3.5.16. All six code PRs passed CI before merging; the combined backend passed 35 tests, including ownership, workflow, concurrency, and persistence checks. Packaged-process restart checks also passed.
+
+These results provide mitigation evidence. Formal risk acceptance, dependency maintenance/security acceptance, backup restoration, and final release verification remain pending.

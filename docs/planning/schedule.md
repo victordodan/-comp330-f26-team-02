@@ -162,3 +162,9 @@ No implementation completion, successful test execution, or final architecture-p
 - **Required checkpoint:** Confirm exact final merged SHA, CI and test evidence, unresolved review findings, final tag `a4-construction-integration`, and submission links before declaring the A4 phase gate complete.
 
 No revised date, resource commitment, completion percentage, or approval is invented in this checkpoint.
+
+### Post-merge schedule update — October 30, 2026
+
+The build, model, application bootstrap, workflow, controller, startup-test, and quality-evidence PRs are merged. Their pre-merge code checks passed, superseding the earlier failing-CI checkpoint.
+
+Remaining sequence: verify final main CI → refresh submission evidence and unresolved dispositions → approve the final baseline → create the A4 tag and complete the Word/Sakai submission.

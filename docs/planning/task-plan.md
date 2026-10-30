@@ -153,3 +153,14 @@ Documentation being merged does not, by itself, demonstrate that implementation 
 **Change control:** Do not mark a task complete solely because its PR exists. Recheck latest merged commits, CI, reviews, and test results. Any reassigned owners, revised estimates, or changed deadlines require team confirmation; none are approved by this addendum.
 
 **Critical dependencies:** Spring Boot configuration → compatible application integration → build and negative/integration tests → independent review and evidence reconciliation → final tag and submission. Parallel documentation can proceed but does not substitute for running code.
+
+### Post-merge task update — October 30, 2026
+
+The earlier open/failing statuses are superseded:
+
+- Build configuration: #76 merged.
+- Model, bootstrap, service, and controller: #69/#73/#71/#72 merged.
+- Startup verification: #77 merged; pre-merge CI passed.
+- Backend verification: 35 tests passed on the combined implementation.
+- Quality evidence: #75 merged; final post-merge reconciliation remains pending.
+- Remaining acceptance/recovery evidence, ownership confirmation, final main verification, tag, and Word submission remain open.
