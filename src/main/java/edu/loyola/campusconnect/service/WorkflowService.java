@@ -1,61 +1,151 @@
 package edu.loyola.campusconnect.service;
 
+import edu.loyola.campusconnect.model.DemoIdentity;
 import edu.loyola.campusconnect.model.SupportRequest;
-import org.springframework.stereotype.Service;
+import edu.loyola.campusconnect.repository.RequestRepository;
+import edu.loyola.campusconnect.validation.RequestValidator;
+import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.UUID;
+import java.util.function.Supplier;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.support.TransactionTemplate;
 
-// Service managing the lifecycle, in-memory persistence, and status updates for CampusConnect support requests
+/** Authoritative validation, permissions and lifecycle rules for the classroom workflow. */
 @Service
 public class WorkflowService {
-    // Thread-safe in-memory storage for support requests
-    private final ConcurrentHashMap<String, SupportRequest> requestStore = new ConcurrentHashMap<>();
+    private final RequestRepository repository;
+    private final TransactionTemplate transactions;
 
-    // Counter for generating unique request IDs (i.e. REQ-1001)
-    private final AtomicLong idSequence = new AtomicLong(1000);
+    public WorkflowService(RequestRepository repository, PlatformTransactionManager transactionManager) {
+        this.repository = repository;
+        this.transactions = new TransactionTemplate(transactionManager);
+    }
 
-    // Creates and stores a new support request with default initial state ("Submitted")
-    public SupportRequest createRequest(String studentID, String title, String category, String description) {
-        String id = "REQ-" + idSequence.incrementAndGet();
+    public SupportRequest createRequest(DemoIdentity actor, String title, String category, String description) {
+        requireStudent(actor);
+        var result = RequestValidator.validate(title, category, description);
+        if (!result.valid()) {
+            throw failure("BAD_INPUT", String.join(" ", result.errors()));
+        }
+        return transaction(() -> {
+            Instant now = Instant.now();
+            SupportRequest request = new SupportRequest(UUID.randomUUID().toString(), actor.id(), result.title(),
+                    result.category(), result.description(), "Submitted", "", now, now, 0);
+            repository.insert(request);
+            return request;
+        });
+    }
 
-      // Create a new SupportRequest object using the 5-argument constructor
-        // which fills in default status, resolution note, and timestamp
-        SupportRequest request = new SupportRequest(id, studentID, title, category, description);
-      // Store the new request in the map (in-memory "database")
-        // Keys are the generated id
-        // Values are the request object
-        requestStore.put(id, request);
+    public List<SupportRequest> getOwnRequests(DemoIdentity actor) {
+        requireStudent(actor);
+        return transaction(() -> repository.findByStudentID(actor.id()));
+    }
+
+    public SupportRequest getOwnRequest(DemoIdentity actor, String id) {
+        requireStudent(actor);
+        return transaction(() -> {
+            SupportRequest request = existing(id);
+            if (!request.studentID().equals(actor.id())) {
+                throw failure("NOT_FOUND", "Request not found.");
+            }
+            return request;
+        });
+    }
+
+    public List<SupportRequest> getReviewerRequests(DemoIdentity actor) {
+        requireReviewer(actor);
+        return transaction(repository::findAll);
+    }
+
+    public SupportRequest getReviewerRequest(DemoIdentity actor, String id) {
+        requireReviewer(actor);
+        return transaction(() -> existing(id));
+    }
+
+    public SupportRequest updateStatus(DemoIdentity actor, String id, String newStatus, long expectedVersion) {
+        requireReviewer(actor);
+        return transaction(() -> {
+            SupportRequest request = current(id, expectedVersion);
+            boolean permitted = (request.status().equals("Submitted") && "In Progress".equals(newStatus))
+                    || (request.status().equals("In Progress") && "Resolved".equals(newStatus))
+                    || (request.status().equals("Resolved") && "In Progress".equals(newStatus));
+            if (!permitted) {
+                throw failure("BAD_INPUT", "Unsupported status transition.");
+            }
+            if ("Resolved".equals(newStatus) && request.resolutionNote().isBlank()) {
+                throw failure("BAD_INPUT", "Save nonblank resolution text before resolving.");
+            }
+            return save(request, newStatus, request.resolutionNote(), expectedVersion);
+        });
+    }
+
+    public SupportRequest updateNote(DemoIdentity actor, String id, String note, long expectedVersion) {
+        requireReviewer(actor);
+        String cleanNote = note == null ? "" : note.strip();
+        if (cleanNote.length() > 2000) {
+            throw failure("BAD_INPUT", "Resolution text must not exceed 2000 characters.");
+        }
+        return transaction(() -> {
+            SupportRequest request = current(id, expectedVersion);
+            if (request.status().equals("Resolved") && cleanNote.isEmpty()) {
+                throw failure("BAD_INPUT", "Resolution text cannot be cleared while Resolved.");
+            }
+            return save(request, request.status(), cleanNote, expectedVersion);
+        });
+    }
+
+    private SupportRequest save(SupportRequest request, String status, String note, long expectedVersion) {
+        Instant now = Instant.now();
+        Instant updatedAt = now.isAfter(request.updatedAt()) ? now : request.updatedAt().plusNanos(1);
+        SupportRequest updated = new SupportRequest(request.id(), request.studentID(), request.title(), request.category(),
+                request.description(), status, note, request.createdAt(),
+                updatedAt, request.version() + 1);
+        if (!repository.replace(updated, expectedVersion)) {
+            throw failure("CONFLICT", "Request changed; reload it before saving.");
+        }
+        return updated;
+    }
+
+    private SupportRequest current(String id, long expectedVersion) {
+        if (expectedVersion < 0) {
+            throw failure("BAD_INPUT", "A nonnegative expected version is required.");
+        }
+        SupportRequest request = existing(id);
+        if (request.version() != expectedVersion) {
+            throw failure("CONFLICT", "Request changed; reload it before saving.");
+        }
         return request;
     }
 
-    // Retrieves support requests visible to a user, filtered by role
-    public List<SupportRequest> getRequestsForUser(String userID, String userRole) {
-        if ("REVIEWER".equalsIgnoreCase(userRole)) {
-            return List.copyOf(requestStore.values());
+    private SupportRequest existing(String id) {
+        return repository.findById(id).orElseThrow(() -> failure("NOT_FOUND", "Request not found."));
+    }
+
+    private void requireStudent(DemoIdentity actor) {
+        if (actor == null || !actor.isStudent()) {
+            throw failure("DENIED", "A valid student demo identity is required.");
         }
-        return requestStore.values().stream()
-            .filter(req -> req.studentID().equalsIgnoreCase(userID))
-            .toList();
     }
 
-    // Retrieves a single support request by its ID
-    public Optional<SupportRequest> getRequestById(String id) {
-        return Optional.ofNullable(requestStore.get(id));
+    private void requireReviewer(DemoIdentity actor) {
+        if (actor != DemoIdentity.REVIEWER) {
+            throw failure("DENIED", "The Reviewer demo identity is required.");
+        }
     }
 
-    // Updates the status and resolution note of an existing support request
-    public Optional<SupportRequest> updateStatus(String id, String newStatus, String resolutionNote) {
-    return Optional.ofNullable(requestStore.computeIfPresent(id, (reqId, existing) ->
-        new SupportRequest(
-            existing.id(),
-            existing.studentID(),
-            existing.title(), existing.category(), existing.description(),
-            newStatus,
-            resolutionNote,
-            existing.createdAt()
-        )
-    ));
+    private <T> T transaction(Supplier<T> work) {
+        try {
+            return transactions.execute(status -> work.get());
+        } catch (DataAccessException | TransactionException error) {
+            throw failure("STORAGE_ERROR", "Storage operation failed; no success was confirmed.");
+        }
+    }
+
+    private WorkflowException failure(String code, String message) {
+        return new WorkflowException(code, message);
     }
 }

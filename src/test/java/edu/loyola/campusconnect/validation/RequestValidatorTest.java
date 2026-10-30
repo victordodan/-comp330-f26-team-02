@@ -91,4 +91,10 @@ class RequestValidatorTest {
             ).valid());
         }
     }
+    @Test
+    void acceptsAndTrimsSurroundingCategoryWhitespace() {
+        var result = RequestValidator.validate("Valid title", "  IT  ", "Valid description");
+        assertTrue(result.valid());
+        assertEquals("IT", result.category());
+    }
 }
