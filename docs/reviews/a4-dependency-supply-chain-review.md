@@ -22,13 +22,13 @@ The root [LICENSE](../../LICENSE) grants educational use of the instructor's sta
 | Maven | Build and dependency management | Maven executable version not pinned; `maven-compiler-plugin:3.13.0`, `maven-surefire-plugin:3.5.2` declared | Plugin and transitive licenses not independently audited | Check Maven/plugin support and advisories | Plugins declared; audit pending |
 | H2 Database | Local file-backed storage | Not pinned | Inspect selected artifact license | Check advisories, file access, persistence/recovery limits | Pending |
 
-**Verified from `pom.xml`:** `org.junit.jupiter:junit-jupiter:5.11.4` is the only declared direct dependency (test scope). Spring Boot, Thymeleaf and H2 remain planned but are **not declared in the current main-branch POM**. The two Maven plugins above are declared. No transitive dependency inventory, license review, vulnerability result or approved dependency risk disposition is claimed. An accepted architecture is not proof that a package is installed or safe.
+**Verified from `pom.xml`:** `org.junit.jupiter:junit-jupiter:5.11.4` is the only declared direct dependency (test scope). Spring Boot, Thymeleaf and H2 remain planned but are **not declared in the current main-branch POM**. The two Maven plugins above are declared. No transitive dependency inventory, license review, vulnerability result or approved dependency risk disposition is claimed. This inventory describes main `997ff2085180afb05ba5e19baf3b0d1d347c4eae`; proposed build changes in PR #76 require a refreshed inventory and dependency assessment after integration. An accepted architecture is not proof that a package is installed or safe.
 
 ## Evidence required for dependency approval
 
 1. **Direct inventory:** Record each Maven `groupId:artifactId:version`, purpose, maintainer/source, license, and whether it is direct or transitive.
 2. **Version reproducibility:** Commit the reviewed `pom.xml` and Maven wrapper or documented compatible Maven/JDK versions. Avoid unbounded version ranges and undocumented snapshots.
-3. **Resolved tree:** Run `mvn dependency:tree` on the reviewed commit; save output or link a CI artifact. This command is **planned, not yet run**.
+3. **Resolved tree:** Run `mvn dependency:tree` on the reviewed commit; save output or link a CI artifact. No retained resolved-tree report is linked from this main-branch snapshot.
 4. **Security review:** Use an approved dependency-vulnerability tool or advisory source; capture tool name/version, scan date, exact commit, findings, and remediation/defer decisions. Do not treat an unexecuted scan as clean.
 5. **License review:** Inspect direct and relevant transitive licenses; document compatibility with intended educational distribution and distinguish starter-kit restrictions from student-authored code.
 6. **Maintenance review:** Check support status, recent releases, security-fix availability and whether a dependency is abandoned.

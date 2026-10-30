@@ -26,7 +26,7 @@ Current scope, task, ownership, and estimate relationships are linked below usin
 
 ## A4 Construction Traceability Ledger — October 23 baseline, refreshed October 29, 2026
 
-**Status distinction:** The ledger maps documented requirements and planned acceptance tests. Merged PR #67 implements **field validation only**, with six JUnit tests and a passing focused CI run; it does not implement request submission, persistence, simulated access control, or the twelve planned end-to-end acceptance test cases. The separate starter CI guard remains distinct from the A4 validation workflow. Shu's PRs #68–73 are still open and are **not merged implementation evidence**.
+**Status distinction:** The ledger maps documented requirements and planned acceptance tests. Merged PR #67 implements **field validation only**, with six JUnit tests and a passing focused CI run; it does not implement request submission, persistence, simulated access control, or the twelve planned end-to-end acceptance test cases. The separate starter CI guard remains distinct from the A4 validation workflow. PRs #68 and #70 are merged DTO scaffolding. PRs #69, #71, #72, #73, #76 and #77 remain open and are **not merged implementation evidence**.
 
 | Requirement | Acceptance criteria | Planned test cases | Logical contracts (A3) | Implementation issue / branch / PR | Executed test / CI evidence | A4 status |
 |---|---|---|---|---|---|---|
@@ -49,9 +49,9 @@ For each implementation slice, update the corresponding ledger row **after evide
 5. AI-use log disclosure and AI code review, if applicable; dependency/version/license/security review if changed.
 6. Known defects, deferred work and architecture/ADR changes.
 
-**Implementation review references:** [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) was merged as `c43784fc` following independent review; its issue identifier has not been verified here. [PRs #68–73](https://github.com/victordodan/-comp330-f26-team-02/pulls) are separate open proposals and must not be counted as integrated code. The documented [validation run](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/40778855959) is earlier successful evidence, not a claim that all twelve acceptance tests passed.
+**Implementation review references:** [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) was merged as `c43784fc` following independent review; its issue identifier has not been verified here. PRs #68 and #70 are merged DTO scaffolding; [PRs #69, #71, #72, #73, #76 and #77](https://github.com/victordodan/-comp330-f26-team-02/pulls) remain separate open proposals and must not be counted as integrated application behavior. The documented [validation run](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/40778855959) is earlier successful evidence, not a claim that all twelve acceptance tests passed.
 
-**Review process evidence:** [A4 quality-review PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) is merged process documentation. PR #67 has independent review and a recorded merge decision; its test results cover validator unit tests only. PRs #68–73 have requested-changes reviews and remain open, not approved or merged.
+**Review process evidence:** [A4 quality-review PR #61](https://github.com/victordodan/-comp330-f26-team-02/pull/61) is merged process documentation. PR #67 has independent review and a recorded merge decision; its test results cover validator unit tests only. PRs #68 and #70 are merged. PRs #69, #71, #72 and #73 retain requested-changes reviews and remain open; build PR #76 and context-test PR #77 are also open. No integrated acceptance verification is claimed.
 
 **Ownership:** Quality & Review Lead Giancarlo Herrera maintains this ledger and checks evidence completeness; feature developers supply code and test evidence, independent reviewers record decisions, and Victor coordinates final gate readiness.
 
