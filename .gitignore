@@ -19,3 +19,9 @@ dist/
 # COMP 330 instructor/local review output
 # Generated review evidence is local and must not be committed
 comp330-reviews/
+
+target/
+
+data/*.mv.db
+
+data/*.trace.db
