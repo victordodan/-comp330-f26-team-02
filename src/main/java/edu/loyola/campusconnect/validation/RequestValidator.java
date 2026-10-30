@@ -32,7 +32,7 @@ public final class RequestValidator {
         List<String> errors = new ArrayList<>();
 
         String cleanTitle = title == null ? "" : title.strip();
-        String cleanCategory = category == null ? "" : category;
+        String cleanCategory = category == null ? "" : category.strip();
         String cleanDescription =
                 description == null ? "" : description.strip();
 
