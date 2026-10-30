@@ -1,4 +1,4 @@
-# CampusConnect Cycle 1 Test Cases
+> **A4 post-merge checkpoint (October 30, 2026):** The original A3 catalog below remains a record of *case-specific execution*: no dated TC-001–TC-012 individual execution logs have been recorded. However, this does **not** mean there are no tests: the integrated application now has 35 passing automated tests reported in [backend verification](a4-backend-verification.md), and [main CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/41000100733) passed after the last application-code merge. Each of the 12 cases has related automated coverage mapped in [A4 final quality verification](a4-final-quality-verification.md). The older statements below about only six validator tests and implementation being pending are historical, superseded by this checkpoint; do not treat them as current status.\n\n# CampusConnect Cycle 1 Test Cases
 
 **Team:** Codex Ramblers — Team 2  
 **Owner:** Giancarlo Herrera — Quality & Review Lead  
