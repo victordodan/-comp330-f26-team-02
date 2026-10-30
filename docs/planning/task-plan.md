@@ -136,3 +136,20 @@ Any approved changes affecting scope, schedule, ownership, or effort should be r
 A3 planning alignment will be considered complete when the updated planning documents are reviewed, the relevant architecture decisions are resolved, and the team can trace its implementation tasks to the agreed architecture and requirements.
 
 Documentation being merged does not, by itself, demonstrate that implementation or testing has been completed.
+
+
+## A4 Planning and Process Follow-Up — October 29, 2026
+
+**Prepared by:** Giancarlo Herrera as temporary documentation support for Malec's planning/process work. **Ownership reassignment is pending Victor's confirmation.** Existing A3 tasks and estimates remain unchanged.
+
+| A4 coordination item | Dependency / evidence | Responsible role (proposed) | Status at review |
+|---|---|---|---|
+| Integrate Spring Boot build configuration | [PR #76](https://github.com/victordodan/-comp330-f26-team-02/pull/76) before application-dependent merges | Shu / Victor | Open; focused CI passed; not merged |
+| Integrate model, service, controller and app entry point | [PRs #69, #71–73](https://github.com/victordodan/-comp330-f26-team-02/pulls) | Shu / Mareddy | Open; unresolved integration and review issues |
+| Verify app context and negative/security cases | [PR #77](https://github.com/victordodan/-comp330-f26-team-02/pull/77); [test readiness](../testing/test-cases.md) | Mareddy / Shu; Giancarlo reviews | Context CI failing; acceptance/security execution pending |
+| Reconcile quality, traceability and risk evidence | [PR #75](https://github.com/victordodan/-comp330-f26-team-02/pull/75), [risk register](risk-register.md) | Giancarlo / Victor | Documentation prepared; review and merge pending |
+| Verify final A4 index, baseline tag and Word submission | [evidence index](../reviews/assignment4-review-package.md) | Victor / Shelby | Final check and tag not verified |
+
+**Change control:** Do not mark a task complete solely because its PR exists. Recheck latest merged commits, CI, reviews, and test results. Any reassigned owners, revised estimates, or changed deadlines require team confirmation; none are approved by this addendum.
+
+**Critical dependencies:** Spring Boot configuration → compatible application integration → build and negative/integration tests → independent review and evidence reconciliation → final tag and submission. Parallel documentation can proceed but does not substitute for running code.
