@@ -66,3 +66,13 @@ Not every AI-assisted activity requires a separate verification note. Verificati
 - AI activity should never be invented simply to make the log appear more complete.
 - Passwords, credentials, confidential information, and other protected information should not be included.
 - Entries should be brief while providing enough information to understand how AI affected the work.
+
+
+## A4 Additional AI Assistance — October 29, 2026
+
+| Date | Tool | Purpose | Affected evidence | Human verification and disposition |
+|---|---|---|---|---|
+| 2026-10-29 | ChatGPT | Organize the A3-to-A4 changed-file comparison, architecture follow-up, test-readiness gaps, and code-review risk findings | [PR #75](https://github.com/victordodan/-comp330-f26-team-02/pull/75): `docs/reviews/assignment4-changed-files.md`, `docs/reviews/architecture-review.md`, `docs/testing/test-cases.md`, `docs/reviews/a4-code-review-findings.md` | GitHub tag/compare, merged/open PR metadata, and prior review links were checked while drafting. Final human sign-off on all prose and final-merge refresh **pending**; no unexecuted tests represented as passed. |
+| 2026-10-29 | ChatGPT | Help draft A4 planning, schedule, and risk evidence while covering planning/process documentation | [PR #78](https://github.com/victordodan/-comp330-f26-team-02/pull/78) | Existing A3 documents and GitHub PR status were used as sources; proposed risk assessments, schedule dependencies and ownership **require Victor/team review**. No approved reassignment or successful integration claimed. |
+
+**Accepted for review:** Drafted documentation and links were committed to open PRs for independent checking. **Not accepted as verified:** app startup, security fixes, acceptance test results, dependency scans, or final phase-gate approval.
