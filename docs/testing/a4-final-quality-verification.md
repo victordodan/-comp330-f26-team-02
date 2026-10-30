@@ -39,8 +39,8 @@
 | CR-003 persistence/concurrency | **Implementation mitigated:** file-backed H2, transactional writes, optimistic versioning, rollback/restart tests | Retain recovery/backup limitation; human acceptance |
 | CR-004 dependencies | **Open review item:** Java 17, Spring Boot 3.5.16, resolved dependency tree and direct-license review documented | No CVE scan; maintenance/support/advisory and transitive license review not signed off |
 | CR-005 verification | **Automated integration evidence present:** 35-test simulation and successful main CI | Dated TC-001–012 execution records absent; no browser UI demonstration |
-| CR-006 integration | **Implementation merges complete:** #69/#76/#73/#77/#71/#72; main CI successful after #72 | Final release/tag decision and PR #78 pending |
+| CR-006 integration | **Implementation merges complete:** #69/#76/#73/#77/#71/#72; main CI successful after #72 | PR #78 subsequently merged at `89dd750669ab`; final release/tag decision remains pending |
 
 **Known limitations:** loopback-only synthetic classroom demo; selectable identities are not institutional authentication; no server-rendered browser forms/PRG; no verified backup/restore demonstration; no vulnerability scanner output; acceptance-case execution records still needed if rubric requires explicit per-case runs. No production or real student data readiness claimed.
 
-**Gate decision:** **Evidence prepared; conditional/not final approval.** Human reviewers must acknowledge residual risks, confirm acceptance expectations, merge #78 if approved, and finalize submission/tag. This document is an AI-assisted review record, not a substitute for a human approval.
+**Gate decision:** **Evidence prepared; conditional/not final approval.** Human reviewers must acknowledge residual risks, confirm acceptance expectations, reconcile the now-merged #78 planning evidence, and finalize submission/tag. This document is an AI-assisted review record, not a substitute for a human approval.

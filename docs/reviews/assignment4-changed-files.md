@@ -2,8 +2,8 @@
 
 **A3 baseline:** `a3-architecture-review` (`255c335343c242eade44181c3ba581157ec78bfe`)  
 **Reviewed main:** `4851dff34a2ced725e5ffee51d569e0ba4924cdc` (PR #75 merged)  
-**Source:** [GitHub compare](https://github.com/victordodan/-comp330-f26-team-02/compare/a3-architecture-review...main)  
-**Scope:** 40 changed paths in this baseline-to-main comparison, **34 added and 6 modified**. PR #78 and this new follow-up PR are excluded until merged.
+**Source:** [GitHub compare](https://github.com/victordodan/-comp330-f26-team-02/compare/255c335343c242eade44181c3ba581157ec78bfe...4851dff34a2ced725e5ffee51d569e0ba4924cdc)
+**Scope:** 40 changed paths in this baseline-to-main comparison, **34 added and 6 modified**. This historical comparison excludes PR #78 and this follow-up PR. #78 subsequently merged at `89dd750669ab3ba0557641395dc3ee1d09c96ab6`; refresh the comparison for the final submission baseline.
 
 ## Changed paths
 
@@ -62,6 +62,6 @@
 - `.github/workflows/ci.yml`: original starter workflow remains unchanged; dedicated A4 workflow now performs the Java build. Verify desired long-term CI policy separately.
 - `docs/release/known-limitations.md`: unchanged in comparison; release limitations should be reconciled with [final quality verification](../testing/a4-final-quality-verification.md) before submission.
 - `docs/decisions/ADR-002-cycle-1-technology-stack.md`: unchanged architectural decision; compare actual Spring Boot/H2 implementation to decision before release sign-off.
-- `docs/planning/risk-register.md`, `docs/planning/schedule.md`, `docs/planning/task-plan.md`: unchanged **as of this main commit** because A4 updates are still proposed in [PR #78](https://github.com/victordodan/-comp330-f26-team-02/pull/78).
+- `docs/planning/risk-register.md`, `docs/planning/schedule.md`, `docs/planning/task-plan.md`: unchanged **as of this main commit** because A4 updates were then proposed in [PR #78](https://github.com/victordodan/-comp330-f26-team-02/pull/78).
 
-Unchanged-path explanations are reviewer observations, not claims of explicit team approval. Re-run the comparison after #78 or any subsequent merge and update the final Word submission accordingly.
+Unchanged-path explanations are reviewer observations, not claims of explicit team approval. PR #78 is now merged; these three planning files are no longer unchanged on current main. Re-run the comparison after the remaining merges and update the final Word submission accordingly.
