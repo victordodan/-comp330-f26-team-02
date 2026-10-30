@@ -148,3 +148,17 @@ The original architecture milestone was scheduled to finish on October 15, 2026.
 The team should confirm whether the implementation schedule remains realistic after architecture reconciliation.
 
 No implementation completion, successful test execution, or final architecture-package approval is claimed by this update.
+
+
+## A4 Schedule Checkpoint — October 29, 2026
+
+**Prepared by:** Giancarlo Herrera in support of the planning/process function. This is a status checkpoint, **not** a new approved schedule or changed estimate.
+
+- **Current A4 deadline:** October 29, 2026, per team coordination. Victor coordinates the final Word submission.
+- **Implementation critical path:** Spring Boot build setup ([PR #76](https://github.com/victordodan/-comp330-f26-team-02/pull/76)) → integration of [PRs #69, #71–73](https://github.com/victordodan/-comp330-f26-team-02/pulls) → application context and workflow/security tests ([PR #77](https://github.com/victordodan/-comp330-f26-team-02/pull/77) and test evidence) → review/merge decision → final baseline tag.
+- **Parallel evidence path:** A4 changed-file index, architecture follow-up, risk/limitations review and AI review documentation can proceed while implementation is pending; all must be refreshed after final merges.
+- **Current exposure:** Multiple interdependent implementation PRs are open, and several focused CI checks are failing. A successful validator workflow alone does not establish integrated readiness.
+- **Contingency:** Victor should decide which work is essential to the required Cycle 1 vertical slice, document any scope deferral in [known limitations](../release/known-limitations.md), and avoid reporting unverified acceptance tests as passed.
+- **Required checkpoint:** Confirm exact final merged SHA, CI and test evidence, unresolved review findings, final tag `a4-construction-integration`, and submission links before declaring the A4 phase gate complete.
+
+No revised date, resource commitment, completion percentage, or approval is invented in this checkpoint.
