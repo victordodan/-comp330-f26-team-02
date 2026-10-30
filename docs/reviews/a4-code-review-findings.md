@@ -32,3 +32,19 @@ ChatGPT was used to help organize this A4 review summary and documentation; the 
 ## Review disposition
 
 [PR #67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) was reviewed and merged with focused test evidence. [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72) has formal changes-requested reviews, with no closure inferred. [PR #76](https://github.com/victordodan/-comp330-f26-team-02/pull/76) received a COMMENT review focused on supply-chain evidence. **No approval of open implementation PRs is given by this document.** Link author responses, fixes, tests, and final merge/no-merge decisions when available.
+
+
+## Re-review of Shu's October 30 revised heads
+
+**Review scope:** PR #69 `74608ffa1`, #71 `c9c5d19b4`, #72 `ef15ad649`, #73 `94d9b9cee`, #76 `70b52d6`, and #77 `603df1cd7`. All six head-specific GitHub Actions `test` checks reported success. These are *separate PR branch checks*, not a post-merge `main` integration run.
+
+| Finding | Current evidence | Updated disposition |
+|---|---|---|
+| CR-001 role and ownership enforcement | [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72) now selects fixed demo identity via server session; controller routes student/reviewer operations separately; [WorkflowService](https://github.com/victordodan/-comp330-f26-team-02/pull/72/files) checks ownership and reviewer role | **Implementation addressed for synthetic demo scope; final closure pending integrated test evidence and human re-review.** Fixed identity switching is not production authentication. |
+| CR-002 workflow transitions | [PR #71](https://github.com/victordodan/-comp330-f26-team-02/pull/71) service permits Submitted → In Progress → Resolved and Resolved → In Progress; nonblank resolution note required | **Implementation addressed; integrated acceptance verification pending.** |
+| CR-003 persistence/concurrency | [PR #71](https://github.com/victordodan/-comp330-f26-team-02/pull/71) adds file-backed H2, transaction template, version checks, restart/concurrency/rollback tests | **Implementation and branch test evidence present; mainline integration pending.** |
+| CR-004 dependencies | [PR #76](https://github.com/victordodan/-comp330-f26-team-02/pull/76) now pins Spring Boot 3.5.16, Java 17, and records dependency tree/licenses | **Build evidence improved; advisory/CVE and support acceptance still pending.** |
+| CR-005 tests | [PRs #71, #72, #77](https://github.com/victordodan/-comp330-f26-team-02/pulls) add service, controller and startup tests | **New automated tests present and branch CI green; TC-001–012 catalog execution and final main CI remain unverified.** |
+| CR-006 integration | Six interdependent PRs include overlapping POM, source and test files | **Open until merge sequence, conflict handling and combined-main CI verified.** |
+
+**Review outcome:** Reassess earlier change requests against these exact heads; do not silently treat previous approvals or objections as current. No open implementation PR is approved by this document. The next required review is an independent examination of the integrated mainline code and test results, followed by updated links and final disposition.
