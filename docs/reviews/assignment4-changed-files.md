@@ -3,7 +3,7 @@
 **A3 baseline:** `a3-architecture-review` (`255c335343c242eade44181c3ba581157ec78bfe`)  
 **Reviewed main:** `4851dff34a2ced725e5ffee51d569e0ba4924cdc` (PR #75 merged)  
 **Source:** [GitHub compare](https://github.com/victordodan/-comp330-f26-team-02/compare/a3-architecture-review...main)  
-**Scope:** 40 changed paths in this baseline-to-main comparison, **35 added and 5 modified**. PR #78 and this new follow-up PR are excluded until merged.
+**Scope:** 40 changed paths in this baseline-to-main comparison, **34 added and 6 modified**. PR #78 and this new follow-up PR are excluded until merged.
 
 ## Changed paths
 
