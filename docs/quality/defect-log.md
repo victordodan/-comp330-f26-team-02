@@ -1,339 +1,38 @@
-# Defect Log
+# CampusConnect — A5 Defect and Finding Log
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Owner:** Giancarlo Herrera, Quality & Review Lead  
+**Reviewed:** 2026-11-09  
+**Basis:** A4 repository evidence and open PRs #83–#90. This is an evidence review, not a fresh test run.  
+**Release baseline:** A5 final SHA not frozen.
 
-This file records actual defects discovered during development, review,
-verification, integration, deployment, or operation.
+## Classification and severity
 
-A defect is observed behavior or implementation that does not meet an expected
-condition.
+- **Confirmed defect:** reproducible observed failure against a documented expectation, with revision and reproduction evidence.
+- **Documentation discrepancy:** contradictory or outdated descriptions; does not by itself establish an application defect.
+- **Verification gap:** missing required test, CI, risk, or approval evidence; does not by itself establish an application defect.
+- **Severity:** Critical = release-blocking safety/data integrity exposure; High = material workflow or release-assurance risk; Medium = misleading documentation or incomplete traceability; Low = minor editorial problem. Severity is *proposed* pending team review.
 
-A defect may relate to:
+**No new application defect has been independently reproduced during this A5 documentation audit.** Do not interpret the following findings as proven runtime defects.
 
-- a requirement;
-- an acceptance criterion;
-- an interface contract;
-- expected architecture behavior;
-- test expectations;
-- security;
-- reliability;
-- usability;
-- deployment;
-- operations; or
-- another documented engineering expectation.
+| ID | Type / proposed severity | Evidence and observed issue | Status | Coordinator / next action | Closure evidence |
+|---|---|---|---|---|---|
+| A5-F01 | Documentation discrepancy / High | [PR #83](https://github.com/victordodan/-comp330-f26-team-02/pull/83) describes in-memory storage lost on restart; `application.properties` configures file-backed H2 and [A4 backend verification](../testing/a4-backend-verification.md) reports restart persistence. | Open, unverified on final A5 SHA | Shu verify effective persistence; Mareddy run restart test; Victor decide corrected wording | Final-SHA restart log, updated known limitations |
+| A5-F02 | Documentation discrepancy / High | PR #83 describes forged `X-User-ID`/`X-User-Role` identity; [A4 HTTP API](../testing/a4-http-api.md) documents server-session demo identity and rejected forged headers. This is not proof of production authentication. | Open, unverified on final A5 SHA | Shu inspect controller/session; Mareddy run negative authorization tests | Final-SHA test evidence and corrected limitation |
+| A5-F03 | Evidence/defect register gap / Medium | Existing defect log and review remained starter templates; [PR #84](https://github.com/victordodan/-comp330-f26-team-02/pull/84) reports legacy test cleanup without a linked fresh run in reviewed material. | Open | Mareddy/developer verify #84; Giancarlo record observed disposition | CI/build result and accepted defect disposition |
+| A5-F04 | Acceptance evidence gap / High | [Test catalog](../testing/test-cases.md) lists TC-001–TC-012 as Not Run individually; [A4 quality report](../testing/a4-final-quality-verification.md) maps automated coverage and historical 35 passing tests. | Open | Mareddy execute/document each case; Giancarlo reconcile | Dated TC results, operator, environment, exact SHA |
+| A5-F05 | Release/CI evidence gap / High | A5 release SHA/tag not frozen. `.github/workflows/ci.yml` is still an intentionally failing Starter Kit guard; historical A4 CI is not final-A5 evidence. | Open | Shu/developer establish real CI; Victor release owner | Passing final-SHA CI, approved tag and gate decision |
+| A5-F06 | Supply-chain assurance gap / High | [A4 dependency assessment](../reviews/a4-build-dependency-assessment.md) does not establish a current CVE scan or complete transitive-license signoff. | Open | Victor appoint technical reviewer; Giancarlo track disposition | Scan output, license review, severity/risk acceptance |
 
-Do NOT create fictional defects merely to populate this file.
+## Confirmed defects
 
-At the beginning of the project, a blank defect log is correct.
+**None newly verified by this review.** Add a confirmed defect only with reproducible observed behavior, expected behavior, environment/SHA, severity, owner, issue/PR, fix, retest, and independent closure decision.
 
-This file is not intended to replace GitHub Issues or another defect-tracking
-system if your team uses one. It provides a concise engineering evidence view
-and may reference the authoritative issue.
+## Disposition procedure
 
-IMPORTANT:
+1. The technical owner verifies or rejects each finding against the **exact final integrated SHA**.
+2. For actual defects, record steps to reproduce, expected/actual result, severity, affected requirements, issue link, mitigation, owner, fix and retest.
+3. For documentation-only discrepancies, correct the authoritative document and link the reviewed PR.
+4. For gaps, link new test/CI/security evidence or record an explicitly approved deferral.
+5. Victor records risk acceptance; Giancarlo provides quality recommendation but does not approve his own changes.
 
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove all instructional comments before the applicable phase-gate submission.
-- Examples inside comments are guidance only.
-- Record only defects that actually occurred.
--->
-
-## Defects
-
-<!--
-TEAM CONTENT REQUIRED WHEN DEFECTS ARE DISCOVERED
-
-Use stable identifiers:
-
-DEF-###
-
-Examples:
-
-DEF-001
-DEF-002
-DEF-003
-
-Do not reuse an identifier for another defect.
-
-COLUMN GUIDANCE
-
-Summary
-Briefly identify the observed problem.
-
-Detected In
-Identify where the defect was discovered.
-
-Examples:
-- unit test;
-- integration test;
-- pull-request review;
-- manual verification;
-- deployed environment;
-- runtime observation.
-
-Related Evidence
-Reference requirements, acceptance criteria, API contracts, tests, issues,
-runtime evidence, or other relevant artifacts.
-
-Severity
-Use the team's defined severity categories below.
-
-Status
-Suggested values:
-
-- Open
-- Investigating
-- Fix In Progress
-- Ready for Verification
-- Closed
-- Deferred
-- Rejected / Not a Defect
-
-Owner
-Identify who is responsible for driving the defect toward disposition.
-
-Resolution / Evidence
-Reference the fix, PR, test, or other evidence demonstrating the outcome.
-
-EXAMPLE ONLY:
-
-| ID | Summary | Detected In | Related Evidence | Severity | Status | Owner | Resolution / Evidence |
-|---|---|---|---|---|---|---|---|
-| DEF-001 | Submission accepts whitespace-only required description | Integration verification | REQ-001, AC-REQ-001-02 | Medium | Open | Jordan Smith | Issue #14 |
-
-DELETE the example and populate the actual table below.
--->
-
-| ID | Summary | Detected In | Related Evidence | Severity | Status | Owner | Resolution / Evidence |
-|---|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |  |
-
-## Severity Guidance
-
-<!--
-TEAM CONTENT REQUIRED
-
-Define a simple severity model appropriate to your project.
-
-Severity describes the CONSEQUENCE of the defect.
-
-It is different from priority, which describes how urgently the team intends
-to address it.
-
-A simple model is sufficient.
-
-EXAMPLE ONLY:
-
-Critical
-- prevents core system operation;
-- creates serious security or data-integrity exposure; or
-- has another unacceptable system-level consequence.
-
-High
-- significantly impairs an important capability with no practical workaround.
-
-Medium
-- causes incorrect behavior but impact is limited or a reasonable workaround
-  exists.
-
-Low
-- minor defect with limited engineering or user impact.
-
-Your team may use another model, but define it clearly and use it consistently.
-
-Replace this comment with your team's actual severity definitions.
--->
-
-## Detailed Defect Records
-
-<!--
-OPTIONAL TEAM CONTENT
-
-Use a detailed record when a row in the table is not sufficient.
-
-Do not create lengthy records for trivial defects.
-
-Suggested structure:
-
-### DEF-### — Short Defect Title
-
-**Detected:** YYYY-MM-DD
-**Environment / Context:**
-**Severity:**
-**Status:**
-**Owner:**
-**Related Issue / PR:**
-**Related Requirement(s):**
-**Related Acceptance Criteria:**
-
-#### Observed Behavior
-
-What actually happened?
-
-#### Expected Behavior
-
-What should have happened, and what evidence establishes that expectation?
-
-#### Reproduction
-
-How can the problem be reproduced?
-
-#### Investigation
-
-What evidence was reviewed?
-
-What component, condition, assumption, or interaction appears responsible?
-
-Do not state a cause as fact unless evidence supports it.
-
-#### Resolution
-
-What changed?
-
-#### Verification
-
-What evidence demonstrates that the defect is fixed or otherwise resolved?
-
-#### Remaining Concerns
-
-Identify any remaining limitation, risk, or follow-up work.
-
-Copy this structure only when additional defect evidence is useful.
--->
-
-## Defect Lifecycle
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-A useful defect lifecycle is:
-
-Detected
-  ->
-Recorded
-  ->
-Investigated
-  ->
-Fixed or otherwise dispositioned
-  ->
-Verified
-  ->
-Closed
-
-Do not close a defect merely because code was changed.
-
-Closure should normally require evidence that the expected behavior is now
-satisfied.
-
-A defect may also be:
-
-Deferred
-- the team accepts that it will not be corrected in the current delivery scope;
-
-Rejected / Not a Defect
-- investigation demonstrates that observed behavior is consistent with the
-  actual requirement or intended design.
-
-When a defect reveals that the requirement itself is wrong or unclear, update
-the requirement rather than forcing implementation to satisfy an incorrect
-expectation.
--->
-
-## Defect-to-Requirement Traceability
-
-<!--
-TEAM CONTENT REQUIRED WHEN DEFECTS AFFECT REQUIREMENTS OR ACCEPTANCE CRITERIA
-
-A defect may reveal:
-
-- implementation failure;
-- missing acceptance criteria;
-- ambiguous requirement;
-- incorrect assumption;
-- architecture weakness;
-- interface-contract weakness;
-- test gap.
-
-Reference affected engineering evidence rather than treating the defect as an
-isolated coding problem.
-
-EXAMPLE ONLY:
-
-| Defect ID | Requirement / Criterion | Relationship | Evidence Updated |
-|---|---|---|---|
-| DEF-001 | AC-REQ-001-02 | Existing criterion exposed missing validation | Integration test added |
-
-Populate actual relationships below when useful.
--->
-
-| Defect ID | Requirement / Criterion | Relationship | Evidence Updated |
-|---|---|---|---|
-|  |  |  |  |
-
-## Deferred Defects
-
-<!--
-TEAM CONTENT REQUIRED WHEN A KNOWN DEFECT IS INTENTIONALLY DEFERRED
-
-A deferred defect remains known engineering debt.
-
-Do not silently remove it from the log.
-
-Document:
-
-- why it is being deferred;
-- impact;
-- remaining risk;
-- when it should be reconsidered.
-
-A blank table is correct when no defects are deferred.
--->
-
-| Defect ID | Reason Deferred | Impact / Risk | Reconsider By | Related Evidence |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Defect Evidence Integrity
-
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Do not hide defects because they make the project appear imperfect.
-
-Defect discovery is normal engineering evidence.
-
-A useful defect record may demonstrate that the team:
-
-- found a problem;
-- understood the expectation it violated;
-- investigated the cause;
-- corrected the system;
-- verified the correction; and
-- improved related engineering evidence.
-
-Do not:
-
-- fabricate defects;
-- fabricate fixes;
-- claim verification that did not occur;
-- delete meaningful defect history merely because the defect was fixed.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Keep the table blank if no actual defects have been discovered.
-2. Confirm every DEF-### entry represents a real observed defect.
-3. Confirm severity uses the team's defined model.
-4. Confirm related requirements and acceptance criteria actually exist.
-5. Confirm Closed defects have meaningful resolution or verification evidence.
-6. Preserve deferred defects and their known risk.
-7. Update affected engineering artifacts when a defect exposes a deeper issue.
-8. Remove ALL instructional HTML comments.
-
-The completed defect log should preserve factual evidence about actual quality
-problems and their disposition.
--->
+See [A5 detailed reconciliation](a5-defect-limitations-reconciliation.md) in [PR #87](https://github.com/victordodan/-comp330-f26-team-02/pull/87) (not merged as of drafting).
