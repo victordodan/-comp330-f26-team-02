@@ -6,6 +6,7 @@
 **Evidence baseline:** PR #84, commit `00c034a`  
 **Environment:** GitHub Actions, Java 17, Maven, JUnit 5, Spring Boot, H2  
 **CI evidence:** [PR #84](https://github.com/victordodan/-comp330-f26-team-02/pull/84)
+**Successful CI run:** [GitHub Actions Run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038) — Success; 35 tests passed, 0 failures, 0 errors, 0 skipped, as recorded in the downloaded `java-test-reports` artifact.
 
 ## 1. Automated Test Execution Summary
 
