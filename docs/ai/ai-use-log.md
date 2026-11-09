@@ -76,3 +76,17 @@ Not every AI-assisted activity requires a separate verification note. Verificati
 | 2026-10-29 | ChatGPT | Help draft A4 planning, schedule, and risk evidence while covering planning/process documentation | [PR #78](https://github.com/victordodan/-comp330-f26-team-02/pull/78) | Existing A3 documents and GitHub PR status were used as sources; proposed risk assessments, schedule dependencies and ownership **require Victor/team review**. No approved reassignment or successful integration claimed. |
 
 **Accepted for review:** Drafted documentation and links were committed to open PRs for independent checking. **Not accepted as verified:** app startup, security fixes, acceptance test results, dependency scans, or final phase-gate approval.
+
+
+## A5 — Quality & Review Lead AI-Assisted Documentation (November 9, 2026)
+
+The entries below describe work prepared in draft PRs, **not** merged or independently approved evidence. The repository files and PR diffs were consulted to prepare the drafts. Giancarlo and the assigned reviewers must verify accuracy before accepting them.
+
+| Date | Tool | Purpose and artifact | Verification actually performed | Result / disposition |
+|---|---|---|---|---|
+| 2026-11-09 | ChatGPT | Organize A4 feedback closure and final quality gate: [PR #85](https://github.com/victordodan/-comp330-f26-team-02/pull/85) | Compared A4 reported evidence and feedback to required A5 checks; no new tests run. Independent human verification pending. | PR opened; review/merge and release decisions pending. |
+| 2026-11-09 | ChatGPT | Draft Cycle 1 release notes from prior implementation/test evidence: [PR #86](https://github.com/victordodan/-comp330-f26-team-02/pull/86) | Compared A4 reports and code/documentation references; final A5 SHA and CI not verified. Human review pending. | PR opened; candidate release, not approved. |
+| 2026-11-09 | ChatGPT | Compare defect/limitation contradictions and propose owners: [PR #87](https://github.com/victordodan/-comp330-f26-team-02/pull/87) | Compared PR #83/#84 claims with #86, A4 reports and repository documents; corrected broken PR links and removed an unverified ADR reference. No new tests run. Human disposition pending. | Draft PR; findings not confirmed defects or security exploits. |
+| 2026-11-09 | ChatGPT | Map TC-001–TC-012 to source test methods and historical execution: [PR #88](https://github.com/victordodan/-comp330-f26-team-02/pull/88) | Compared acceptance criteria, test catalog, test method names and A4 quality report; no individual TC execution or A5 tests run. Human verification pending. | Draft PR; 12 coverage mappings, zero separately documented TC executions in reviewed A4 evidence. |
+| 2026-11-09 | ChatGPT | Review POM, runtime properties, dependency inventory and security gaps: [PR #89](https://github.com/victordodan/-comp330-f26-team-02/pull/89) | Compared repository configuration to A4 dependency/quality reports; no CVE scan, new build, license sign-off or penetration test. Human review pending. | Draft PR; no vulnerability-free or production-readiness claim. |
+| 2026-11-09 | ChatGPT | Cross-review A5 PRs #85–#89, prepare individual contribution summary and disclose AI assistance | Checked PR diffs/status and distinct document scopes; corrected PR #87 links/reference. This disclosure itself awaits human review. | Draft PR for disclosure and summary; no merge or acceptance claimed. |
