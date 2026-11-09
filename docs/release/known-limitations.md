@@ -1,280 +1,71 @@
-# Known Limitations
+# Known Limitations — CampusConnect (Cycle 1 Release)
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+> **Team:** Team 2 — Codex Ramblers
+> **Release Baseline Tag:** `a5-cycle1-release`
+> **Date:** 2026-11-09
+> **Owner:** Shú Perez (Architecture) · **Backup:** Giancarlo Herrera
 
-This file records limitations the team KNOWS exist in the current release.
+This document records the architectural and functional known limitations, technical debt, and temporary trade-offs present in the Cycle 1 release of CampusConnect. A known limitation is not necessarily a defect — it is intentionally deferred functionality, a supported behavior with a known restriction, or an operational/verification constraint that reviewers and users should not have to discover by accident.
 
-A known limitation is not necessarily a defect.
-
-Examples may include:
-
-- intentionally deferred functionality;
-- supported behavior with a known restriction;
-- operational constraint;
-- scale limitation;
-- unsupported scenario;
-- incomplete recovery capability;
-- environment limitation;
-- dependency limitation;
-- known defect that remains unresolved.
-
-The purpose is to make limitations explicit so reviewers and users do not need
-to discover them by accident.
-
-Do NOT hide limitations merely because they make the release appear less
-complete.
-
-Do NOT invent limitations to populate this file.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
+---
 
 ## Current Limitations
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use stable identifiers:
-
-LIM-###
-
-Examples:
-
-LIM-001
-LIM-002
-
-COLUMN GUIDANCE
-
-Limitation
-State clearly what the system currently cannot do or what restriction exists.
-
-Impact
-Explain the practical consequence.
-
-Affected Area
-Examples:
-- requirement;
-- capability;
-- architecture;
-- API;
-- deployment;
-- operations;
-- performance;
-- security.
-
-Workaround
-Describe a real workaround if one exists.
-
-Disposition
-State what the team intends to do.
-
-Suggested values:
-- Planned Fix
-- Planned Improvement
-- Deferred
-- Accepted
-- External Constraint
-- Under Investigation
-
-Related Evidence
-Reference defects, requirements, risks, issues, tasks, or decisions.
-
-EXAMPLE ONLY:
-
 | ID | Limitation | Impact | Affected Area | Workaround | Disposition | Related Evidence |
 |---|---|---|---|---|---|---|
-| LIM-001 | Workflow history is not retained beyond the current deployment database | Historical review depends on current environment persistence | Operations | None | Planned Improvement | R-004 |
+| **LIM-001** | Support request data is held in a `ConcurrentHashMap<String, SupportRequest>` in memory rather than a persistent relational database. | All request data resets when the Spring Boot application stops or restarts. | Architecture / Operations (persistence) | Re-create synthetic test requests after application restart; automated tests seed required state per execution context. | Planned Fix (Cycle 2: H2 file storage + JPA persistence) | ADR-0005; R-010 (persistence) |
+| **LIM-002** | Role-based access control relies on HTTP request headers (`X-User-ID`, `X-User-Role`) that are unauthenticated synthetic simulation headers. | Headers can be forged; no real identity verification. | Security / API | Use headers strictly in local execution and automated test suites; controller returns `403 Forbidden` when a non-reviewer attempts status triage. | Deferred (OAuth2 / SSO integration deferred to future releases) | ADR-0005; AR-001 (demo impersonation); Q-004 |
+| **LIM-003** | Status changes do not send automated email or push notifications to students. | Requesters are not proactively informed of status changes. | Capability / Operations | Requester views current status by querying `GET /api/requests`. | Planned Improvement (Cycle 2: asynchronous event notification service) | REQ-002; REQ-004 |
 
-DELETE the example and populate the actual table below.
--->
-
-| ID | Limitation | Impact | Affected Area | Workaround | Disposition | Related Evidence |
-|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
+---
 
 ## Deferred Capabilities
 
-<!--
-TEAM CONTENT REQUIRED WHEN CAPABILITIES WERE INTENTIONALLY DEFERRED
-
-A deferred capability is something the team intentionally decided not to
-include in the current release.
-
-Reference:
-
-/docs/planning/scope.md
-
-Do not create a second scope document.
-
-Use this section only to identify deferred work relevant to understanding the
-current release.
-
-EXAMPLE ONLY:
-
 | Capability | Reason Deferred | Impact on Current Release | Future Reference |
 |---|---|---|---|
-| Administrative reporting dashboard | Lower priority than core workflow verification | No administrative analytics in current release | SCP-007 |
+| File-backed H2 relational persistence with JPA/Repository layers | Cycle 1 velocity and CI reliability prioritized; setup overhead and environmental fragility in GitHub Actions | No permanent data retention; see LIM-001 | ADR-0005; Cycle 2 (Maturity Phase) |
+| Full OAuth2 / SSO authentication and real identity verification | Not required for controlled Cycle 1 vertical slice; synthetic header simulation sufficient for local testing | No real authentication; see LIM-002 | ADR-0005; `assumptions-open-questions.md` Q-004 |
+| Asynchronous email / push notification delivery | Lower priority than core workflow verification for Cycle 1 | No outbound notifications; see LIM-003 | Cycle 2 |
 
-Populate actual deferred capabilities below.
-
-Remove this section if none exist.
--->
-
-| Capability | Reason Deferred | Impact on Current Release | Future Reference |
-|---|---|---|---|
-|  |  |  |  |
+---
 
 ## Unresolved Defects Affecting the Release
 
-<!--
-TEAM CONTENT REQUIRED WHEN OPEN DEFECTS REMAIN
-
-Reference actual defects from:
-
-/docs/quality/defect-log.md
-
-Do not copy every open defect.
-
-Include defects relevant enough that someone evaluating or using the release
-should know about them.
-
-EXAMPLE ONLY:
-
 | Defect ID | Impact | Severity | Current Disposition |
 |---|---|---|---|
-| DEF-012 | Error message does not identify which optional integration failed | Low | Deferred |
+| None identified | No unresolved defects materially affect the Cycle 1 release baseline (`a5-cycle1-release`). | — | — |
 
-Populate actual defects below.
-
-Remove this section if no unresolved defects materially affect the release.
--->
-
-| Defect ID | Impact | Severity | Current Disposition |
-|---|---|---|---|
-|  |  |  |  |
+---
 
 ## Operational Limitations
 
-<!--
-TEAM CONTENT REQUIRED WHEN OPERATIONAL CONSTRAINTS EXIST
-
-Examples may include:
-
-- manual deployment;
-- no automated rollback;
-- limited health checks;
-- backup recovery not yet tested;
-- dependence on an external service;
-- no automated alerting.
-
-Reference:
-
-/docs/operations/runbook.md
-/docs/observability/observability-plan.md
-
-Do not duplicate those documents.
-
-Populate only limitations relevant to this release.
--->
-
 | Limitation | Operational Impact | Related Evidence |
 |---|---|---|
-|  |  |  |
+| Manual local execution only (`mvn spring-boot:run`) — no automated deployment pipeline or rollback | Deployment and recovery are manual; no automated rollback path | `/docs/operations/runbook.md` |
+| Volatile storage across process restarts | Any local test state must be re-seeded after restart | ADR-0005; LIM-001 |
+| Synthetic header–based identity | No real session/token audit trail; role simulation is per-request | LIM-002 |
+
+---
 
 ## Verification Limitations
 
-<!--
-TEAM CONTENT REQUIRED WHEN IMPORTANT VERIFICATION GAPS REMAIN
-
-A release may have known gaps in evidence.
-
-Examples:
-
-- performance not tested under sustained load;
-- recovery behavior not yet verified;
-- one external integration verified only manually;
-- insufficient data to establish a runtime baseline.
-
-A verification gap is useful evidence when stated honestly.
-
-Reference relevant acceptance criteria, runtime evidence, or traceability gaps.
-
-Populate actual limitations below.
--->
-
 | Limitation / Gap | What Has Been Verified | What Has Not Been Verified | Related Evidence |
 |---|---|---|---|
-|  |  |  |  |
+| Performance under sustained load | Functional tests pass in `mvn -B clean test`; clean isolated build under 2 seconds in GitHub Actions CI | Load / stress behavior under sustained concurrent traffic | ADR-0005 (CI evidence) |
+| Recovery behavior | Volatility documented; restart reset behavior observed | Formal recovery procedures and tested backup/restore | ADR-0005; Risk 1 (Section 11 of Architecture Overview) |
+| Authentication boundary | Header presence checked; `403 Forbidden` enforced for non-reviewer status updates | Real identity verification (no OAuth/SSO in Cycle 1) | LIM-002; `RequestControllerTest.java` |
+| Notification delivery | Not applicable — no notification subsystem exists in Cycle 1 | End-to-end delivery verification | LIM-003 |
+
+---
 
 ## Limitation Changes
 
-<!--
-TEAM CONTENT REQUIRED WHEN A LIMITATION CHANGES MATERIALLY
-
-Preserve useful history when a limitation is:
-
-- resolved;
-- reduced;
-- expanded;
-- accepted;
-- deferred differently.
-
-Do not silently delete a limitation that materially affected a prior release.
-
-A blank table is intentional at project start.
--->
-
 | Date / Release | Limitation ID | Change | Reason | Evidence |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| 2026-11-09 (`a5-cycle1-release`) | LIM-001, LIM-002, LIM-003 | Initial baseline established for Cycle 1 release | First documented release baseline | `a5-cycle1-release` tag; this document |
+
+---
 
 ## No Known Limitation Claims
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Be cautious about writing:
-
-"No known limitations."
-
-That statement should mean the team has genuinely reviewed:
-
-- scope;
-- defects;
-- verification gaps;
-- operational constraints;
-- risks;
-- external dependencies.
-
-It should not mean:
-
-"We did not think about limitations."
-
-If no material limitation is currently known, state that conclusion explicitly
-in the finished artifact and identify the review basis when useful.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Record only actual known limitations.
-2. Do not hide unresolved defects or verification gaps.
-3. Distinguish limitations from defects and deferred scope.
-4. Confirm limitation IDs are unique.
-5. Confirm defect references exist in defect-log.md.
-6. Confirm deferred capability references agree with scope.md.
-7. Identify real workarounds only when they actually exist.
-8. Preserve material limitation history when useful.
-9. Remove unnecessary sections.
-10. Remove ALL instructional HTML comments.
-
-The completed file should clearly communicate what the current release cannot
-yet do, cannot guarantee, or intentionally does not support.
--->
+No claim of "no known limitations" is made for the Cycle 1 release. The limitations above reflect a deliberate review of: scope (Cycle 1 vertical slice per brief §4), defects (none material), verification gaps (performance, recovery, real authentication), operational constraints (manual execution, volatile storage), risks (R-010 persistence, AR-001 impersonation, risk register Section 11), and external dependencies (none — no OAuth/SSO or runtime AI integration in Cycle 1). Review basis: Architecture Overview §11 (Known Architecture Risks), ADR-0005, and `/docs/planning/risk-register.md`.
