@@ -1,15 +1,5 @@
 # Team Roles, Identities, and Evidence Ownership
 
-> **Starter Kit Example**
->
-> This file contains sample data showing what a completed team role record looks like.
-> Replace all sample student names, GitHub identities, role assignments, deliverable
-> ownership, and acknowledgement evidence with your team's actual information.
-> **Keep the instructor entry.**
->
-> Do not simply change the names. As a team, decide who will own and back up each
-> responsibility.
-
 Every student is a **Developer** and also holds at least one specialized engineering role. Each specialized role must have a primary owner and a different backup owner.
 
 The purpose of this file is to provide one authoritative, reviewable record of:
@@ -24,16 +14,14 @@ Keep this file current throughout A1-A6. Use the same student names consistently
 
 ## Team Members and GitHub Identities
 
-Replace the sample student entries below with the members of your team. Leave the instructor entry in place.
-
 | Student Name | GitHub Login | Git Author Alias(es) | Member Type |
 |---|---|---|---|
-| Giancarlo Herrera | gherrera | Giancarlo Herrera | Student |
-| Dodan Victor | vdodan | Dodan Victor | Student |
-| Mareddy, Venkata Aravind |VAM-Hub | Venkata Aravind Mareddy | Student |
-| Shu Perez | sperez22 | Shu Perez | Student |
-| Shelby Sierah | sshelby | Shelby Sierah | Student |
-| Tarabein Malec | mtarabein | Tarabein Malec | Student |
+| Giancarlo Herrera | gherrera1703 | gherrera1703 | Student |
+| Victor Dodan | victordodan | victordodan; Victor Dodan | Student |
+| Venkata Aravind Mareddy | VAM-hub | Venkata Aravind Mareddy | Student |
+| Shu Perez | sperez-808 | Samantha "Shú" Perez | Student |
+| Shelby Sierah | sshelby-ctrl | sshelby-ctrl | Student |
+| Malec Tarabein | mbasel-t | Malec B. Tarabein | Student |
 | William O'Connell | woconnell1 |  | Instructor / Observer |
 
 ### Instructions
@@ -47,17 +35,23 @@ Replace the sample student entries below with the members of your team. Leave th
 - The instructor is not a team member, does not receive a student role, and is excluded from team contribution and role-fulfillment metrics.
 - If a GitHub or Git identity cannot be confidently mapped to a student, update this table so the relationship is explicit.
 
+### Identity verification (A5)
+
+Checked by Malec Tarabein (Role Matrix owner) on 2026-11-09 against the GitHub commit, contributor and pull-request records for this repository. Each GitHub login above is the account that authored commits or pull requests in this repository, and the aliases are the author names that appear in commit history for that account. The instructor login was not verifiable from repository activity and is unchanged.
+
+Corrections made in A5: the earlier table listed `gherrera`, `vdodan`, `sperez22`, `sshelby` and `mtarabein`, which do not match the accounts in the repository history, and `VAM-Hub`, which differed only in capitalization. Student names were also spelled differently between tables (for example "Dodan Victor", "Victor Dodoan", "Sierah Shelby") and are now the same everywhere.
+
 ## Specialized Engineering Role Ownership
 
 Every student has the base role **Developer**. In addition, the team must assign primary and backup ownership for all five specialized engineering roles.
 
 | Specialized Role | Primary Owner(s) | Backup Owner | Effective Gates | Notes |
 |---|---|---|---|---|
-| Team Lead | Victor Dodan | Malec Tarabein  | A1-A6 | |
+| Team Lead | Victor Dodan | Malec Tarabein | A1-A6 | |
 | Planning & Process Lead | Malec Tarabein | Shu Perez | A1-A6 | |
-| Architecture & Development |Shu Perez  | Mareddy Venkata Aravind |  A1-A6  |  |
-| Quality & Review Lead | Giancarlo Herrera  | Victor Dodoan | A1-A6 | |
-| Operations & Evidence Lead | Sierah Shelby | Mareddy Venkata Aravind | A1-A6 | |
+| Architecture & Development | Shu Perez | Venkata Aravind Mareddy | A1-A6 | |
+| Quality & Review Lead | Giancarlo Herrera | Victor Dodan | A1-A6 | |
+| Operations & Evidence Lead | Shelby Sierah | Venkata Aravind Mareddy | A1-A6 | |
 
 ### Instructions
 
@@ -75,15 +69,16 @@ The following ownership assignments apply to the Project Launch (A1) deliverable
 
 | Deliverable | Primary Owner | Backup Owner | Evidence Location |
 |---|---|---|---|
-| Repository README | Dodan Victor | Mareddy, Venkata Aravind | `/README.md` |
+| Repository README | Victor Dodan | Venkata Aravind Mareddy | `/README.md` |
 | Team Charter | Shu Perez | Shelby Sierah | `/docs/team/team-charter.md` |
-| Role Matrix | Tarabein Malec | Dodan Victor | `/docs/team/roles.md` |
-| Working Agreements | Mareddy, Venkata Aravind | Shu Perez | `/docs/team/working-agreements.md` |
+| Role Matrix | Malec Tarabein | Victor Dodan | `/docs/team/roles.md` |
+| Working Agreements | Venkata Aravind Mareddy | Shu Perez | `/docs/team/working-agreements.md` |
 | AI-Use Policy | Giancarlo Herrera | Shelby Sierah | `/docs/ai/ai-policy.md` |
-| AI-Use Log | Giancarlo Herrera | Tarabein Malec | `/docs/ai/ai-use-log.md` |
-| Initial Requirements | Shelby Sierah | Mareddy, Venkata Aravind | `/docs/requirements/` |
-| Planning and Risk | Dodan Victor | Tarabein Malec | `/docs/planning/` |
-| Initial Decision Record | Tarabein Malec | Shu Perez | `/docs/decisions/` |
+| AI-Use Log | Giancarlo Herrera | Malec Tarabein | `/docs/ai/ai-use-log.md` |
+| Initial Requirements | Shelby Sierah | Venkata Aravind Mareddy | `/docs/requirements/` |
+| Planning and Risk | Victor Dodan | Malec Tarabein | `/docs/planning/` |
+| Initial Decision Record | Malec Tarabein | Shu Perez | `/docs/decisions/` |
+
 ### Instructions
 
 - Replace the sample names with declared students from the Team Members and GitHub Identities table.
@@ -121,12 +116,14 @@ The **Evidence** column should reference a repository-visible confirmation made 
 
 | Student Name | Acknowledged | Evidence |
 |---|---|---|
-| Giancarlo Herrera | Yes | [Issue #3 acknowledgement](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5751168414) |
-| Dodan Victor | Yes | Issue #3 — acknowledgement comment |
-| Mareddy, Venkata Aravind | Yes | Issue #3 — acknowledgement comment |
+| Giancarlo Herrera | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5751168414) |
+| Victor Dodan | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5748751288) |
+| Venkata Aravind Mareddy | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5901410035) |
 | Shu Perez | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5901577150) |
-| Shelby Sierah | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5901577150) |
-| Tarabein Malec | Pending |  |
+| Shelby Sierah | Pending |  |
+| Malec Tarabein | Pending |  |
+
+Acknowledgement corrections (A5): Victor Dodan's and Venkata Aravind Mareddy's links now point to their own Issue #3 comments. Shelby Sierah's row previously linked to Shu Perez's comment, and Issue #3 has no comment from `sshelby-ctrl`, so it is set to `Pending` until Shelby confirms with their own account. Malec Tarabein's acknowledgement is still pending. Giancarlo Herrera's comment acknowledges Team Charter backup responsibility, but the A1 deliverable table assigns that backup to Shelby Sierah; the team should resolve which record is correct.
 
 ### Instructions
 

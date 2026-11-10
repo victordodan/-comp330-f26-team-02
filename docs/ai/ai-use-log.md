@@ -1,5 +1,13 @@
 # AI Use Log
 
+## A5 — Role Matrix Identity Correction (Malec Tarabein)
+
+Claude (Claude Code) assisted Malec Tarabein with correcting `docs/team/roles.md`.
+GitHub logins and author aliases were taken from the repository's commit,
+contributor and pull-request records, and acknowledgement links from the Issue #3
+comments. No acknowledgement is recorded on any student's behalf; unsupported
+entries were set to `Pending`.
+
 ## A5 — PR #86 Gate/Release Correction
 
 Codex assisted with reconciling candidate gate/release wording against checkpoint
