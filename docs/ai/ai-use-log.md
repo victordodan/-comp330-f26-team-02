@@ -1,5 +1,13 @@
 # AI Use Log
 
+## A5 — PR #86 Gate/Release Correction
+
+Codex assisted with reconciling candidate gate/release wording against checkpoint
+`d640366e6addcb495a3449cb59253e5cb12599cf`, merged implementation/evidence and PR #95 CI results.
+Completed documentation and CI work is distinguished from acceptance, dependency,
+presentation and final-review gaps. No new execution, personal contributor
+verification or human approval is invented. Prepared for Victor's review.
+
 ## A5 — PR #85 Gate/Release Correction
 
 Codex assisted with reconciling candidate gate/release wording against checkpoint
