@@ -1,457 +1,123 @@
-# Release Readiness Review
+# Assignment 5 — CampusConnect Release-Readiness Review
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
-
-This file records the team's review of whether a specific release is ready for
-the intended phase gate, demonstration, deployment, or delivery.
-
-A release-readiness review should answer:
-
-"Based on the available engineering evidence, are we ready to release this
-specific baseline?"
-
-This is NOT merely a checklist asking whether files exist.
-
-Readiness should consider:
-
-- scope;
-- requirements;
-- acceptance criteria;
-- traceability;
-- verification;
-- defects;
-- known limitations;
-- architecture;
-- operations;
-- observability;
-- deployment readiness;
-- unresolved risks;
-- release identification.
-
-Reference authoritative release evidence in:
-
-/docs/release/
-/docs/quality/
-/docs/operations/
-/docs/observability/
-/docs/planning/traceability.md
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Do not declare readiness without supporting evidence.
--->
-
-## Review Identification
-
-**Review Date:**  
-**Release / Version:**  
-**Git Tag / Commit:**  
-**Target Gate / Milestone:**  
-**Deployment / Environment:**  
-**Reviewer(s):**  
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify the exact release baseline being reviewed.
-
-The release identification should agree with:
-
-/docs/release/release-notes.md
-/docs/release/traceability-summary.md
-
-Do not review an ambiguous or moving code baseline.
--->
+**Project:** CampusConnect — COMP 330 Team 2 (Codex Ramblers)  
+**Prepared for review by:** Giancarlo Herrera, Quality & Review Lead  
+**Review checkpoint:** 2026-11-09; repository evidence available at drafting  
+**Target gate:** A5 Cycle 1 classroom release and presentation  
+**Release baseline:** NOT FROZEN — `a5-cycle1-release` tag absent when checked  
+**Review status:** DRAFT / proposed quality recommendation; no personal or team sign-off claimed  
+**Environment:** Java 17, Spring Boot, file-backed H2, local loopback synthetic-data demo
 
 ## Intended Release Outcome
 
-<!--
-TEAM CONTENT REQUIRED
-
-State what this release is expected to accomplish.
-
-Keep this concise.
-
-Reference the current scope and release notes rather than duplicating them.
-
-Replace this comment with the actual release objective.
--->
+Demonstrate the bounded CampusConnect HTTP support-request workflow: students create and view their own requests; reviewers inspect requests, change status, record notes, and reopen resolved requests. This is a controlled classroom demonstration, **not** a production campus service. See [release notes](../release/release-notes.md) and [known limitations](../release/known-limitations.md).
 
 ## Readiness Summary
 
-<!--
-TEAM CONTENT REQUIRED
-
-Provide a concise status summary.
-
-Do NOT complete this section until the detailed review below has been performed.
-
-Suggested final outcomes:
-
-- Ready
-- Ready with Accepted Limitations
-- Conditionally Ready
-- Not Ready
-
-Replace this comment with the actual evidence-based summary.
--->
-
-**Readiness Outcome:**  
+**Proposed quality assessment: Conditionally ready for preparation of a controlled classroom demo; final A5 release approval remains OPEN.** The recorded automated and packaged HTTP rehearsal results are positive. Case-specific acceptance dispositions, exact-release-revision checks, independent review, security/dependency risk treatment and human release authorization are not yet complete.
 
 ## Scope Readiness
 
-<!--
-TEAM CONTENT REQUIRED
-
-Review whether the release matches the intended delivery scope.
-
-Reference:
-
-/docs/planning/scope.md
-/docs/release/release-notes.md
-
-Questions include:
-
-- Are committed release capabilities present?
-- Are deferred items explicitly identified?
-- Has scope changed without being documented?
-- Are out-of-scope expectations being represented accurately?
-
-Populate actual evidence below.
--->
-
-| Review Item | Evidence | Result | Gap / Action |
+| Review item | Evidence | Result | Gap / action |
 |---|---|---|---|
-| Release scope matches current baseline |  |  |  |
-| Deferred capabilities are identified |  |  |  |
-| Release notes accurately describe delivered scope |  |  |  |
+| Student submit/status and reviewer lifecycle | [Release notes](../release/release-notes.md); [API](../testing/a4-http-api.md) | Implemented in documented scope | Confirm final revision and presentation wording |
+| File-backed persistence, UUIDs, version checks | [Backend verification](../testing/a4-backend-verification.md); [demo rehearsal](../testing/a5-demo-rehearsal.md) | Related tests and rehearsal passed | Confirm exact frozen SHA |
+| Deferred scope disclosed | [Known limitations](../release/known-limitations.md) | Documented | Human acceptance of bounded scope pending |
 
 ## Requirements and Traceability Readiness
 
-<!--
-TEAM CONTENT REQUIRED
-
-Review:
-
-/docs/release/traceability-summary.md
-/docs/planning/traceability.md
-
-Confirm that important release requirements connect to:
-
-- acceptance criteria;
-- architecture / design;
-- implementation;
-- verification.
-
-A gap does not automatically mean the release must fail, but it must be visible
-and evaluated.
--->
-
-| Review Item | Evidence | Result | Gap / Action |
+| Review item | Evidence | Result | Gap / action |
 |---|---|---|---|
-| Release requirements identified |  |  |  |
-| Acceptance criteria linked |  |  |  |
-| Implementation traceability present |  |  |  |
-| Verification traceability present |  |  |  |
-| Remaining traceability gaps understood |  |  |  |
+| REQ-001 through REQ-006 linked to implementation and tests | [Traceability summary](../release/traceability-summary.md); [acceptance matrix](../testing/a5-acceptance-evidence-matrix.md) | Mapped | Confirm requirements/criteria approval status |
+| TC-001 through TC-012 | [Acceptance evidence](../testing/a5-acceptance-test-evidence.md) | Related automated coverage reported for 12/12 | No separately dated per-case execution records in the published matrix; assign explicit evidence-backed dispositions, not automatic passes |
 
 ## Verification Readiness
 
-<!--
-TEAM CONTENT REQUIRED
-
-Review actual verification evidence.
-
-Consider:
-
-- automated tests;
-- integration tests;
-- acceptance criteria;
-- runtime evidence;
-- regression tests;
-- manual verification where appropriate.
-
-Do not claim "testing complete" because tests exist.
-
-Ask whether important release behavior has actually been exercised and whether
-results support the release claim.
--->
-
-| Verification Area | Evidence | Result | Remaining Concern |
+| Verification area | Recorded evidence | Result | Remaining concern |
 |---|---|---|---|
-|  |  |  |  |
+| Maven/JUnit | [PR #95 CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42746026082); [acceptance evidence](../testing/a5-acceptance-test-evidence.md) | 35 tests passed on recorded integration revision | Not the final A5 tagged SHA |
+| Packaged local HTTP workflow | [A5 rehearsal](../testing/a5-demo-rehearsal.md) | 36 initial checks passed; 36 repeat checks passed | Automated rehearsal is not human acceptance |
+| Process restart | [Rehearsal](../testing/a5-demo-rehearsal.md) | 5 restart HTTP checks passed with same H2 store | Does not verify backup restoration |
+| Client failure control | [Rehearsal](../testing/a5-demo-rehearsal.md) | Stopped-server run failed as expected | Final demo environment must be verified |
+| Acceptance | [A5 matrix](../testing/a5-acceptance-evidence-matrix.md) | Related test methods mapped | Per-case outcomes and human dispositions pending |
+| Final integrated revision | [Quality gate](../quality/a5-final-release-quality-gate.md) | OPEN | Run and record final SHA checks and independent review |
 
 ## Defect Readiness
 
-<!--
-TEAM CONTENT REQUIRED
-
-Reference:
-
-/docs/quality/defect-log.md
-/docs/quality/defect-review.md
-
-Review:
-
-- open defects;
-- severity;
-- unresolved high-impact defects;
-- deferred defects;
-- regression verification;
-- recurring quality patterns.
-
-Do not require zero defects automatically.
-
-The engineering question is whether remaining defects are understood and
-acceptable for this release.
--->
-
-| Defect / Concern | Severity / Impact | Disposition | Release Decision |
-|---|---|---|---|
-|  |  |  |  |
+[Defect reconciliation](../quality/a5-defect-limitations-reconciliation.md) distinguishes corrected documentation from actual runtime defects. The prior in-memory storage and forged-header identity descriptions were corrected. No new runtime defect is asserted by this document. Final defect-log review, severity/disposition and human risk acceptance remain pending. Do not infer zero unresolved defects from passing tests.
 
 ## Known Limitations
 
-<!--
-TEAM CONTENT REQUIRED
-
-Reference:
-
-/docs/release/known-limitations.md
-
-Confirm:
-
-- important limitations are visible;
-- limitations are accurately described;
-- workarounds are real;
-- verification gaps are represented;
-- the release claim does not contradict known limitations.
--->
-
-| Limitation ID | Impact on Release | Accepted? | Rationale / Action |
+| ID | Exposure | Current treatment | Decision needed |
 |---|---|---|---|
-|  |  |  |  |
+| LIM-001 | Local H2 file loss; restart persistence is not backup recovery | Same-store local demo; synthetic data | Accept bounded recovery risk or add evidence |
+| LIM-002 | Demo identity selector can intentionally select Reviewer; no real login | Loopback-only synthetic classroom demo | Explicitly prohibit real-data/public use |
+| LIM-003 | No push/email notifications | Students poll HTTP endpoints | Disclose deferred feature |
+| LIM-004 | No verified graphical UI | API/script demonstration | Present actual interface honestly |
+| LIM-005 | No verified production deployment/recovery/monitoring | Local demonstration only | Do not claim operational readiness |
 
-## Architecture Readiness
+Source: [known limitations](../release/known-limitations.md).
 
-<!--
-TEAM CONTENT REQUIRED
+## Security and Dependency Readiness
 
-Reference:
+[Security/dependency review](../quality/a5-security-dependency-review.md) documents role/ownership negative tests, local-only configuration and historical dependency inventory. It **does not** establish current vulnerability clearance, complete transitive-license approval, production authentication or backup recovery. A designated technical reviewer must provide dated advisory/license findings or documented risk deferrals; Victor or the authorized decision-maker must record acceptance.
 
-/docs/review/architecture-review.md
+## Operations and Observability
 
-Confirm whether architecture issues materially affect release readiness.
-
-Do not repeat the complete architecture review.
--->
-
-| Architecture Concern | Evidence | Release Impact | Action |
-|---|---|---|---|
-|  |  |  |  |
-
-## Operational Readiness
-
-<!--
-TEAM CONTENT REQUIRED
-
-Reference:
-
-/docs/operations/runbook.md
-/docs/operations/incident-response-notes.md
-
-Consider:
-
-- deployment procedure;
-- configuration;
-- dependencies;
-- startup;
-- recovery;
-- rollback where relevant;
-- known operational limitations.
-
-Do not claim operational readiness for procedures that have never been tested
-when testing would be important.
--->
-
-| Operational Area | Evidence | Result | Gap / Action |
-|---|---|---|---|
-| Deployment / startup |  |  |  |
-| Post-deployment verification |  |  |  |
-| Dependencies |  |  |  |
-| Recovery / rollback |  |  |  |
-
-## Observability Readiness
-
-<!--
-TEAM CONTENT REQUIRED
-
-Reference:
-
-/docs/observability/observability-plan.md
-/docs/observability/metrics-notes.md
-/docs/observability/runtime-evidence.md
-
-Ask whether the team has enough runtime visibility to detect and investigate
-important release failures.
-
-Enterprise monitoring is not required.
-
-Appropriate visibility for the actual system is.
--->
-
-| Observability Area | Evidence | Result | Gap / Action |
-|---|---|---|---|
-|  |  |  |  |
+The local packaged demo and same-store restart are supported by [rehearsal evidence](../testing/a5-demo-rehearsal.md). No verified production deployment, rollback, monitoring or backup restoration is established. These are release boundaries, not capabilities to imply in the presentation.
 
 ## Risk Review
 
-<!--
-TEAM CONTENT REQUIRED
-
-Reference:
-
-/docs/planning/risk-register.md
-
-Identify active risks that materially affect release readiness.
-
-Do not recreate the full risk register.
--->
-
-| Risk ID | Release Exposure | Mitigation / Response | Accepted for Release? |
+| Risk | Release exposure | Mitigation / response | Accepted? |
 |---|---|---|---|
-|  |  |  |  |
+| Synthetic identity selector | Reviewer identity is selectable in demo | Local-only synthetic demonstration; clear limitation | Pending Victor |
+| Unverified backup recovery | Local database loss possible | Preserve same-store local data; avoid real records | Pending Victor |
+| Acceptance evidence gap | 12 cases mapped but not individually dispositioned | Mareddy supplies case evidence; quality review reconciles | Pending |
+| Final baseline not frozen | Tests may refer to earlier revisions | Select SHA, run final checks, independent review, tag | Pending |
+| Dependency assurance incomplete | Advisories/licenses not fully assessed | Technical review and documented decision | Pending |
+
+See [risk register](../planning/risk-register.md).
 
 ## Demonstration Readiness
 
-<!--
-TEAM CONTENT REQUIRED WHEN A RELEASE DEMONSTRATION IS PART OF THE GATE
-
-Reference:
-
-/docs/release/demo-script.md
-
-Consider:
-
-- demo baseline matches release baseline;
-- required environment available;
-- scenarios verified;
-- negative-path behavior represented where appropriate;
-- limitations acknowledged;
-- fallback evidence available.
-
-Remove this section if no demonstration is relevant.
--->
-
-| Review Item | Evidence | Result | Gap / Action |
+| Review item | Evidence | Result | Gap / action |
 |---|---|---|---|
-|  |  |  |  |
+| Happy path and negative path | [Demo script](../release/demo-script.md); [rehearsal](../testing/a5-demo-rehearsal.md) | Recorded PASS | Human presentation rehearsal pending |
+| Repeatability and restart | [Rehearsal logs](../../test-evidence/a5-http-demo/) | Recorded PASS | Verify final release SHA/environment |
+| Demo claims | [Release notes](../release/release-notes.md) | Scope documented | State that 36 checks are HTTP checks, not 12 independently approved acceptance cases |
 
-## Blocking Issues
+## Blocking Items for Final A5 Approval
 
-<!--
-TEAM CONTENT REQUIRED
-
-List only issues that prevent readiness.
-
-A blank table means no blocking issue has been identified.
-
-Do not put minor follow-up work here.
-
-Use stable IDs if useful:
-
-RRB-###
-
-EXAMPLE ONLY:
-
-| ID | Blocking Issue | Evidence | Owner | Required Resolution |
+| ID | Blocking item | Evidence | Coordinator | Required resolution |
 |---|---|---|---|---|
-| RRB-001 | Critical acceptance criterion has no verification evidence | AC-REQ-008-02 | Quality & Review Lead | Execute and document verification |
+| RRB-001 | Final A5 SHA/tag and associated CI not established | [Quality gate](../quality/a5-final-release-quality-gate.md) | Victor + development/testing | Freeze revision, verify, and create tag after review |
+| RRB-002 | Acceptance case dispositions outstanding | [Acceptance matrix](../testing/a5-acceptance-evidence-matrix.md) | Mareddy + Giancarlo | Record actual case-specific outcomes or justified deferrals |
+| RRB-003 | Independent non-author final review not recorded | [Quality gate](../quality/a5-final-release-quality-gate.md) | Victor | Record reviewer, SHA, findings and disposition |
+| RRB-004 | Dependency/security risk signoff outstanding | [Security review](../quality/a5-security-dependency-review.md) | Technical reviewer + Victor | Provide evidence or explicit bounded-demo risk decision |
+| RRB-005 | Human release decision not recorded | [Quality gate](../quality/a5-final-release-quality-gate.md) | Victor | Record final outcome, limitations and approvals |
 
-DELETE the example and populate actual blockers below.
--->
+## Non-Blocking Follow-Up (Within Bounded Demo Scope)
 
-| ID | Blocking Issue | Evidence | Owner | Required Resolution |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Non-Blocking Follow-Up
-
-<!--
-TEAM CONTENT REQUIRED WHEN RELEASE CAN PROCEED WITH OPEN WORK
-
-Record work that should continue but does not prevent the current release.
-
-Do not hide material limitations here merely to obtain a Ready decision.
--->
-
-| Follow-Up | Owner | Target | Related Evidence |
+| Follow-up | Proposed coordinator | Target | Evidence |
 |---|---|---|---|
-|  |  |  |  |
+| Institutional authentication, notifications, GUI | Product/architecture team | Future scope only if approved | [Known limitations](../release/known-limitations.md) |
+| Backup/restore, monitoring, deployment | Technical team | Future operational work | [Known limitations](../release/known-limitations.md) |
 
 ## Final Readiness Decision
 
-<!--
-TEAM CONTENT REQUIRED
+**Decision: NOT YET APPROVED.** The **proposed** quality recommendation is *Conditionally Ready for a controlled classroom demo, subject to the blocking items above*. This is not a human Go decision and does not authorize production deployment.
 
-Choose one:
-
-Ready
-- Evidence supports the intended release with no material unresolved blocker.
-
-Ready with Accepted Limitations
-- Release can proceed and known limitations are explicitly understood and accepted.
-
-Conditionally Ready
-- Release may proceed only after specified conditions are satisfied.
-
-Not Ready
-- One or more material blockers prevent the intended release.
-
-State the decision and WHY.
-
-Do not select Ready simply because the phase-gate date has arrived.
--->
-
-**Decision:**  
-
-**Rationale:**  
+**Rationale:** Passing 35-test CI and the recorded 36/5/36 HTTP rehearsal support the implemented workflow, but they cannot substitute for exact-release evidence, final acceptance dispositions, independent review, security/risk decisions or a named release approver.
 
 ## Required Conditions / Approvals
 
-<!--
-TEAM CONTENT REQUIRED ONLY WHEN APPLICABLE
-
-If the decision is Conditionally Ready, identify the conditions that must be
-satisfied.
-
-If no conditions apply, remove this section.
--->
-
-| Condition | Owner | Evidence Required | Status |
+| Condition | Proposed owner | Evidence required | Status |
 |---|---|---|---|
-|  |  |  |  |
+| Confirm exact release SHA and final CI | Victor + technical/test owners | Tag/SHA and passing workflow link | Pending |
+| Disposition TC-001–TC-012 | Mareddy; Giancarlo reviews | Dated evidence, result, gaps and reviewer | Pending |
+| Complete independent review | Victor-designated non-author | Reviewer, SHA, findings and disposition | Pending |
+| Resolve or accept security/dependency risks | Technical reviewer + Victor | Dated scan/advisory/license evidence or explicit deferral | Pending |
+| Record final human release decision | Victor / authorized team | Decision, accepted limitations, approval date | Pending |
 
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Confirm the reviewed Git tag / commit is the actual release baseline.
-2. Confirm release-notes.md identifies the same baseline.
-3. Base readiness on evidence, not artifact existence.
-4. Review open defects and known limitations honestly.
-5. Confirm verification claims point to actual evidence.
-6. Confirm operational and observability readiness are proportional to the system.
-7. Review release risks.
-8. Identify real blockers explicitly.
-9. State the final readiness decision and rationale.
-10. Remove ALL instructional HTML comments.
-
-The completed review should answer one question clearly:
-
-"Does the available engineering evidence support releasing this exact baseline?"
--->
+**Human review / signature:** Pending.  
+**AI-use disclosure:** ChatGPT assisted in drafting this document from repository evidence. No new test, vulnerability scan, human verification, acceptance or approval was performed by this edit. The named Quality & Review Lead must review and confirm its contents before representing it as personal signoff.
