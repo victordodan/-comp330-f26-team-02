@@ -1,10 +1,13 @@
 # A5 Acceptance Test Evidence — TC-001 through TC-012
 
-**Project:** CampusConnect — COMP 330, Team 2 (Codex Ramblers)  
-**Prepared by:** Venkata Aravind Mareddy  
-**Verification date:** November 9, 2026  
-**Evidence baseline:** PR #84, commit `00c034a`  
-**Environment:** GitHub Actions, Java 17, Maven, JUnit 5, Spring Boot, H2  
+**Project:** CampusConnect — COMP 330, Team 2 (Codex Ramblers)
+**Prepared by:** Venkata Aravind Mareddy
+**Verification date:** November 9, 2026
+**Evidence baseline:** Historical PR #84 CI merge, not final A5 release
+**Tested merge SHA:** `0fcc79c29dfcdc89403d3c230f47438cb00c358c`
+**PR head SHA:** `00c034a74f22ce616f707848168909289b2db001`
+**Base SHA:** `70d3726b64c0deafef2d770870bb14ef8f28b79b`
+**Environment:** GitHub Actions, Java 17, Maven, JUnit 5, Spring Boot, H2
 **CI evidence:** [PR #84](https://github.com/victordodan/-comp330-f26-team-02/pull/84)
 **Successful CI run:** [GitHub Actions Run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038) — Success; 35 tests passed, 0 failures, 0 errors, 0 skipped, as recorded in the downloaded `java-test-reports` artifact.
 
@@ -12,7 +15,12 @@
 
 The GitHub Actions workflow **A4 Java Build and Tests** successfully executed `mvn -B clean verify` for PR #84.
 
-The downloaded `java-test-reports` artifact contains the following JUnit XML results:
+The original report records the following JUnit XML results from the
+`java-test-reports` artifact. The correction review independently confirmed the
+same class totals and successful packaging in the
+[job logs](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038/job/129148251587).
+The logs show checkout of the tested merge SHA above, rather than the PR head
+alone. No new build or artifact download was performed for this correction.
 
 | Test class | Tests | Failures | Errors | Skipped |
 |---|---:|---:|---:|---:|
@@ -24,11 +32,15 @@ The downloaded `java-test-reports` artifact contains the following JUnit XML res
 
 **Automated test result: PASS — 35/35 tests successful.**
 
-This result applies to the tested PR #84 revision. It does not independently establish that a newer `main` commit has passed CI.
+This result applies to the historical PR #84 merge SHA identified above. It does not independently establish that a newer `main` commit, this documentation revision, or the eventual A5 release SHA has passed CI.
 
 ## 2. Acceptance Test Evidence Matrix
 
-The following matrix maps the twelve planned acceptance cases to relevant executed automated tests.
+The following matrix maps the twelve planned acceptance cases to related
+executed automated tests. A Passed entry applies to those automated tests;
+it does not mean that every step of the corresponding acceptance scenario
+was separately executed. Each case still needs an evidence-backed acceptance
+disposition at the selected release revision.
 
 **Status definitions:**
 - **Automated coverage passed:** Related JUnit tests executed successfully.
@@ -82,11 +94,12 @@ No unexecuted manual acceptance case is marked as passed.
 
 - [PR #84 — Automated CI verification](https://github.com/victordodan/-comp330-f26-team-02/pull/84)
 - [A4 Java Build and Tests workflow](https://github.com/victordodan/-comp330-f26-team-02/actions/workflows/a4-validation-tests.yml)
-- `src/test/java/edu/loyola/campusconnect/controller/RequestControllerTest.java`
-- `src/test/java/edu/loyola/campusconnect/service/WorkflowServiceTest.java`
-- `src/test/java/edu/loyola/campusconnect/validation/RequestValidatorTest.java`
-- `src/test/java/edu/loyola/campusconnect/CampusConnectApplicationTests.java`
-- GitHub Actions artifact: `java-test-reports`
+- [Test source: RequestControllerTest.java](https://github.com/victordodan/-comp330-f26-team-02/blob/00c034a74f22ce616f707848168909289b2db001/src/test/java/edu/loyola/campusconnect/controller/RequestControllerTest.java)
+- [Test source: WorkflowServiceTest.java](https://github.com/victordodan/-comp330-f26-team-02/blob/00c034a74f22ce616f707848168909289b2db001/src/test/java/edu/loyola/campusconnect/service/WorkflowServiceTest.java)
+- [Test source: RequestValidatorTest.java](https://github.com/victordodan/-comp330-f26-team-02/blob/00c034a74f22ce616f707848168909289b2db001/src/test/java/edu/loyola/campusconnect/validation/RequestValidatorTest.java)
+- [Test source: CampusConnectApplicationTests.java](https://github.com/victordodan/-comp330-f26-team-02/blob/00c034a74f22ce616f707848168909289b2db001/src/test/java/edu/loyola/campusconnect/CampusConnectApplicationTests.java)
+- [CI job logs](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038/job/129148251587)
+- [GitHub Actions artifact: `java-test-reports`](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038/artifacts/13671781417)
 - `docs/testing/test-cases.md`
 - `docs/testing/a4-final-quality-verification.md`
 
@@ -98,6 +111,18 @@ Relevant automated coverage exists for all twelve planned acceptance cases, with
 
 **Separate acceptance execution: NOT YET DOCUMENTED (0/12).**
 
-The automated results provide traceable implementation evidence, but final acceptance status requires the team to confirm whether separate case-by-case execution is required and to record those runs if necessary.
+The automated results provide implementation evidence. Before final acceptance,
+record a disposition for every case at the selected release revision: actual
+result, date, operator, environment, exact SHA and supporting evidence, or an
+explicit blocked/deferred disposition with owner and approval. This document
+does not grant acceptance merely from coverage mapping.
 
 **Release readiness:** Pending review of remaining acceptance evidence, latest-main CI status, and team approval.
+
+
+## Correction Review
+
+Codex inspected the historical CI job logs and compared the mapped test names
+with repository test source. This correction adds the tested merge/head/base
+SHAs, direct evidence links and acceptance boundaries. No new tests, separate
+acceptance executions, human approvals or release decisions were performed.
