@@ -1,5 +1,14 @@
 # AI Use Log
 
+## A5 — README and Changed-File Index Refresh (Malec Tarabein)
+
+Claude (Claude Code) assisted Malec Tarabein with updating `README.md` to the A5
+release-candidate status and refreshing `docs/release/changed-files-since-a4.md`
+against `531d54c`. File lists and PR attribution come from
+`git diff --name-status a4-construction-integration 531d54c` and each PR's merge
+commit; every changed file was checked as listed. No tests, release approval
+or tag are claimed.
+
 ## A5 — Role Matrix Identity Correction (Malec Tarabein)
 
 Claude (Claude Code) assisted Malec Tarabein with correcting `docs/team/roles.md`.
