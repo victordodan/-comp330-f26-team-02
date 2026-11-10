@@ -1,12 +1,38 @@
 # Architecture Overview — CampusConnect
 
-> **Status:** Proposed for Cycle 1; final A3 review pending
-> **Baseline version:** PR #48 working draft; final submission tag pending
-> **Last updated:** 2026-11-9
+> **Status:** Historical A3 design with A5 implementation clarification; final integrated review pending
+> **Baseline version:** A3 design record (PR #48); A5 submission baseline/tag pending
+> **Last updated:** 2026-11-09
 > **Owner:** Shú Perez · **Backup:** Giancarlo Herrera
 > **Team:** Codex Ramblers (Team 2)
 
-This document describes **what CampusConnect is now** — its structure, components, boundaries, data/context, AI/tool use, risks, and evidence links. It is **not** a home for every architecture decision. Significant decisions are recorded as individual ADRs in `/docs/decisions/` and indexed in Section 10.
+This overview preserves the A3 design record in Sections 1–12. Those sections
+include proposed interfaces, UI, review and verification states; they must not
+be read as a current implementation or release-acceptance certificate.
+Significant decisions remain in `/docs/decisions/`.
+
+### A5 implementation clarification
+
+At repository checkpoint `91cdfc81a6f884f2dceb407c245d71bb72afc497`, the implemented slice is a
+Java/Spring Boot **HTTP API**, not verified Thymeleaf/browser forms or a
+Post/Redirect/Get workflow. The controller selects fixed demo identities in
+server sessions; services enforce ownership, reviewer operations and lifecycle
+rules. Storage uses transactional JDBC/file-backed H2 with UUID IDs and version
+checks. The original A3 diagram/contracts below retain design history; they do
+not establish that every proposed component or operational control shipped.
+
+Current implementation/evidence sources:
+
+- [HTTP API and session/ETag contracts](../testing/a4-http-api.md).
+- [Persistence clarification](../decisions/ADR-0005-in-memory-persistence.md), consistent with accepted ADR-002–004.
+- [Current limitations](../release/known-limitations.md), including deliberate synthetic role selection and unverified production operations.
+- [CI configuration/evidence](../testing/ci-evidence.md), [acceptance mappings](../testing/a5-acceptance-evidence-matrix.md), and [packaged HTTP rehearsal](../testing/a5-demo-rehearsal.md).
+- [Candidate release notes](../release/release-notes.md) and [quality gate](../quality/a5-final-release-quality-gate.md): final human review, acceptance dispositions and dependency-risk decisions remain separate.
+
+This clarification records evidence and preserves proposed design history. It
+neither approves a new stack nor declares the old A3 review checklist complete.
+No new Mermaid/table repair or rendered-preview verification is claimed by this
+correction; the original PR diff only reflows paragraphs and changes the date.
 
 ---
 

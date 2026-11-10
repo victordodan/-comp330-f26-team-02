@@ -1,5 +1,90 @@
 # AI Use Log
 
+## A5 — PR #82 Architecture Overview Correction
+
+Codex assisted with ISO date/paragraph formatting and a brief A5 clarification
+separating the preserved A3 design from the implemented HTTP/JDBC/session slice.
+Source and linked evidence were checked at `91cdfc81a6f884f2dceb407c245d71bb72afc497`.
+No Mermaid/table repair, GitHub rendered preview, new runtime test or new
+architecture/release approval is claimed. Prepared for Victor's review.
+
+## A5 — PR #96 Demo Rehearsal Correction
+
+Codex assisted with procedure, synthetic HTTP transcripts, build/restart/repeat evidence and scope limitations. The packaged application source
+matched `714a31bf5c9283e732fcfd895615a3471fef93b4`. An actual JDK 17/Maven build passed 35 tests; the
+client passed 36 initial, 5 restart and 36 repeat HTTP checks. The stopped-server
+control correctly failed. Script/jar hashes and raw synthetic results are in
+PR #96's evidence package; the executable is in PR #97. No human witness,
+complete acceptance disposition, security clearance or release approval is claimed.
+
+## A5 — PR #86 Gate/Release Correction
+
+Codex assisted with reconciling candidate gate/release wording against checkpoint
+`d640366e6addcb495a3449cb59253e5cb12599cf`, merged implementation/evidence and PR #95 CI results.
+Completed documentation and CI work is distinguished from acceptance, dependency,
+presentation and final-review gaps. No new execution, personal contributor
+verification or human approval is invented. Prepared for Victor's review.
+
+## A5 — PR #85 Gate/Release Correction
+
+Codex assisted with reconciling candidate gate/release wording against checkpoint
+`d640366e6addcb495a3449cb59253e5cb12599cf`, merged implementation/evidence and PR #95 CI results.
+Completed documentation and CI work is distinguished from acceptance, dependency,
+presentation and final-review gaps. No new execution, personal contributor
+verification or human approval is invented. Prepared for Victor's review.
+
+## A5 — PR #89 Evidence Correction
+
+Codex assisted with security configuration, historical dependency evidence and open advisory/license/support decisions against checkpoint
+`4ff2f0f12e636f177ec25202b8029498e613afde`. Work compares source, merged evidence and reported CI results;
+no new test/scan, dependency resolution, human approval or release acceptance
+is claimed. Original contributor attribution is preserved without asserting
+that contributor personally verified this correction. Prepared for Victor's review.
+
+## A5 — PR #88 Evidence Correction
+
+Codex assisted with acceptance-criterion/test mappings, actual CI revisions and remaining case dispositions against checkpoint
+`4ff2f0f12e636f177ec25202b8029498e613afde`. Work compares source, merged evidence and reported CI results;
+no new test/scan, dependency resolution, human approval or release acceptance
+is claimed. Original contributor attribution is preserved without asserting
+that contributor personally verified this correction. Prepared for Victor's review.
+
+## A5 — PR #94 Local Correction Disclosure
+
+Codex assisted with limitations, persistence/identity technical disclosures and release-evidence boundaries against main checkpoint
+`b899a1b40b9d0539ae6152ee2ad874338533673a`. Source, configuration and existing repository evidence were compared;
+no new application tests, acceptance runs, security scans, human approvals or
+release decisions are claimed. Changes are prepared for Victor's review.
+
+## A5 — PR #93 Local Correction Disclosure
+
+Codex assisted with CI triggers, reusable Maven verification, report retention and evidence documentation against main checkpoint
+`b899a1b40b9d0539ae6152ee2ad874338533673a`. Source, configuration and existing repository evidence were compared;
+no new application tests, acceptance runs, security scans, human approvals or
+release decisions are claimed. Changes are prepared for Victor's review.
+
+## A5 — PR #87/#91 Correction Disclosure
+
+Codex assisted with reconciling findings and restoring traceability for PRs
+#87 and #91 against repository checkpoint
+`56c0907c7c317156f1a86ac8dcc9b9f158052b9d`. Work compared merged
+#81/#83/#84/#92, implementation PR metadata, source/tests, workflow configuration
+and the historical CI evidence recorded in #92. Retained: exact revision links,
+planning/ADR relationships and explicit gaps. Rejected: deleted-test allegations,
+obsolete storage/identity claims, invented feature issues and inferred approvals.
+No new runtime tests/scans, acceptance executions or human signoffs were performed.
+This correction is prepared for Victor's review; original contributor attribution
+does not imply that contributor personally verified the correction.
+
+## A5 — PR #97 Demo Rehearsal Correction
+
+Codex assisted with executable session/ETag HTTP demo and actual runtime rehearsal. The packaged application source
+matched `714a31bf5c9283e732fcfd895615a3471fef93b4`. An actual JDK 17/Maven build passed 35 tests; the
+client passed 36 initial, 5 restart and 36 repeat HTTP checks. The stopped-server
+control correctly failed. Script/jar hashes and raw synthetic results are in
+PR #96's evidence package; the executable is in PR #97. No human witness,
+complete acceptance disposition, security clearance or release approval is claimed.
+
 ## AI Use
 
 This log records significant AI-assisted work that influenced the Codex Ramblers' project. AI use is documented when it contributes to project planning, documentation, development, testing, or other engineering evidence.
