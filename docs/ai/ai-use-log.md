@@ -1,5 +1,13 @@
 # AI Use Log
 
+## A5 — Role Matrix Identity Correction (Malec Tarabein)
+
+Claude (Claude Code) assisted Malec Tarabein with correcting `docs/team/roles.md`.
+GitHub logins and author aliases were taken from the repository's commit,
+contributor and pull-request records, and acknowledgement links from the Issue #3
+comments. No acknowledgement is recorded on any student's behalf; unsupported
+entries were set to `Pending`.
+
 ## A5 — Planning, Schedule and Risk Reconciliation (Malec Tarabein)
 
 Claude (Claude Code) assisted Malec Tarabein with drafting the A5 sections of
@@ -238,3 +246,11 @@ no new acceptance execution or human approval is invented. A fresh dependency
 tree and POM license declarations were collected; the OSV API was blocked by
 outbound policy, so no advisory clearance is claimed. Named independent review,
 risk acceptance and final release/submission remain pending. PR99 untouched.
+
+## A5 — PR #99 Acknowledgement Verification
+
+Codex checked the linked Issue #3 comments against their actual authors before
+integration. Victor, Giancarlo, Mareddy, Shú and Malec have their own comments;
+no Shelby comment was present. Shelby remains Pending and the Team Charter
+backup conflict remains unresolved. No role reassignment, personal approval or
+acknowledgement on another person's behalf is recorded by this verification.
