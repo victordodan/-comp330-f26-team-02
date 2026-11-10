@@ -1,5 +1,12 @@
 # AI Use Log
 
+## A5 — PR #94 Local Correction Disclosure
+
+Codex assisted with limitations, persistence/identity technical disclosures and release-evidence boundaries against main checkpoint
+`b899a1b40b9d0539ae6152ee2ad874338533673a`. Source, configuration and existing repository evidence were compared;
+no new application tests, acceptance runs, security scans, human approvals or
+release decisions are claimed. Changes are prepared for Victor's review.
+
 ## A5 — PR #93 Local Correction Disclosure
 
 Codex assisted with CI triggers, reusable Maven verification, report retention and evidence documentation against main checkpoint
