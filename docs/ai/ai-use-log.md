@@ -1,5 +1,25 @@
 # AI Use Log
 
+## A5 — PR #94 Local Correction Disclosure
+
+Codex assisted with limitations, persistence/identity technical disclosures and release-evidence boundaries against main checkpoint
+`b899a1b40b9d0539ae6152ee2ad874338533673a`. Source, configuration and existing repository evidence were compared;
+no new application tests, acceptance runs, security scans, human approvals or
+release decisions are claimed. Changes are prepared for Victor's review.
+
+## A5 — PR #87/#91 Correction Disclosure
+
+Codex assisted with reconciling findings and restoring traceability for PRs
+#87 and #91 against repository checkpoint
+`56c0907c7c317156f1a86ac8dcc9b9f158052b9d`. Work compared merged
+#81/#83/#84/#92, implementation PR metadata, source/tests, workflow configuration
+and the historical CI evidence recorded in #92. Retained: exact revision links,
+planning/ADR relationships and explicit gaps. Rejected: deleted-test allegations,
+obsolete storage/identity claims, invented feature issues and inferred approvals.
+No new runtime tests/scans, acceptance executions or human signoffs were performed.
+This correction is prepared for Victor's review; original contributor attribution
+does not imply that contributor personally verified the correction.
+
 ## AI Use
 
 This log records significant AI-assisted work that influenced the Codex Ramblers' project. AI use is documented when it contributes to project planning, documentation, development, testing, or other engineering evidence.
