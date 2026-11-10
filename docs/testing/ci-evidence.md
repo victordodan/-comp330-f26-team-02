@@ -1,88 +1,69 @@
-# Continuous Integration (CI) Evidence — CampusConnect
+# Continuous Integration Evidence — CampusConnect
 
-**Project:** CampusConnect  
-**Team:** Team 2 — Codex Ramblers  
-**Phase:** A3 — Cycle 1 Architecture and Review  
-**Documentation Owner:** Giancarlo Herrera — Quality & Review Lead  
-**Status:** CI not configured for project-specific build or tests; no successful CI verification claimed  
-**Review Date:** October 16, 2026
+**Proposed configuration:** PR #93; execution of this revision remains pending.
+**Reviewed main checkpoint:** `b899a1b40b9d0539ae6152ee2ad874338533673a`
 
-## 1. Current CI Configuration
+## Workflow and scope
 
-The repository currently contains [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml). This is the **Starter Kit guard workflow**, named **CI - Configuration Required**. It is **not** a project-specific CI pipeline.
+[ci.yml](../../.github/workflows/ci.yml), named **Java CI with Maven**, is the
+entry workflow for pushes to `main`, pull requests targeting `main`, and manual
+`workflow_dispatch`. There are no path filters, so documentation-only changes
+also receive checks. Manual dispatch allows verification of a selected branch
+or tag after this workflow becomes available on the default branch.
 
-| Item | Current Verified Repository Configuration |
-|---|---|
-| Workflow file | `.github/workflows/ci.yml` |
-| Workflow name | `CI - Configuration Required` |
-| Trigger | Manual `workflow_dispatch` only |
-| Job | `ci-not-configured` |
-| Runner | `ubuntu-latest` |
-| Behavior | Prints a configuration-required error and exits with code 1 |
-| Project build | Not configured |
-| Automated project tests | Not configured |
-| PR/push validation triggers | Not configured |
-| Successful build/test evidence | Not established |
+It calls [a4-validation-tests.yml](../../.github/workflows/a4-validation-tests.yml)
+from the same revision. That file retains the historical path but now exposes
+only `workflow_call`, preventing duplicate automatic builds. The prior
+`a4-aravind-request-validation` push trigger is removed; work on that branch
+is covered through PRs to main or manual dispatch. No application secrets are
+passed to the reusable workflow.
 
-**Important:** A deliberate failure of the starter guard means CI is unconfigured. It is **not** evidence that CampusConnect code failed its own build or tests. This review inspects the workflow definition; it does not claim a specific GitHub Actions run occurred.
+The reusable job checks out the event revision, sets up Temurin Java 17 with
+Maven caching, runs `mvn -B clean verify` and uploads `target/surefire-reports/`
+as `java-test-reports`, including on failure when reports exist. Missing reports
+produce a warning; Maven failures still fail the job. Both workflows request
+`contents: read`; the test job has a 15-minute timeout. Standard checkout,
+setup-java and upload-artifact actions use version 4.
 
-## 2. Intended CI Checks — Not Yet Implemented
+`clean verify` includes compilation, automated tests and packaging; it does not
+establish separate acceptance execution, vulnerability clearance, transitive
+license approval, backup recovery, production readiness or deployment.
 
-The Cycle 1 architecture records Java, Spring Boot, Thymeleaf, Maven, and a local file-backed H2 data store under ADR-002. Once executable project files are present and reviewed, the team should replace the guard with checks appropriate to the actual project:
+## Existing execution evidence
 
-1. Check out the reviewed repository commit.
-2. Configure a compatible Java runtime and Maven environment.
-3. Compile/package the application, failing the job on build errors.
-4. Execute meaningful automated unit and integration tests, failing the job on test errors.
-5. Report test results and preserve useful logs or artifacts.
-6. Enable appropriate pull-request and/or push triggers after team agreement.
-7. Keep workflow permissions minimal; do not commit secrets or real student data.
+Before this PR, actual Java CI already existed in `a4-validation-tests.yml`;
+`ci.yml` was a separate manual starter guard. This change consolidates their
+roles; it does not claim that the project previously lacked automated tests.
 
-These steps are **recommendations and intended checks**, not existing workflow behavior. The architecture/development lead and team lead should approve the final implementation and CI scope.
+[Run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038)
+ran `mvn -B clean verify` successfully on historical PR #84 merge SHA
+`0fcc79c29dfcdc89403d3c230f47438cb00c358c` (head
+`00c034a74f22ce616f707848168909289b2db001`, base
+`70d3726b64c0deafef2d770870bb14ef8f28b79b`). The run reports 35 tests,
+zero failures/errors/skips and successful packaging. See
+[job logs](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038/job/129148251587)
+and [reports](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038/artifacts/13671781417).
 
-## 3. Requirements and Test Traceability
+This historical run does not verify the changed workflow in PR #93 or the
+final integrated A5 revision. The merged
+[#92 report](https://github.com/victordodan/-comp330-f26-team-02/pull/92)
+maps related automated coverage to all twelve planned acceptance cases and
+keeps separate case execution/acceptance gaps explicit.
 
-The team has [12 proposed acceptance criteria](../requirements/acceptance-criteria.md) covering REQ-001 through REQ-006. The [test strategy](test-strategy.md) describes verification levels; the [test plan](test-plan.md) and [test-case catalog](test-cases.md) define intended coverage. The plan and catalog are proposed in [PR #56](https://github.com/victordodan/-comp330-f26-team-02/pull/56) as of this review.
+## Validation and final release evidence
 
-| Verification Area | Related Requirements | CI Evidence Status |
-|---|---|---|
-| Input validation and request creation | REQ-001, REQ-003 | Not configured / Not verified |
-| Owner-only request access | REQ-002 | Not configured / Not verified |
-| Reviewer visibility and role restrictions | REQ-004 | Not configured / Not verified |
-| Allowed status transitions and failures | REQ-005 | Not configured / Not verified |
-| Reviewer note/resolution validation | REQ-006 | Not configured / Not verified |
-| Persistence, restart, consistency and concurrency | REQ-003 and related ADRs | Not configured / Not verified |
+Actionlint 1.7.7 passed on both changed workflows. Local review also checks
+event scope, reusable-workflow wiring,
+permissions, command and report-upload configuration. No GitHub execution of
+these staged changes or fresh application test result is claimed here.
 
-A future passing build is not automatically proof that every acceptance criterion passed. Link individual executed tests to the criteria they actually verify.
+After committing/pushing, inspect the actual PR check, record its tested SHA,
+workflow/job URL, test totals, failures/skips and report link. For the final
+integrated release, record a run against the intended release revision and
+obtain independent review, case-specific dispositions and a release decision.
+The reusable workflow exposes a nested check (verify / test); confirm repository
+branch-protection rules require the new check if required-check rules exist.
+No branch-protection configuration was changed by this local work.
 
-## 4. Run Evidence Register
-
-**No project-specific CI execution evidence has been verified or recorded in this document.** Do not infer that the starter workflow ran merely because its YAML exists.
-
-| Workflow Run | Commit / Branch | Date | Checks Executed | Result | Evidence Link |
-|---|---|---|---|---|---|
-| None verified for CampusConnect project checks | — | — | No project-specific checks configured | Not Verified | — |
-
-When real CI is configured and runs, replace or supplement the table with actual GitHub Actions run URLs, exact commit SHAs, observed conclusions, and the checks performed. Preserve failed-run evidence and any issue/PR that addresses a failure.
-
-## 5. Merge Protection and Evidence Limits
-
-The presence of a workflow file does not establish required status checks, branch protection, test execution, or a passing release gate. These settings and results have **not been verified** for this review.
-
-Current limits:
-- No Java/Maven build or automated test is configured in the starter workflow.
-- No test results, coverage percentages, security scan results, or deployment results are established here.
-- No CI evidence demonstrates authorization, persistence, concurrency, or recovery behavior.
-- No production-readiness or successful release claim is made.
-
-## 6. Follow-Up Actions
-
-| Action | Suggested Owner | Evidence Needed |
-|---|---|---|
-| Replace Starter Kit guard with a real project build/test workflow when code is ready | Shu Perez — Architecture & Development Lead, with developers | Reviewed workflow PR and project-specific YAML |
-| Add meaningful automated checks aligned to the approved requirements and test plan | Developers with Giancarlo — Quality & Review Lead | Test code and criterion mapping |
-| Confirm CI triggers and any branch/merge rules | Victor Dodan — Team Lead | GitHub settings or documented team decision |
-| Record real runs, failures, and retests without inventing outcomes | Giancarlo — Quality & Review Lead | Actions run links, exact commit SHAs, test results |
-| Review data handling and secrets before enabling CI | Shelby Sierah — Operations & Evidence Lead | Security review evidence |
-
-**A3 gate interpretation:** This document provides an accurate CI readiness assessment. It does not claim that CI is complete. Final A3 approval remains a team decision, and later implementation gates will need real automated execution evidence.
+**AI disclosure:** Codex assisted workflow review, configuration corrections and
+evidence documentation. Human review and actual CI execution remain separate.

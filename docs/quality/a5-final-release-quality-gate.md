@@ -1,10 +1,9 @@
 # Assignment 5 — Final Release Quality Gate and Closure Decisions
 
-**Prepared by:** Giancarlo Herrera, Quality & Review Lead  
-**Date:** 2026-11-09  
-**Current review baseline:** A4 release `a4-construction-integration` at `70d3726b64c0deafef2d770870bb14ef8f28b79b`  
-**A5 final baseline:** **NOT YET FROZEN**. Replace with the exact commit referenced by `a5-cycle1-release` only after all release changes are reviewed and merged.  
-**Decision status:** **OPEN — not a final approval**. This is an evidence-based checklist, not a claim that A5 checks have run.
+**Original preparer:** Giancarlo Herrera, Quality & Review Lead
+**Reviewed repository checkpoint:** `d640366e6addcb495a3449cb59253e5cb12599cf`; A4 historical tag remains `a4-construction-integration`.
+**A5 final baseline:** **NOT YET FROZEN**. Replace with the exact commit referenced by `a5-cycle1-release` only after all release changes are reviewed and merged.
+**Decision status:** **OPEN — not a final approval**. This checklist records completed CI/documentation work and remaining decisions; it does not imply final release approval.
 
 ## Why this gate exists
 
@@ -14,21 +13,33 @@ The instructor's A4 assessment was **91/100, Proceed with Conditions**. It speci
 
 | ID | Gate / exact evidence required | Current repository evidence | Status at drafting | Decision owner / verifier | Observable closure |
 |---|---|---|---|---|---|
-| QG-01 | Independent non-author technical review of **exact A5 final commit**, including integrated auth, lifecycle, persistence, errors, and dependency impact | [A4 code review findings](../reviews/a4-code-review-findings.md), [A4 final quality review](../testing/a4-final-quality-verification.md); these do **not** establish A5 final-commit review | **OPEN** | Victor to designate a non-author reviewer; Giancarlo tracks disposition | Named reviewer, reviewed SHA, substantive findings, severity, dispositions, and review decision recorded in PR or `docs/quality/` |
-| QG-02 | Final TC-001 through TC-012 disposition with execution date, environment, exact revision, operator, actual result and evidence | [Case catalog](../testing/test-cases.md), [A4 mapping](../testing/a4-final-quality-verification.md): 12 mapped to automation; **0/12 separately dated case records in the A4 repository** | **OPEN** | Venkata Aravind Mareddy test owner; Giancarlo verifies mapping | All 12 individually marked PASS/FAIL/BLOCKED/DEFERRED with evidence links; unresolved cases accepted explicitly, not silently counted as passes |
-| QG-03 | Reproducible A5 CI/build evidence on frozen release SHA; record any failing/skipped checks | [A4 integrated CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/41000100733) succeeded on `d2bf5bfded8fcc03f3509394fa215b7f223efd94`, **not** the later A4 release SHA; [backend verification](../testing/a4-backend-verification.md) reports 35 local integration tests | **OPEN** | Shu Perez implementation; Mareddy testing; Victor final release gate | GitHub Actions link showing final A5 commit SHA, workflow conclusion, test totals, failures/skips, and disposition |
-| QG-04 | Restart, rollback, concurrency, authorization and negative-path evidence for A5 revision | [A4 backend verification](../testing/a4-backend-verification.md) and source tests; not re-run on A5 final revision in this document | **OPEN** | Shu and Mareddy; Giancarlo challenges evidence | Dated reproducible commands/logs and linked tests at final SHA; explain any environment-specific limitations |
-| QG-05 | Dependency/advisory, transitive-license and maintenance assessment with explicit human acceptance | [A4 dependency assessment](../reviews/a4-build-dependency-assessment.md) and [dependency tree](../reviews/a4-build-dependency-tree.txt); no recorded CVE scan or complete transitive-license acceptance | **OPEN** | Victor assigns non-author dependency reviewer; Giancarlo tracks decision | Dated scanner/advisory evidence, scope/version, severity dispositions, license/maintenance decision, reviewer and accepted residual risk |
-| QG-06 | Defect and known-limitation register: severity, user impact, mitigation, owner, disposition and Cycle 2 action | [A4 findings](../reviews/a4-code-review-findings.md), [risk register](../planning/risk-register.md); final A5 defect disposition not yet indexed | **OPEN** | Giancarlo quality; Victor risk acceptance; relevant implementer | `docs/quality/defect-review.md` and `docs/release/known-limitations.md` link actual issues/PRs and accepted dispositions |
-| QG-07 | Requirements → issue → PR/commit → CI/test → demo → release note → final tag traceability | [Traceability](../planning/traceability.md) from A4; final A5 release/demo links not yet established | **OPEN** | Giancarlo review; Victor release ownership | Every accepted requirement has a traceable final A5 evidence row, or an explicit deferred/limited disposition |
-| QG-08 | AI-use final disclosure, human verification and ownership accuracy | [AI-use log](../ai/ai-use-log.md), [A4 AI fixes](../ai/a4-pr-fixes.md) | **OPEN** | Each contributor discloses; Giancarlo reconciles; Victor accepts | Log identifies A5 AI-assisted tests/docs/release/presentation work, validation performed, reviewer and decisions; no unverified authorship claims |
-| QG-09 | Controlled demo: happy path, negative/boundary path and one proof link, matching frozen SHA | [HTTP demo guide](../testing/a4-http-api.md); A5 demo script and final presentation evidence not yet linked | **OPEN** | Shu demo driver; Victor presentation owner; Giancarlo verifies claims | Dated rehearsal result, demo script, evidence links, no unsupported UI or production-security claims |
-| QG-10 | Final release approval and stable phase-gate tag | [A4 release](https://github.com/victordodan/-comp330-f26-team-02/releases/tag/a4-construction-integration) is **not** the A5 release | **OPEN** | Victor final decision; non-author technical reviewer; Giancarlo quality recommendation | Explicit **GO / CONDITIONAL GO / NO-GO** with reasons and accepted risks; `a5-cycle1-release` points to exact approved commit; any post-freeze change disclosed |
+| QG-01 | Independent non-author review of final integrated revision | Merged #87/#91 reconcile findings and traceability; document reviews are not integrated application review | OPEN | Victor designates reviewer; Giancarlo tracks | Named reviewer, exact SHA, findings/dispositions and human decision |
+| QG-02 | TC-001–TC-012 evidence-backed acceptance dispositions | Merged [#92 report](../testing/a5-acceptance-test-evidence.md); [merged #88 matrix](../testing/a5-acceptance-evidence-matrix.md) supplies detailed AC mapping | PARTIAL — automation recorded; acceptance pending | Mareddy; Giancarlo; Victor | Per-case result or blocked/deferred decision, date, operator, environment, SHA and evidence; automated evidence may support acceptance without redundant manual runs |
+| QG-03 | CI/build verification at final candidate revision | Merged #93 supplies all-change/manual CI; PR #95 run #4 passed clean verify and 35 tests | PARTIAL — working CI, final candidate not selected | Shú/Mareddy; Victor | Exact final tested SHA, run URL, result, totals and disposition of skipped/failing checks |
+| QG-04 | Authorization, rollback, concurrency and restart evidence | Service/controller tests executed in PR #95 CI; A4 packaged-process report retained | PARTIAL — scenario/environment limits remain | Shú/Mareddy; Giancarlo | Final-revision reproducible evidence; distinguish file-store service restart from packaged restart and unverified backup restoration |
+| QG-05 | Dependency/advisory/license/maintenance disposition | Historical inventory; [merged #89 assessment](a5-security-dependency-review.md) records outstanding advisory/license/support decisions | OPEN — no complete clearance | Victor-appointed technical reviewer | Dated authoritative advisory/scan evidence, complete scoped license/support assessment or explicit human exceptions with mitigations |
+| QG-06 | Defect/limitation register with owners and dispositions | Merged [register](defect-log.md), [review](defect-review.md), [limitations](../release/known-limitations.md); #81/#83/#94/#95 correct descriptions | PARTIAL — records exist; risk acceptance pending | Giancarlo; Victor | Human finding dispositions, residual-risk decisions and follow-up owners; no invented runtime defects or zero-defects certification |
+| QG-07 | Requirements → issues/PRs/commits → tests → demo → release/tag | Merged [traceability](../planning/traceability.md) restores actual links and identifies missing feature issues | PARTIAL | Giancarlo; Victor | Accepted scope, real issue links or explicit gaps, executed demo steps, release-note links and approved baseline |
+| QG-08 | Complete AI disclosure and verified attribution | [Log](../ai/ai-use-log.md) includes merged correction disclosures; #90 remains proposed contribution/disclosure work | PARTIAL | Contributors; Giancarlo; Victor | Verify actual contribution wording and human checks; disclose remaining presentation/release work without inventing authorship or approvals |
+| QG-09 | Controlled evidence-backed demo and submission package | HTTP guide exists; main demo script remains starter content at checkpoint | OPEN | Shú; Victor; Giancarlo | Reviewed/rehearsed demo, presentation index/PPTX, Word evidence index with team information and changed-file summary, repository clone URL and Cycle 2 handoff; private peer reviews submitted separately |
+| QG-10 | Release decision and immutable A5 baseline | No a5-cycle1-release tag in reviewed remote inventory; A4 tag retained | OPEN | Victor with independent reviewer | Record GO/CONDITIONAL GO/NO-GO, reasons and risks; create/push tag at approved commit and disclose post-freeze changes |
+
+## Verified integration CI evidence
+
+[PR #95 run #4](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42746026082)
+passed `mvn -B clean verify` with 35 tests and zero failures/errors/skips, including
+successful packaging. [Job logs](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42746026082/job/129598203601)
+identify tested merge `5d791a7b657209a6c688251149db92828b313606`, head
+`e724e84af257a69237d51f8b6dab3d1927bd8cfb` and base
+`6c6584162deb4c396f162670b39e4d48fdd548da`. #95 subsequently merged as
+`4ff2f0f12e636f177ec25202b8029498e613afde`; the tested synthetic merge and
+final main commit are distinct. This run supports the integration reviewed,
+but is not final A5-tag verification or acceptance approval.
 
 ## Known boundary conditions to carry forward
 
 - **Synthetic demo identities are not institutional authentication.** Demonstration should use synthetic records on loopback only; do not claim real-user security or Internet deployment readiness.
-- **Automated test mapping is not equivalent to twelve separately executed acceptance cases.** Record individual results or transparently mark cases deferred/blocked.
+- **Related automated coverage needs a case-specific acceptance disposition.** Reuse actual automated evidence where sufficient, document gaps, and mark blocked/deferred cases explicitly.
 - **Build success is not a vulnerability scan or legal license clearance.** Dependency risks need a named human decision.
 - **Prior A4 CI and local simulations do not certify an A5 final commit.** Capture evidence against the frozen SHA.
 - **No browser UI was verified in the A4 evidence.** Demo the supported HTTP workflow unless later UI evidence exists.
@@ -44,7 +55,7 @@ The instructor's A4 assessment was **91/100, Proceed with Conditions**. It speci
 | Defects/risks/limitations | Pending | Pending | Pending | Pending | Pending |
 | Overall release | Pending | Pending | Victor Dodan | Pending | Pending |
 
-**Release recommendation as of 2026-11-09: NOT YET DETERMINED.** Do not interpret the A4 `Proceed with Conditions` assessment as an A5 GO. Final sign-off requires new A5 evidence and a stable tag.
+**Release recommendation at the reviewed checkpoint: NOT YET DETERMINED.** Do not interpret the A4 `Proceed with Conditions` assessment as an A5 GO. Final sign-off requires new A5 evidence and a stable tag.
 
 ## Suggested coordination
 
@@ -61,3 +72,18 @@ The instructor's A4 assessment was **91/100, Proceed with Conditions**. It speci
 - [A4 dependency assessment](../reviews/a4-build-dependency-assessment.md)
 - [Existing planning traceability](../planning/traceability.md)
 - [Existing AI-use log](../ai/ai-use-log.md)
+
+## Evidence maintenance and disclosure
+
+#88 and #89 are now merged on main. Their evidence/mappings are available,
+but acceptance and dependency clearance remain open. Merging this gate
+records the checklist; it does not close its remaining items. Complete the Word
+index, changed-file evidence, final test/CI links, presentation materials and
+Cycle 2 handoff at the actual selected baseline. Avoid a self-referential SHA
+claim: record exactly what revision was reviewed/tested, then identify the
+submitted/tagged revision and any subsequent evidence-only changes.
+
+Codex assisted the correction against current source, merged evidence and CI
+logs. Original Giancarlo attribution does not assert his verification of these
+corrections. No new test/scan or human release decision was performed. See
+[AI-use log](../ai/ai-use-log.md).
