@@ -125,6 +125,13 @@ The **Evidence** column should reference a repository-visible confirmation made 
 
 Acknowledgement corrections (A5): Victor Dodan's and Venkata Aravind Mareddy's links now point to their own Issue #3 comments. Shelby Sierah's row previously linked to Shu Perez's comment, and Issue #3 has no comment from `sshelby-ctrl`, so it is set to `Pending` until Shelby confirms with their own account. Malec Tarabein acknowledged on Issue #3 during A5. Open conflict: Giancarlo Herrera's Issue #3 comment (2026-09-20) acknowledges Team Charter backup responsibility, but the A1 deliverable table has assigned that backup to Shelby Sierah since commit `491f2bb` (2026-09-17). `docs/team/team-charter.md` names primary owners only. No assignment is changed here; once the team confirms the intended backup, either the table is updated with a Role Changes entry or the acknowledgement is corrected.
 
+
+### A5 acknowledgement follow-up (pending human confirmation)
+
+- **Team Charter backup:** Victor, Shu, Shelby and Giancarlo should confirm whether the intended backup is Shelby (current role matrix) or Giancarlo (Issue #3 acknowledgement). Until a team decision is recorded, keep the current assignment and historical acknowledgement unchanged; this document does **not** resolve the conflict. Record any approved change in the Role Changes section with a dated confirmation link.
+- **Shelby's acknowledgement:** Remains **Pending**. Only Shelby's own repository-visible confirmation can change the acknowledgement to Yes; another member must not acknowledge on her behalf.
+- **Review scope:** The A5 identity and evidence cleanup is suitable for review independently of these two outstanding human decisions. Neither a role reassignment nor a new acknowledgement is claimed by this edit.
+
 ### Instructions
 
 - Include one row for every declared student.
