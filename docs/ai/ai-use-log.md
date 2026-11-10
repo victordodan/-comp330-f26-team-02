@@ -1,5 +1,14 @@
 # AI Use Log
 
+## A5 — PR #96 Demo Rehearsal Correction
+
+Codex assisted with procedure, synthetic HTTP transcripts, build/restart/repeat evidence and scope limitations. The packaged application source
+matched `714a31bf5c9283e732fcfd895615a3471fef93b4`. An actual JDK 17/Maven build passed 35 tests; the
+client passed 36 initial, 5 restart and 36 repeat HTTP checks. The stopped-server
+control correctly failed. Script/jar hashes and raw synthetic results are in
+PR #96's evidence package; the executable is in PR #97. No human witness,
+complete acceptance disposition, security clearance or release approval is claimed.
+
 ## A5 — PR #86 Gate/Release Correction
 
 Codex assisted with reconciling candidate gate/release wording against checkpoint

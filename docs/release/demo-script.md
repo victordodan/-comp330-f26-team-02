@@ -1,363 +1,125 @@
-# Release Demonstration Script
+# CampusConnect — Cycle 1 HTTP Demo and Rehearsal
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Status:** Rehearsed candidate procedure; final release acceptance/tag pending.
+**Application source checkpoint:** `714a31bf5c9283e732fcfd895615a3471fef93b4`.
+**Scope:** Local synthetic data, request/owner/reviewer workflow and failure paths.
 
-This file defines how the team will demonstrate the release.
+## Artifacts and prerequisites
 
-A good engineering demonstration is NOT simply a tour of screens.
+The single executable is `scripts/demo-requests.sh`, introduced by merged
+[PR #97](https://github.com/victordodan/-comp330-f26-team-02/pull/97).
+This PR (#96) supplies the procedure and recorded rehearsal evidence. The
+executable is now on main through #97. The shell entry
+uses Python 3's standard-library HTTP client, cookie jars and JSON assertions;
+Bash and Python 3 are required. No jq or third-party Python packages are needed.
+Build/run the application using JDK 17 and Maven. The executable bit is preserved
+in #97; `bash scripts/demo-requests.sh --help` also works.
 
-The demonstration should show meaningful system behavior and connect that
-behavior to engineering evidence.
+Use a dedicated local H2 store with synthetic data. The demo creates requests
+and leaves them in that store; it has no deletion/reset endpoint and must not be
+pointed at an existing shared dataset. The script restricts its URL to HTTP
+loopback origins and exits nonzero for transport failures, unexpected status
+codes or incorrect response contents. It does not interpret expected errors as
+success without checking the code and relevant unchanged state.
 
-A reviewer should be able to see:
+## Build and start the candidate
 
-- what capability is being demonstrated;
-- why it matters;
-- what requirement or acceptance criterion it supports;
-- what the expected result is;
-- what evidence demonstrates that the behavior is real;
-- relevant failure or negative-path behavior where appropriate;
-- known limitations that should not be hidden.
+From the repository root:
 
-The demo should be repeatable.
+```sh
+mvn -B clean verify
+mkdir -p work/demo-runtime work/demo-evidence
+java -jar target/campusconnect-0.1.0-SNAPSHOT.jar \
+  --server.address=127.0.0.1 --server.port=18080 \
+  --spring.datasource.url=jdbc:h2:file:./work/demo-runtime/campusconnect
+```
 
-Do NOT script behavior that does not actually work.
+Keep the server in its own terminal. Wait for Spring Boot's Started message.
+Record the exact source revision (`git rev-parse HEAD`), any local changes,
+runtime versions and artifact hash; the rehearsal record explains our actual
+local build context. Do not label an untagged checkout `a5-cycle1-release`.
 
-Do NOT hide known failures by avoiding them without acknowledging the
-limitation.
+In another terminal, from the same repository root:
 
-IMPORTANT:
+```sh
+./scripts/demo-requests.sh --base-url http://127.0.0.1:18080 \
+  --transcript work/demo-evidence/workflow.jsonl \
+  --save-state work/demo-evidence/restart-state.json
+```
 
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove ALL instructional comments before the applicable phase-gate submission.
-- Examples are guidance only.
--->
+Use new output paths for each rehearsal: existing transcripts/snapshots are never
+overwritten. Output records HTTP status, response JSON and ETag, but not session
+cookies. Each JSONL transcript ends with PASS only after all assertions pass;
+on failure it emits FAIL and exits nonzero. Preserve failed output and explain
+it rather than announcing success from printed expected codes.
 
-## Demonstration Identification
+## Presentation sequence and proof links
 
-**Release / Version:**  
-**Git Tag / Commit:**  
-**Demo Environment:**  
-**Demo Date:**  
-**Presenter(s):**  
+The executable performs the checks in the following order. IDs are read from
+actual create responses; they are UUIDs, not `REQ-1001`. Separate cookie jars
+represent Student A, Student B, Reviewer and a caller without a selected identity.
 
-<!--
-TEAM CONTENT REQUIRED
-
-Use the same release identification as:
-
-/docs/release/release-notes.md
-
-Identify the actual environment being demonstrated.
-
-Do not leave placeholder metadata in the completed artifact.
--->
-
-## Demonstration Objective
-
-<!--
-TEAM CONTENT REQUIRED
-
-In a short paragraph, explain what this demonstration is intended to prove or
-show.
-
-Do not write only:
-
-"Demonstrate the application."
-
-Instead identify the meaningful release behavior being demonstrated.
-
-Replace this comment with the team's actual objective.
--->
-
-## Pre-Demo Checks
-
-<!--
-TEAM CONTENT REQUIRED
-
-Identify checks needed before the demonstration begins.
-
-Examples may include:
-
-- correct release deployed;
-- health check passes;
-- required dependencies available;
-- demo accounts available;
-- test data prepared;
-- browser/session reset;
-- relevant evidence accessible.
-
-Do not include unnecessary ceremony.
-
-EXAMPLE ONLY:
-
-| Check | Expected Result | Action if Not Ready |
+| Segment | Demonstration / expected result | Requirement / acceptance context |
 |---|---|---|
-| Release identity | Deployment matches expected Git tag | Stop and correct deployment before demo |
-
-Populate actual checks below.
--->
-
-| Check | Expected Result | Action if Not Ready |
-|---|---|---|
-|  |  |  |
-
-## Demo Scenario 1 — Title
-
-<!--
-TEAM CONTENT REQUIRED
-
-Rename this section for an actual release capability.
-
-Use additional Demo Scenario sections as needed.
-
-Each scenario should demonstrate a meaningful engineering behavior.
-
-Suggested content:
-
-**Purpose**
-Why is this scenario worth showing?
-
-**Related Requirements**
-Which requirement IDs apply?
-
-**Related Acceptance Criteria**
-Which acceptance criteria apply?
-
-**Starting State**
-What must be true before the scenario begins?
-
-**Steps**
-What will the presenter do?
-
-**Expected Result**
-What should the system visibly do?
-
-**Evidence**
-What repository, test, runtime, or traceability evidence supports the claim?
-
-**Known Limitations**
-What should the reviewer know about behavior that is intentionally limited?
-
-Delete this instructional comment and complete the scenario.
--->
-
-### Purpose
-
-### Related Requirements
-
-### Related Acceptance Criteria
-
-### Starting State
-
-### Steps
-
-1. 
-2. 
-3. 
-
-### Expected Result
-
-### Evidence
-
-### Known Limitations
-
-## Demo Scenario 2 — Title
-
-<!--
-OPTIONAL TEAM CONTENT
-
-Copy the Scenario 1 structure for another meaningful capability.
-
-Do not create scenarios merely to make the demo longer.
-
-Delete this section if only one scenario is appropriate.
--->
-
-### Purpose
-
-### Related Requirements
-
-### Related Acceptance Criteria
-
-### Starting State
-
-### Steps
-
-1. 
-2. 
-3. 
-
-### Expected Result
-
-### Evidence
-
-### Known Limitations
-
-## Negative / Failure Scenario
-
-<!--
-TEAM CONTENT REQUIRED WHEN A MEANINGFUL FAILURE PATH SHOULD BE DEMONSTRATED
-
-A strong engineering demo often includes at least one important negative or
-failure behavior.
-
-Examples ONLY:
-
-- invalid input rejected;
-- unauthorized operation denied;
-- missing resource handled correctly;
-- duplicate request prevented;
-- dependency failure surfaced safely.
-
-Do not manufacture a failure scenario that does not matter to the system.
-
-The purpose is to demonstrate that correctness includes handling invalid or
-unsafe conditions, not only the happy path.
-
-Remove this section if there is genuinely no meaningful negative scenario.
--->
-
-### Purpose
-
-### Related Requirement / Criterion
-
-### Starting State
-
-### Steps
-
-1. 
-2. 
-
-### Expected Result
-
-### Evidence
-
-## Architecture / Engineering Evidence Callout
-
-<!--
-TEAM CONTENT REQUIRED
-
-During or after the behavior demonstration, identify a small number of
-engineering artifacts that help explain WHY the system works the way it does.
-
-Possible evidence:
-
-- architecture diagram;
-- API contract;
-- ADR;
-- traceability summary;
-- automated test;
-- observability evidence.
-
-Do not turn the demo into a documentation reading session.
-
-Choose only evidence that materially helps the reviewer understand the
-engineering behind the demonstrated behavior.
--->
-
-| Evidence | What It Demonstrates | When to Show |
-|---|---|---|
-|  |  |  |
-
-## Known Limitations to Acknowledge
-
-<!--
-TEAM CONTENT REQUIRED
-
-Reference relevant limitations from:
-
-/docs/release/known-limitations.md
-
-Do not hide an important limitation simply because it makes the demonstration
-less polished.
-
-The goal is accurate engineering communication.
-
-EXAMPLE ONLY:
-
-| Limitation ID | What to State During Demo |
-|---|---|
-| LIM-002 | Automated recovery has not yet been implemented; recovery remains manual |
-
-Populate actual limitations below or remove this section if none materially
-affect the demonstration.
--->
-
-| Limitation ID | What to State During Demo |
-|---|---|
-|  |  |
-
-## Demo Evidence / Results
-
-<!--
-TEAM CONTENT REQUIRED AFTER THE DEMONSTRATION WHEN USEFUL
-
-Record whether the planned demonstration actually worked.
-
-This can provide useful release evidence.
-
-Do not mark a scenario successful before the demonstration occurs.
-
-EXAMPLE ONLY:
-
-| Scenario | Result | Evidence / Observation | Follow-Up |
-|---|---|---|---|
-| Workflow submission | Passed | Expected status displayed; RUN-021 | None |
-
-Populate actual results after execution if your team uses this section.
--->
-
-| Scenario | Result | Evidence / Observation | Follow-Up |
-|---|---|---|---|
-|  |  |  |  |
-
-## Recovery / Backup Demo Plan
-
-<!--
-TEAM CONTENT REQUIRED
-
-A live demonstration can fail for reasons unrelated to the software:
-
-- network outage;
-- external service unavailable;
-- deployment unavailable;
-- presentation environment problem.
-
-Identify a reasonable fallback that still preserves engineering integrity.
-
-Examples might include:
-
-- verified local environment;
-- previously captured runtime evidence;
-- test result;
-- repository-visible evidence.
-
-A fallback should NOT pretend that live behavior occurred when it did not.
-
-If the live system fails, state that accurately and use preserved evidence only
-to show what had previously been verified.
-
-Replace this comment with the team's actual fallback approach.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before the demonstration:
-
-1. Confirm release identification matches release-notes.md.
-2. Confirm the demo environment contains the intended release.
-3. Replace generic scenario titles with actual capabilities.
-4. Remove unused scenario sections.
-5. Confirm requirements and acceptance criteria exist.
-6. Confirm every expected result has actually been verified.
-7. Include meaningful negative-path behavior where appropriate.
-8. Acknowledge known limitations honestly.
-9. Confirm the fallback plan does not misrepresent prerecorded evidence as live behavior.
-10. Remove ALL instructional HTML comments.
-
-The completed demo script should guide a concise, repeatable engineering
-demonstration of what the release actually does and what evidence supports it.
--->
+| 1 — Identity and input boundary | No session and forged role headers return 403. Select `student-a`, `student-b` and `reviewer` through POST `/api/demo/identity`. Blank title returns 400 without changing the owner's listing. | REQ-001/004; TC-002/009 |
+| 2 — Submission and isolation | A/B creates return 201, distinct UUIDs, server-assigned owner, Submitted, empty note and initial ETag. A listing contains only A records; B's direct access to A returns 404. Reviewer lists/inspects both. | REQ-001/002/003/004; TC-001/005/006/008 |
+| 3 — Reviewer lifecycle | Student status edit returns 403. Direct Submitted → Resolved returns 400. Missing If-Match returns 428. Reviewer moves Submitted → In Progress using the current quoted ETag. Resolving without a saved nonblank note returns 400. | REQ-004/005; TC-009/010/011 |
+| 4 — Notes, conflicts and resolution | Unknown UUID returns 404; note over 2,000 characters returns 400. Save trimmed note via separate PATCH `/note`. Stale If-Match returns 412 without mutation. Resolve via PATCH `/status`; clearing note while Resolved returns 400. Reviewer replaces resolution; owner sees latest saved text. | REQ-002/005/006; TC-003/004/011/012 |
+| 5 — Reopen | Resolved → In Progress preserves note, ID, owner, creation timestamp and fields. Owner retrieves latest state and ETag. | REQ-002/005; TC-003/004/010 |
+| 6 — Process restart | Stop/start the jar with the same H2 URL. Reselect identities and retrieve the saved record; compare every saved JSON field and ETag. Reviewer sees it; new request has a distinct ID. | REQ-003; TC-007 and part of TC-006 |
+
+After denied/invalid/stale edits of the existing record, owner GET assertions
+confirm it is unchanged. Creating with a forged body `studentID` also verifies
+the owner comes from the session. Note and status writes are separate operations:
+there is no direct Submitted → Resolved shortcut or inline-resolution payload.
+Every successful response supplies the ETag used for the next mutation.
+
+## Packaged restart and repeatability
+
+After the workflow passes, stop the application normally (Ctrl-C in its terminal),
+wait for process exit, and restart the same jar using the **same working directory,
+port and datasource URL**. Then run:
+
+```sh
+./scripts/demo-requests.sh --base-url http://127.0.0.1:18080 \
+  --check-restart work/demo-evidence/restart-state.json \
+  --transcript work/demo-evidence/restart.jsonl
+./scripts/demo-requests.sh --base-url http://127.0.0.1:18080 \
+  --transcript work/demo-evidence/repeat.jsonl
+```
+
+The second full run works with existing records because IDs/ETags are captured
+and listings are tested for ownership/membership rather than assuming a single
+record. Restart evidence covers the actual saved In Progress record and note;
+it does not demonstrate every lifecycle state, backup restoration or recovery
+from corruption. No automated runtime restart is hidden inside the demo client.
+
+## Rehearsal evidence and limits
+
+See [rehearsal record](../testing/a5-demo-rehearsal.md) and
+[raw evidence](../../test-evidence/a5-http-demo/README.md). The record identifies
+source scope, tool versions, executable/jar hashes, executed counts and actual
+results. This is an automated HTTP rehearsal performed by Codex, not a claim
+that a named student independently witnessed it or approved final acceptance.
+
+The procedure supports the twelve-case catalog but does not mark all twelve
+acceptance cases complete. Database write-failure injection, rollback/concurrency
+races, all field boundaries, all restart states and presentation rehearsal by
+students remain separate evidence/disposition work. Existing JUnit tests cover
+many related negatives; retain their exact-revision logs alongside this demo.
+
+## Limitations and fallback
+
+- LIM-002: Demo identities are deliberately selectable, including Reviewer.
+  Session checks and header-spoofing denial are not institutional authentication.
+- LIM-001: H2 retains records in the same local store, but backup/restore and
+  multi-instance operation are unverified. Restart persistence is not recovery.
+- LIM-003/004/005: No notifications, graphical workflow or production operational
+  readiness is claimed. Use the [HTTP API guide](../testing/a4-http-api.md) and
+  [limitations](known-limitations.md) to explain these boundaries.
+- If the server/build fails, stop the live demo, record the failure and present
+  the labeled prior transcript as historical evidence. Do not imply it is live.
+
+**AI disclosure:** Codex corrected the original PR #96 draft against current
+source and rehearsed the companion executable. The [AI-use log](../ai/ai-use-log.md)
+records assistance and distinguishes automated observations from human approval.
