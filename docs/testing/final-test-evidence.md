@@ -1,5 +1,11 @@
 # A5 Final Testing Evidence Index — Candidate
 
+> Current decision (2026-11-10): [Victor-authorized conditional classroom release](../release/a5-release-decision.md).
+> TC-001–TC-012 accepted within documented scope; residual risks explicitly
+> accepted/deferred. Historical pending decisions below retain their original
+> context. Final integrated independent review, exact-main CI and tag execution
+> remain prerequisites; no production or security/legal clearance is asserted.
+
 **Review checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Final release/tag: not selected.
 **Coordinator:** testing owner; **review:** Giancarlo; **release decision:** Victor. Assignments require team confirmation.
 

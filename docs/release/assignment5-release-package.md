@@ -1,5 +1,11 @@
 # Assignment 5 — Release Evidence Package (Candidate)
 
+> Current decision (2026-11-10): [Victor-authorized conditional classroom release](a5-release-decision.md).
+> TC-001–TC-012 accepted within documented scope; residual risks explicitly
+> accepted/deferred. Historical pending decisions below retain their original
+> context. Final integrated independent review, exact-main CI and tag execution
+> remain prerequisites; no production or security/legal clearance is asserted.
+
 **Project:** CampusConnect, Team2 — Codex Ramblers.
 **Team lead/submission owner:** Victor Dodan; **backup coordination:** planning/process lead (confirm).
 **Repository clone URL:** https://github.com/victordodan/-comp330-f26-team-02.git
@@ -33,3 +39,14 @@ human case/risk/independent-review decisions, select the final revision, verify
 CI, update notes/readiness with the actual decision, and create/push the required
 `a5-cycle1-release` tag at the approved commit. Preserve actual historical test
 SHAs; disclose any later evidence-only changes instead of rewriting test history.
+
+## Prepared submission artifacts — 2026-11-10
+
+- [Word index with team information and clone URL](CampusConnect-A5-Release-Index.docx)
+- [Six-slide presentation](CampusConnect-A5-Release-Presentation.pptx)
+- [Current changed-file list](changed-files-since-a4-current.txt)
+- [Release authorization and pre-tag prerequisites](a5-release-decision.md)
+
+These supersede the historical “not created” artifact statuses above. Human
+presentation review/rehearsal, final integrated review, exact-main CI, tag and
+Sakai/private peer-review submission are not claimed completed.

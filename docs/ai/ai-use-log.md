@@ -281,3 +281,14 @@ Codex reconciled #109's dated checkpoint, verified retained artifacts against
 original XML/transcripts and unchanged source, and kept independent review,
 security/license acceptance, release authorization and tag OPEN. No new tests
 or personal human approvals are claimed.
+
+## A5 release authorization preparation — 2026-11-10
+
+Victor explicitly instructed Codex to make and record final case/risk/release
+decisions on his behalf. Codex recorded conditional classroom GO, scoped PASS
+decisions and named residual-risk deferrals, ran a fresh 35-test clean verify
+at integrated checkpoint 5fab39a, reconciled current-status indexes, and prepared
+a six-slide PPTX and Word index from repository evidence. This records delegated
+judgment, not Victor's personal test execution, another teammate's acceptance,
+a complete security/legal review, final independent integrated review, a human
+presentation rehearsal, Sakai submission or creation of a release tag.

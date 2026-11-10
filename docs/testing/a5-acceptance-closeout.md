@@ -1,4 +1,12 @@
-# A5 Acceptance Closeout — Proposed Case Dispositions
+# A5 Acceptance Closeout — Scoped Case Dispositions
+
+> Current authority: [release decision](../release/a5-release-decision.md).
+> Victor explicitly delegated final acceptance/risk/release decisions after
+> the proposed-PASS review. All twelve cases are accepted within the stated
+> scope. Earlier proposed-status and OPEN acceptance statements below are
+> historical review context, superseded by this dated decision. Independent
+> integrated review remains separate; no Mareddy/Giancarlo acceptance is invented.
+
 
 Source checkpoint: `531d54ca0f391e218752888900c4668173f75e27`. Operator: Codex automated execution, not a student witness.
 Fresh JDK17/Maven clean verify passed 35 tests with no failures/errors/skips;
@@ -8,20 +16,20 @@ Execution date/environment and every executed method are preserved in
 These are twelve evidence-based case records derived from one suite plus HTTP
 execution, not twelve separate manual runs. No final release SHA/tag is chosen.
 
-| Case / criterion | Behavior assessed | Fresh executed JUnit evidence (combined with HTTP records) | Proposed disposition |
+| Case / criterion | Behavior assessed | Fresh executed JUnit evidence (combined with HTTP records) | Current disposition |
 |---|---|---|---|
-| TC-001 / AC-REQ-001-01 | Valid student request, Submitted state and ID | `createsTrimmedStudentOwnedRequestAndReturnsCurrentEtag`, `createsTrimmedOwnedRequestsWithDistinctIdsAndDefaults` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-002 / AC-REQ-001-02 | Invalid fields rejected with no write | `rejectsInvalidCreationWithoutStoringAnything`, `rejectsInvalidInputWithoutStoringAnything`, `rejectsOutOfRangeBoundaries`, `rejectsUnsupportedCategories`, `acceptsMinimumAndMaximumBoundaries`, `rejectsMissingAndWhitespaceOnlyFields`, `acceptsAndTrimsSurroundingCategoryWhitespace` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-003 / AC-REQ-002-01 | Owner sees current status after update/reopen | `resolvingRequiresSavedNoteAndReopeningPreservesImmutableFieldsAndText`, `permitsLifecycleAndPreservesResolutionOnReopen` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-004 / AC-REQ-002-02 | Owner sees latest saved note after reopen | `resolvingRequiresSavedNoteAndReopeningPreservesImmutableFieldsAndText`, `permitsLifecycleAndPreservesResolutionOnReopen` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-005 / AC-REQ-002-03 | Student B cannot list/read Student A request | `studentsSeeOnlyOwnedRequestsAndCannotReadOrChangeReviewerData`, `enforcesStudentOwnershipAndSeparateReviewerOperations`, `unknownIdsMalformedJsonAndUnsupportedTransitionsProduceClearErrors` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-006 / AC-REQ-003-01 | Unique IDs/owner/timestamps; failed write no success | `createsTrimmedOwnedRequestsWithDistinctIdsAndDefaults`, `rollsBackInsertWhenStorageFailsBeforeConfirmation`, `unavailableStorageReturnsFailureWithoutFalseSuccessOrRecordChanges` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-007 / AC-REQ-003-02 | Persist request/status/note across restart | `preservesOwnershipStatusNotesAndUniqueIdsAcrossFileStoreRestart` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-008 / AC-REQ-004-01 | Reviewer lists and inspects both students | `reviewerCanInspectBothStudentsButCannotUseStudentOnlyRetrieval`, `enforcesStudentOwnershipAndSeparateReviewerOperations` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-009 / AC-REQ-004-02 | Reject unauthorized reviewer actions and forged context | `missingInvalidAndWrongRoleContextsAreDenied`, `spoofedIdentityHeadersCannotGrantPermissionsOrOverrideTheSession`, `studentsSeeOnlyOwnedRequestsAndCannotReadOrChangeReviewerData`, `suppliedServerFieldsCannotForgeOwnerOrGrantReviewerRole`, `legacyClientStudentIdIsIgnoredWhenAssigningTheSessionOwner` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-010 / AC-REQ-005-01 | Allowed transitions, saved note, reopen preservation | `resolvingRequiresSavedNoteAndReopeningPreservesImmutableFieldsAndText`, `permitsLifecycleAndPreservesResolutionOnReopen` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-011 / AC-REQ-005-02 | Invalid transitions/unknown ID/write failure preserve state | `unknownIdsMalformedJsonAndUnsupportedTransitionsProduceClearErrors`, `rejectsUnsupportedSameStateAndUnresolvedTransitionsWithoutChanges`, `rollsBackStatusAndNoteWhenStorageFailsAfterWrite` | Proposed PASS — named human acceptance confirmation OPEN |
-| TC-012 / AC-REQ-006-01 | Save/replace note, bounds and failure rejection | `notesRespectTrimmedBoundaryAndCanBeClearedOnlyBeforeResolution`, `enforcesTrimmedNoteBoundariesAndResolvedClearingRules`, `rollsBackStatusAndNoteWhenStorageFailsAfterWrite` | Proposed PASS — named human acceptance confirmation OPEN |
+| TC-001 / AC-REQ-001-01 | Valid student request, Submitted state and ID | `createsTrimmedStudentOwnedRequestAndReturnsCurrentEtag`, `createsTrimmedOwnedRequestsWithDistinctIdsAndDefaults` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-002 / AC-REQ-001-02 | Invalid fields rejected with no write | `rejectsInvalidCreationWithoutStoringAnything`, `rejectsInvalidInputWithoutStoringAnything`, `rejectsOutOfRangeBoundaries`, `rejectsUnsupportedCategories`, `acceptsMinimumAndMaximumBoundaries`, `rejectsMissingAndWhitespaceOnlyFields`, `acceptsAndTrimsSurroundingCategoryWhitespace` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-003 / AC-REQ-002-01 | Owner sees current status after update/reopen | `resolvingRequiresSavedNoteAndReopeningPreservesImmutableFieldsAndText`, `permitsLifecycleAndPreservesResolutionOnReopen` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-004 / AC-REQ-002-02 | Owner sees latest saved note after reopen | `resolvingRequiresSavedNoteAndReopeningPreservesImmutableFieldsAndText`, `permitsLifecycleAndPreservesResolutionOnReopen` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-005 / AC-REQ-002-03 | Student B cannot list/read Student A request | `studentsSeeOnlyOwnedRequestsAndCannotReadOrChangeReviewerData`, `enforcesStudentOwnershipAndSeparateReviewerOperations`, `unknownIdsMalformedJsonAndUnsupportedTransitionsProduceClearErrors` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-006 / AC-REQ-003-01 | Unique IDs/owner/timestamps; failed write no success | `createsTrimmedOwnedRequestsWithDistinctIdsAndDefaults`, `rollsBackInsertWhenStorageFailsBeforeConfirmation`, `unavailableStorageReturnsFailureWithoutFalseSuccessOrRecordChanges` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-007 / AC-REQ-003-02 | Persist request/status/note across restart | `preservesOwnershipStatusNotesAndUniqueIdsAcrossFileStoreRestart` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-008 / AC-REQ-004-01 | Reviewer lists and inspects both students | `reviewerCanInspectBothStudentsButCannotUseStudentOnlyRetrieval`, `enforcesStudentOwnershipAndSeparateReviewerOperations` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-009 / AC-REQ-004-02 | Reject unauthorized reviewer actions and forged context | `missingInvalidAndWrongRoleContextsAreDenied`, `spoofedIdentityHeadersCannotGrantPermissionsOrOverrideTheSession`, `studentsSeeOnlyOwnedRequestsAndCannotReadOrChangeReviewerData`, `suppliedServerFieldsCannotForgeOwnerOrGrantReviewerRole`, `legacyClientStudentIdIsIgnoredWhenAssigningTheSessionOwner` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-010 / AC-REQ-005-01 | Allowed transitions, saved note, reopen preservation | `resolvingRequiresSavedNoteAndReopeningPreservesImmutableFieldsAndText`, `permitsLifecycleAndPreservesResolutionOnReopen` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-011 / AC-REQ-005-02 | Invalid transitions/unknown ID/write failure preserve state | `unknownIdsMalformedJsonAndUnsupportedTransitionsProduceClearErrors`, `rejectsUnsupportedSameStateAndUnresolvedTransitionsWithoutChanges`, `rollsBackStatusAndNoteWhenStorageFailsAfterWrite` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
+| TC-012 / AC-REQ-006-01 | Save/replace note, bounds and failure rejection | `notesRespectTrimmedBoundaryAndCanBeClearedOnlyBeforeResolution`, `enforcesTrimmedNoteBoundariesAndResolvedClearingRules`, `rollsBackStatusAndNoteWhenStorageFailsAfterWrite` | PASS — Victor-authorized delegated decision; bounded scope, 2026-11-10 |
 
 Raw [workflow](../../test-evidence/a5-acceptance-closeout/workflow.jsonl) and
 [restart](../../test-evidence/a5-acceptance-closeout/restart.jsonl) results retain

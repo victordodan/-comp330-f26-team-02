@@ -1,5 +1,11 @@
 # A5 Acceptance Criteria Traceability and Evidence Matrix
 
+> Current decision (2026-11-10): [Victor-authorized conditional classroom release](../release/a5-release-decision.md).
+> TC-001–TC-012 accepted within documented scope; residual risks explicitly
+> accepted/deferred. Historical pending decisions below retain their original
+> context. Final integrated independent review, exact-main CI and tag execution
+> remain prerequisites; no production or security/legal clearance is asserted.
+
 **Project:** CampusConnect | **Team:** Team 2 — Codex Ramblers
 **Original preparer:** Giancarlo Herrera, Quality & Review Lead
 **Status:** Draft evidence reconciliation; no new tests executed and no release acceptance granted
