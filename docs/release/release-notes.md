@@ -35,7 +35,7 @@ The **A4 tag** captures the integrated backend, tests, planning and review docum
 |---|---|---|
 | Backend workflow | Student submission/ownership and reviewer status/note lifecycle implemented by A4 | [A4 HTTP API](../testing/a4-http-api.md), [merged PRs](https://github.com/victordodan/-comp330-f26-team-02/pulls?q=is%3Apr+is%3Amerged) |
 | Data reliability | H2 persistence, transaction rollback, restart and version-conflict behavior covered by A4 tests | [Backend verification](../testing/a4-backend-verification.md) |
-| Review and release readiness | A5 will reconcile final revision, defects, acceptance results, CI, risk and AI disclosure | [A5 quality gate PR #85](https://github.com/victordodan/-comp330-f26-team-02/pull/85) (open when drafted) |
+| Review and release readiness | A5 will reconcile final revision, defects, acceptance results, CI, risk and AI disclosure | [Merged A5 quality gate](../quality/a5-final-release-quality-gate.md) |
 | Changes since A4 | At this checkpoint: documentation/evidence corrections, consolidated CI and explicit controller-test imports; no production source/POM change | [Fixed comparison](https://github.com/victordodan/-comp330-f26-team-02/compare/a4-construction-integration...d640366e6addcb495a3449cb59253e5cb12599cf) |
 
 ## Verified integration CI evidence
@@ -58,7 +58,7 @@ but is not final A5-tag verification or acceptance approval.
 | GitHub CI | [Run 41000100733](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/41000100733) succeeded for `d2bf5bfded8fcc03f3509394fa215b7f223efd94`, the final A4 application-code merge | Historical baseline; merged #93 now supplies consolidated all-change CI, exercised by PR #95; final release SHA still pending |
 | Packaged HTTP/restart | [A4 backend verification](../testing/a4-backend-verification.md) reports negative authorization, note/reopen, stale version and restart persistence checks | Repeat or document bounded A5 evidence on frozen revision |
 | Acceptance cases TC-001–TC-012 | [A4 final quality verification](../testing/a4-final-quality-verification.md) maps all 12 to automated tests | Merged #92 records 0/12 separate case executions; obtain per-case evidence-backed dispositions, reusing automation where sufficient |
-| Independent integrated review | [A4 findings](../reviews/a4-code-review-findings.md) and [A5 proposed quality gate](https://github.com/victordodan/-comp330-f26-team-02/pull/85) | Independent non-author review of exact final A5 SHA **pending** |
+| Independent integrated review | [A4 findings](../reviews/a4-code-review-findings.md) and [Merged A5 quality gate](../quality/a5-final-release-quality-gate.md) | Independent non-author review of exact final A5 SHA **pending** |
 | Dependency security/license | [A4 dependency assessment](../reviews/a4-build-dependency-assessment.md), [tree](../reviews/a4-build-dependency-tree.txt) | CVE/advisory and transitive-license/maintenance human acceptance **not yet evidenced** |
 
 ## Defects Resolved / Outstanding Findings
