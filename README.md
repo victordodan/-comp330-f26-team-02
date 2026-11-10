@@ -2,17 +2,33 @@
 
 ## Project Overview
 
-CampusConnect is a student support request system being developed by Codex Ramblers for COMP 330. The project is intended to provide a simple workflow where a student can submit a support request and later view its status and resolution, while a support reviewer can view submitted requests, update their status, and record notes or resolution information.
+CampusConnect is a student support request system built by Codex Ramblers for COMP 330. A student can submit a support request and later view its status and resolution, while a support reviewer can view submitted requests, update their status, and record notes or resolution information.
 
-CampusConnect focuses on one small end-to-end workflow rather than a complete university support platform. The project will use synthetic data and simulated user roles so that the system can be developed, reviewed, and tested without depending on real student information or live university systems.
+CampusConnect focuses on one small end-to-end workflow rather than a complete university support platform. It uses synthetic data and simulated user roles, so it can be developed, reviewed, and tested without real student information or live university systems.
 
 ## Project Status
 
-**Current Phase Gate:** A4 — Construction & Integration
+**Current Phase Gate:** A5 — Cycle 1 Release and Presentation
 **Release Cycle:** Cycle 1  
-**Status:** Active Development
+**Status:** Release candidate — **not yet approved or tagged**. The intended tag is `a5-cycle1-release`; the last tagged baseline is [`a4-construction-integration`](https://github.com/victordodan/-comp330-f26-team-02/releases/tag/a4-construction-integration).
 
-The repository is implementing the Cycle 1 workflow in reviewed increments. PR #73 supplies the local Spring Boot HTTP bootstrap. The request model (#69), startup test (#77), persistent workflow (#71), and HTTP API (#72) are separate reviewed increments. Consult each PR and its tests for the features present on your checkout. Server-rendered pages remain follow-up work.
+Cycle 1 delivers a local HTTP API for the student-to-reviewer support-request workflow (REQ-001 to REQ-006), with server-session demo identities, ownership and role checks, validation, file-backed H2 persistence and optimistic version checks. Application source and the POM are unchanged since the A4 tag; A5 work is release evidence, CI, the demo script and documentation corrections (see [changes since A4](docs/release/changed-files-since-a4.md)).
+
+**Not delivered in Cycle 1:** a browser user interface (the API is the interface), real authentication, notifications, verified backup restoration, and production deployment. These are recorded as limitations, not hidden. See [known limitations](docs/release/known-limitations.md).
+
+### Cycle 1 release evidence — start here
+
+| Question | Where to look |
+|---|---|
+| What is in the release package and what is still pending? | [A5 release package](docs/release/assignment5-release-package.md) |
+| What shipped, what did not, and what risks remain? | [Release notes](docs/release/release-notes.md), [known limitations](docs/release/known-limitations.md) |
+| Is it ready, and what blocks approval? | [Release-readiness review](docs/reviews/release-readiness-review.md), [quality gate](docs/quality/a5-final-release-quality-gate.md) |
+| What was tested, and how? | [Final test evidence](docs/testing/final-test-evidence.md), [CI evidence](docs/testing/ci-evidence.md), [demo rehearsal](docs/testing/a5-demo-rehearsal.md), [`test-evidence/`](test-evidence/) |
+| How do requirements trace to code, tests and release claims? | [Release traceability summary](docs/release/traceability-summary.md), [planning traceability](docs/planning/traceability.md) |
+| What defects and risks are known? | [Defect log](docs/quality/defect-log.md), [risk register](docs/planning/risk-register.md) |
+| What changed since A4? | [Changed-file index](docs/release/changed-files-since-a4.md) |
+| How was AI used and verified? | [AI-use log](docs/ai/ai-use-log.md) |
+| How is the demo run? | [Demo script](docs/release/demo-script.md) |
 
 ## Team
 
@@ -50,7 +66,7 @@ The repository is organized to preserve both the CampusConnect software and the 
 |---|---|
 | `src/` | Application source code |
 | `src/test/java/` | Executed Java unit and integration tests |
-| `tests/` | Starter/other test scaffolding |
+| `tests/` | Starter test scaffolding (unused; executed tests are in `src/test/java/`) |
 | `test-evidence/` | Preserved testing and verification evidence |
 | `data/` | Synthetic sample, fixture, seed, or project data |
 | `scripts/` | Development, verification, setup, or maintenance utilities |
@@ -73,7 +89,7 @@ Spring Boot 3.5.16 is pinned in the parent POM, which manages compatible framewo
 mvn -B clean verify
 ```
 
-Maven runs the tests present in the checkout and packages the application. PR #77 adds HTTP startup coverage; #71 and #72 add workflow and controller coverage.
+Maven runs the JUnit suite (35 tests at the recorded CI checkpoints; see [CI evidence](docs/testing/ci-evidence.md)) and packages the application. The same command runs in GitHub Actions through `.github/workflows/ci.yml`.
 
 ### Run locally
 
@@ -87,7 +103,11 @@ Alternatively, after verification:
 java -jar target/campusconnect-0.1.0-SNAPSHOT.jar
 ```
 
-The application binds to `http://127.0.0.1:8080`. The root URL has no page, so HTTP 404 at `/` is expected. The workflow API and usage guide are introduced in [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72). Stop it with Ctrl+C. It uses no institutional authentication, external university integration, or real student data. Simulated-role checks and persistent storage must be verified with the later workflow integration.
+The application binds to `http://127.0.0.1:8080`. The root URL has no page, so HTTP 404 at `/` is expected; the workflow is exercised through the HTTP API described in the [HTTP API guide](docs/testing/a4-http-api.md). Stop it with Ctrl+C.
+
+To run the scripted end-to-end demo (student and reviewer workflow plus negative cases), follow the [demo script](docs/release/demo-script.md), which uses `scripts/demo-requests.sh` (`bash scripts/demo-requests.sh --help`).
+
+Records are stored in a file-backed H2 database under `./data/` relative to the working directory, so restarting from the same directory keeps them. It uses no institutional authentication, external university integration, or real student data; use synthetic data only and keep it on the local machine.
 
 ## Engineering Practices
 
@@ -171,6 +191,6 @@ The project is intended to produce both a working system and repository-visible 
 
 This repository was established from the **COMP 330/474 Fall 2026 Repository Starter Kit** for Software Engineering at Loyola University Chicago.
 
-The Starter Kit provides the initial repository structure and engineering evidence model used throughout the course. Codex Ramblers team is responsible for replacing that initial scaffolding with project-specific CampusConnect evidence as development continues.
+The Starter Kit provides the initial repository structure and engineering evidence model used throughout the course. Codex Ramblers has replaced most of that scaffolding with project-specific CampusConnect evidence. Some starter templates remain in `docs/operations/`, `docs/observability/` and `docs/security/`; they are not Cycle 1 release evidence, and completing them is planned A6 work (TASK-018 in the [task plan](docs/planning/task-plan.md)).
 
 **Sakai remains authoritative for COMP 330 course requirements.**
