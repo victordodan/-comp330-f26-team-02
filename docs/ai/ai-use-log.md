@@ -307,3 +307,12 @@ At Victor's request, Codex inspected the integrated workflow and evidence at
 2349a14 and recorded its own technical assessment with verified CI #61. Codex
 did not attribute this review to another person or represent it as independent
 human review. No additional execution, scanner clearance or release tag is claimed.
+
+## Conditional baseline finalization
+
+Victor instructed Codex to finish through tagging using his delegated release
+and risk authority. Codex explicitly deferred the unfulfilled independent human
+review condition for this conditional classroom baseline, retained Victor as
+accountable owner and disclosed possible course-assessment consequences. This
+is not a teammate’s review or an instructor waiver. The tag must follow a
+successful exact-main CI run and preserve the original evidence identities.

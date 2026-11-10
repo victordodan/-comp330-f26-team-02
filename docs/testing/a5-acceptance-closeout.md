@@ -68,7 +68,7 @@ review requirement. No new test execution is claimed by this update.
 | TC-001–TC-012 case dispositions | PASS within approved classroom scope, under Victor's delegated authority |
 | Accountable acceptance authority | Victor Dodan; delegation and decision basis recorded in the release decision |
 | #108/#109 documentation review | APPROVED by Giancarlo; both PRs merged |
-| Independent non-author review of final integrated candidate | OPEN — documentation approvals do not establish this review |
+| Independent non-author review of final integrated candidate | UNFULFILLED / DEFERRED for conditional release; Victor owns the explicit exception in the release decision |
 | Security, support and license risk treatment | Accepted/deferred for bounded A5 scope under Victor's authorization; limits, expiry and ownership recorded; no security/legal clearance |
 | Release authorization | CONDITIONAL GO for the classroom scope; pre-tag prerequisites retained |
 | Final repository SHA / exact-main CI / `a5-cycle1-release` tag | OPEN — select and verify after integration; no tag created by this work |

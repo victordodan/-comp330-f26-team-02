@@ -47,5 +47,6 @@ Codex also assisted the implementation/evidence and release records. Therefore
 this report cannot establish independence or satisfy an instructor requirement
 for final non-author human review. Victor may use the findings for his recorded
 conditional release decision, but a teammate's review must be attributed to
-that teammate only when actually performed. Final integrated human review and
-exact-main CI remain the pre-tag prerequisites recorded in the release decision.
+that teammate only when actually performed. The release decision subsequently records Victor-authorized conditional
+finalization with the independent human-review gap explicitly deferred, not
+fulfilled. Exact-main CI remains required before tagging.

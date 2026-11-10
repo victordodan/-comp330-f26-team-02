@@ -74,15 +74,22 @@ independent human review or another teammate’s approval.
 
 Giancarlo approved #109's evidence reconciliation and #108's revised evidence/
 risk documentation. Those approvals do not certify a final integrated application
-revision or constitute his release GO. The independent final integrated review
-requested by the instructor remains **OPEN**: a named non-author reviewer must
-record the exact candidate, findings and disposition. Victor's delegation to
-Codex does not replace independent human review.
+revision or constitute his release GO. The independent final integrated review requested by the instructor remains
+**UNFULFILLED / DEFERRED for this conditional baseline**. Under Victor’s explicit
+delegation to decide the release and his instruction to finish through tagging,
+Codex records this exception with Victor as accountable owner. His delegation
+does not replace independent human review or establish compliance with that
+course condition. Risk: the instructor may require further review or assess the
+submission accordingly. Obtain a named non-author review before broader use or
+Cycle 2 implementation, whichever occurs first; retain the conditional baseline
+and disclose later review/fixes rather than rewriting history.
 
-Release authorization is recorded now; execute the tag only when:
+Release authorization is recorded now. The current authorization supersedes
+the earlier hard pre-tag independent-review gate; the gap is explicitly deferred,
+not completed. Execute the conditional-release tag when:
 
-1. This branch is reviewed and merged, including a recorded independent
-   integrated review or a separately authorized instructor-compatible disposition.
+1. Merge this branch with the documented acceptance-review approval and the
+   explicit independent-review exception above. No instructor waiver is claimed.
 2. CI passes on the exact resulting main commit. Preserve run URL and JUnit
    counts; source/POM changes require renewed targeted/runtime verification.
 3. Record that exact commit in the GitHub release/tag annotation, along with
@@ -101,3 +108,13 @@ human presentation rehearsal or Sakai submission. Victor reviews the final
 team information and presentation, includes the clone URL in Sakai comments,
 and submits the team package. Each student privately completes their own peer
 review; no personal peer review or acknowledgement is fabricated here.
+
+## Finalization instruction
+
+Victor instructed Codex to finish the remaining work through the tag, following
+his earlier express delegation of case, risk and release decisions. Codex uses
+that authority for this conditional classroom baseline, retaining the unmet
+independent-review condition as the exception above. No teammate’s review is
+fabricated. Tag annotation must identify the actual final SHA and successful
+main CI run. The tag identifies this submitted baseline, not full rubric
+completion or production readiness.
