@@ -1,44 +1,54 @@
-# A5 Defect and Known-Limitations Reconciliation — Review Findings
+# A5 Defect and Known-Limitations Reconciliation
 
-**Project:** CampusConnect — Team 2 (Codex Ramblers)  
-**Prepared by:** Giancarlo Herrera, Quality & Review Lead  
-**Review date:** 2026-11-09  
-**Status:** Proposed findings; pending independent technical verification and team disposition  
-**Basis:** Repository main at A4 baseline `70d3726b64c0deafef2d770870bb14ef8f28b79b`, open PRs #83, #84, #85, #86, and current defect/risk records. This is a documentation review, **not** a test run or release approval.
+**Project:** CampusConnect — Team 2 (Codex Ramblers)
+**Original preparer:** Giancarlo Herrera, Quality & Review Lead
+**Reviewed repository checkpoint:** `56c0907c7c317156f1a86ac8dcc9b9f158052b9d` (merged #81, #83, #84 and #92)
+**Status:** Updated evidence reconciliation; human disposition pending, no release approval.
 
-## Evidence reconciliation
+## Findings and dispositions
 
-| Finding | Observed conflicting evidence | Required action | Proposed coordinator | Closure evidence / status |
-|---|---|---|---|---|
-| A5-F01 — Persistence and restart | [PR #83](https://github.com/victordodan/-comp330-f26-team-02/pull/83) describes `ConcurrentHashMap` and loss on restart (LIM-001); [PR #86](https://github.com/victordodan/-comp330-f26-team-02/pull/86) describes file-backed H2 and restart persistence. A3 ADR-002 and R-010 also assume H2. | Inspect the exact final application's repository/service wiring and startup configuration; execute a restart persistence check at the release SHA. Correct the applicable ADRs, limitations, risk register and release notes to one verified implementation. | Shu (architecture), Mareddy (tests), Victor (decision) | **Open — conflicting documentation; no fresh A5 execution reviewed here.** |
-| A5-F02 — Identity/authorization boundary | PR #83 LIM-002 says callers can forge `X-User-ID` / `X-User-Role`; PR #86 describes server-enforced demo identity/ownership and no production authentication. | Review the deployed controller/session code and execute negative tests for forged headers, Student A/B isolation and reviewer-only operations. Separate the known lack of production authentication from any demonstrated privilege bypass. | Shu (implementation), Mareddy (tests), Giancarlo (review) | **Open — do not assert either a confirmed exploit or verified security until code and tests are reconciled.** |
-| A5-F03 — Unresolved defects claim | PR #83 states no material unresolved defects; [defect-log.md](../quality/defect-log.md) remains a blank starter template. [PR #84](https://github.com/victordodan/-comp330-f26-team-02/pull/84) reports four legacy tests that did not compile, with test execution pending. | Record confirmed defects and their evidence in the authoritative log; distinguish corrected/verified, open, deferred, and not-a-defect. Obtain a successful A5 build/test run for PR #84 before closing its finding. | Victor (triage/approval), Mareddy (test evidence), Giancarlo (reconciliation) | **Open — blank log is not proof of zero defects.** |
-| A5-F04 — Acceptance/CI evidence | PRs #85 and #86 distinguish historical A4 automated coverage from final A5 acceptance dispositions. PR #84 reports pending compilation/CI verification. | Reconcile TC-001–TC-012 individually as pass/fail/blocked/deferred with test links, date, reviewer and exact SHA; link clean A5 CI and identify any gaps. | Mareddy (execution), Giancarlo (quality check), Victor (acceptance) | **Open — A4 evidence cannot alone approve the final A5 revision.** |
-| A5-F05 — Release metadata and approvals | PR #83 calls `a5-cycle1-release` a release baseline; PR #86 says the A5 tag and approval are pending. | Confirm whether the tag exists and what SHA it identifies. Freeze the actual revision only after integrating reviewed changes; record independent reviewer and Go/Conditional Go/No-Go decision. | Victor (release owner), Giancarlo (quality gate) | **Open — release approval not established by these PRs.** |
-| A5-F06 — Dependency/security review | PRs #85 and #86 explicitly leave dependency advisory/CVE, transitive license and human acceptance checks pending. | Capture dependency inventory, advisory results, license review, exceptions and named human risk acceptance for exact release SHA. | Victor (risk acceptance), designated technical reviewer (verification) | **Open — no completed scan claimed.** |
+These six tracked IDs preserve the original review history. They are not six
+confirmed software defects or six wholly unresolved discrepancies. Documentation
+corrections are distinguished from runtime assurance and accepted residual risk.
 
-## Defect disposition protocol
+| ID | Type / proposed severity | Verified evidence / finding | Current disposition | Coordinator / remaining action | Evidence |
+|---|---|---|---|---|---|
+| A5-F01 | Persistence documentation / High | PRs [#81](https://github.com/victordodan/-comp330-f26-team-02/pull/81) and [#83](https://github.com/victordodan/-comp330-f26-team-02/pull/83) are merged. The corrected ADR and limitations describe transactional JDBC/file-backed H2, consistent with service, repository and runtime configuration. | Documentation corrected; final-revision runtime verification pending | Shú / Mareddy: retain restart and rollback evidence at the release revision; Victor: disposition | Merge commits `4444ed0` and `0bc95fb`; [limitations](../release/known-limitations.md), [A4 backend evidence](../testing/a4-backend-verification.md) |
+| A5-F02 | Identity documentation / High | Merged #83 correctly describes fixed server-session demo identities. Headers cannot establish authority, but the reachable demo selector intentionally permits choosing Reviewer. | Documentation corrected; synthetic-identity limitation remains | Shú / Mareddy: final-revision authorization evidence; Victor: bounded-demo risk decision | [Controller](../../src/main/java/edu/loyola/campusconnect/controller/RequestController.java), limitations LIM-002, [#92 evidence](https://github.com/victordodan/-comp330-f26-team-02/pull/92) |
+| A5-F03 | Defect/evidence accuracy / Medium | Merged #84 changes static imports only; all 14 controller tests and helpers are unchanged. The earlier allegation of four deleted non-compiling tests is unsupported by the diff. Run #41 reports 35 passing tests. Main still has starter defect records at this checkpoint; #91 proposes their replacement. | Import/CI concern resolved in reviewed evidence; register reconciliation pending #91 review/merge | Giancarlo: maintain actual findings; Victor: review disposition | [#84](https://github.com/victordodan/-comp330-f26-team-02/pull/84), merge `7270d96`; [run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038) |
+| A5-F04 | Acceptance dispositions / High | Merged #92 identifies related automated coverage for all twelve cases and reports 35 passing tests; it explicitly records 0/12 separately documented case executions. | Open — coverage is not final acceptance | Mareddy: per-case result/evidence or blocked/deferred disposition, date, operator, environment and SHA; Giancarlo: reconcile; Victor: acceptance | [Merged acceptance evidence](https://github.com/victordodan/-comp330-f26-team-02/blob/56c0907c7c317156f1a86ac8dcc9b9f158052b9d/docs/testing/a5-acceptance-test-evidence.md); [catalog](../testing/test-cases.md) |
+| A5-F05 | Final revision/release controls / High | Real Maven CI exists in `a4-validation-tests.yml`; the separate `ci.yml` starter guard is manual-only. Source/path filters skip documentation-only revisions. No A5 tag exists in the remote tag inventory reviewed at this checkpoint. | Open — final-SHA CI, independent review and release decision not established | Development/testing: obtain final-revision checks and explain skipped/manual workflows; Victor: freeze, review and tag | [Actual workflow](../../.github/workflows/a4-validation-tests.yml), [starter guard](../../.github/workflows/ci.yml); #85 remains a proposed gate |
+| A5-F06 | Supply-chain assurance / High | Historical dependency inventory does not provide complete advisory, transitive-license or maintenance acceptance. #89 remains a proposed assessment, not clearance. | Open | Victor appoints technical reviewer; record advisory/license evidence, mitigations and human residual-risk decision | [Dependency assessment](../reviews/a4-build-dependency-assessment.md), [#89](https://github.com/victordodan/-comp330-f26-team-02/pull/89) |
 
-The findings above are **review findings**, not automatically assigned `DEF-###` IDs. Create a defect record only when a reviewer confirms an observed implementation/test failure against an expected requirement. For each confirmed defect, capture reproduction, affected REQ/AC, severity, owner, fix PR, exact-SHA retest and final disposition. A documentation inconsistency may instead be tracked as an evidence/architecture finding.
+## CI evidence boundary
 
-Do **not** close the reported PR #84 test-compilation defect merely because tests were deleted: require a passing build and confirm the retained tests still exercise the expected cases. Do not treat a proposed Cycle 2 deferral as accepted until the release owner records the residual risk.
+[Run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038)
+ran `mvn -B clean verify` on merge SHA
+`0fcc79c29dfcdc89403d3c230f47438cb00c358c` (head
+`00c034a74f22ce616f707848168909289b2db001`, base
+`70d3726b64c0deafef2d770870bb14ef8f28b79b`). It reports 35 tests,
+zero failures/errors/skips and successful packaging. This historical run is
+not CI for the current checkpoint or a final A5 release. No new execution
+is claimed by these documentation corrections.
 
-## Coordination before merge
+## Disposition and coordination
 
-1. Shu: reconcile LIM-001/LIM-002 and the architecture/persistence claims in PR #83 with actual code.
-2. Mareddy: provide exact-revision test, restart, concurrency and acceptance-case evidence.
-3. Victor: decide whether any remaining issue blocks release; record risk acceptance and independent review.
-4. Giancarlo: update the release-note claims in PR #86 and quality gate in PR #85 after the authoritative evidence is available.
+1. Preserve the merged storage/identity corrections. Do not reopen the obsolete in-memory/header descriptions as current behavior.
+2. Reject the unsupported test-deletion/compilation allegation; link #84's actual diff and historical CI. Do not invent a runtime defect from a misleading PR description.
+3. Review #91's proposed defect register, quality summary and traceability. This reconciliation does not certify those records before they merge.
+4. Record each acceptance-case disposition with evidence; automated execution may support it, but mappings alone do not grant acceptance. Do not invent a requirement for twelve additional manual runs regardless of existing coverage.
+5. Complete final-revision CI/restart/concurrency evidence, non-author technical review, dependency-risk decisions and the release decision before establishing the A5 tag. Proposed owners coordinate work; assignment here is not proof of their approval.
 
-**Provisional quality recommendation:** **No final Go decision yet**. These are open evidence discrepancies, not proof that the application is defective. Reassess once the exact revision, test results, limitation descriptions and reviewer decisions agree.
+The [current limitations](../release/known-limitations.md) retain local-store,
+synthetic-identity, interface and operational boundaries. #85/#86 remain open
+candidate gate/release-note work at this checkpoint; reconcile them with these
+outcomes rather than assuming they are accepted final artifacts.
 
-## References
+**Quality recommendation:** Final release decision remains undetermined. No new
+runtime defect was reproduced, no new test or scan was run, and no final
+acceptance or risk decision was performed by this review.
 
-- [PR #83 — known limitations](https://github.com/victordodan/-comp330-f26-team-02/pull/83)
-- [PR #84 — test cleanup](https://github.com/victordodan/-comp330-f26-team-02/pull/84)
-- [PR #85 — quality gate](https://github.com/victordodan/-comp330-f26-team-02/pull/85)
-- [PR #86 — release notes](https://github.com/victordodan/-comp330-f26-team-02/pull/86)
-- [Defect log](../quality/defect-log.md)
-- [Risk register](../planning/risk-register.md)
-
-**AI use:** AI assisted with evidence comparison and drafting. A human reviewer must verify each finding against the actual release code and record applicable use in the team AI-use log.
+**AI disclosure:** Codex assisted with checking merged PR/source evidence and
+updating these findings. Original Giancarlo attribution is retained for the
+original draft; this correction does not claim his personal verification or
+approval. See the correction entry in [AI-use log](../ai/ai-use-log.md).
