@@ -26,7 +26,7 @@ not tracked database files.
 Follow [demo procedure](../release/demo-script.md). The executable belongs to
 companion [PR #97](https://github.com/victordodan/-comp330-f26-team-02/pull/97);
 this PR #96 owns the procedure and actual results, avoiding two divergent scripts.
-Integrate #97 first, then #96. See [environment/hash manifest](../../test-evidence/a5-http-demo/environment.json)
+PR #97 is now merged into main; this PR supplies the procedure and evidence. See [environment/hash manifest](../../test-evidence/a5-http-demo/environment.json)
 for the exact local script and jar fingerprints, source tree and per-class totals.
 The reviewed main source was merged locally into each branch without committing;
 these logs do not claim to test a nonexistent final demo/release commit.

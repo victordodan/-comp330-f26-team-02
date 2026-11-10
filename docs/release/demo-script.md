@@ -6,10 +6,10 @@
 
 ## Artifacts and prerequisites
 
-The single executable is `scripts/demo-requests.sh`, delivered by companion
+The single executable is `scripts/demo-requests.sh`, introduced by merged
 [PR #97](https://github.com/victordodan/-comp330-f26-team-02/pull/97).
-This PR (#96) supplies the procedure and recorded rehearsal evidence. Integrate
-#97 before running the command from the completed repository. The shell entry
+This PR (#96) supplies the procedure and recorded rehearsal evidence. The
+executable is now on main through #97. The shell entry
 uses Python 3's standard-library HTTP client, cookie jars and JSON assertions;
 Bash and Python 3 are required. No jq or third-party Python packages are needed.
 Build/run the application using JDK 17 and Maven. The executable bit is preserved
