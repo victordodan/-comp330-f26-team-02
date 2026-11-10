@@ -1,0 +1,8 @@
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.723 s -- in edu.loyola.campusconnect.controller.RequestControllerTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in edu.loyola.campusconnect.validation.RequestValidatorTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.838 s -- in edu.loyola.campusconnect.CampusConnectApplicationTests
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.333 s -- in edu.loyola.campusconnect.service.WorkflowServiceTest
+[INFO] Tests run: 35, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+[INFO] Total time:  20.472 s
+[INFO] Finished at: 2026-11-10T03:42:13Z

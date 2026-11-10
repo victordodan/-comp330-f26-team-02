@@ -1,0 +1,70 @@
+{
+  "application_source_ref": "714a31bf5c9283e732fcfd895615a3471fef93b4",
+  "source_context": "Built from PR97 worktree with an uncommitted merge of this main revision; src and pom.xml match this reference. Demo client is a local modification identified by SHA256 below. Not a frozen A5 release.",
+  "application_source_tree": "28a40c9fd97378c3670cdc0dd1474966d3dc7421",
+  "java": "Temurin OpenJDK 17.0.17+10",
+  "maven": "3.9.9",
+  "build_command": "mvn -B clean verify (workspace-local Maven repository and proxy settings)",
+  "base_url": "http://127.0.0.1:18080",
+  "runtime": "Packaged Spring Boot jar; separate original and restarted JVM processes; same isolated file-backed H2 store",
+  "demo_script_sha256": "4837505f65bb7ef0c0b64b6d84343af122dac8aed3bb77ef1a1343c671cda069",
+  "application_jar_sha256": "458f6ef75a4104ab9dfd4c78d820e60a4064cb828d1cefd4b47d97a8310b55d9",
+  "tests": [
+    {
+      "name": "edu.loyola.campusconnect.CampusConnectApplicationTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "runs": {
+    "workflow": {
+      "start": "2026-11-10T03:43:07.986110+00:00",
+      "result": "PASS",
+      "http_checks": 36,
+      "sha256": "4a1c00bc20652d5c874affbe2430c53647020f801e331866f784d6f73a4f1044"
+    },
+    "restart": {
+      "start": "2026-11-10T03:43:46.123816+00:00",
+      "result": "PASS",
+      "http_checks": 5,
+      "sha256": "9d7c59beb22fc99eb49bee9ab270a6e166355c340e6b6b1e70ef8a312fb60f50"
+    },
+    "repeat": {
+      "start": "2026-11-10T03:43:50.659522+00:00",
+      "result": "PASS",
+      "http_checks": 36,
+      "sha256": "6f9eda6c85082e63529a550f583f473501fd004df4a9f2fca941f5f263f491df"
+    },
+    "transport-failure": {
+      "start": "2026-11-10T03:44:13.418664+00:00",
+      "result": "FAIL",
+      "http_checks": 0,
+      "sha256": "409e768c2424bf54e7f402a39cc6ac14df4c2bbaf083f6f02191d6299deb5a52"
+    }
+  },
+  "operator": "Codex automated execution; no student witness or human acceptance asserted",
+  "limits": "No independent release approval, full TC acceptance certification, advisory/license clearance, database failure injection, load test or backup restoration."
+}
