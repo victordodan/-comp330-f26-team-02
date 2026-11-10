@@ -1,0 +1,23 @@
+{
+  "verified_source_sha": "531d54ca0f391e218752888900c4668173f75e27",
+  "verification": "Existing evidence cross-check; no new application execution",
+  "checks": {
+    "junit_manifest_matches_original_xml": 35,
+    "workflow_records_match_original": 36,
+    "restart_records_match_original": 5,
+    "saved_record_and_etag_match_restart_response": true,
+    "source_pom_and_script_diff_from_checkpoint": "empty",
+    "distinct_jvm_pids": [
+      "27621",
+      "27689"
+    ]
+  },
+  "artifact_sha256": {
+    "execution.json": "666edaf6bd73b82bc0d16c8accc9eb1cb63322b808f184984715fda70cff02e2",
+    "restart.jsonl": "d3db62f82c56b1bb1fe24e92842e49760c8d40697a158f57d7b7dc0059189f62",
+    "state.json": "43c75f801b060a5a693838a75e4575dacbc38e8c5c8bea099bfc12f35dbca3d6",
+    "workflow.jsonl": "269cea94aa51fa67a9fe8ada9396a1b81c91010dc02a12335d249c3d92318666"
+  },
+  "packaged_jar_sha256": "a8614c6f7c5ca3d8885115f7b60650081d5574460072e2525477e6ad1fdce07f",
+  "limitations": "Source attribution uses the original execution record and unchanged source comparison, not an embedded signed build attestation. Restart of existing file database is not backup restoration. Final release SHA not selected."
+}

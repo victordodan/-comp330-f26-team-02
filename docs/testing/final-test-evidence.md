@@ -27,8 +27,9 @@ execution is claimed by this index.
 
 ## Acceptance closeout update
 
-[Delegated case dispositions](a5-acceptance-closeout.md) now link a fresh 35-test
+[Proposed case dispositions](a5-acceptance-closeout.md) now link a fresh 35-test
 build and 36 HTTP/5 packaged restart checks at source `531d54ca0f391e218752888900c4668173f75e27`.
-The twelve case dispositions are approved under Victor’s explicit delegated
-authority for their recorded scope. Independent human review, dependency-risk
-acceptance and final release identity remain pending.
+The twelve dispositions remain proposed PASS pending named human acceptance
+and accountability confirmation. The closeout reconciles Mareddy’s #109 and
+links artifact verification. Independent non-author review, security/license
+risk acceptance, final release authorization and release tag remain OPEN.

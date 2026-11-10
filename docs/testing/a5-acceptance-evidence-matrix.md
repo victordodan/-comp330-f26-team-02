@@ -7,16 +7,15 @@
 
 ## Latest case dispositions
 
-The reconciliation and Pending rows below describe the historical checkpoint
-above. They are superseded for case disposition by the
-[delegated acceptance closeout](a5-acceptance-closeout.md): TC-001 through
-TC-012 are PASS within the recorded classroom-demo scope at source
-`531d54ca0f391e218752888900c4668173f75e27`, approved by Codex under Victor
-Dodan's explicit delegation. Fresh execution evidence is linked there; it
-combines the test suite and packaged HTTP/restart checks, rather than twelve
-separate manual runs. Independent human review, dependency-risk disposition
-and final release SHA/tag approval remain outstanding. Historical counts
-below are retained for audit and do not describe the latest case decisions.
+The rows below describe historical evidence. The newer
+[proposed acceptance closeout](a5-acceptance-closeout.md) records fresh
+2026-11-10 automated evidence at `531d54ca0f391e218752888900c4668173f75e27`.
+TC-001–TC-012 remain proposed PASS pending named human accountability and
+acceptance confirmation. Mareddy's [PR #109](https://github.com/victordodan/-comp330-f26-team-02/pull/109)
+reviews CI #50 at `000c0f89db51a64956566fc82fc7742973ce1e7b`; its Pending
+dispositions remain compatible. See the closeout for TC-002/TC-007 limitations,
+artifact verification and explicitly OPEN independent-review, risk, release
+and tag gates. Historical records and dates are preserved.
 
 ## Historical status definitions
 
