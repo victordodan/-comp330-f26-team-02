@@ -168,7 +168,7 @@ The earlier open/failing statuses are superseded:
 ## A5 — Cycle 1 Release Task Update
 
 **Prepared by:** Malec Tarabein, Planning & Process Lead (backup: Shú Perez). AI-assisted drafting is disclosed in the [AI-use log](../ai/ai-use-log.md).
-**Repository checkpoint reviewed:** `main` at `d640366`.
+**Repository checkpoint reviewed:** `main` at `ac228d0`.
 **Status:** Proposed for team review. Status changes below follow the Definition of Task Completion above: a task is **Complete** only when its merged evidence exists. Owner changes marked *proposed* need Victor's confirmation.
 
 ### Status reconciliation for the Active Task Plan
@@ -181,7 +181,7 @@ The Active Task Plan table above was last updated in A2. This reconciles each op
 | TASK-013 | Planned | Complete | Tag `a4-construction-integration`; PRs #69, #71–#73, #76, #77 merged | None for Cycle 1. Browser UI not delivered (see scope change below) |
 | TASK-014 | Planned | Complete with open findings | 35 passing tests (CI run #41); Maven CI consolidated in #93; review evidence in `docs/reviews/` | Dependency/advisory acceptance (A5-F06) carried into TASK-015 |
 | TASK-015 | Planned | In progress | Acceptance-coverage report (#92) and AC-to-test matrix (#88); defect log and reconciliation (#87, #91); limitations (#83, #94) | Final-SHA CI, 0/12 → 12/12 case records or dispositions, defect dispositions |
-| TASK-016 | Planned | In progress | Release notes candidate (#86, open); demo script revision (#96, open); planning traceability updated in `traceability.md` | Readiness review, tag, presentation, Word summary |
+| TASK-016 | Planned | In progress | Candidate release notes (#86) and demo script with rehearsal evidence (#96, #97) merged; planning traceability updated in `traceability.md` | Readiness review, tag, presentation, Word summary |
 | TASK-017 | Planned | Planned | — | Starts after release; inputs listed under TASK-019 |
 | TASK-018 | Planned | Planned | — | A6 |
 
@@ -191,15 +191,15 @@ TASK-015 and TASK-016 are broken into the tasks below so each has a single owner
 
 | ID | Task | Owner (proposed) | Backup / reviewer | Exit evidence | Depends on | Status |
 |---|---|---|---|---|---|---|
-| TASK-015a | Review and decide open A5 documentation PRs #82, #85, #86, #90, #96 | Victor Dodan | Non-author reviewer per PR | Each PR merged or closed with reason | — | Open |
+| TASK-015a | Review and decide open A5 documentation PRs | Victor Dodan | Non-author reviewer per PR | Each PR merged or closed with reason | — | #82–#97 merged; #98 and #99 open |
 | TASK-015b | Freeze the candidate release SHA and record it in release notes and limitations | Victor Dodan | Malec Tarabein | SHA appears in both documents | TASK-015a | Not started |
 | TASK-015c | Obtain CI on the frozen SHA and record run, test count and artifact | Shú Perez | Venkata Aravind Mareddy | Run link in `docs/testing/` and release notes | TASK-015b | Not started |
 | TASK-015d | Execute TC-001–TC-012 at the frozen SHA and store results | Venkata Aravind Mareddy | Giancarlo Herrera | Per-case records in `docs/testing/a5-acceptance-test-evidence.md`; raw output in `/test-evidence/` | TASK-015b | Not started (0/12) |
 | TASK-015e | Disposition A5-F01–F06 and LIM-001–LIM-005, including residual-risk acceptance | Giancarlo Herrera | Victor Dodan (acceptance) | Every row in `docs/quality/defect-log.md` and `docs/release/known-limitations.md` has a human decision | TASK-015c, TASK-015d | Open |
 | TASK-016a | Complete the release-readiness review with a go / no-go | Victor Dodan | Giancarlo Herrera | `docs/reviews/release-readiness-review.md` no longer contains starter text | TASK-015e | Not started (template) |
 | TASK-016b | Tag `a5-cycle1-release` on the reviewed SHA | Victor Dodan | Malec Tarabein | Tag SHA = frozen SHA | TASK-016a | Not started |
-| TASK-016c | Replace remaining starter-kit placeholders in release-facing docs, or mark them as out of Cycle 1 scope | Shelby Sierah | Malec Tarabein | `README.md`, `docs/release/traceability-summary.md`, `docs/team/roles.md` (demo script is covered by #96) and the `docs/operations/`, `docs/observability/`, `docs/security/` files reviewed | — | Not started |
-| TASK-016d | Final AI-use log update covering all A5 work, including presentation preparation | Giancarlo Herrera | Malec Tarabein | `docs/ai/ai-use-log.md` entries for every A5 PR | TASK-015a | In progress (#90 open) |
+| TASK-016c | Replace remaining starter-kit placeholders in release-facing docs, or mark them as out of Cycle 1 scope | Shelby Sierah | Malec Tarabein | `README.md`, `docs/release/traceability-summary.md`, `docs/team/roles.md` (covered by #99; demo script completed in #96) and the `docs/operations/`, `docs/observability/`, `docs/security/` files reviewed | — | Not started |
+| TASK-016d | Final AI-use log update covering all A5 work, including presentation preparation | Giancarlo Herrera | Malec Tarabein | `docs/ai/ai-use-log.md` entries for every A5 PR | TASK-015a | In progress (#90 merged; presentation-preparation AI use not yet logged) |
 | TASK-016e | Build the PowerPoint presentation from tagged repository evidence | Shelby Sierah | Victor Dodan | `.pptx` file; every release claim cites a repository path or link | TASK-016b | Not started |
 | TASK-016f | Word summary indexing the final release evidence and submit the team package | Victor Dodan | Malec Tarabein | Sakai submission | TASK-016b, TASK-016e | Not started |
 | TASK-016g | Individual peer reviews (private; not committed to this repository) | Each student | — | Sakai submission | — | Not started |

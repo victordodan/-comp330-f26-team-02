@@ -176,7 +176,7 @@ The team will use implementation progress, review findings, and recorded effort 
 
 ## A5 — Estimate versus Actual Assessment
 
-**Prepared by:** Malec Tarabein, Planning & Process Lead. Checkpoint `main` at `d640366`. Proposed for team review.
+**Prepared by:** Malec Tarabein, Planning & Process Lead. Checkpoint `main` at `ac228d0`. Proposed for team review.
 
 **Effort actuals are not available.** The team did not record hours against EST-001 to EST-005, so effort cannot be compared with the estimate ranges. Following the rule above, no actual effort is reconstructed after the fact.
 

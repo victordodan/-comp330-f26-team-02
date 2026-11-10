@@ -84,7 +84,7 @@ The A1 scope baseline remains the foundation for the project. During A2, the tea
 
 ## A5 — Delivered Cycle 1 Scope
 
-**Prepared by:** Malec Tarabein, Planning & Process Lead. Checkpoint `main` at `d640366`. Proposed for team review; delivery status here does not replace acceptance results (see [acceptance evidence](../testing/a5-acceptance-test-evidence.md)).
+**Prepared by:** Malec Tarabein, Planning & Process Lead. Checkpoint `main` at `ac228d0`. Proposed for team review; delivery status here does not replace acceptance results (see [acceptance evidence](../testing/a5-acceptance-test-evidence.md)).
 
 | Scope ID | Delivered in Cycle 1? | How | Verification status | Evidence |
 |---|---|---|---|---|

@@ -148,7 +148,7 @@ These results provide mitigation evidence. Formal risk acceptance, dependency ma
 ## A5 — Cycle 1 Release Risk Disposition
 
 **Prepared by:** Malec Tarabein, Planning & Process Lead (backup: Shú Perez). AI-assisted drafting is disclosed in the [AI-use log](../ai/ai-use-log.md).
-**Repository checkpoint reviewed:** `main` at `d640366`.
+**Repository checkpoint reviewed:** `main` at `ac228d0`.
 **Status:** Proposed dispositions for team review. A risk is **Closed** only when its exit evidence is merged; **Accepted** requires a named human decision, recorded here by the person accepting it. No risk is closed or accepted by this draft. Earlier sections are kept as history.
 
 ### Disposition of R-001 to R-016

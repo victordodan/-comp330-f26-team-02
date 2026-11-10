@@ -4,7 +4,7 @@
 
 Claude (Claude Code) assisted Malec Tarabein with drafting the A5 sections of
 `docs/planning/schedule.md`, `task-plan.md`, `risk-register.md`, `scope.md` and
-`estimates.md` against main checkpoint `d640366`. Milestone dates, commit
+`estimates.md` against main checkpoint `d640366`, refreshed against `ac228d0`. Milestone dates, commit
 activity, PR merge status and SHAs were taken from git tags, commit history
 and the GitHub PR list, and were checked against the existing defect log,
 known limitations and acceptance evidence. Proposed owners, statuses and risk
