@@ -1,71 +1,78 @@
-# Known Limitations — CampusConnect (Cycle 1 Release)
+# Known Limitations — CampusConnect Cycle 1 Candidate
 
-> **Team:** Team 2 — Codex Ramblers
-> **Release Baseline Tag:** `a5-cycle1-release`
-> **Date:** 2026-11-09
-> **Owner:** Shú Perez (Architecture) · **Backup:** Giancarlo Herrera
+**Owner:** Shú Perez (Architecture) · **Backup:** Giancarlo Herrera
+**Review baseline:** Integrated A4 source `70d3726b64c0deafef2d770870bb14ef8f28b79b`
+**A5 baseline:** Not frozen; `a5-cycle1-release` is the intended tag, not an established release baseline.
+**Status:** Proposed corrections for PR #83; final human review and risk acceptance pending.
 
-This document records the architectural and functional known limitations, technical debt, and temporary trade-offs present in the Cycle 1 release of CampusConnect. A known limitation is not necessarily a defect — it is intentionally deferred functionality, a supported behavior with a known restriction, or an operational/verification constraint that reviewers and users should not have to discover by accident.
+This record describes implementation boundaries and verification gaps. It does
+not certify zero defects, final acceptance or production readiness. Owners below
+coordinate follow-up; dispositions do not imply their approval.
 
----
+## Implementation facts
 
-## Current Limitations
+The application uses a JDBC repository and defaults to file-backed H2 at
+`jdbc:h2:file:./data/campusconnect`. Requests are not stored in a
+`ConcurrentHashMap`; IDs are UUIDs. Restarting with the same store is intended
+to retain records. See [runtime configuration](../../src/main/resources/application.properties),
+[repository](../../src/main/java/edu/loyola/campusconnect/repository/JdbcRequestRepository.java),
+and [ADR-004](../decisions/ADR-004-local-persistence-and-recovery.md).
 
-| ID | Limitation | Impact | Affected Area | Workaround | Disposition | Related Evidence |
+The demo selector validates a fixed identity and stores its ID in the server
+session. `X-User-ID`, `X-User-Role` and client-supplied ownership fields do not
+grant permissions. This is still a simulation: anyone able to reach the demo
+selector can choose the fixed Reviewer identity. See the
+[controller](../../src/main/java/edu/loyola/campusconnect/controller/RequestController.java)
+and [HTTP API guide](../testing/a4-http-api.md).
+
+## Current limitations and residual risks
+
+Severity reflects impact if the stated boundary is exceeded, not a confirmed
+runtime defect. Priorities and future work require team disposition.
+
+| ID | Limitation and impact | Severity | Mitigation / workaround | Follow-up owner | Disposition / next action | Evidence |
 |---|---|---|---|---|---|---|
-| **LIM-001** | Support request data is held in a `ConcurrentHashMap<String, SupportRequest>` in memory rather than a persistent relational database. | All request data resets when the Spring Boot application stops or restarts. | Architecture / Operations (persistence) | Re-create synthetic test requests after application restart; automated tests seed required state per execution context. | Planned Fix (Cycle 2: H2 file storage + JPA persistence) | ADR-0005; R-010 (persistence) |
-| **LIM-002** | Role-based access control relies on HTTP request headers (`X-User-ID`, `X-User-Role`) that are unauthenticated synthetic simulation headers. | Headers can be forged; no real identity verification. | Security / API | Use headers strictly in local execution and automated test suites; controller returns `403 Forbidden` when a non-reviewer attempts status triage. | Deferred (OAuth2 / SSO integration deferred to future releases) | ADR-0005; AR-001 (demo impersonation); Q-004 |
-| **LIM-003** | Status changes do not send automated email or push notifications to students. | Requesters are not proactively informed of status changes. | Capability / Operations | Requester views current status by querying `GET /api/requests`. | Planned Improvement (Cycle 2: asynchronous event notification service) | REQ-002; REQ-004 |
+| LIM-001 | Local H2 files depend on the configured path and working directory. Loss of the database file can lose records; restart retention is not backup recovery. | High data-loss risk | Reuse the same store; use synthetic data and preserve local files. No verified backup/restore workaround is claimed. | Shú; testing owner | Recovery verification pending; propose operational work during Cycle 2 planning. | ADR-004; [backend verification](../testing/a4-backend-verification.md) |
+| LIM-002 | Fixed session-based demo identities provide no real identity verification. A caller can deliberately select Reviewer; session role checks do not protect real student accounts. | High outside local demo | Use synthetic records and loopback-only demonstration. Do not expose as a real campus service. | Shú; Victor for risk acceptance | Production authentication out of current scope; bounded-demo risk acceptance pending. | [HTTP API](../testing/a4-http-api.md); [scope](../planning/scope.md) |
+| LIM-003 | No automated email/push notification delivery. Students must retrieve current status and notes. | Low within agreed scope | Query the student endpoints with the selected student's session. | Architecture / requirements owners | Notifications out of Cycle 1 scope; future work requires prioritization, not a promised Cycle 2 service. | [Scope](../planning/scope.md) |
+| LIM-004 | Implemented interface is an HTTP API; browser forms and a graphical workflow are not verified release capabilities. | Medium demo/usability limit | Demonstrate the documented HTTP workflow. | Shú; Victor for presentation | Disclose demo interface; any UI work needs separate implementation and evidence. | [HTTP API](../testing/a4-http-api.md) |
+| LIM-005 | No verified production deployment, automated deployment/rollback or complete operational monitoring/recovery package is established by the reviewed evidence. | High outside local demo | Run locally with synthetic data; do not claim production operational readiness. | Architecture / release owners | Operational readiness remains unverified; prioritize follow-up separately. | [Runtime configuration](../../src/main/resources/application.properties); ADR-004 |
 
----
+## Verification and release gaps
 
-## Deferred Capabilities
-
-| Capability | Reason Deferred | Impact on Current Release | Future Reference |
+| Gap | Evidence available | Remaining evidence / disposition | Coordinator |
 |---|---|---|---|
-| File-backed H2 relational persistence with JPA/Repository layers | Cycle 1 velocity and CI reliability prioritized; setup overhead and environmental fragility in GitHub Actions | No permanent data retention; see LIM-001 | ADR-0005; Cycle 2 (Maturity Phase) |
-| Full OAuth2 / SSO authentication and real identity verification | Not required for controlled Cycle 1 vertical slice; synthetic header simulation sufficient for local testing | No real authentication; see LIM-002 | ADR-0005; `assumptions-open-questions.md` Q-004 |
-| Asynchronous email / push notification delivery | Lower priority than core workflow verification for Cycle 1 | No outbound notifications; see LIM-003 | Cycle 2 |
+| Final A5 revision and independent review | A4 baseline and open A5 PRs | Integrate reviewed changes; identify exact candidate SHA, record non-author review and release decision, then establish the tag. | Victor; independent reviewer |
+| Acceptance dispositions | Test catalog and mapped automated coverage | TC-001–TC-012 require actual case-specific evidence or explicit blocked/deferred dispositions; do not count mappings as separate acceptance executions. | Testing owner; Giancarlo |
+| Final CI | Historical A4 evidence; PR #84 run #41 reports 35 passing tests | Obtain CI for the final integrated A5 revision. PR #84 evidence does not certify that future revision. | Development / testing owners |
+| Dependencies | A4 dependency inventory and partial license assessment | Dated advisory, transitive-license and maintenance review; record findings, mitigations and human risk decisions. | Victor-appointed technical reviewer |
+| Recovery and load | Service restart/concurrency tests and historical packaged restart evidence | Backup restoration, sustained load and production capacity remain unverified. | Architecture / testing owners |
 
----
+References: [test catalog](../testing/test-cases.md),
+[A4 final verification](../testing/a4-final-quality-verification.md),
+[A4 backend verification](../testing/a4-backend-verification.md),
+[dependency assessment](../reviews/a4-build-dependency-assessment.md), and
+[PR #84 CI run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038).
+That run tested merge SHA `0fcc79c29dfcdc89403d3c230f47438cb00c358c`,
+not a final A5 release. This correction performs no new tests or scans.
 
-## Unresolved Defects Affecting the Release
+## Defect disposition
 
-| Defect ID | Impact | Severity | Current Disposition |
-|---|---|---|---|
-| None identified | No unresolved defects materially affect the Cycle 1 release baseline (`a5-cycle1-release`). | — | — |
+No claim that there are no material unresolved defects is supported by this
+record. Consult the [defect log](../quality/defect-log.md),
+[defect review](../quality/defect-review.md), and
+[risk register](../planning/risk-register.md). Template entries or missing
+execution records are not evidence of defect absence. Confirmed defects need
+reproduction, severity, owner, mitigation, retest and final disposition.
 
----
+## Correction history
 
-## Operational Limitations
+This proposed PR #83 revision removes incorrect in-memory storage and
+header-based identity claims, the unsupported sub-two-second build claim,
+premature A5 baseline/defect-clearance statements, and unapproved Cycle 2
+commitments. It retains notification scope limits and adds the observed
+operational and evidence boundaries. Final human acceptance remains pending.
 
-| Limitation | Operational Impact | Related Evidence |
-|---|---|---|
-| Manual local execution only (`mvn spring-boot:run`) — no automated deployment pipeline or rollback | Deployment and recovery are manual; no automated rollback path | `/docs/operations/runbook.md` |
-| Volatile storage across process restarts | Any local test state must be re-seeded after restart | ADR-0005; LIM-001 |
-| Synthetic header–based identity | No real session/token audit trail; role simulation is per-request | LIM-002 |
-
----
-
-## Verification Limitations
-
-| Limitation / Gap | What Has Been Verified | What Has Not Been Verified | Related Evidence |
-|---|---|---|---|
-| Performance under sustained load | Functional tests pass in `mvn -B clean test`; clean isolated build under 2 seconds in GitHub Actions CI | Load / stress behavior under sustained concurrent traffic | ADR-0005 (CI evidence) |
-| Recovery behavior | Volatility documented; restart reset behavior observed | Formal recovery procedures and tested backup/restore | ADR-0005; Risk 1 (Section 11 of Architecture Overview) |
-| Authentication boundary | Header presence checked; `403 Forbidden` enforced for non-reviewer status updates | Real identity verification (no OAuth/SSO in Cycle 1) | LIM-002; `RequestControllerTest.java` |
-| Notification delivery | Not applicable — no notification subsystem exists in Cycle 1 | End-to-end delivery verification | LIM-003 |
-
----
-
-## Limitation Changes
-
-| Date / Release | Limitation ID | Change | Reason | Evidence |
-|---|---|---|---|---|
-| 2026-11-09 (`a5-cycle1-release`) | LIM-001, LIM-002, LIM-003 | Initial baseline established for Cycle 1 release | First documented release baseline | `a5-cycle1-release` tag; this document |
-
----
-
-## No Known Limitation Claims
-
-No claim of "no known limitations" is made for the Cycle 1 release. The limitations above reflect a deliberate review of: scope (Cycle 1 vertical slice per brief §4), defects (none material), verification gaps (performance, recovery, real authentication), operational constraints (manual execution, volatile storage), risks (R-010 persistence, AR-001 impersonation, risk register Section 11), and external dependencies (none — no OAuth/SSO or runtime AI integration in Cycle 1). Review basis: Architecture Overview §11 (Known Architecture Risks), ADR-0005, and `/docs/planning/risk-register.md`.
+**AI assistance:** Codex compared PR #83 against current source, configuration,
+tests and repository evidence and drafted this correction. This edit does not
+constitute a runtime verification, security clearance or release approval.
