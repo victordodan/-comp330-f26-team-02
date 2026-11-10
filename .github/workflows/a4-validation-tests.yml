@@ -1,27 +1,16 @@
-
-name: A4 Java Build and Tests
+# Reusable verification keeps the historical workflow path and one build definition.
+name: Java Build and Tests
 
 on:
-  push:
-    branches:
-      - main
-      - a4-aravind-request-validation
-    paths:
-      - 'src/**'
-      - 'pom.xml'
-      - '.github/workflows/a4-validation-tests.yml'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'src/**'
-      - 'pom.xml'
-      - '.github/workflows/a4-validation-tests.yml'
+  workflow_call:
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -42,4 +31,4 @@ jobs:
         with:
           name: java-test-reports
           path: target/surefire-reports/
-          if-no-files-found: ignore
+          if-no-files-found: warn
