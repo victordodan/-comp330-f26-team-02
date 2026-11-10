@@ -300,3 +300,10 @@ acceptance closeout's human-accountability section with all twelve scoped PASS
 decisions, identified Victor as accountable authority, and reconciled gate
 statuses with the authorized release decision and merged #108/#109 approvals.
 No new tests, additional human approvals or release tag are claimed.
+
+## Final integrated Codex review
+
+At Victor's request, Codex inspected the integrated workflow and evidence at
+2349a14 and recorded its own technical assessment with verified CI #61. Codex
+did not attribute this review to another person or represent it as independent
+human review. No additional execution, scanner clearance or release tag is claimed.

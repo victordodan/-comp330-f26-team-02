@@ -66,6 +66,12 @@ coordinators elsewhere are not assigned unrecorded approvals.
 
 ## Review provenance and prerequisites for the tag
 
+A [Codex integrated technical review](../reviews/a5-final-integrated-codex-review.md)
+now records source inspection and CI verification at candidate `2349a14`.
+It identifies no additional scoped implementation blocker, but does not claim
+independent human review or another teammate’s approval.
+
+
 Giancarlo approved #109's evidence reconciliation and #108's revised evidence/
 risk documentation. Those approvals do not certify a final integrated application
 revision or constitute his release GO. The independent final integrated review
