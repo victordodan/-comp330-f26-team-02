@@ -1,9 +1,9 @@
 # A5 Quality Review — TC-001 through TC-012 Evidence Reconciliation
 
-**Project:** CampusConnect — COMP 330 Team 2 (Codex Ramblers)  
-**Prepared for:** Quality & Review Lead (Giancarlo Herrera), for human review  
-**Review basis:** Repository records inspected November 9, 2026 (local demo record spans November 9–10 Chicago/UTC)  
-**Status:** Draft review; no new test execution, case acceptance, or human signoff claimed  
+**Project:** CampusConnect — COMP 330 Team 2 (Codex Ramblers)
+**Prepared for:** Quality & Review Lead (Giancarlo Herrera), for human review
+**Review basis:** Repository records inspected November 9, 2026 (local demo record spans November 9–10 Chicago/UTC)
+**Status:** Draft review; no new test execution, case acceptance, or human signoff claimed
 **Release baseline:** Not frozen; no `a5-cycle1-release` tag established at review.
 
 ## Evidence examined and interpretation
@@ -11,7 +11,7 @@
 - [Mareddy's A5 acceptance execution report](../testing/a5-acceptance-test-evidence.md): 35/35 JUnit tests passed in historical PR #84 CI; mapped related test methods to 12 cases, but explicitly recorded no separate dated case-specific acceptance executions.
 - [A5 acceptance matrix](../testing/a5-acceptance-evidence-matrix.md): detailed AC-to-TC and automated test mapping; all A5 dispositions pending.
 - [Test-case catalog](../testing/test-cases.md): authoritative scenario steps and detailed boundary variants; historical `Not Run` refers to missing case-specific execution records, not absence of automated tests.
-- [Shu's packaged demo procedure](../release/demo-script.md), [rehearsal summary](../testing/a5-demo-rehearsal.md), and [raw HTTP transcript](../../test-evidence/a5-http-demo/workflow.jsonl): automated tool rehearsal, not a student-observed or approved acceptance run. Recorded 36 initial HTTP checks, 5 packaged restart checks, 36 repeat checks, and an intentional stopped-server failure control.
+- [Packaged demo procedure](../release/demo-script.md), [rehearsal summary](../testing/a5-demo-rehearsal.md), and [raw HTTP transcript](../../test-evidence/a5-http-demo/workflow.jsonl): automated tool rehearsal, not a student-observed or approved acceptance run. Recorded 36 initial HTTP checks, 5 packaged restart checks, 36 repeat checks, and an intentional stopped-server failure control.
 - [Rehearsal evidence README](../../test-evidence/a5-http-demo/README.md): describes transcripts, hashes, and limitations.
 
 **Important distinction:** HTTP check counts are not acceptance-case counts. Related passing JUnit methods and an automated demo can support a final acceptance disposition; they do not automatically constitute a separately executed complete TC or an approved result. No additional manual execution is presumed necessary if existing evidence genuinely satisfies all steps and a reviewer explicitly documents that judgment.
@@ -24,10 +24,10 @@
 | TC-002 / AC-REQ-001-02 | Blank, trimmed/out-of-range, unsupported values rejected without persistence | Blank title 400; owner listing unchanged | Validator boundaries and invalid create tests | Demo does not run all title 4/5/100/101, description 9/10/2000/2001, category and whitespace variants; reconcile JUnit assertions and final SHA |
 | TC-003 / AC-REQ-002-01 | Student sees current status after reviewer updates/reopens | Owner GET after lifecycle and reopen | Lifecycle/reopen tests | Case-specific evidence link, final SHA and review |
 | TC-004 / AC-REQ-002-02 | Edited latest resolution note visible and preserved after reopen | Reviewer note replacement; owner reads; reopen retains note | Note and reopen tests | Case-specific evidence link and review |
-| TC-005 / AC-REQ-002-03 | Student B cannot list/read A's record; unknown ID | A list restricted; B direct lookup A returns 404; unknown ID exercised | Ownership/isolation tests | Verify full listing and direct-path variants, link results and review |
+| TC-005 / AC-REQ-002-03 | Student B cannot list/read A's record; unknown ID | A list restricted; B direct lookup of A returns 404. The unknown-UUID demo check is a reviewer PATCH /status, not a student GET | Ownership/isolation tests | Verify student listing/direct/unknown-ID lookup variants using specific JUnit assertions or targeted execution; reviewer update 404 does not prove student lookup behavior |
 | TC-006 / AC-REQ-003-01 | Two unique IDs, owner/timestamps; failed storage write not falsely successful | A/B UUIDs and metadata visible; restart generates unique ID | Unique-ID, rollback and unavailable-storage tests | Injected storage failure is not part of demo; cite actual JUnit method/run and determine full scenario disposition |
 | TC-007 / AC-REQ-003-02 | Saved status/note survives application restart with same store | Full JVM restart; 5 HTTP checks retain record/ETag and create distinct new ID | File-store restart test | Verify field-by-field expectations from restart transcript; final-release-SHA execution and approval; backup recovery not tested |
-| TC-008 / AC-REQ-004-01 | Reviewer lists/inspects A and B | Reviewer list and inspect both | Reviewer visibility tests | Case record and review |
+| TC-008 / AC-REQ-004-01 | Reviewer lists/inspects A and B | Reviewer lists both students; detail GET inspects Student A only | `reviewerCanInspectBothStudentsButCannotUseStudentOnlyRetrieval` lists and inspects both A/B records | Combine the bounded demo and actual JUnit evidence; record final revision and human disposition |
 | TC-009 / AC-REQ-004-02 | Student denied reviewer actions; missing session/forged role fields | Missing identity 403; forged headers 403; student status edit 403; denied writes checked | Missing/wrong role, spoofing, isolation tests | Reconcile full invalid-session and supplied-body role/owner variants; synthetic Reviewer selector is not real authentication |
 | TC-010 / AC-REQ-005-01 | Submitted -> In Progress -> Resolved with note -> In Progress; preserve note/ID | Demo lifecycle, note save, resolve and reopen | Transition and note preservation tests | Case record and final SHA |
 | TC-011 / AC-REQ-005-02 | Invalid transitions, missing resolution, unknown ID, failed status write preserve state | Direct resolve rejected, missing note rejected, unknown UUID 404, missing/stale ETag rejected, unchanged-state checks | Invalid transitions, optimistic checks, rollback tests | Injected write failure not in HTTP demo; link JUnit failure-path evidence and final disposition |
@@ -61,3 +61,12 @@ For each TC, record: acceptance criterion; exact SHA; execution date and operato
 **Evidence is substantial but final acceptance remains pending.** The repository records 35 passing automated Java tests and a successful 36/5/36 packaged HTTP rehearsal. All 12 planned acceptance cases have related automated coverage, with the largest unclosed scenario-evidence questions involving input boundaries and injected write failures. Preserve the historical execution records and add exact-revision, evidence-backed human dispositions before claiming release acceptance.
 
 **AI-use disclosure:** ChatGPT compared repository test catalogs, acceptance mappings, rehearsal summary, procedure and transcript, and drafted this review. No new tests were run, no user observation or independent verification is claimed, and no acceptance or release approval was performed. Human review and AI-use log update remain required.
+
+## Mapping correction verification
+
+This correction checked the executable and recorded HTTP transcript against
+controller test source: the demo's reviewer detail GET uses Student A's captured
+ID, while the controller test loops over A and B. Its unknown UUID request is a
+reviewer status PATCH with If-Match; it must not be reported as a student unknown-ID
+lookup. Existing results and acceptance boundaries remain unchanged. No new
+runtime tests or human acceptance were performed by this correction.
