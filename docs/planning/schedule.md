@@ -172,7 +172,7 @@ Remaining sequence: verify final main CI → refresh submission evidence and unr
 ## A5 — Cycle 1 Release Schedule Reconciliation
 
 **Prepared by:** Malec Tarabein, Planning & Process Lead (backup: Shú Perez). AI-assisted drafting is disclosed in the [AI-use log](../ai/ai-use-log.md).
-**Repository checkpoint reviewed:** `main` at `ac228d0` (after PRs #82–#97 merged).
+**Repository checkpoint reviewed:** `main` at `ac228d0` (after PRs #82–#97 merged). Later open-PR references below are a worklist update, not evidence that those PRs were merged at this checkpoint.
 **Status:** Proposed planning record for team review. It reconciles the plan with repository history; it does not approve the release, freeze the A5 baseline, or set new course deadlines. Sakai remains the authoritative source for the A5 due date.
 
 ### Planned versus actual milestones
@@ -196,17 +196,17 @@ Each step's exit evidence must exist in the repository before the next step is t
 
 | Seq | Step | Entry condition | Exit / completion evidence | Proposed coordinator | Current state at `ac228d0` |
 |---|---|---|---|---|---|
-| 1 | Review and decide the open A5 documentation PRs | PRs open | Every A5 documentation PR merged, revised, or closed with a recorded reason | Victor (merge decisions); non-author reviewer per PR | #82–#97 merged; #98 (this planning update) and #99 (Role Matrix) open |
+| 1 | Review and decide the open A5 documentation PRs | PRs open | Every A5 documentation PR merged, revised, or closed with a recorded reason | Victor (merge decisions); non-author reviewer per PR | #82–#97 merged at this checkpoint; #98 (this planning update), #99 (Role Matrix), #100 (release-readiness draft) and #101 (acceptance quality review) are open in the subsequent worklist |
 | 2 | Freeze the candidate release revision | Step 1 done; no further code changes planned | Candidate SHA recorded in [release notes](../release/release-notes.md) and [known limitations](../release/known-limitations.md) | Victor | Not frozen (known-limitations states "Not frozen") |
 | 3 | Run CI on the frozen SHA | Step 2 | `Java CI with Maven` run linked with SHA, test count and artifact; documentation-only commits after the freeze explained | Development / testing owners | Last cited run #41 is on `0fcc79c`, not the current checkpoint (defect log A5-F05) |
 | 4 | Execute and record TC-001–TC-012 at the frozen SHA | Steps 2–3 | Per-case result, date, operator, environment, SHA, evidence path under `/test-evidence/`, or an explicit blocked/deferred disposition | Mareddy; Giancarlo reconciles | 0/12 recorded (defect log A5-F04). `/test-evidence/a5-http-demo/` now holds the #96 HTTP demo rehearsal (synthetic workflow, restart and failure transcripts at `714a31b`); it supports the demo but is not a per-case TC record |
 | 5 | Disposition defects, findings and limitations | Steps 3–4 | A5-F01–F06 and LIM-001–LIM-005 each have a recorded human decision; residual-risk acceptance for LIM-001/LIM-002 recorded | Giancarlo (register); Victor (acceptance) | Dispositions pending |
-| 6 | Complete the release-readiness review | Steps 3–5 | [`release-readiness-review.md`](../reviews/release-readiness-review.md) replaced with an evidence-backed go / no-go for the frozen SHA | Victor; Giancarlo reviews | Still the starter template |
+| 6 | Complete the release-readiness review | Steps 3–5 | [`release-readiness-review.md`](../reviews/release-readiness-review.md) replaced with an evidence-backed go / no-go for the frozen SHA | Victor; Giancarlo reviews | PR #100 supplies an evidence-backed draft; human review, frozen-SHA reconciliation and final decision pending |
 | 7 | Tag the release | Step 6 is "go" | Tag `a5-cycle1-release` on the reviewed SHA; tag SHA matches release notes and the Word summary | Victor | Not created |
 | 8 | Final AI-use update and presentation | Step 7 | AI-use log covers implementation, testing, documentation, release notes and presentation; PowerPoint (not PDF) cites repository evidence | All; Shelby / Victor for presentation | Partially logged |
 | 9 | Submission | Step 8 | Word summary indexes the tagged evidence; individual peer reviews submitted privately, not stored in this repository | Victor (team package); each student (peer review) | Not started |
 
-Steps 1 and 4 can run in parallel once the candidate SHA is chosen; steps 5–7 depend on their results.
+Step 1 must finish before step 2 freezes the candidate SHA. Step 3 verifies that SHA; step 4 follows steps 2–3 as specified in the table. Preparatory acceptance-case mapping may proceed alongside PR review, but final case execution/disposition must use the frozen, verified candidate. Steps 5–7 depend on the recorded verification and case outcomes.
 
 ### Schedule controls for the remaining work
 
