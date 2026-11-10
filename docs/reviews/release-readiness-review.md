@@ -143,3 +143,19 @@ No gate is closed solely because a document exists. RRB-002 now has a technical
 assessment to review; RRB-003/004/005 still require actual named decisions.
 PR99 is explicitly excluded from this local work. Do not invent approvals,
 update private peer records, or silently accept requirements on a student's behalf.
+
+## Post-merge evidence update — 2026-11-10 UTC (proposed; no sign-off)
+
+**Quality & Review Lead evidence checkpoint:** `main` at `dbb76f985761202021947a9e1a2aae3bd32261e4`. The original review checkpoint and assessment above remain historical and should not be read as current sign-off.
+
+| Area | Newly verified evidence | Quality interpretation / remaining decision |
+|---|---|---|
+| Main-branch CI | [Run #48](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42761953805), Java CI with Maven, **success** at exact checkpoint SHA; [verify/test job](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42761953805/job/129649479940) reports successful build/test/package and test-report upload | This closes the *missing successful main CI at this checkpoint* evidence gap. It does not prove a future tagged SHA, acceptance decisions, or a security scan. Exact JUnit totals for this run have not been independently extracted here. |
+| Documentation PRs | [#98](https://github.com/victordodan/-comp330-f26-team-02/pull/98), [#99](https://github.com/victordodan/-comp330-f26-team-02/pull/99), [#100](https://github.com/victordodan/-comp330-f26-team-02/pull/100), [#101](https://github.com/victordodan/-comp330-f26-team-02/pull/101) merged | Documentation available on main; merge does not constitute acceptance, independent release review, or approval. |
+| Acceptance TC-001–TC-012 | [Matrix](../testing/a5-acceptance-evidence-matrix.md): 12/12 mapped to related automated evidence; 0/12 separately dated case-specific executions | **12/12 final case dispositions remain Pending**. Mareddy and authorized reviewers must reconcile actual evidence, scenario gaps and decisions. No extra manual test requirement is inferred when automation is sufficient. |
+| A5 tag and release decision | No remote `a5-cycle1-release` tag found at this checkpoint | Victor must select/review a final baseline and record GO / CONDITIONAL GO / NO-GO before tagging. |
+| Residual security and operational risk | Existing review covers demo identity and local file-backed H2 boundaries | Dependency/advisory/license review or explicit human deferral, independent review, and LIM-001–LIM-005 risk acceptance remain Pending. |
+
+**Updated quality recommendation:** **Conditionally ready to prepare the controlled local synthetic-data demo; NOT APPROVED for final A5 release.** The passing main CI reduces verification uncertainty but does not remove RRB-001 through RRB-005 without the required recorded decisions. Preserve the existing pending decision log until the responsible people supply evidence. No new tests, scans, manual acceptance executions, approvals or tags were performed to prepare this update.
+
+**AI-use disclosure:** ChatGPT assisted this documentation-only comparison against GitHub CI and main-branch evidence. Original review attribution to Giancarlo Herrera is preserved without claiming that he personally performed any unrecorded verification or approval.
