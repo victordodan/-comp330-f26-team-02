@@ -5,7 +5,20 @@
 **Status:** Draft evidence reconciliation; no new tests executed and no release acceptance granted
 **Reviewed checkpoint:** `4ff2f0f12e636f177ec25202b8029498e613afde`; merged #92 is the execution report, while this document supplies the AC-to-test crosswalk. Final release-SHA review remains pending.
 
-## Status definitions
+## Latest case dispositions
+
+The reconciliation and Pending rows below describe the historical checkpoint
+above. They are superseded for case disposition by the
+[delegated acceptance closeout](a5-acceptance-closeout.md): TC-001 through
+TC-012 are PASS within the recorded classroom-demo scope at source
+`531d54ca0f391e218752888900c4668173f75e27`, approved by Codex under Victor
+Dodan's explicit delegation. Fresh execution evidence is linked there; it
+combines the test suite and packaged HTTP/restart checks, rather than twelve
+separate manual runs. Independent human review, dependency-risk disposition
+and final release SHA/tag approval remain outstanding. Historical counts
+below are retained for audit and do not describe the latest case decisions.
+
+## Historical status definitions
 
 - **Mapped automated coverage:** E1/E2 below report passing tests related to the case. This is **not** a separately executed TC record.
 - **Case-specific execution:** A dated record with operator, SHA, environment, observed result and link as specified by `docs/testing/test-cases.md`. Merged #92 records **0/12 separate case-specific executions**; this correction does not create those records.

@@ -8,7 +8,7 @@ Execution date/environment and every executed method are preserved in
 These are twelve evidence-based case records derived from one suite plus HTTP
 execution, not twelve separate manual runs. No final release SHA/tag is chosen.
 
-| Case / criterion | Behavior assessed | Fresh executed JUnit evidence (combined with HTTP records) | Proposed disposition |
+| Case / criterion | Behavior assessed | Fresh executed JUnit evidence (combined with HTTP records) | Approved disposition |
 |---|---|---|---|
 | TC-001 / AC-REQ-001-01 | Valid student request, Submitted state and ID | `createsTrimmedStudentOwnedRequestAndReturnsCurrentEtag`, `createsTrimmedOwnedRequestsWithDistinctIdsAndDefaults` | PASS — approved under Victor’s delegated authority for the recorded classroom-demo scenario scope |
 | TC-002 / AC-REQ-001-02 | Invalid fields rejected with no write | `rejectsInvalidCreationWithoutStoringAnything`, `rejectsInvalidInputWithoutStoringAnything`, `rejectsOutOfRangeBoundaries`, `rejectsUnsupportedCategories`, `acceptsMinimumAndMaximumBoundaries`, `rejectsMissingAndWhitespaceOnlyFields`, `acceptsAndTrimsSurroundingCategoryWhitespace` | PASS — approved under Victor’s delegated authority for the recorded classroom-demo scenario scope |
