@@ -165,58 +165,24 @@ The earlier open/failing statuses are superseded:
 - Quality evidence: #75 merged; final post-merge reconciliation remains pending.
 - Remaining acceptance/recovery evidence, ownership confirmation, final main verification, tag, and Word submission remain open.
 
-## A5 — Cycle 1 Release Task Update
+## A5 — Release Task Reconciliation
 
-**Prepared by:** Malec Tarabein, Planning & Process Lead (backup: Shú Perez). AI-assisted drafting is disclosed in the [AI-use log](../ai/ai-use-log.md).
-**Repository checkpoint reviewed:** `main` at `ac228d0`.
-**Status:** Proposed for team review. Status changes below follow the Definition of Task Completion above: a task is **Complete** only when its merged evidence exists. Owner changes marked *proposed* need Victor's confirmation.
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
 
-### Status reconciliation for the Active Task Plan
+| Task | Evidence-supported state | Remaining work |
+|---|---|---|
+| TASK-012 architecture | Accepted ADRs and merged design/implementation clarification exist | Final integrated review remains separate; not automatically closed |
+| TASK-013 implementation | HTTP workflow/JDBC/session code merged | Requirements acceptance and unverified UI scope remain distinct |
+| TASK-014 tests/CI | Automated suite and all-change CI implemented | Final candidate CI and assurance decisions |
+| TASK-015 verification/defects | Case mappings and actual 36/5/36 rehearsal exist | Use PR101 review after corrections, record actual human case dispositions and residual risks |
+| TASK-016 release/presentation | Candidate notes/demo/gate merged; #100 indexes drafted locally | Readiness decision, independent review, Word/PPTX and tag/submission |
+| TASK-017/018 Cycle2 | Candidate handoff prepared locally in #100 | Team prioritization and A6 work; no automatic new commitments |
 
-The Active Task Plan table above was last updated in A2. This reconciles each open row with merged evidence.
+Proposed coordination: Victor for release/submission decisions; testing owner
+for evidence; quality lead for reconciliation; planning lead for schedule/risk
+maintenance. These roles do not establish actual work or approval by an individual.
+PR99 is excluded; no role-matrix edits or acknowledgements are invented. Tasks
+awaiting evidence/decisions must say so rather than asserting that none are blocked.
+Use Definition of Done before marking a task Complete, not just file existence.
 
-| ID | Recorded status | Reconciled status | Evidence | Remaining work |
-|---|---|---|---|---|
-| TASK-012 | Planned | Complete | Tag `a3-architecture-review`; ADR-002–ADR-004 accepted Oct 16; ADR-005 merged (#81) | None for Cycle 1 |
-| TASK-013 | Planned | Complete | Tag `a4-construction-integration`; PRs #69, #71–#73, #76, #77 merged | None for Cycle 1. Browser UI not delivered (see scope change below) |
-| TASK-014 | Planned | Complete with open findings | 35 passing tests (CI run #41); Maven CI consolidated in #93; review evidence in `docs/reviews/` | Dependency/advisory acceptance (A5-F06) carried into TASK-015 |
-| TASK-015 | Planned | In progress | Acceptance-coverage report (#92) and AC-to-test matrix (#88); defect log and reconciliation (#87, #91); limitations (#83, #94) | Final-SHA CI, 0/12 → 12/12 case records or dispositions, defect dispositions |
-| TASK-016 | Planned | In progress | Candidate release notes (#86) and demo script with rehearsal evidence (#96, #97) merged; planning traceability updated in `traceability.md` | Readiness review, tag, presentation, Word summary |
-| TASK-017 | Planned | Planned | — | Starts after release; inputs listed under TASK-019 |
-| TASK-018 | Planned | Planned | — | A6 |
-
-### A5 release tasks
-
-TASK-015 and TASK-016 are broken into the tasks below so each has a single owner, a dependency, and checkable exit evidence. Sequencing follows the [A5 critical path](schedule.md#remaining-a5-critical-path).
-
-| ID | Task | Owner (proposed) | Backup / reviewer | Exit evidence | Depends on | Status |
-|---|---|---|---|---|---|---|
-| TASK-015a | Review and decide open A5 documentation PRs | Victor Dodan | Non-author reviewer per PR | Each PR merged or closed with reason | — | #82–#97 merged at the reviewed checkpoint; #98–#101 open in the subsequent A5 worklist |
-| TASK-015b | Freeze the candidate release SHA and record it in release notes and limitations | Victor Dodan | Malec Tarabein | SHA appears in both documents | TASK-015a | Not started |
-| TASK-015c | Obtain CI on the frozen SHA and record run, test count and artifact | Shú Perez | Venkata Aravind Mareddy | Run link in `docs/testing/` and release notes | TASK-015b | Not started |
-| TASK-015d | Execute TC-001–TC-012 at the frozen SHA and store results | Venkata Aravind Mareddy | Giancarlo Herrera | Per-case records in `docs/testing/a5-acceptance-test-evidence.md`; raw output in `/test-evidence/` | TASK-015b | Not started (0/12) |
-| TASK-015e | Disposition A5-F01–F06 and LIM-001–LIM-005, including residual-risk acceptance | Giancarlo Herrera | Victor Dodan (acceptance) | Every row in `docs/quality/defect-log.md` and `docs/release/known-limitations.md` has a human decision | TASK-015c, TASK-015d | Open |
-| TASK-016a | Complete the release-readiness review with a go / no-go | Victor Dodan | Giancarlo Herrera | `docs/reviews/release-readiness-review.md` no longer contains starter text | TASK-015e | PR #100 supplies an evidence-backed draft; final human review and SHA-specific go/no-go pending |
-| TASK-016b | Tag `a5-cycle1-release` on the reviewed SHA | Victor Dodan | Malec Tarabein | Tag SHA = frozen SHA | TASK-016a | Not started |
-| TASK-016c | Replace remaining starter-kit placeholders in release-facing docs, or mark them as out of Cycle 1 scope | Shelby Sierah | Malec Tarabein | `README.md`, `docs/release/traceability-summary.md`, `docs/team/roles.md` (covered by #99; demo script completed in #96) and the `docs/operations/`, `docs/observability/`, `docs/security/` files reviewed | — | Not started |
-| TASK-016d | Final AI-use log update covering all A5 work, including presentation preparation | Giancarlo Herrera | Malec Tarabein | `docs/ai/ai-use-log.md` entries for every A5 PR | TASK-015a | In progress (#90 merged; presentation-preparation AI use not yet logged) |
-| TASK-016e | Build the PowerPoint presentation from tagged repository evidence | Shelby Sierah | Victor Dodan | `.pptx` file; every release claim cites a repository path or link | TASK-016b | Not started |
-| TASK-016f | Word summary indexing the final release evidence and submit the team package | Victor Dodan | Malec Tarabein | Sakai submission | TASK-016b, TASK-016e | Not started |
-| TASK-016g | Individual peer reviews (private; not committed to this repository) | Each student | — | Sakai submission | — | Not started |
-| TASK-019 | Record Cycle 1 planning lessons for Cycle 2 | Malec Tarabein | Victor Dodan | Section added to `re-estimation.md` or the Cycle 1 postmortem | TASK-016b | Not started |
-
-Owners for TASK-015c, TASK-016c and TASK-016e follow the roles in `docs/team/roles.md` and existing release-document ownership; the team should confirm or reassign them.
-
-### Scope change recorded
-
-ADR-002 selected Thymeleaf for server-rendered pages, but the delivered Cycle 1 interface is an HTTP API ([LIM-004](../release/known-limitations.md)). SCP-001 to SCP-006 are delivered through API endpoints with simulated session identities. A graphical workflow is **deferred**, not delivered. This change is recorded here and in [`scope.md`](scope.md) so it is not changed silently.
-
-### Blocked work
-
-No task is blocked. TASK-016a to TASK-016f are waiting on the freeze-and-verify chain (TASK-015b to TASK-015e) and should not be reported as in progress until that chain moves.
-
-### Inputs for Cycle 2 planning (TASK-019)
-
-- Each phase gate closed on its final scheduled day, with most commits in the last one or two days (see the [schedule reconciliation](schedule.md#planned-versus-actual-milestones)).
-- No effort actuals were recorded, so EST-004 and EST-005 cannot be compared with actual hours (see [`estimates.md`](estimates.md#a5--estimate-versus-actual-assessment)).
-- The Active Task Plan statuses were not maintained between A2 and A5; this section is the first reconciliation.
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).

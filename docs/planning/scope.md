@@ -82,24 +82,18 @@ The A1 scope baseline remains the foundation for the project. During A2, the tea
 | A2 | Scope aligned with Cycle 1 requirements and planning evidence | Refined | Connect the existing scope baseline to stable requirement identifiers and current A2 planning evidence. | `docs/requirements/`, `docs/planning/` |
 | A2 | Final production technology stack explicitly deferred | Deferred decision | Preserve architecture flexibility until sufficient engineering evidence exists to support a technology decision. | `docs/decisions/ADR-001-defer-production-technology-stack.md` |
 
-## A5 — Delivered Cycle 1 Scope
+## A5 — Delivered Scope Reconciliation
 
-**Prepared by:** Malec Tarabein, Planning & Process Lead. Checkpoint `main` at `ac228d0`. Proposed for team review; delivery status here does not replace acceptance results (see [acceptance evidence](../testing/a5-acceptance-test-evidence.md)).
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
 
-| Scope ID | Delivered in Cycle 1? | How | Verification status | Evidence |
-|---|---|---|---|---|
-| SCP-001 | Yes | HTTP API, simulated student session | Automated tests pass; dated acceptance run pending | `RequestController`, `WorkflowService`, CI run #41 |
-| SCP-002 | Yes | JDBC to file-backed H2, UUID identifiers | Automated and A4 restart checks pass; backup restore not verified (LIM-001) | `JdbcRequestRepository`, ADR-004 |
-| SCP-003 | Yes | HTTP API, simulated reviewer session | Automated tests pass; dated acceptance run pending | Controller tests |
-| SCP-004 | Yes | Versioned status updates | Automated tests pass; dated acceptance run pending | Service tests, ADR-003 |
-| SCP-005 | Yes | Reviewer note / resolution on update | Automated tests pass; dated acceptance run pending | Service tests |
-| SCP-006 | Yes | Student retrieval of own requests | Automated tests pass; dated acceptance run pending | Controller ownership tests |
-| SCP-007 | Partly | Repository evidence maintained; several starter-kit files remain | See TASK-016c in the [task plan](task-plan.md) | `docs/` |
+SCP-001–006 are implemented as HTTP student/reviewer workflow operations with
+synthetic sessions, file-backed H2 and versioned writes. They have related tests
+and rehearsal evidence; delivery is not automatic acceptance. Notes are saved
+through a separate endpoint before resolution. SCP-007 repository evidence is
+substantial but final indexes/decisions and submission remain incomplete.
 
-### Scope changes during Cycle 1
+The original proposed graphical/Thymeleaf interface is not a verified shipped
+capability. Notifications, institutional login and production operations remain
+outside the bounded demo claim. No unapproved Cycle2 feature commitment is added.
 
-| Change | Reason | Effect | Recorded in |
-|---|---|---|---|
-| Browser (Thymeleaf) interface not delivered; the workflow is exposed as an HTTP API | Construction time went to the core workflow, persistence and authorization checks | Demonstration uses the documented HTTP workflow; graphical UI deferred, not promised for Cycle 2 | [LIM-004](../release/known-limitations.md), [task plan](task-plan.md#scope-change-recorded) |
-
-No item from the Out of Scope table was added during Cycle 1.
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).

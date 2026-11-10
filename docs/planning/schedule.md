@@ -169,54 +169,24 @@ The build, model, application bootstrap, workflow, controller, startup-test, and
 
 Remaining sequence: verify final main CI → refresh submission evidence and unresolved dispositions → approve the final baseline → create the A4 tag and complete the Word/Sakai submission.
 
-## A5 — Cycle 1 Release Schedule Reconciliation
+## A5 — Release Schedule Reconciliation
 
-**Prepared by:** Malec Tarabein, Planning & Process Lead (backup: Shú Perez). AI-assisted drafting is disclosed in the [AI-use log](../ai/ai-use-log.md).
-**Repository checkpoint reviewed:** `main` at `ac228d0` (after PRs #82–#97 merged). Later open-PR references below are a worklist update, not evidence that those PRs were merged at this checkpoint.
-**Status:** Proposed planning record for team review. It reconciles the plan with repository history; it does not approve the release, freeze the A5 baseline, or set new course deadlines. Sakai remains the authoritative source for the A5 due date.
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
 
-### Planned versus actual milestones
+Sakai remains authoritative for deadlines. Preserve historical planned windows;
+no new deadline or inference about offline work is introduced.
 
-Actual dates come from phase-gate tags and commit history, not from memory or estimates.
+| Sequence | Actual exit evidence | Current status / proposed coordinator |
+|---|---|---|
+| Reconcile release-affecting proposals | Explicit PR disposition; not every unrelated open PR must merge | #98/#100 local work; PR99 excluded; Victor coordinates |
+| Prepare evidence/submission drafts | Release index, changed-file/test indexes, demo/presentation/handoff links | Local #100 additions; Word/PPTX still team work |
+| Select candidate and assess it | Exact SHA; CI; case-specific evidence decisions; independent review | Not frozen; testing/technical reviewers and lead |
+| Decide remaining risks | Named dated scope/mitigations, including dependency and demo limits | Human decisions pending |
+| Release/tag/submission | Approved baseline, tag, matching Word/PPTX/clone URL; private peer reviews | Lead/team; no approval or tag created here |
 
-| ID | Planned window | Actual repository evidence | Variance and assessment | Status |
-|---|---|---|---|---|
-| MS-001 | Sep 10–Sep 20 | Tag `a1-project-launch` on `4e76386` (Sep 20) | On plan. | Complete |
-| MS-002 | Sep 22–Sep 29 | Tag `a2-planning-estimate` on `5aa88e1` (Sep 29) | On plan; 27 of the 28 first-parent commits in the A2 window landed on Sep 29. | Complete (status above was not updated after A2) |
-| MS-003 | Sep 30–Oct 15 | Tag `a3-architecture-review` on `255c335` (Oct 15); ADR-002–ADR-004 accepted Oct 16 | Tag on plan; ADR acceptance one day after the window, overlapping the start of MS-004 as anticipated in the A3 assessment. | Complete |
-| MS-004 | Oct 16–Oct 29 | Tag `a4-construction-integration` on `70d3726` (Oct 29); post-merge corrections authored Oct 30 | Tagged on the last day of the window. Implementation PRs #69, #71–#73, #76, #77 merged at the deadline rather than incrementally, so integration consumed the planned buffer. | Complete |
-| MS-005 | Oct 30–Nov 10 | No commits on any branch between Oct 31 and Nov 8. A5 work (PRs #80–#99) is concentrated on Nov 9–10. No `a5-cycle1-release` tag exists at this checkpoint. | **Schedule compression materialized.** The planned integration-test window (Oct 30–Nov 5) and verification window (Nov 6–Nov 10) have no repository-visible activity until Nov 9. Work may have occurred off-repository, but it is not evidence until committed. See R-006 and R-017 in the [risk register](risk-register.md). | In progress |
-| MS-006 | Nov 11–Nov 24 | Not started | Depends on MS-005 closure. | Planned |
+Evidence/presentation drafting can precede tagging; final artifacts identify the
+approved revision. Preserve real execution timestamps/SHAs and disclose later
+changes. Repeat affected verification if implementation changes, not merely to
+relabel historical logs. Final human presentation rehearsal remains pending.
 
-The near-term schedule rows 5 (integrate and test, Oct 30–Nov 5) and 6 (verify and prepare release evidence, Nov 6–Nov 10) above are superseded by the remaining A5 sequence below.
-
-### Remaining A5 critical path
-
-Each step's exit evidence must exist in the repository before the next step is treated as complete.
-
-| Seq | Step | Entry condition | Exit / completion evidence | Proposed coordinator | Current state at `ac228d0` |
-|---|---|---|---|---|---|
-| 1 | Review and decide the open A5 documentation PRs | PRs open | Every A5 documentation PR merged, revised, or closed with a recorded reason | Victor (merge decisions); non-author reviewer per PR | #82–#97 merged at this checkpoint; #98 (this planning update), #99 (Role Matrix), #100 (release-readiness draft) and #101 (acceptance quality review) are open in the subsequent worklist |
-| 2 | Freeze the candidate release revision | Step 1 done; no further code changes planned | Candidate SHA recorded in [release notes](../release/release-notes.md) and [known limitations](../release/known-limitations.md) | Victor | Not frozen (known-limitations states "Not frozen") |
-| 3 | Run CI on the frozen SHA | Step 2 | `Java CI with Maven` run linked with SHA, test count and artifact; documentation-only commits after the freeze explained | Development / testing owners | Last cited run #41 is on `0fcc79c`, not the current checkpoint (defect log A5-F05) |
-| 4 | Execute and record TC-001–TC-012 at the frozen SHA | Steps 2–3 | Per-case result, date, operator, environment, SHA, evidence path under `/test-evidence/`, or an explicit blocked/deferred disposition | Mareddy; Giancarlo reconciles | 0/12 recorded (defect log A5-F04). `/test-evidence/a5-http-demo/` now holds the #96 HTTP demo rehearsal (synthetic workflow, restart and failure transcripts at `714a31b`); it supports the demo but is not a per-case TC record |
-| 5 | Disposition defects, findings and limitations | Steps 3–4 | A5-F01–F06 and LIM-001–LIM-005 each have a recorded human decision; residual-risk acceptance for LIM-001/LIM-002 recorded | Giancarlo (register); Victor (acceptance) | Dispositions pending |
-| 6 | Complete the release-readiness review | Steps 3–5 | [`release-readiness-review.md`](../reviews/release-readiness-review.md) replaced with an evidence-backed go / no-go for the frozen SHA | Victor; Giancarlo reviews | PR #100 supplies an evidence-backed draft; human review, frozen-SHA reconciliation and final decision pending |
-| 7 | Tag the release | Step 6 is "go" | Tag `a5-cycle1-release` on the reviewed SHA; tag SHA matches release notes and the Word summary | Victor | Not created |
-| 8 | Final AI-use update and presentation | Step 7 | AI-use log covers implementation, testing, documentation, release notes and presentation; PowerPoint (not PDF) cites repository evidence | All; Shelby / Victor for presentation | Partially logged |
-| 9 | Submission | Step 8 | Word summary indexes the tagged evidence; individual peer reviews submitted privately, not stored in this repository | Victor (team package); each student (peer review) | Not started |
-
-Step 1 must finish before step 2 freezes the candidate SHA. Step 3 verifies that SHA; step 4 follows steps 2–3 as specified in the table. Preparatory acceptance-case mapping may proceed alongside PR review, but final case execution/disposition must use the frozen, verified candidate. Steps 5–7 depend on the recorded verification and case outcomes.
-
-### Schedule controls for the remaining work
-
-- **No backdating.** A result recorded after the freeze carries its real execution date and the SHA it ran against.
-- **Re-freeze rule.** If a code change is needed after step 2, steps 2–4 repeat for the new SHA. Documentation-only changes after the freeze must not alter release claims without review.
-- **Scope protection.** No new features enter Cycle 1. Anything incomplete is recorded as deferred in the release notes and known limitations, not finished under deadline pressure.
-- **Deadline fallback.** If steps 4–6 cannot finish before the Sakai deadline, the release is presented as a candidate with its open items listed, rather than tagged as approved.
-
-### A5 schedule assessment
-
-Every phase gate so far has closed on its final scheduled day, and the A2, A4 and A5 commit histories each show most of the work landing in the last one or two days. The A2 plan's buffer rule ("work should reach reviewable form early enough to allow another team member to inspect the evidence") has not been met in practice. This is the main process finding for Cycle 1 and is carried forward to MS-006 as a Cycle 2 planning input (see the [task plan](task-plan.md), TASK-019).
-
-No completion percentage, effort actual, approval, or new deadline is claimed by this section.
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).

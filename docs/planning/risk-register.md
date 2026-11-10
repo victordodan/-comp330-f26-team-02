@@ -145,59 +145,23 @@ PRs #69, #71, #72, #73, #75, #76, and #77 are merged. The build uses Spring Boot
 
 These results provide mitigation evidence. Formal risk acceptance, dependency maintenance/security acceptance, backup restoration, and final release verification remain pending.
 
-## A5 — Cycle 1 Release Risk Disposition
+## A5 — Release Risk Reconciliation
 
-**Prepared by:** Malec Tarabein, Planning & Process Lead (backup: Shú Perez). AI-assisted drafting is disclosed in the [AI-use log](../ai/ai-use-log.md).
-**Repository checkpoint reviewed:** `main` at `ac228d0`.
-**Status:** Proposed dispositions for team review. A risk is **Closed** only when its exit evidence is merged; **Accepted** requires a named human decision, recorded here by the person accepting it. No risk is closed or accepted by this draft. Earlier sections are kept as history.
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
 
-### Disposition of R-001 to R-016
+| Risk / limitation | Actual basis | Disposition needed |
+|---|---|---|
+| Local data recovery / LIM-001 | Full same-store restart passed; backup restoration not tested | Add targeted evidence or named bounded-demo risk decision |
+| Synthetic identity / LIM-002 | Role selector deliberately allows Reviewer; no real identity verification | Local/synthetic scope and human acceptance; no public deployment claim |
+| Dependencies / A5-F06 | Fresh inventory/POM licenses recorded locally in #100; advisory API blocked | Dated advisory/support/license assessment or explicit human deferral |
+| Acceptance / A5-F04 | Tests/rehearsal and PR101 coverage review available | Per-case human decisions; no automatic twelve-case PASS |
+| Final baseline / A5-F05 | No A5 tag/release decision established | Select revision, verify, review, approve/tag |
+| Presentation/ownership | AI-assisted work and contributor attribution disclosed | Human claim/speaker review; PR99 untouched |
 
-| ID | Short name | Cycle 1 outcome (evidence) | Proposed A5 status | Exit / acceptance evidence still needed | Owner |
-|---|---|---|---|---|---|
-| R-001 | Scope expansion | Scope did not expand. SCP-001–SCP-006 delivered through the HTTP API; the planned browser UI was dropped, so scope actually **contracted** ([LIM-004](../release/known-limitations.md)). | Propose Closed for Cycle 1 | Team confirms the UI deferral recorded in `scope.md` | Malec Tarabein |
-| R-002 | Technology learning | Spring Boot / JDBC / H2 stack built and tested (35 tests, CI run #41). | Propose Closed | None beyond A5-F06 dependency review, tracked under R-015 | Shú Perez |
-| R-003 | Availability / late work | **Materialized.** A4 implementation merged on the A4 deadline day; no commits on any branch Oct 31–Nov 8; A5 work concentrated on Nov 9–10. | Materialized — Open | Remaining A5 tasks finish with a review step before the Sakai deadline | Victor Dodan |
-| R-004 | Requirement change | No material requirement change after A2. | Propose Closed | — | Malec Tarabein |
-| R-005 | Integration failure | Integration succeeded but was compressed into the last day of MS-004 (PRs #69, #71–#73, #76, #77). | Propose Closed | — | Shú Perez |
-| R-006 | Late testing | **Materialized.** Automated coverage exists (35 tests), but 0/12 acceptance cases have a dated execution record and there is no CI run on a final A5 SHA (defect log A5-F04, A5-F05). | Materialized — Open | TASK-015c and TASK-015d complete, or each case dispositioned as blocked/deferred | Giancarlo Herrera |
-| R-007 | Evidence currency | Partly materialized: the task plan and schedule were not updated between A2 and A5; several release-facing files still contain starter-kit text. | Open | TASK-016c complete; planning reconciliation in this PR reviewed | Victor Dodan |
-| R-008 | Communication | No repository evidence of a communication failure. Several A5 PRs were opened in parallel on overlapping topics (for example #80 / #81, #83 / #94), which suggests coordination cost. | Monitoring | — | All team members |
-| R-009 | Merge conflicts | **Materialized, managed.** PRs #93, #94 and #95 each needed a "merge main into PR" conflict resolution before integration. | Propose Closed for Cycle 1 | — | Venkata Aravind Mareddy |
-| R-010 | Local data loss | Restart retention passed in A4 packaged checks. Backup **restoration** has never been verified ([LIM-001](../release/known-limitations.md)). | Open — residual | Victor records acceptance of LIM-001 for a synthetic-data demo, or a restore test is run | Shú Perez |
-| R-011 | Concurrent overwrite | Version-checked updates implemented; concurrency tests among the 35 passing tests. | Propose Closed | Re-confirmed by CI on the frozen SHA (TASK-015c) | Venkata Aravind Mareddy |
-| R-012 | Architecture drift | ADR-005 and limitations corrected to match the JDBC/H2 implementation (#81, #83, #94; finding A5-F01). | Propose Closed | — | Victor Dodan |
-| R-013 | Authorization / privacy | Server-session identity and ownership checks implemented and tested. A caller can still deliberately select the Reviewer identity ([LIM-002](../release/known-limitations.md)). | Open — residual | Victor records acceptance of LIM-002 for a loopback-only demo | Shú Perez; Giancarlo Herrera |
-| R-014 | Workflow / state drift | Transition rules aligned and tested (A4 post-merge evidence). | Propose Closed | Re-confirmed by CI on the frozen SHA | Shú Perez |
-| R-015 | Dependency / CI evidence | Spring Boot 3.5.16 builds in CI. #89 merged a security and dependency review, but no advisory, transitive-license or maintenance acceptance has been recorded (A5-F06). | Open | Victor records the residual-risk decision on the open items in the #89 review | Giancarlo Herrera |
-| R-016 | Phase-gate reproducibility | A4 risk closed by tag `a4-construction-integration`. **Recurs for A5:** no `a5-cycle1-release` tag and no frozen SHA. | Open (A5 instance) | Tag on the reviewed SHA; Word summary, release notes and presentation all cite that SHA | Victor Dodan |
+These are evidence-based exposures, not newly reproduced application defects.
+No risk is marked accepted/closed on someone's behalf. Do not assert that a risk
+cannot be mitigated during Cycle1 without evidence. Historical test/review SHAs
+can differ legitimately; the release index must explain their purpose rather
+than overwrite history to make every document show an untested SHA.
 
-### New A5 risks
-
-| ID | Risk | Likelihood | Impact | Mitigation | Contingency / response | Owner | Status |
-|---|---|---|---|---|---|---|---|
-| R-017 | If remaining A5 work continues to land on the final day, the release package may be submitted without independent review, contradicting the A5 requirement that another team can inspect and challenge it. | High | High | Follow the [A5 critical path](schedule.md#remaining-a5-critical-path); every release-claim PR gets a non-author review before merge. | Submit as a candidate release with open items listed, instead of claiming approval (schedule "deadline fallback"). | Malec Tarabein | Open |
-| R-018 | If the presentation or Word summary states capabilities beyond the release notes and known limitations (for example a browser UI, production authentication, or verified recovery), the release claims will not be defensible from repository evidence. | Medium | High | Build the presentation from the tagged release notes; each slide claim cites a repository path; non-author review before submission. | Remove or correct unsupported claims; disclose the gap. | Shelby Sierah; Victor Dodan | Open |
-| R-019 | If release documents cite different SHAs (the limitations, defect log and acceptance matrix currently cite `b899a1b`, `56c0907` and `4ff2f0f`), reviewers cannot tell which revision was evaluated. | High | Medium | After the freeze (TASK-015b), update every release document to cite the frozen SHA, or state why it differs. | Add a SHA reconciliation table to the release-readiness review. | Giancarlo Herrera | Open |
-
-### Materialized risks (A5)
-
-R-003, R-006 and R-009 have materialized as described above. R-009 was absorbed by the integration process without known loss of work. R-003 and R-006 remain open and are the main threats to A5 readiness. None of them involved a confirmed application defect or data loss.
-
-### Residual risks requiring human acceptance
-
-These cannot be mitigated within Cycle 1 and must be explicitly **accepted** (name, date, and scope of acceptance) or the release must be presented without approval:
-
-1. **R-010 / LIM-001:** no verified backup or restore; acceptable only with synthetic data.
-2. **R-013 / LIM-002:** simulated identities with selectable Reviewer role; acceptable only for loopback-only demonstration.
-3. **R-015 / A5-F06:** no completed dependency advisory or license review.
-
-| Risk | Accepted by | Date | Scope / conditions |
-|---|---|---|---|
-| R-010 | *(pending)* | | |
-| R-013 | *(pending)* | | |
-| R-015 | *(pending)* | | |
-
-### A5 risk assessment
-
-The technical risks planned in A2 and A3 (technology, integration, concurrency, architecture drift) are largely mitigated by merged code and tests. The open risks for the Cycle 1 release are **process and evidence** risks: late execution (R-003, R-017), unrecorded acceptance runs (R-006), an unfrozen and untagged baseline (R-016, R-019), and three residual risks waiting for an explicit decision. These belong in the release-readiness review and the release notes.
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).
