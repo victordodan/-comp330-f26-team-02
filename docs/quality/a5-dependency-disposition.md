@@ -1,5 +1,12 @@
 # A5 Dependency and Residual-Risk Disposition — Candidate
 
+> Current decision (2026-11-10): [Victor-authorized conditional classroom release](../release/a5-release-decision.md).
+> TC-001–TC-012 accepted within documented scope; residual risks explicitly
+> accepted/deferred. Historical pending decisions below retain their original
+> context. Final integrated human review is explicitly deferred for this conditional
+> baseline under Victor’s release authority; the course condition is unfulfilled.
+> Exact-main CI is required before tagging; no production/security/legal clearance.
+
 **Checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`; Java17/Maven3.9.9 dependency resolution completed locally.
 **Scope:** application transitive dependency graph, including compile/runtime/test scopes.
 **Coordinator:** designated technical reviewer; **decision:** Victor (pending).

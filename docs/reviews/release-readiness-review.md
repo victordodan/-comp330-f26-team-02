@@ -1,5 +1,12 @@
 # Assignment 5 — CampusConnect Release-Readiness Review
 
+> Current decision (2026-11-10): [Victor-authorized conditional classroom release](../release/a5-release-decision.md).
+> TC-001–TC-012 accepted within documented scope; residual risks explicitly
+> accepted/deferred. Historical pending decisions below retain their original
+> context. Final integrated human review is explicitly deferred for this conditional
+> baseline under Victor’s release authority; the course condition is unfulfilled.
+> Exact-main CI is required before tagging; no production/security/legal clearance.
+
 **Project:** CampusConnect — COMP 330 Team 2 (Codex Ramblers)  
 **Prepared for review by:** Giancarlo Herrera, Quality & Review Lead  
 **Review checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`; local closeout additions not yet merged

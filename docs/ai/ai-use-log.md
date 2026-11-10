@@ -281,3 +281,38 @@ Codex reconciled #109's dated checkpoint, verified retained artifacts against
 original XML/transcripts and unchanged source, and kept independent review,
 security/license acceptance, release authorization and tag OPEN. No new tests
 or personal human approvals are claimed.
+
+## A5 release authorization preparation — 2026-11-10
+
+Victor explicitly instructed Codex to make and record final case/risk/release
+decisions on his behalf. Codex recorded conditional classroom GO, scoped PASS
+decisions and named residual-risk deferrals, ran a fresh 35-test clean verify
+at integrated checkpoint 5fab39a, reconciled current-status indexes, and prepared
+a six-slide PPTX and Word index from repository evidence. This records delegated
+judgment, not Victor's personal test execution, another teammate's acceptance,
+a complete security/legal review, final independent integrated review, a human
+presentation rehearsal, Sakai submission or creation of a release tag.
+
+## PR #110 accountability-section reconciliation
+
+At Victor's request, Codex replaced superseded proposed-PASS wording in the
+acceptance closeout's human-accountability section with all twelve scoped PASS
+decisions, identified Victor as accountable authority, and reconciled gate
+statuses with the authorized release decision and merged #108/#109 approvals.
+No new tests, additional human approvals or release tag are claimed.
+
+## Final integrated Codex review
+
+At Victor's request, Codex inspected the integrated workflow and evidence at
+2349a14 and recorded its own technical assessment with verified CI #61. Codex
+did not attribute this review to another person or represent it as independent
+human review. No additional execution, scanner clearance or release tag is claimed.
+
+## Conditional baseline finalization
+
+Victor instructed Codex to finish through tagging using his delegated release
+and risk authority. Codex explicitly deferred the unfulfilled independent human
+review condition for this conditional classroom baseline, retained Victor as
+accountable owner and disclosed possible course-assessment consequences. This
+is not a teammate’s review or an instructor waiver. The tag must follow a
+successful exact-main CI run and preserve the original evidence identities.

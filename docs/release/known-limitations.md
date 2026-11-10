@@ -1,5 +1,12 @@
 # Known Limitations — CampusConnect Cycle 1 Candidate
 
+> Current decision (2026-11-10): [Victor-authorized conditional classroom release](a5-release-decision.md).
+> TC-001–TC-012 accepted within documented scope; residual risks explicitly
+> accepted/deferred. Historical pending decisions below retain their original
+> context. Final integrated human review is explicitly deferred for this conditional
+> baseline under Victor’s release authority; the course condition is unfulfilled.
+> Exact-main CI is required before tagging; no production/security/legal clearance.
+
 **Owner:** Shú Perez (Architecture) · **Backup:** Giancarlo Herrera
 **Review baseline:** Integrated repository checkpoint `b899a1b40b9d0539ae6152ee2ad874338533673a`
 **A5 baseline:** Not frozen; `a5-cycle1-release` is the intended tag, not an established release baseline.

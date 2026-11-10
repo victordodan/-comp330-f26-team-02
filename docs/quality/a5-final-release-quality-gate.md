@@ -1,5 +1,12 @@
 # Assignment 5 — Final Release Quality Gate and Closure Decisions
 
+> Current decision (2026-11-10): [Victor-authorized conditional classroom release](../release/a5-release-decision.md).
+> TC-001–TC-012 accepted within documented scope; residual risks explicitly
+> accepted/deferred. Historical pending decisions below retain their original
+> context. Final integrated human review is explicitly deferred for this conditional
+> baseline under Victor’s release authority; the course condition is unfulfilled.
+> Exact-main CI is required before tagging; no production/security/legal clearance.
+
 **Original preparer:** Giancarlo Herrera, Quality & Review Lead
 **Reviewed repository checkpoint:** `d640366e6addcb495a3449cb59253e5cb12599cf`; A4 historical tag remains `a4-construction-integration`.
 **A5 final baseline:** **NOT YET FROZEN**. Replace with the exact commit referenced by `a5-cycle1-release` only after all release changes are reviewed and merged.
