@@ -1,0 +1,15 @@
+{
+  "record": {
+    "id": "e6f1463d-88b3-49af-8609-3108604a127c",
+    "studentID": "student-a",
+    "title": "Synthetic registration request",
+    "category": "Academic",
+    "description": "Synthetic course registration issue for the local demonstration.",
+    "status": "In Progress",
+    "resolutionNote": "Synthetic revised resolution.",
+    "createdAt": "2026-11-10T05:46:08.553775694Z",
+    "updatedAt": "2026-11-10T05:46:08.765242425Z",
+    "version": 5
+  },
+  "etag": "\"5\""
+}

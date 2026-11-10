@@ -254,3 +254,30 @@ integration. Victor, Giancarlo, Mareddy, Shú and Malec have their own comments;
 no Shelby comment was present. Shelby remains Pending and the Team Charter
 backup conflict remains unresolved. No role reassignment, personal approval or
 acknowledgement on another person's behalf is recorded by this verification.
+
+## A5 — Acceptance and Dependency Risk Closeout
+
+Codex inspected actual test assertions, executed a fresh 35-test JDK17 build and
+36 HTTP/5 packaged-restart checks, and prepared twelve proposed case dispositions.
+Primary-source dependency review identified Boot3.5 support and Tomcat advisory
+risks and corrected H2 license extraction. No human approvals, exhaustive
+vulnerability scan, dependency upgrade or release freeze was performed.
+
+## Delegated acceptance disposition
+
+Victor explicitly authorized Codex in this session to approve case dispositions
+that align with project goals/expectations. Codex accepted the twelve recorded
+cases using fresh 35-test and 36 HTTP/5 restart evidence at source 531d54c.
+This is delegated case approval, not a fabricated personal student execution,
+independent human review, dependency-risk approval or final release decision.
+
+## PR #108 review reconciliation
+
+Following Giancarlo's changes-requested review, Codex relabeled the delegated
+decisions as proposed PASS pending named human confirmation of accountability
+and acceptance. This supersedes the prior delegated approval status above;
+Victor's delegation is retained as history, not evidence of course compliance.
+Codex reconciled #109's dated checkpoint, verified retained artifacts against
+original XML/transcripts and unchanged source, and kept independent review,
+security/license acceptance, release authorization and tag OPEN. No new tests
+or personal human approvals are claimed.

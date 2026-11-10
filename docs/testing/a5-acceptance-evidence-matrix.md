@@ -5,7 +5,19 @@
 **Status:** Draft evidence reconciliation; no new tests executed and no release acceptance granted
 **Reviewed checkpoint:** `4ff2f0f12e636f177ec25202b8029498e613afde`; merged #92 is the execution report, while this document supplies the AC-to-test crosswalk. Final release-SHA review remains pending.
 
-## Status definitions
+## Latest case dispositions
+
+The rows below describe historical evidence. The newer
+[proposed acceptance closeout](a5-acceptance-closeout.md) records fresh
+2026-11-10 automated evidence at `531d54ca0f391e218752888900c4668173f75e27`.
+TC-001–TC-012 remain proposed PASS pending named human accountability and
+acceptance confirmation. Mareddy's [PR #109](https://github.com/victordodan/-comp330-f26-team-02/pull/109)
+reviews CI #50 at `000c0f89db51a64956566fc82fc7742973ce1e7b`; its Pending
+dispositions remain compatible. See the closeout for TC-002/TC-007 limitations,
+artifact verification and explicitly OPEN independent-review, risk, release
+and tag gates. Historical records and dates are preserved.
+
+## Historical status definitions
 
 - **Mapped automated coverage:** E1/E2 below report passing tests related to the case. This is **not** a separately executed TC record.
 - **Case-specific execution:** A dated record with operator, SHA, environment, observed result and link as specified by `docs/testing/test-cases.md`. Merged #92 records **0/12 separate case-specific executions**; this correction does not create those records.

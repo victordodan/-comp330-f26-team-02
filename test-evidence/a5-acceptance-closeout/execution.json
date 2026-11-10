@@ -1,0 +1,222 @@
+{
+  "source_sha": "531d54ca0f391e218752888900c4668173f75e27",
+  "operator": "Codex automated execution",
+  "java": "Temurin 17.0.17+10",
+  "maven": "3.9.9",
+  "build_finished_utc": "2026-11-10T05:45:26Z",
+  "junit": [
+    {
+      "class": "edu.loyola.campusconnect.CampusConnectApplicationTests",
+      "method": "startsHttpServer",
+      "seconds": "0.127",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "twoReviewersCannotSaveChangesBasedOnTheSameLoadedVersion",
+      "seconds": "0.955",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "missingInvalidAndWrongRoleContextsAreDenied",
+      "seconds": "0.028",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "createsTrimmedStudentOwnedRequestAndReturnsCurrentEtag",
+      "seconds": "0.014",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "resolvingRequiresSavedNoteAndReopeningPreservesImmutableFieldsAndText",
+      "seconds": "0.062",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "rejectsInvalidCreationWithoutStoringAnything",
+      "seconds": "0.013",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "legacyClientStudentIdIsIgnoredWhenAssigningTheSessionOwner",
+      "seconds": "0.017",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "suppliedServerFieldsCannotForgeOwnerOrGrantReviewerRole",
+      "seconds": "0.01",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "studentsSeeOnlyOwnedRequestsAndCannotReadOrChangeReviewerData",
+      "seconds": "0.033",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "spoofedIdentityHeadersCannotGrantPermissionsOrOverrideTheSession",
+      "seconds": "0.023",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "unknownIdsMalformedJsonAndUnsupportedTransitionsProduceClearErrors",
+      "seconds": "0.053",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "unavailableStorageReturnsFailureWithoutFalseSuccessOrRecordChanges",
+      "seconds": "0.025",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "reviewerCanInspectBothStudentsButCannotUseStudentOnlyRetrieval",
+      "seconds": "0.02",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "updatePreconditionsRejectMissingMalformedAndStaleVersionsWithoutChanges",
+      "seconds": "0.05",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.controller.RequestControllerTest",
+      "method": "notesRespectTrimmedBoundaryAndCanBeClearedOnlyBeforeResolution",
+      "seconds": "0.035",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "permitsLifecycleAndPreservesResolutionOnReopen",
+      "seconds": "0.048",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "rollsBackStatusAndNoteWhenStorageFailsAfterWrite",
+      "seconds": "0.023",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "rejectsMissingInvalidOrWrongRoleContextBeforeAction",
+      "seconds": "0.007",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "rejectsUnsupportedSameStateAndUnresolvedTransitionsWithoutChanges",
+      "seconds": "0.042",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "rollsBackInsertWhenStorageFailsBeforeConfirmation",
+      "seconds": "0.007",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "rejectsInvalidInputWithoutStoringAnything",
+      "seconds": "0.006",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "preservesOwnershipStatusNotesAndUniqueIdsAcrossFileStoreRestart(Path)",
+      "seconds": "0.152",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "rejectsUnknownIdsNegativeVersionsAndStaleStatusAndNoteWrites",
+      "seconds": "0.033",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "createsTrimmedOwnedRequestsWithDistinctIdsAndDefaults",
+      "seconds": "0.005",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "enforcesTrimmedNoteBoundariesAndResolvedClearingRules",
+      "seconds": "0.016",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "enforcesStudentOwnershipAndSeparateReviewerOperations",
+      "seconds": "0.01",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "reportsFailedListingInsteadOfReturningAnEmptySuccess",
+      "seconds": "0.005",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.service.WorkflowServiceTest",
+      "method": "atomicallyAllowsOnlyOneConcurrentStatusOrNoteSave",
+      "seconds": "0.009",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "method": "acceptsAndTrimsSurroundingCategoryWhitespace",
+      "seconds": "0.005",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "method": "acceptsMinimumAndMaximumBoundaries",
+      "seconds": "0.0",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "method": "acceptsValidRequestAndTrimsWhitespace",
+      "seconds": "0.001",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "method": "rejectsUnsupportedCategories",
+      "seconds": "0.033",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "method": "rejectsMissingAndWhitespaceOnlyFields",
+      "seconds": "0.001",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "method": "rejectsOutOfRangeBoundaries",
+      "seconds": "0.0",
+      "result": "PASS"
+    },
+    {
+      "class": "edu.loyola.campusconnect.validation.RequestValidatorTest",
+      "method": "acceptsEverySupportedCategory",
+      "seconds": "0.0",
+      "result": "PASS"
+    }
+  ],
+  "http_checks": 36,
+  "packaged_restart_checks": 5,
+  "acceptance_approval": "Pending human decision; not a release freeze"
+}
