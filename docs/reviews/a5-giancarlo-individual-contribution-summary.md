@@ -1,34 +1,60 @@
-# Assignment 5 — Individual Contribution Summary (Draft)
+# Assignment 5 — Individual Contribution Summary for Confirmation
 
-**Contributor:** Giancarlo Herrera  
-**Role:** Quality & Review Lead  
-**Team/project:** Codex Ramblers — CampusConnect  
-**Prepared:** November 9, 2026  
-**Status:** Draft, pending team review; no final release approval.
+**Contributor:** Giancarlo Herrera · **Role:** Quality & Review Lead
+**Project:** CampusConnect — Codex Ramblers, Team 2
+**Evidence checkpoint:** `91cdfc81a6f884f2dceb407c245d71bb72afc497`
+**Status:** Repository-backed draft; Giancarlo's personal confirmation pending.
 
-## My work
+## Attributable repository contribution
 
-I prepared the Cycle 1 final release quality checklist in [PR #85](https://github.com/victordodan/-comp330-f26-team-02/pull/85). It converts the instructor's A4 feedback into ten evidence-based gates, including independent review, acceptance execution, CI, dependency/security, defect disposition, release tag and approval.
+GitHub identifies `gherrera1703` as the original author of the following PRs.
+All five are now merged; their current text also includes subsequent corrections
+committed by Victor Dodan with disclosed Codex assistance.
 
-I drafted the candidate release notes in [PR #86](https://github.com/victordodan/-comp330-f26-team-02/pull/86), distinguishing implemented classroom-demo functionality and historical A4 tests from unverified A5 sign-off.
+| Original PR contribution | Current engineering value | Scope / limits |
+|---|---|---|
+| [#85 — Quality gate](https://github.com/victordodan/-comp330-f26-team-02/pull/85) | Connects A4 feedback to ten evidence-based release gates and decisions | Checklist preparation does not establish final integrated review or approval |
+| [#86 — Candidate release notes](https://github.com/victordodan/-comp330-f26-team-02/pull/86) | Explains implemented scope, evidence and limitations | Final release/tag and accepted risks remain pending |
+| [#87 — Finding reconciliation](https://github.com/victordodan/-comp330-f26-team-02/pull/87) | Tracks documentation discrepancies separately from runtime defects | Later corrections reject obsolete storage/header and test-deletion claims |
+| [#88 — Acceptance crosswalk](https://github.com/victordodan/-comp330-f26-team-02/pull/88) | Relates all twelve cases to AC IDs, tests and execution evidence | Related coverage does not automatically grant complete case acceptance |
+| [#89 — Security/dependency review](https://github.com/victordodan/-comp330-f26-team-02/pull/89) | Makes configuration and assurance gaps visible | No completed vulnerability/license/support clearance is attributed |
 
-I compared conflicting persistence, identity and defect claims across existing documents in [PR #87](https://github.com/victordodan/-comp330-f26-team-02/pull/87). The findings are proposed for team disposition, not certified implementation defects.
+The original #90 disclosure also reports cross-checking these drafts and
+correcting links/references. Giancarlo should confirm that account and the AI-use
+details before presenting it as his personal work. The current merged versions
+must not be described as solely his work or independently human-verified solely
+because his account opened the original PRs.
 
-I mapped all twelve planned acceptance cases to their criteria and related test methods in [PR #88](https://github.com/victordodan/-comp330-f26-team-02/pull/88). Historical A4 evidence reports 35 passing automated tests, but the A4 checkpoint does not contain separately dated execution records for TC-001–TC-012.
+## Later team corrections and executed evidence
 
-I documented observed dependency/runtime configuration, historical security evidence and outstanding scan/license decisions in [PR #89](https://github.com/victordodan/-comp330-f26-team-02/pull/89). I did not execute a vulnerability scan or claim the system is production-ready.
+Victor-attributed follow-ups updated the original drafts against actual source,
+merged CI/evidence and current scope; see the [AI-use log](../ai/ai-use-log.md).
+Codex tools later built the packaged application and executed the HTTP/restart
+rehearsal recorded in [a5-demo-rehearsal.md](../testing/a5-demo-rehearsal.md).
+No unrecorded student execution, human witness, advisory scan or independent
+release signoff is assigned by this summary.
 
-I also cross-checked the five PRs for duplication and consistency, corrected broken links and an unverified ADR reference in PR #87, and drafted AI-use disclosure for these contributions.
+## Suggested presentation wording — confirm before personal use
+
+> My repository contributions include the original quality-gate, release-note,
+> finding-reconciliation, acceptance-mapping and security-review PRs for A5.
+> They helped organize evidence and expose gaps. Their merged versions include
+> later team corrections, and the AI assistance is disclosed. These documents
+> support release review; they do not by themselves establish final acceptance
+> or security clearance.
+
+This is suggested wording, not a submitted personal attestation. Giancarlo must
+check it against his actual work and amend it if needed.
 
 ## Remaining coordination
 
-- **Victor:** review PRs, appoint an independent reviewer, approve risk dispositions and freeze/tag the final release.
-- **Mareddy:** supply dated acceptance-case results and final CI/test evidence.
-- **Shu:** verify persistence, identity behavior, architecture and dependency findings against final code.
-- **Giancarlo:** reconcile evidence after reviews and make a final quality recommendation without self-approving the release.
+- Giancarlo: confirm personal contribution/AI details, reconcile open findings and provide a quality recommendation.
+- Mareddy and Shú: support evidence-backed case dispositions and runtime assurance at the selected revision.
+- Victor: coordinate independent review, dependency-risk decisions, submission materials and final release/tag.
 
-## Suggested short presentation explanation
+These are coordination expectations, not proof that an individual has completed
+unrecorded work. Keep private peer evaluations out of the public repository.
 
-> For Assignment 5, I focused on making our final release evidence clear and verifiable. I prepared the quality gate, release notes, defect and limitations review, acceptance traceability matrix, and security/dependency review. I found documentation inconsistencies that the team needs to resolve, and I separated historical automated test coverage from final acceptance sign-off. My work is currently in pull requests for team review; I have not marked the release approved.
-
-**AI use:** ChatGPT helped compare repository evidence and draft these documents. Human verification and team approval remain pending; see `docs/ai/ai-use-log.md`.
+**AI disclosure:** Codex helped reconcile this summary against PR metadata and
+merged records. No new tests, personal contributor approval or final release
+decision was performed by this documentation correction.
