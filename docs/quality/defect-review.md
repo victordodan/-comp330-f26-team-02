@@ -1,394 +1,57 @@
-# Defect Review
+# CampusConnect — A5 Defect and Quality Review
 
-<!--
-STARTER KIT GUIDANCE — DELETE BEFORE PHASE-GATE SUBMISSION
+**Original preparer:** Giancarlo Herrera, Quality & Review Lead
+**Reviewed checkpoint:** `56c0907c7c317156f1a86ac8dcc9b9f158052b9d`
+**Status:** Updated draft; human quality recommendation and release approval pending.
 
-This file is used to periodically review the team's accumulated defect evidence
-for patterns, recurring causes, quality weaknesses, and engineering
-improvements.
+## Assessment
 
-This is different from:
+Six finding IDs are retained in the [finding register](defect-log.md).
+Persistence and identity documentation has been corrected through merged #81/#83.
+The claim that #84 deleted four tests is unsupported: its diff changes static
+imports only, preserving all 14 controller tests and helpers. Merged #92 now
+provides exact-revision historical CI evidence. These are evidence corrections,
+not newly verified runtime fixes or proof of zero defects.
 
-/docs/quality/defect-log.md
-
-The defect log records INDIVIDUAL defects.
-
-The defect review asks what the COLLECTION of defects tells the team about the
-system and its engineering process.
-
-A defect review may reveal:
-
-- recurring failure categories;
-- weak requirements;
-- missing acceptance criteria;
-- architecture problems;
-- interface-contract problems;
-- repeated implementation mistakes;
-- inadequate review;
-- test gaps;
-- deployment weaknesses;
-- observability gaps;
-- areas of growing technical debt.
-
-Do NOT invent defects or trends merely to complete this artifact.
-
-If the project has too few defects to support meaningful analysis, state that
-fact rather than manufacturing conclusions.
-
-IMPORTANT:
-
-- Everything inside HTML comments is Starter Kit guidance.
-- Remove all instructional comments before the applicable phase-gate submission.
-- Examples inside comments are guidance only.
--->
-
-## Review Scope
-
-<!--
-TEAM CONTENT REQUIRED
-
-State what defect evidence this review covers.
-
-Examples:
-
-- defects since the previous phase gate;
-- defects discovered during a release cycle;
-- all open and closed defects through a given date.
-
-Identify:
-
-- review date;
-- applicable phase gate or period;
-- defects included;
-- defects excluded, if any.
-
-Replace this comment with the actual review scope.
--->
-
-**Review Date:**  
-**Review Period / Gate:**  
-**Defects Reviewed:**  
-
-## Defect Summary
-
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize the defect population being reviewed.
-
-Use actual counts from defect-log.md.
-
-Do not create counts that cannot be reconciled with the authoritative defect
-log.
-
-EXAMPLE ONLY:
-
-| Measure | Count |
-|---|---:|
-| Total defects reviewed | 8 |
-| Open | 2 |
-| Closed | 5 |
-| Deferred | 1 |
-| Critical / High severity | 1 |
-
-Populate the actual table below.
--->
-
-| Measure | Count |
-|---|---:|
-| Total defects reviewed |  |
-| Open |  |
-| Closed |  |
-| Deferred |  |
-| Critical / High severity |  |
-
-## Defect Distribution
-
-<!--
-TEAM CONTENT REQUIRED WHEN ENOUGH DEFECTS EXIST TO SUPPORT ANALYSIS
-
-Group defects in ways that help reveal engineering patterns.
-
-Possible categories include:
-
-- requirements;
-- architecture;
-- implementation;
-- interface / integration;
-- validation;
-- security;
-- test;
-- deployment;
-- operations;
-- documentation.
-
-Do not force every project to use these exact categories.
-
-Use categories meaningful to your actual defect evidence.
-
-EXAMPLE ONLY:
-
-| Category | Defect IDs | Count | Observation |
-|---|---|---:|---|
-| Input validation | DEF-001, DEF-004 | 2 | Similar boundary conditions were missed in two workflows |
-
-Populate the actual table below, or remove the section if the defect population
-is too small for meaningful categorization.
--->
-
-| Category | Defect IDs | Count | Observation |
-|---|---|---:|---|
-|  |  |  |  |
-
-## Recurring Patterns
-
-<!--
-TEAM CONTENT REQUIRED WHEN EVIDENCE SUPPORTS A PATTERN
-
-Identify recurring patterns across multiple defects.
-
-A pattern should be supported by evidence.
-
-Examples ONLY:
-
-- multiple defects involve missing negative-path validation;
-- defects repeatedly occur at the same component boundary;
-- several defects trace back to ambiguous acceptance criteria;
-- integration defects appear because API assumptions were not documented;
-- defects are being discovered late because review occurs only after merge.
-
-Do not claim a pattern based on a single defect unless there is other supporting
-evidence.
-
-If no meaningful pattern exists yet, state that explicitly in the finished
-artifact.
--->
-
-| Pattern | Supporting Defects / Evidence | Engineering Significance |
+| Finding | Updated assessment | Remaining work |
 |---|---|---|
-|  |  |  |
-
-## Contributing Factors
-
-<!--
-TEAM CONTENT REQUIRED
-
-Look beyond the immediate code-level cause.
-
-Consider whether defects were enabled or made harder to detect by:
-
-- unclear requirements;
-- weak acceptance criteria;
-- incorrect assumptions;
-- architecture boundaries;
-- incomplete API contracts;
-- missing review;
-- inadequate testing;
-- poor test data;
-- configuration differences;
-- observability limitations;
-- schedule pressure;
-- insufficient knowledge sharing.
-
-Do not assign blame to individuals.
-
-Focus on system and process conditions that the team can improve.
--->
-
-| Contributing Factor | Supporting Evidence | Effect |
-|---|---|---|
-|  |  |  |
-
-## Defect Escape Analysis
-
-<!--
-TEAM CONTENT REQUIRED WHEN RELEVANT
-
-A defect "escapes" when it is discovered later than the engineering activity
-that ideally should have detected it.
-
-Examples:
-
-- implementation defect should have been found by unit testing but was found
-  during integration;
-- contract mismatch should have been found during design review but was found
-  after deployment;
-- requirement ambiguity was discovered only during acceptance verification.
-
-This is NOT about blaming the person who created the defect.
-
-The engineering question is:
-
-"Where could we have detected this earlier?"
-
-EXAMPLE ONLY:
-
-| Defect ID | Detected At | Earlier Detection Opportunity | Improvement |
-|---|---|---|---|
-| DEF-003 | Integration test | API contract review | Add explicit failure response to API contract |
-
-Populate actual escapes below where useful.
-
-If no useful escape analysis exists, remove this section.
--->
-
-| Defect ID | Detected At | Earlier Detection Opportunity | Improvement |
-|---|---|---|---|
-|  |  |  |  |
-
-## Quality Strengths
-
-<!--
-TEAM CONTENT REQUIRED
-
-Defect review should not look only for weaknesses.
-
-Identify evidence of practices that are working.
-
-Examples ONLY:
-
-- peer review found defects before merge;
-- negative-path acceptance criteria exposed important failures;
-- automated regression tests prevented recurrence;
-- architecture boundaries limited defect impact;
-- observability reduced investigation time.
-
-Use actual evidence.
--->
-
-| Strength | Supporting Evidence | Why It Matters |
-|---|---|---|
-|  |  |  |
-
-## Improvement Actions
-
-<!--
-TEAM CONTENT REQUIRED
-
-Turn meaningful defect-review findings into concrete engineering actions.
-
-Avoid vague actions such as:
-
-- "test more";
-- "be more careful";
-- "write better code."
-
-Prefer actions such as:
-
-- add negative-path acceptance criteria for all state-changing operations;
-- introduce contract tests for API-003;
-- require peer review of persistence changes;
-- add regression test for DEF-007;
-- clarify REQ-012;
-- revise ADR-004 based on repeated failure evidence.
-
-Use stable action IDs when useful:
-
-QA-###
-
-Examples:
-
-QA-001
-QA-002
-
-EXAMPLE ONLY:
-
-| Action ID | Improvement | Evidence / Driver | Owner | Target | Status |
-|---|---|---|---|---|---|
-| QA-001 | Add negative-path review to acceptance-criteria preparation | DEF-001, DEF-004 | Quality & Review Lead | A4 | Planned |
-
-DELETE the example and populate actual actions below.
--->
-
-| Action ID | Improvement | Evidence / Driver | Owner | Target | Status |
-|---|---|---|---|---|---|
-|  |  |  |  |  |  |
-
-## Engineering Evidence to Update
-
-<!--
-TEAM CONTENT REQUIRED
-
-Defect patterns may require changes beyond implementation.
-
-Review whether findings require updates to:
-
-- requirements;
-- acceptance criteria;
-- assumptions;
-- risk register;
-- architecture;
-- component responsibilities;
-- API contracts;
-- ADRs;
-- tests;
-- task plan;
-- observability;
-- runbook;
-- other engineering evidence.
-
-Populate only artifacts actually affected.
--->
-
-| Finding / Defect | Artifact / Evidence | Required Update | Owner | Status |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Previous Review Actions
-
-<!--
-TEAM CONTENT REQUIRED AFTER THE FIRST DEFECT REVIEW
-
-If prior reviews created quality-improvement actions, evaluate whether those
-actions were completed and whether they helped.
-
-Do not simply carry improvement actions forward indefinitely without checking
-their effect.
-
-At the first review, this section may be removed.
--->
-
-| Action ID | Previous Action | Status | Evidence of Effectiveness | Follow-Up |
-|---|---|---|---|---|
-|  |  |  |  |  |
-
-## Review Conclusion
-
-<!--
-TEAM CONTENT REQUIRED
-
-Summarize what the defect evidence currently says about project quality.
-
-A useful conclusion may address:
-
-- whether defects are concentrated in a particular area;
-- whether detection is occurring early or late;
-- whether severity is changing;
-- whether previous improvements are working;
-- what quality concern deserves the most attention next.
-
-Do not write "quality is good" without supporting evidence.
-
-If too little evidence exists for a meaningful conclusion, state that
-explicitly.
--->
-
-<!--
-FINAL STARTER KIT CHECK — DELETE BEFORE PHASE-GATE SUBMISSION
-
-Before submission:
-
-1. Confirm all counts reconcile with defect-log.md.
-2. Base patterns on actual defects rather than hypothetical concerns.
-3. Avoid assigning blame to individuals.
-4. Distinguish immediate defect causes from deeper contributing factors.
-5. Identify earlier detection opportunities where useful.
-6. Convert meaningful findings into concrete improvement actions.
-7. Update related engineering evidence when defect analysis exposes a weakness.
-8. Evaluate previous quality actions when prior review evidence exists.
-9. State explicitly when insufficient defect evidence exists for a conclusion.
-10. Remove ALL instructional HTML comments.
-
-The completed defect review should demonstrate that the team learns from
-defects rather than merely fixing them one at a time.
--->
+| A5-F01 | File-backed H2/JDBC documented consistently in merged corrections | Final-revision restart/rollback evidence; recovery limits remain |
+| A5-F02 | Server-session identity described correctly; forged headers do not establish authority | Retain synthetic-selector limitation and obtain risk decision/negative-path evidence |
+| A5-F03 | Import-only change and historical 35-test success verified; replacement register drafted in this PR | Human register/disposition review; no compilation defect asserted |
+| A5-F04 | Twelve cases mapped to passing automation; no separate dated case records established | Case-specific acceptance dispositions with actual evidence or explicit deferrals |
+| A5-F05 | Real Maven CI already configured; manual starter guard is separate | Final-SHA CI/review/release decision and tag; reconcile guard and documentation-only CI filtering |
+| A5-F06 | Historical inventory is not complete dependency assurance | Advisory, transitive-license and maintenance decisions with named human risk acceptance |
+
+## CI evidence boundary
+
+[Run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038)
+ran `mvn -B clean verify` on merge SHA
+`0fcc79c29dfcdc89403d3c230f47438cb00c358c` (head
+`00c034a74f22ce616f707848168909289b2db001`, base
+`70d3726b64c0deafef2d770870bb14ef8f28b79b`). It reports 35 tests,
+zero failures/errors/skips and successful packaging. This historical run is
+not CI for the current checkpoint or a final A5 release. No new execution
+is claimed by these documentation corrections.
+
+## Accountability and release recommendation
+
+Mareddy coordinates test/acceptance evidence; Shú supports implementation and
+runtime verification; Giancarlo reconciles the register and traceability;
+Victor assigns independent reviewers and records risk and release decisions.
+These coordination expectations do not attest that an individual performed
+unrecorded work or approved a finding.
+
+Requirements/criteria still carry Proposed status. The demo script and release
+notes on reviewed main retain starter content; proposed #85/#86/#88/#89/#90
+must not be treated as merged final release proof. See the
+[traceability ledger](../planning/traceability.md) for implemented evidence and
+remaining demo/release linkages.
+
+**Release recommendation: NOT YET DETERMINED.** The A4 Proceed with Conditions
+assessment and documentation merges do not constitute A5 acceptance. No new
+runtime test, security scan, defect reproduction, or final release approval
+was performed by this correction. There is insufficient confirmed defect data
+to calculate a meaningful defect rate or root-cause trend.
+
+**AI disclosure:** Codex assisted with checking and correcting the original
+Giancarlo draft. Human review remains pending; see [AI-use log](../ai/ai-use-log.md).
