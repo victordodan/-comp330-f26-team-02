@@ -87,3 +87,17 @@ Codex assisted the correction against current source, merged evidence and CI
 logs. Original Giancarlo attribution does not assert his verification of these
 corrections. No new test/scan or human release decision was performed. See
 [AI-use log](../ai/ai-use-log.md).
+
+## Quality Lead addendum — post-merge main CI (2026-11-10 UTC)
+
+**Prepared for review by:** Giancarlo Herrera, Quality & Review Lead. **Evidence checkpoint:** main `dbb76f985761202021947a9e1a2aae3bd32261e4` after merged PRs #98–#101. This addendum supplements, rather than retroactively changes, the historical checkpoint and statuses above.
+
+- **Current main verification:** [Java CI with Maven run #48](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42761953805) completed **successfully** on the exact main SHA above. The [verify / test job](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42761953805/job/129649479940) reports successful Java 17 setup, build/test/package step and test-report upload. The workflow summary does not independently establish the exact per-test count; retain 35/35 only as the explicitly documented historical #95 integration result unless final JUnit reports are inspected.
+- **Review documentation merged:** PRs [#98](https://github.com/victordodan/-comp330-f26-team-02/pull/98), [#99](https://github.com/victordodan/-comp330-f26-team-02/pull/99), [#100](https://github.com/victordodan/-comp330-f26-team-02/pull/100), and [#101](https://github.com/victordodan/-comp330-f26-team-02/pull/101) are merged. Merging review documents does not constitute acceptance or release authorization.
+- **TC-001–TC-012:** [A5 matrix](../testing/a5-acceptance-evidence-matrix.md) maps 12/12 cases to related automated methods; all 12 final dispositions remain **Pending**. It records 0/12 separate dated case-specific executions. Existing automated evidence may be reused when sufficient, but must be reconciled with the exact candidate SHA, uncovered variants and an attributable human decision; do not invent manual tests.
+- **A5 release tag:** no `a5-cycle1-release` reference was found in the remote tag inventory at this check. The passing main CI is **candidate evidence**, not proof of a frozen or approved tagged release.
+- **Unclosed gates:** independent non-author review, exact-SHA acceptance dispositions, dependency/advisory and transitive-license review or approved deferrals, defect and LIM-001–LIM-005 risk decisions, and Victor's recorded GO / CONDITIONAL GO / NO-GO remain **Pending**. Shelby's acknowledgement and the Team Charter backup discrepancy remain human follow-ups in the role matrix.
+
+**Quality Lead recommendation:** Continue controlled synthetic classroom demo preparation, but keep the final A5 release gate **OPEN / NOT APPROVED** until evidence and authorized decisions are recorded. No new tests, scans, approvals, or release tags were performed for this documentation update.
+
+**AI-use disclosure:** ChatGPT assisted the evidence reconciliation and wording of this addendum; the GitHub commit records the connected account. Giancarlo's role attribution does not imply personally executed tests or approvals.
