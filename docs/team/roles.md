@@ -121,9 +121,9 @@ The **Evidence** column should reference a repository-visible confirmation made 
 | Venkata Aravind Mareddy | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5901410035) |
 | Shu Perez | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-5901577150) |
 | Shelby Sierah | Pending |  |
-| Malec Tarabein | Pending |  |
+| Malec Tarabein | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-6758470472) |
 
-Acknowledgement corrections (A5): Victor Dodan's and Venkata Aravind Mareddy's links now point to their own Issue #3 comments. Shelby Sierah's row previously linked to Shu Perez's comment, and Issue #3 has no comment from `sshelby-ctrl`, so it is set to `Pending` until Shelby confirms with their own account. Malec Tarabein's acknowledgement is still pending. Giancarlo Herrera's comment acknowledges Team Charter backup responsibility, but the A1 deliverable table assigns that backup to Shelby Sierah; the team should resolve which record is correct.
+Acknowledgement corrections (A5): Victor Dodan's and Venkata Aravind Mareddy's links now point to their own Issue #3 comments. Shelby Sierah's row previously linked to Shu Perez's comment, and Issue #3 has no comment from `sshelby-ctrl`, so it is set to `Pending` until Shelby confirms with their own account. Malec Tarabein acknowledged on Issue #3 during A5. Giancarlo Herrera's comment acknowledges Team Charter backup responsibility, but the A1 deliverable table assigns that backup to Shelby Sierah; the team should resolve which record is correct.
 
 ### Instructions
 
