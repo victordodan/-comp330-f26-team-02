@@ -1,65 +1,80 @@
-# ADR-0005: Cycle 1 In-Memory Persistence via ConcurrentHashMap
+# ADR-0005: Clarify Cycle 1 JDBC Persistence
 
-* **Status**: Accepted
-* **Date**: 2026-10-29
-* **Authors**: Shú Perez (Architecture & Development Lead)
-* **Deciders**: Team 02 (COMP 330 Fall 2026)
-* **Related Issues / PRs**: Issue #66, PR #75 (`a4-rest-controller`)
-* **Related Requirements / ADRs**: REQ-003, API-001, API-006, ADR-0002
+**Status:** Proposed clarification — human review pending
+**Review baseline:** Integrated A4 source `70d3726b64c0deafef2d770870bb14ef8f28b79b`
+**Architecture owner:** Shú Perez · **Decision owner:** Codex Ramblers Team
+**Related proposal:** [PR #81](https://github.com/victordodan/-comp330-f26-team-02/pull/81)
+**Related requirements/contracts:** REQ-003; API-006 (storage boundary); API-001 (request submission)
 
----
+## Context
 
-## Context and Problem Statement
+The original PR #81 draft described `ConcurrentHashMap` storage, an `AtomicLong`
+sequence and deferral of H2 to Cycle 2. Those statements do not describe the
+integrated source at the review baseline. This revision corrects that unmerged
+proposal; it does not establish that an in-memory decision was approved or
+superseded by a new team decision.
 
-During Assignment 3 (Architecture & Design), the initial design specified a file-backed H2 relational database for storing student support requests. 
+[ADR-002](ADR-002-cycle-1-technology-stack.md) selects file-backed H2 for Cycle 1.
+[ADR-003](ADR-003-request-consistency.md) defines transaction/version expectations,
+and [ADR-004](ADR-004-local-persistence-and-recovery.md) defines persistence and
+recovery expectations. This clarification is consistent with those accepted
+records and does not supersede them.
 
-During Assignment 4 (Cycle 1 Construction & Integration), the primary goal was to deliver a working, controlled vertical slice of the CampusConnect REST API (`POST /api/requests`, `GET /api/requests`, `PATCH /api/requests/{id}/status`) backed by automated unit tests and continuous integration (`mvn clean test`). 
+## Implementation to retain
 
-Integrating full file-backed H2 schema migrations and JPA/JDBC configurations posed a risk of setup overhead and environmental fragility in GitHub Actions CI during the tight Cycle 1 phase gate. The team needed to decide whether to implement H2 database persistence immediately or use a lightweight in-memory store for Cycle 1.
+The integrated implementation uses Spring JDBC with a file-backed H2 database:
 
----
+- [WorkflowService](../../src/main/java/edu/loyola/campusconnect/service/WorkflowService.java)
+  enforces validation, role/ownership checks and lifecycle rules. It runs storage
+  work through `TransactionTemplate` and delegates storage to `RequestRepository`.
+- [JdbcRequestRepository](../../src/main/java/edu/loyola/campusconnect/repository/JdbcRequestRepository.java)
+  uses parameterized `JdbcTemplate` queries. Status/note updates match both ID
+  and expected version, rejecting conflicting writes.
+- [Runtime configuration](../../src/main/resources/application.properties) defaults
+  to `jdbc:h2:file:./data/campusconnect`;
+  [schema.sql](../../src/main/resources/schema.sql) defines the stored records.
+- Request IDs come from `UUID.randomUUID()`, not an `AtomicLong` sequence.
+  H2 persistence and the repository layer are already implemented; Spring Data
+  JPA is not required by this implementation.
 
-## Decision Drivers
+## Alternatives and trade-offs
 
-1. **Cycle 1 Velocity & Scope**: Focus effort on core REST API controllers, validation (`RequestValidator`), student isolation, and status workflow state machines.
-2. **CI Reliability**: Ensure `mvn clean test` runs deterministically, fast (< 2 seconds), and without local file path or database locking issues across operating systems.
-3. **Thread Safety**: Support concurrent REST requests safely in the Spring Boot application environment.
-4. **Architectural Grounding**: Maintain clear traceability to `REQ-003` (Unique ID generation and ticket persistence) while explicitly recording implementation trade-offs.
+File-backed H2 satisfies the existing restart-retention requirement without a
+separate database server. An in-memory map would lose records on process exit
+and would not satisfy AC-REQ-003-02. A JPA migration or external database would
+be a separate architecture change requiring its own justification and review;
+neither is an approved Cycle 2 commitment in this record.
 
----
+Transactions and version checks support rollback and concurrent-update handling,
+but do not establish production readiness. Retention depends on restarting with
+the same database location; changing the working directory or datasource can
+select a different store. Database-file loss, backup restoration, multiple
+application instances and production operations require separate verification.
 
-## Considered Options
+## Verification evidence and limits
 
-1. **Option 1**: In-Memory Thread-Safe Data Structure (`ConcurrentHashMap` + `AtomicLong`).
-2. **Option 2**: File-backed H2 Relational Database (`Spring Data JPA` / `H2`).
+[WorkflowServiceTest](../../src/test/java/edu/loyola/campusconnect/service/WorkflowServiceTest.java)
+contains `preservesOwnershipStatusNotesAndUniqueIdsAcrossFileStoreRestart`,
+`atomicallyAllowsOnlyOneConcurrentStatusOrNoteSave`, and rollback/failure tests.
+[RequestControllerTest](../../src/test/java/edu/loyola/campusconnect/controller/RequestControllerTest.java)
+covers HTTP ownership, permissions and version preconditions.
 
----
+Historical execution is recorded in
+[A4 backend verification](../testing/a4-backend-verification.md).
+[PR #84 CI run #41](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42613709038)
+also reports 35 tests passed with no failures, errors or skips under
+`mvn -B clean verify`. That run tested merge commit
+`0fcc79c29dfcdc89403d3c230f47438cb00c358c` (PR head
+`00c034a74f22ce616f707848168909289b2db001` plus base
+`70d3726b64c0deafef2d770870bb14ef8f28b79b`). It is not final A5 approval.
+No sub-two-second build claim or fresh test execution is made by this correction.
 
-## Decision Outcome
+## Approval and follow-up
 
-**Chosen Option**: **Option 1 — In-Memory `ConcurrentHashMap` Storage for Cycle 1**.
+Human review of this clarification, final integrated revision verification,
+acceptance dispositions and release approval remain pending. Restart persistence
+must not be presented as proof of tested backup/restore procedures.
 
-The team implemented `WorkflowService` using `ConcurrentHashMap<String, SupportRequest>` and an `AtomicLong` sequence starting at `1000` (`REQ-1001`). This provides thread-safe, fast, and isolated ticket persistence for the duration of the application runtime.
-
-File-backed H2 database integration is formally deferred to **Cycle 2 (Maturity Phase)** as planned technical debt.
-
----
-
-## Consequences & Trade-offs
-
-### Positive
-* **Zero Configuration Overhead**: No external database drivers, schema SQL files, or JPA entity mappings required for Cycle 1.
-* **Fast & Reliable CI**: Automated GitHub Actions workflow (`mvn clean test`) executes completely isolated, clean builds in under 2 seconds.
-* **Thread Safety**: `ConcurrentHashMap` natively handles concurrent thread access across `POST`, `GET`, and `PATCH` endpoints without data corruption.
-
-### Negative / Trade-offs
-* **Volatile Storage**: All ticket data resets when the Spring Boot process stops or restarts (`mvn spring-boot:run`).
-* **Cycle 2 Debt**: Relational database schemas, H2 file storage, and DAO/Repository layers must be implemented in Cycle 2 to support permanent data retention.
-
----
-
-## Verification Evidence
-
-* **Source Location**: `src/main/java/edu/loyola/campusconnect/service/WorkflowService.java`
-* **Test Verification**: `CampusConnectApplicationTests.java`, `RequestControllerTest.java`
-* **CI Execution**: GitHub Actions workflow run passing `mvn -B clean test`.
+**AI assistance:** Codex compared the PR draft with source, configuration, tests
+and repository evidence and drafted this correction. No new runtime tests or
+team approvals were performed by this documentation edit.
