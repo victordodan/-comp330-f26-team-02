@@ -1,0 +1,2 @@
+{"base_url": "http://127.0.0.1:18080", "event": "start", "mode": "workflow", "python": "3.12.14", "time_utc": "2026-11-10T03:44:13.418664+00:00"}
+{"error": "<urlopen error [Errno 111] Connection refused>", "event": "FAIL", "http_checks": 0, "time_utc": "2026-11-10T03:44:13.427880+00:00"}
