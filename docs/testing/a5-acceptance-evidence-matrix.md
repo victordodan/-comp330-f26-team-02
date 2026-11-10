@@ -96,3 +96,9 @@ Copy once for each actual TC execution; **do not prefill Pass**.
 **All twelve cases mapped to related tests; full scenario completeness and final acceptance remain pending.** Keep the distinction between automated test-method coverage and case-specific acceptance dispositions. No new tests, scans or approvals were performed to prepare this matrix. Reconcile the release documentation with actual implementation and obtain human review before a Go decision.
 
 **AI-use disclosure:** Codex assisted this correction by comparing current source, criteria, merged #92 and E1/E2 evidence. Original Giancarlo attribution does not assert his personal verification of the correction. No new tests, acceptance decisions or human approvals were performed; see [AI-use log](../ai/ai-use-log.md).
+
+## Latest-main automated verification checkpoint — 2026-11-10 UTC
+
+[Main CI run 42762605137](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42762605137) completed **successfully** for `000c0f89db51a64956566fc82fc7742973ce1e7b`. This adds current-main workflow evidence to E1/E2, **not** twelve new TC-specific execution records. The 12 mapped cases remain **Pending** final disposition, and the previously documented 0/12 separate dated case executions is unchanged. Test counts and complete scenario-step coverage were not independently audited from the new run.
+
+**For Mareddy and the authorized acceptance reviewer:** reconcile each TC-001–TC-012 against the run's reports, exact test assertions and uncovered steps; record Pass / Fail / Blocked / Deferred with evidence and accountable reviewer. Automated evidence can suffice when it covers the case; do not manufacture redundant manual runs or automatically mark all cases Pass. Giancarlo's quality role is to check traceability and gaps, not to impersonate test execution or approve the release. ChatGPT assisted this evidence note; no new execution or approval occurred.
