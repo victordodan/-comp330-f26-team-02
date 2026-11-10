@@ -10,7 +10,7 @@
 | Release scope / limitations | [notes](release-notes.md), [limitations](known-limitations.md) | Candidate; human risk/release decisions pending — Victor/quality |
 | A4 delta | [changed files](changed-files-since-a4.md) | Index created; refresh after integration — lead/planning |
 | Final testing / CI | [test index](../testing/final-test-evidence.md), [CI evidence](../testing/ci-evidence.md) | Existing execution linked; final candidate CI pending — testing/development |
-| Acceptance | [case assessments](https://github.com/victordodan/-comp330-f26-team-02/pull/101) | Technical results/gaps recorded; human dispositions pending — testing/quality |
+| Acceptance | [case assessments](../reviews/a5-acceptance-evidence-quality-review.md) | Technical results/gaps recorded; human dispositions pending — testing/quality |
 | Defects / risks | [quality review](../quality/defect-review.md), [risk register](../planning/risk-register.md) | Review/acceptance decisions pending — quality/Victor |
 | Dependencies | [fresh inventory/disposition](../quality/a5-dependency-disposition.md) | Resolution/POM licenses recorded; advisory access blocked and clearance pending — technical reviewer/Victor |
 | Integrated review | [AI technical review](../reviews/a5-integrated-technical-review.md), [readiness review](../reviews/release-readiness-review.md) | Not a named independent human signoff — Victor-designated reviewer |

@@ -203,6 +203,13 @@ requirements acceptance, independent security signoff or final release approval.
 Giancarlo verifies his account; Victor/team reviewers verify repository links
 and attribution. The public contribution summary is not a private peer review.
 
+## A5 — PR #101 Mapping Correction
+
+Codex compared the two case mappings with the demo executable, recorded synthetic
+responses and controller test source. Corrected TC-005's unknown-ID route and
+TC-008's reviewer-detail scope; removed possessive demo attribution without
+asserting unrecorded student execution. No new tests or acceptance approvals.
+
 ## A5 — Local Closeout Work for PR #100
 
 Codex assisted planning/evidence reconciliation and index preparation against

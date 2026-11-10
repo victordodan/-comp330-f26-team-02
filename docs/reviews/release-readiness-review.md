@@ -126,7 +126,7 @@ See [risk register](../planning/risk-register.md).
 
 The [release evidence index](../release/assignment5-release-package.md) now links
 the missing changed-file/test/presentation/handoff indexes and the detailed
-[case assessment](https://github.com/victordodan/-comp330-f26-team-02/pull/101). These are candidate records,
+[case assessment](a5-acceptance-evidence-quality-review.md). These are candidate records,
 not a submitted Word/PPTX or human acceptance. The [dependency disposition](../quality/a5-dependency-disposition.md)
 records a fresh resolved tree/POM license inventory and blocked advisory API;
 CVE/support/license decisions remain open. The [technical review](a5-integrated-technical-review.md)
