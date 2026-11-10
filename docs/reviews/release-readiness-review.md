@@ -2,7 +2,7 @@
 
 **Project:** CampusConnect — COMP 330 Team 2 (Codex Ramblers)  
 **Prepared for review by:** Giancarlo Herrera, Quality & Review Lead  
-**Review checkpoint:** 2026-11-09; repository evidence available at drafting  
+**Review checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`; local closeout additions not yet merged
 **Target gate:** A5 Cycle 1 classroom release and presentation  
 **Release baseline:** NOT FROZEN — `a5-cycle1-release` tag absent when checked  
 **Review status:** DRAFT / proposed quality recommendation; no personal or team sign-off claimed  
@@ -121,3 +121,25 @@ See [risk register](../planning/risk-register.md).
 
 **Human review / signature:** Pending.  
 **AI-use disclosure:** ChatGPT assisted in drafting this document from repository evidence. No new test, vulnerability scan, human verification, acceptance or approval was performed by this edit. The named Quality & Review Lead must review and confirm its contents before representing it as personal signoff.
+
+## Local Closeout Reconciliation
+
+The [release evidence index](../release/assignment5-release-package.md) now links
+the missing changed-file/test/presentation/handoff indexes and the detailed
+[case assessment](https://github.com/victordodan/-comp330-f26-team-02/pull/101). These are candidate records,
+not a submitted Word/PPTX or human acceptance. The [dependency disposition](../quality/a5-dependency-disposition.md)
+records a fresh resolved tree/POM license inventory and blocked advisory API;
+CVE/support/license decisions remain open. The [technical review](a5-integrated-technical-review.md)
+is AI-assisted and does not satisfy named human independent signoff.
+
+| Reviewed evidence identity | Meaning |
+|---|---|
+| `714a31b` | Actual application source used for recorded local build/HTTP rehearsal |
+| `5d791a7` | PR95 synthetic merge tested by recorded CI run #4 |
+| Current review checkpoint above | Later documentation/evidence state; src/POM diff against rehearsal source is empty |
+| Final A5 tag | Not selected/created; human decision and final candidate verification pending |
+
+No gate is closed solely because a document exists. RRB-002 now has a technical
+assessment to review; RRB-003/004/005 still require actual named decisions.
+PR99 is explicitly excluded from this local work. Do not invent approvals,
+update private peer records, or silently accept requirements on a student's behalf.
