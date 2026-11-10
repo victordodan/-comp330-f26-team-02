@@ -8,6 +8,15 @@ contributor and pull-request records, and acknowledgement links from the Issue #
 comments. No acknowledgement is recorded on any student's behalf; unsupported
 entries were set to `Pending`.
 
+## A5 — PR #96 Demo Rehearsal Correction
+
+Codex assisted with procedure, synthetic HTTP transcripts, build/restart/repeat evidence and scope limitations. The packaged application source
+matched `714a31bf5c9283e732fcfd895615a3471fef93b4`. An actual JDK 17/Maven build passed 35 tests; the
+client passed 36 initial, 5 restart and 36 repeat HTTP checks. The stopped-server
+control correctly failed. Script/jar hashes and raw synthetic results are in
+PR #96's evidence package; the executable is in PR #97. No human witness,
+complete acceptance disposition, security clearance or release approval is claimed.
+
 ## A5 — PR #86 Gate/Release Correction
 
 Codex assisted with reconciling candidate gate/release wording against checkpoint
@@ -66,6 +75,15 @@ obsolete storage/identity claims, invented feature issues and inferred approvals
 No new runtime tests/scans, acceptance executions or human signoffs were performed.
 This correction is prepared for Victor's review; original contributor attribution
 does not imply that contributor personally verified the correction.
+
+## A5 — PR #97 Demo Rehearsal Correction
+
+Codex assisted with executable session/ETag HTTP demo and actual runtime rehearsal. The packaged application source
+matched `714a31bf5c9283e732fcfd895615a3471fef93b4`. An actual JDK 17/Maven build passed 35 tests; the
+client passed 36 initial, 5 restart and 36 repeat HTTP checks. The stopped-server
+control correctly failed. Script/jar hashes and raw synthetic results are in
+PR #96's evidence package; the executable is in PR #97. No human witness,
+complete acceptance disposition, security clearance or release approval is claimed.
 
 ## AI Use
 
