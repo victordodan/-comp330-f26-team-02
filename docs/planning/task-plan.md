@@ -191,12 +191,12 @@ TASK-015 and TASK-016 are broken into the tasks below so each has a single owner
 
 | ID | Task | Owner (proposed) | Backup / reviewer | Exit evidence | Depends on | Status |
 |---|---|---|---|---|---|---|
-| TASK-015a | Review and decide open A5 documentation PRs | Victor Dodan | Non-author reviewer per PR | Each PR merged or closed with reason | — | #82–#97 merged; #98 and #99 open |
+| TASK-015a | Review and decide open A5 documentation PRs | Victor Dodan | Non-author reviewer per PR | Each PR merged or closed with reason | — | #82–#97 merged at the reviewed checkpoint; #98–#101 open in the subsequent A5 worklist |
 | TASK-015b | Freeze the candidate release SHA and record it in release notes and limitations | Victor Dodan | Malec Tarabein | SHA appears in both documents | TASK-015a | Not started |
 | TASK-015c | Obtain CI on the frozen SHA and record run, test count and artifact | Shú Perez | Venkata Aravind Mareddy | Run link in `docs/testing/` and release notes | TASK-015b | Not started |
 | TASK-015d | Execute TC-001–TC-012 at the frozen SHA and store results | Venkata Aravind Mareddy | Giancarlo Herrera | Per-case records in `docs/testing/a5-acceptance-test-evidence.md`; raw output in `/test-evidence/` | TASK-015b | Not started (0/12) |
 | TASK-015e | Disposition A5-F01–F06 and LIM-001–LIM-005, including residual-risk acceptance | Giancarlo Herrera | Victor Dodan (acceptance) | Every row in `docs/quality/defect-log.md` and `docs/release/known-limitations.md` has a human decision | TASK-015c, TASK-015d | Open |
-| TASK-016a | Complete the release-readiness review with a go / no-go | Victor Dodan | Giancarlo Herrera | `docs/reviews/release-readiness-review.md` no longer contains starter text | TASK-015e | Not started (template) |
+| TASK-016a | Complete the release-readiness review with a go / no-go | Victor Dodan | Giancarlo Herrera | `docs/reviews/release-readiness-review.md` no longer contains starter text | TASK-015e | PR #100 supplies an evidence-backed draft; final human review and SHA-specific go/no-go pending |
 | TASK-016b | Tag `a5-cycle1-release` on the reviewed SHA | Victor Dodan | Malec Tarabein | Tag SHA = frozen SHA | TASK-016a | Not started |
 | TASK-016c | Replace remaining starter-kit placeholders in release-facing docs, or mark them as out of Cycle 1 scope | Shelby Sierah | Malec Tarabein | `README.md`, `docs/release/traceability-summary.md`, `docs/team/roles.md` (covered by #99; demo script completed in #96) and the `docs/operations/`, `docs/observability/`, `docs/security/` files reviewed | — | Not started |
 | TASK-016d | Final AI-use log update covering all A5 work, including presentation preparation | Giancarlo Herrera | Malec Tarabein | `docs/ai/ai-use-log.md` entries for every A5 PR | TASK-015a | In progress (#90 merged; presentation-preparation AI use not yet logged) |
