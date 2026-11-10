@@ -209,3 +209,12 @@ Codex compared the two case mappings with the demo executable, recorded syntheti
 responses and controller test source. Corrected TC-005's unknown-ID route and
 TC-008's reviewer-detail scope; removed possessive demo attribution without
 asserting unrecorded student execution. No new tests or acceptance approvals.
+
+## A5 — Local Closeout Work for PR #100
+
+Codex assisted planning/evidence reconciliation and index preparation against
+`ac228d07bc950251faee006b7ab98857fde81f43`. Technical case assessments reuse actual tests/rehearsals;
+no new acceptance execution or human approval is invented. A fresh dependency
+tree and POM license declarations were collected; the OSV API was blocked by
+outbound policy, so no advisory clearance is claimed. Named independent review,
+risk acceptance and final release/submission remain pending. PR99 untouched.
