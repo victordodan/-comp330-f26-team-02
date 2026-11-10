@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A3 — Architecture and Review
+**Current Phase:** A5 — Cycle 1 Release and Presentation
 **Release Cycle:** Cycle 1  
 
 ## Estimation Approach
@@ -173,3 +173,27 @@ The existing Cycle 1 estimate ranges remain unchanged pending team review.
 Architecture decisions have become more specific, but their implementation costs and testing outcomes have not yet been verified.
 
 The team will use implementation progress, review findings, and recorded effort to determine whether future re-estimation is necessary.
+
+## A5 — Estimate versus Actual Assessment
+
+**Prepared by:** Malec Tarabein, Planning & Process Lead. Checkpoint `main` at `d640366`. Proposed for team review.
+
+**Effort actuals are not available.** The team did not record hours against EST-001 to EST-005, so effort cannot be compared with the estimate ranges. Following the rule above, no actual effort is reconstructed after the fact.
+
+What the repository *can* show is calendar timing:
+
+| Estimate | Planned window | Repository-visible activity | Observation |
+|---|---|---|---|
+| EST-002 (A2 planning) | Sep 22–29 | 27 of 28 first-parent commits on Sep 29 | Work concentrated on the final day |
+| EST-004 (implementation) | Oct 16–29 | Implementation PRs merged Oct 29; corrections authored Oct 30 | Completed at the deadline; the integration buffer was used up |
+| EST-005 (verification and release) | Oct 30–Nov 10 | No commits Oct 31–Nov 8; A5 PRs from Nov 9 | Verification started late; 0/12 dated acceptance runs at this checkpoint |
+
+Commit dates measure when work was merged, not how long it took, so they cannot confirm or refute the hour ranges.
+
+### Implications for Cycle 2
+
+1. Record actual hours per task (for example in the GitHub issue or PR) so Cycle 2 can compare estimates with actuals.
+2. Treat the end of a planned window as the review deadline, not the merge deadline.
+3. EST-005 assumed verification would run alongside implementation. It did not, so Cycle 2 verification estimates should include a separate acceptance-execution task rather than folding it into implementation.
+
+The EST-001 to EST-006 ranges are not revised by this section.

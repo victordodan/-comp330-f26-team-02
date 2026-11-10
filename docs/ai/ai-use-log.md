@@ -1,5 +1,16 @@
 # AI Use Log
 
+## A5 — Planning, Schedule and Risk Reconciliation (Malec Tarabein)
+
+Claude (Claude Code) assisted Malec Tarabein with drafting the A5 sections of
+`docs/planning/schedule.md`, `task-plan.md`, `risk-register.md`, `scope.md` and
+`estimates.md` against main checkpoint `d640366`. Milestone dates, commit
+activity, PR merge status and SHAs were taken from git tags, commit history
+and the GitHub PR list, and were checked against the existing defect log,
+known limitations and acceptance evidence. Proposed owners, statuses and risk
+dispositions require team and Victor's review. No tests, acceptance runs,
+scans, effort actuals, risk acceptances or release decisions are claimed.
+
 ## A5 — PR #89 Evidence Correction
 
 Codex assisted with security configuration, historical dependency evidence and open advisory/license/support decisions against checkpoint
