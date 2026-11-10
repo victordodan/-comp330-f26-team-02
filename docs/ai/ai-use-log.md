@@ -1,5 +1,13 @@
 # AI Use Log
 
+## A5 — PR #82 Architecture Overview Correction
+
+Codex assisted with ISO date/paragraph formatting and a brief A5 clarification
+separating the preserved A3 design from the implemented HTTP/JDBC/session slice.
+Source and linked evidence were checked at `91cdfc81a6f884f2dceb407c245d71bb72afc497`.
+No Mermaid/table repair, GitHub rendered preview, new runtime test or new
+architecture/release approval is claimed. Prepared for Victor's review.
+
 ## A5 — PR #96 Demo Rehearsal Correction
 
 Codex assisted with procedure, synthetic HTTP transcripts, build/restart/repeat evidence and scope limitations. The packaged application source
