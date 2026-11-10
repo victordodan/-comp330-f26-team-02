@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A3 — Architecture and Review
+**Current Phase:** A5 — Cycle 1 Release and Presentation
 **Release Cycle:** Cycle 1  
 
 ## Estimation Approach
@@ -173,3 +173,14 @@ The existing Cycle 1 estimate ranges remain unchanged pending team review.
 Architecture decisions have become more specific, but their implementation costs and testing outcomes have not yet been verified.
 
 The team will use implementation progress, review findings, and recorded effort to determine whether future re-estimation is necessary.
+
+## A5 — Estimate versus Actual Assessment
+
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
+
+No reliable task-hour actuals were found in the reviewed evidence. Preserve
+EST-001–006 ranges; commit timing does not measure labor, offline work or available
+capacity. No actual hours or numerical re-estimate is invented. Record effort
+prospectively in Cycle2 and distinguish review deadlines from merge dates.
+
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).

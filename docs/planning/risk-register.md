@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A3 — Architecture and Review
+**Current Phase:** A5 — Cycle 1 Release and Presentation
 **Release Cycle:** Cycle 1  
 
 ## Risk Register
@@ -144,3 +144,24 @@ This update supersedes the earlier open-PR, dependency-version, and unverified i
 PRs #69, #71, #72, #73, #75, #76, and #77 are merged. The build uses Spring Boot 3.5.16. All six code PRs passed CI before merging; the combined backend passed 35 tests, including ownership, workflow, concurrency, and persistence checks. Packaged-process restart checks also passed.
 
 These results provide mitigation evidence. Formal risk acceptance, dependency maintenance/security acceptance, backup restoration, and final release verification remain pending.
+
+## A5 — Release Risk Reconciliation
+
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
+
+| Risk / limitation | Actual basis | Disposition needed |
+|---|---|---|
+| Local data recovery / LIM-001 | Full same-store restart passed; backup restoration not tested | Add targeted evidence or named bounded-demo risk decision |
+| Synthetic identity / LIM-002 | Role selector deliberately allows Reviewer; no real identity verification | Local/synthetic scope and human acceptance; no public deployment claim |
+| Dependencies / A5-F06 | Fresh inventory/POM licenses recorded locally in #100; advisory API blocked | Dated advisory/support/license assessment or explicit human deferral |
+| Acceptance / A5-F04 | Tests/rehearsal and PR101 coverage review available | Per-case human decisions; no automatic twelve-case PASS |
+| Final baseline / A5-F05 | No A5 tag/release decision established | Select revision, verify, review, approve/tag |
+| Presentation/ownership | AI-assisted work and contributor attribution disclosed | Human claim/speaker review; PR99 untouched |
+
+These are evidence-based exposures, not newly reproduced application defects.
+No risk is marked accepted/closed on someone's behalf. Do not assert that a risk
+cannot be mitigated during Cycle1 without evidence. Historical test/review SHAs
+can differ legitimately; the release index must explain their purpose rather
+than overwrite history to make every document show an untested SHA.
+
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).

@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A3 — Architecture and Review
+**Current Phase:** A5 — Cycle 1 Release and Presentation
 **Release Cycle:** Cycle 1
 
 This task plan records the major work Codex Ramblers expects to complete throughout the Fall semester. Tasks are maintained at a level where ownership, dependencies, progress, and completion can be clearly tracked. More detailed tasks may be added as requirements, architecture, implementation, testing, and release decisions become more specific.
@@ -164,3 +164,25 @@ The earlier open/failing statuses are superseded:
 - Backend verification: 35 tests passed on the combined implementation.
 - Quality evidence: #75 merged; final post-merge reconciliation remains pending.
 - Remaining acceptance/recovery evidence, ownership confirmation, final main verification, tag, and Word submission remain open.
+
+## A5 — Release Task Reconciliation
+
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
+
+| Task | Evidence-supported state | Remaining work |
+|---|---|---|
+| TASK-012 architecture | Accepted ADRs and merged design/implementation clarification exist | Final integrated review remains separate; not automatically closed |
+| TASK-013 implementation | HTTP workflow/JDBC/session code merged | Requirements acceptance and unverified UI scope remain distinct |
+| TASK-014 tests/CI | Automated suite and all-change CI implemented | Final candidate CI and assurance decisions |
+| TASK-015 verification/defects | Case mappings and actual 36/5/36 rehearsal exist | Use PR101 review after corrections, record actual human case dispositions and residual risks |
+| TASK-016 release/presentation | Candidate notes/demo/gate merged; #100 indexes drafted locally | Readiness decision, independent review, Word/PPTX and tag/submission |
+| TASK-017/018 Cycle2 | Candidate handoff prepared locally in #100 | Team prioritization and A6 work; no automatic new commitments |
+
+Proposed coordination: Victor for release/submission decisions; testing owner
+for evidence; quality lead for reconciliation; planning lead for schedule/risk
+maintenance. These roles do not establish actual work or approval by an individual.
+PR99 is excluded; no role-matrix edits or acknowledgements are invented. Tasks
+awaiting evidence/decisions must say so rather than asserting that none are blocked.
+Use Definition of Done before marking a task Complete, not just file existence.
+
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).

@@ -8,6 +8,17 @@ contributor and pull-request records, and acknowledgement links from the Issue #
 comments. No acknowledgement is recorded on any student's behalf; unsupported
 entries were set to `Pending`.
 
+## A5 — Planning, Schedule and Risk Reconciliation (Malec Tarabein)
+
+Claude (Claude Code) assisted Malec Tarabein with drafting the A5 sections of
+`docs/planning/schedule.md`, `task-plan.md`, `risk-register.md`, `scope.md` and
+`estimates.md` against main checkpoint `d640366`, refreshed against `ac228d0`. Milestone dates, commit
+activity, PR merge status and SHAs were taken from git tags, commit history
+and the GitHub PR list, and were checked against the existing defect log,
+known limitations and acceptance evidence. Proposed owners, statuses and risk
+dispositions require team and Victor's review. No tests, acceptance runs,
+scans, effort actuals, risk acceptances or release decisions are claimed.
+
 ## A5 — PR #82 Architecture Overview Correction
 
 Codex assisted with ISO date/paragraph formatting and a brief A5 clarification
@@ -219,6 +230,15 @@ TC-008's reviewer-detail scope; removed possessive demo attribution without
 asserting unrecorded student execution. No new tests or acceptance approvals.
 
 ## A5 — Local Closeout Work for PR #100
+
+Codex assisted planning/evidence reconciliation and index preparation against
+`ac228d07bc950251faee006b7ab98857fde81f43`. Technical case assessments reuse actual tests/rehearsals;
+no new acceptance execution or human approval is invented. A fresh dependency
+tree and POM license declarations were collected; the OSV API was blocked by
+outbound policy, so no advisory clearance is claimed. Named independent review,
+risk acceptance and final release/submission remain pending. PR99 untouched.
+
+## A5 — Local Closeout Work for PR #98
 
 Codex assisted planning/evidence reconciliation and index preparation against
 `ac228d07bc950251faee006b7ab98857fde81f43`. Technical case assessments reuse actual tests/rehearsals;
