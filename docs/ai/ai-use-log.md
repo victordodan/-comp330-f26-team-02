@@ -1,5 +1,29 @@
 # AI Use Log
 
+## A5 — PR #86 Gate/Release Correction
+
+Codex assisted with reconciling candidate gate/release wording against checkpoint
+`d640366e6addcb495a3449cb59253e5cb12599cf`, merged implementation/evidence and PR #95 CI results.
+Completed documentation and CI work is distinguished from acceptance, dependency,
+presentation and final-review gaps. No new execution, personal contributor
+verification or human approval is invented. Prepared for Victor's review.
+
+## A5 — PR #85 Gate/Release Correction
+
+Codex assisted with reconciling candidate gate/release wording against checkpoint
+`d640366e6addcb495a3449cb59253e5cb12599cf`, merged implementation/evidence and PR #95 CI results.
+Completed documentation and CI work is distinguished from acceptance, dependency,
+presentation and final-review gaps. No new execution, personal contributor
+verification or human approval is invented. Prepared for Victor's review.
+
+## A5 — PR #89 Evidence Correction
+
+Codex assisted with security configuration, historical dependency evidence and open advisory/license/support decisions against checkpoint
+`4ff2f0f12e636f177ec25202b8029498e613afde`. Work compares source, merged evidence and reported CI results;
+no new test/scan, dependency resolution, human approval or release acceptance
+is claimed. Original contributor attribution is preserved without asserting
+that contributor personally verified this correction. Prepared for Victor's review.
+
 ## A5 — PR #88 Evidence Correction
 
 Codex assisted with acceptance-criterion/test mappings, actual CI revisions and remaining case dispositions against checkpoint
@@ -34,6 +58,15 @@ obsolete storage/identity claims, invented feature issues and inferred approvals
 No new runtime tests/scans, acceptance executions or human signoffs were performed.
 This correction is prepared for Victor's review; original contributor attribution
 does not imply that contributor personally verified the correction.
+
+## A5 — PR #97 Demo Rehearsal Correction
+
+Codex assisted with executable session/ETag HTTP demo and actual runtime rehearsal. The packaged application source
+matched `714a31bf5c9283e732fcfd895615a3471fef93b4`. An actual JDK 17/Maven build passed 35 tests; the
+client passed 36 initial, 5 restart and 36 repeat HTTP checks. The stopped-server
+control correctly failed. Script/jar hashes and raw synthetic results are in
+PR #96's evidence package; the executable is in PR #97. No human witness,
+complete acceptance disposition, security clearance or release approval is claimed.
 
 ## AI Use
 
