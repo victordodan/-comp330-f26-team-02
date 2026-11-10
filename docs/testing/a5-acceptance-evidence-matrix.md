@@ -102,3 +102,30 @@ Copy once for each actual TC execution; **do not prefill Pass**.
 [Main CI run 42762605137](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42762605137) completed **successfully** for `000c0f89db51a64956566fc82fc7742973ce1e7b`. This adds current-main workflow evidence to E1/E2, **not** twelve new TC-specific execution records. The 12 mapped cases remain **Pending** final disposition, and the previously documented 0/12 separate dated case executions is unchanged. Test counts and complete scenario-step coverage were not independently audited from the new run.
 
 **For Mareddy and the authorized acceptance reviewer:** reconcile each TC-001–TC-012 against the run's reports, exact test assertions and uncovered steps; record Pass / Fail / Blocked / Deferred with evidence and accountable reviewer. Automated evidence can suffice when it covers the case; do not manufacture redundant manual runs or automatically mark all cases Pass. Giancarlo's quality role is to check traceability and gaps, not to impersonate test execution or approve the release. ChatGPT assisted this evidence note; no new execution or approval occurred.
+
+## Mareddy — A5 acceptance evidence review (2026-11-10)
+
+**Reviewer:** Venkata Aravind Mareddy | **Scope:** TC-001–TC-012 | **Evidence type:** Source-code review and existing automated CI results; no new test execution.
+
+**CI checkpoint:** [Main run #50](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/42762605137), commit `000c0f89db51a64956566fc82fc7742973ce1e7b`. The `mvn -B clean verify` logs report **35 tests run, 0 failures, 0 errors, 0 skipped; BUILD SUCCESS**. This is a main-branch checkpoint, not yet the confirmed final A5 release SHA.
+
+### Case-by-case evidence reconciliation
+
+| Case | Source/test evidence reviewed | Finding / remaining limitation |
+|---|---|---|
+| TC-001 | Request controller and service creation tests | Valid creation, student ownership, Submitted status and returned ID have related automated assertions. |
+| TC-002 | Validator boundary tests; invalid-create controller tests; `WorkflowService` and `ApiExceptionHandler` | Invalid input is rejected before insert; HTTP 400 returns a structured `BAD_INPUT` error with validator messages. Reviewed HTTP tests do not directly assert the exact error-message content. |
+| TC-003 | Workflow lifecycle and owner-read tests | Current status after reviewer updates/reopening has related automated assertions. |
+| TC-004 | Note-update and owner-read tests | Saved and preserved resolution-note behavior has related automated assertions. |
+| TC-005 | Student-ownership and isolation tests | Cross-student listing and direct-read restrictions have related automated assertions. |
+| TC-006 | Creation/defaults, unique-ID and failed-storage tests | IDs, ownership, timestamps and no false success on failed writes have related automated assertions. |
+| TC-007 | File-store restart service test; historical A4 packaged-process restart report | Persistence across file-store reopening is automated; packaged-application restart evidence is historical and not verified at the final A5 release SHA. |
+| TC-008 | Reviewer list/read authorization tests | Reviewer access to both students' requests has related automated assertions. |
+| TC-009 | Missing/invalid identity, forged-header and student-role tests | Unauthorized reviewer operations and identity spoofing have related automated assertions. |
+| TC-010 | Allowed-transition, saved-note and reopening tests | Submitted → In Progress → Resolved and reopening behavior have related automated assertions. |
+| TC-011 | Invalid-transition, missing-note, unknown-ID and rollback tests | Rejected operations and preservation of stored state have related automated assertions. |
+| TC-012 | Note-update, length-boundary, resolved-state and rollback tests | Save/replace, boundary enforcement and rejection without unintended mutation have related automated assertions. |
+
+**Disposition:** All 12 cases remain **Pending** final acceptance disposition. The 35 passing automated tests are not 12 separately dated TC executions. This review does not assert that every scenario step was independently executed or that release approval was granted.
+
+**Follow-up:** Confirm the final A5 release SHA with Victor; verify the corresponding CI run; resolve or explicitly accept the TC-002 response-message assertion limitation and TC-007 final-revision restart-evidence limitation; obtain Giancarlo's evidence review and the authorized case-level dispositions. No tests, scans or release approvals were performed as part of this documentation review.
