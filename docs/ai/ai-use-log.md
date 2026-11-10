@@ -1,5 +1,13 @@
 # AI Use Log
 
+## A5 — PR #88 Evidence Correction
+
+Codex assisted with acceptance-criterion/test mappings, actual CI revisions and remaining case dispositions against checkpoint
+`4ff2f0f12e636f177ec25202b8029498e613afde`. Work compares source, merged evidence and reported CI results;
+no new test/scan, dependency resolution, human approval or release acceptance
+is claimed. Original contributor attribution is preserved without asserting
+that contributor personally verified this correction. Prepared for Victor's review.
+
 ## A5 — PR #94 Local Correction Disclosure
 
 Codex assisted with limitations, persistence/identity technical disclosures and release-evidence boundaries against main checkpoint
