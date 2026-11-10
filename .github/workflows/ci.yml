@@ -1,45 +1,29 @@
-# STARTER KIT WORKFLOW
-#
-# This workflow intentionally does NOT provide project-specific CI.
-#
-# Each team must replace this starter workflow with CI appropriate for the
-# project's actual technology stack, build process, and testing strategy.
-#
-# Until that work is complete, this workflow can be run manually and will fail
-# deliberately. This prevents the team from treating an unconfigured CI
-# workflow as engineering or phase-gate evidence.
-#
-# When configuring CI:
-#
-# - keep the workflow understandable to the whole team;
-# - build or validate the actual project;
-# - execute the project's meaningful automated tests;
-# - fail when a required build or test check fails;
-# - use repository secrets rather than hard-coded credentials;
-# - use least-privilege GitHub permissions;
-# - add pull-request and/or push triggers when the workflow is ready to protect
-#   the shared codebase; and
-# - update /docs/testing/ci-evidence.md to describe what CI actually verifies.
-#
-# Remove this starter guard job when real CI has been implemented.
-
-name: CI - Configuration Required
+name: CampusConnect CI - Java Maven Build & Test
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-# The starter guard does not require repository or GitHub API permissions.
-# Configure only the permissions actually required when implementing real CI.
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
-  ci-not-configured:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
-      - name: CI configuration required
-        run: |
-          echo "::error::Project CI has not yet been configured."
-          echo "Replace this Starter Kit workflow with project-specific build and test checks before using CI as engineering evidence."
-          exit 1
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Run Automated Tests
+        run: mvn clean test --batch-mode
