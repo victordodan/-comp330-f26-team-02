@@ -8,6 +8,14 @@ contributor and pull-request records, and acknowledgement links from the Issue #
 comments. No acknowledgement is recorded on any student's behalf; unsupported
 entries were set to `Pending`.
 
+## A5 — PR #82 Architecture Overview Correction
+
+Codex assisted with ISO date/paragraph formatting and a brief A5 clarification
+separating the preserved A3 design from the implemented HTTP/JDBC/session slice.
+Source and linked evidence were checked at `91cdfc81a6f884f2dceb407c245d71bb72afc497`.
+No Mermaid/table repair, GitHub rendered preview, new runtime test or new
+architecture/release approval is claimed. Prepared for Victor's review.
+
 ## A5 — PR #96 Demo Rehearsal Correction
 
 Codex assisted with procedure, synthetic HTTP transcripts, build/restart/repeat evidence and scope limitations. The packaged application source
@@ -161,3 +169,44 @@ Not every AI-assisted activity requires a separate verification note. Verificati
 | 2026-10-29 | ChatGPT | Help draft A4 planning, schedule, and risk evidence while covering planning/process documentation | [PR #78](https://github.com/victordodan/-comp330-f26-team-02/pull/78) | Existing A3 documents and GitHub PR status were used as sources; proposed risk assessments, schedule dependencies and ownership **require Victor/team review**. No approved reassignment or successful integration claimed. |
 
 **Accepted for review:** Drafted documentation and links were committed to open PRs for independent checking. **Not accepted as verified:** app startup, security fixes, acceptance test results, dependency scans, or final phase-gate approval.
+
+
+## A5 — Quality & Review Lead AI-Assisted Documentation (November 9, 2026)
+
+The original PR #90 disclosure described draft assistance for Giancarlo's PRs
+#85–#89. The table below preserves that original activity scope and reconciles
+it with the current merged state. Original drafting descriptions are reported
+from the original disclosure; they are not newly witnessed personal verification.
+
+**Reconciliation checkpoint:** `91cdfc81a6f884f2dceb407c245d71bb72afc497`.
+
+| Date / tool | Original disclosed activity | Observed repository result | Verification / acceptance boundary |
+|---|---|---|---|
+| 2026-11-09 / ChatGPT | Draft A4 feedback closure and quality checklist, [#85](https://github.com/victordodan/-comp330-f26-team-02/pull/85) | Merged; current checklist distinguishes completed evidence from open gates | Original comparison/drafting, not a claim of test execution or final approval |
+| 2026-11-09 / ChatGPT | Draft candidate release notes, [#86](https://github.com/victordodan/-comp330-f26-team-02/pull/86) | Merged with later scope/evidence corrections | Candidate notes do not certify final acceptance or risk decisions |
+| 2026-11-09 / ChatGPT | Compare contradictory limitations/defect claims, [#87](https://github.com/victordodan/-comp330-f26-team-02/pull/87) | Merged; obsolete storage/header descriptions and test-deletion allegations reconciled | Findings are not automatically reproduced runtime defects |
+| 2026-11-09 / ChatGPT | Map twelve cases to criteria and test methods, [#88](https://github.com/victordodan/-comp330-f26-team-02/pull/88) | Merged; current crosswalk links actual tests and CI evidence | Mapping is not blanket acceptance; original drafting ran no separate cases |
+| 2026-11-09 / ChatGPT | Compare POM/configuration, dependency inventory and security gaps, [#89](https://github.com/victordodan/-comp330-f26-team-02/pull/89) | Merged; current assessment records assurance gaps | No new scan, transitive-license clearance or support/risk approval is established |
+| 2026-11-09 / ChatGPT | Cross-check #85–#89, correct references, prepare individual summary and this disclosure, [#90](https://github.com/victordodan/-comp330-f26-team-02/pull/90) | Updated locally for review against merged artifacts | Giancarlo must confirm personal wording/tool-use details; no unrecorded authorship or reviewer signoff is inferred |
+
+### Follow-up correction and attribution
+
+GitHub identifies `gherrera1703` as original PR author for #85–#89. Later
+follow-up commits are attributed to Victor Dodan, with Codex assistance disclosed
+in this log. These include `2fe400d` (#85), `f02258c` (#86), `6c14c37` (#87),
+`e22bb7e` (#88) and `e52c9e6` (#89). PR authorship, commit attribution and
+independent human verification are distinct; no contributor is assigned another
+person's unrecorded work.
+
+The later JDK 17 build and packaged HTTP/restart rehearsal in #96/#97 were
+performed through Codex tools and recorded in [rehearsal evidence](../testing/a5-demo-rehearsal.md).
+They must not be retroactively described as personal test execution by Giancarlo
+or another student. Those actual results do not contradict the narrower statement
+that the original documentation-drafting activities ran no new tests.
+
+Codex assisted this #90 correction by checking original PR authors, merged
+states, source documents and existing evidence. This correction itself ran no
+application tests/scans and supplies no personal contribution confirmation,
+requirements acceptance, independent security signoff or final release approval.
+Giancarlo verifies his account; Victor/team reviewers verify repository links
+and attribution. The public contribution summary is not a private peer review.

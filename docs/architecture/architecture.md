@@ -1,12 +1,38 @@
 # Architecture Overview — CampusConnect
 
-> **Status:** Proposed for Cycle 1; final A3 review pending
-> **Baseline version:** PR #48 working draft; final submission tag pending
-> **Last updated:** 2026-10-15
+> **Status:** Historical A3 design with A5 implementation clarification; final integrated review pending
+> **Baseline version:** A3 design record (PR #48); A5 submission baseline/tag pending
+> **Last updated:** 2026-11-09
 > **Owner:** Shú Perez · **Backup:** Giancarlo Herrera
 > **Team:** Codex Ramblers (Team 2)
 
-This document describes **what CampusConnect is now** — its structure, components, boundaries, data/context, AI/tool use, risks, and evidence links. It is **not** a home for every architecture decision. Significant decisions are recorded as individual ADRs in `/docs/decisions/` and indexed in Section 10.
+This overview preserves the A3 design record in Sections 1–12. Those sections
+include proposed interfaces, UI, review and verification states; they must not
+be read as a current implementation or release-acceptance certificate.
+Significant decisions remain in `/docs/decisions/`.
+
+### A5 implementation clarification
+
+At repository checkpoint `91cdfc81a6f884f2dceb407c245d71bb72afc497`, the implemented slice is a
+Java/Spring Boot **HTTP API**, not verified Thymeleaf/browser forms or a
+Post/Redirect/Get workflow. The controller selects fixed demo identities in
+server sessions; services enforce ownership, reviewer operations and lifecycle
+rules. Storage uses transactional JDBC/file-backed H2 with UUID IDs and version
+checks. The original A3 diagram/contracts below retain design history; they do
+not establish that every proposed component or operational control shipped.
+
+Current implementation/evidence sources:
+
+- [HTTP API and session/ETag contracts](../testing/a4-http-api.md).
+- [Persistence clarification](../decisions/ADR-0005-in-memory-persistence.md), consistent with accepted ADR-002–004.
+- [Current limitations](../release/known-limitations.md), including deliberate synthetic role selection and unverified production operations.
+- [CI configuration/evidence](../testing/ci-evidence.md), [acceptance mappings](../testing/a5-acceptance-evidence-matrix.md), and [packaged HTTP rehearsal](../testing/a5-demo-rehearsal.md).
+- [Candidate release notes](../release/release-notes.md) and [quality gate](../quality/a5-final-release-quality-gate.md): final human review, acceptance dispositions and dependency-risk decisions remain separate.
+
+This clarification records evidence and preserves proposed design history. It
+neither approves a new stack nor declares the old A3 review checklist complete.
+No new Mermaid/table repair or rendered-preview verification is claimed by this
+correction; the original PR diff only reflows paragraphs and changes the date.
 
 ---
 
@@ -44,20 +70,9 @@ The current release focus is the **Cycle 1 vertical slice** defined in the Campu
 
 ### Structural Approach
 
-One local Java application contains the Requester and Reviewer UI, Request
-Workflow Service, Request Repository, and Simulated Role Context. Controllers
-and server-rendered templates implement the UI boundary. Services enforce
-validation, role/ownership checks, and workflow rules. Repository code owns
-storage operations. These logical components do not require separately deployed
-services or a separate frontend application.
+One local Java application contains the Requester and Reviewer UI, Request Workflow Service, Request Repository, and Simulated Role Context. Controllers and server-rendered templates implement the UI boundary. Services enforce validation, role/ownership checks, and workflow rules. Repository code owns storage operations. These logical components do not require separately deployed services or a separate frontend application.
 
-Only the workflow service initiates business storage operations through the
-repository. The browser has no direct database access. Demo identity options
-are application-owned configuration; the selected identity is stored in the
-server session. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. The Cycle 1
-stack is Java, Spring Boot, Thymeleaf, Maven, and file-backed H2. The decisions
-cover transactional/versioned updates and local persistence/recovery expectations;
-implementation and final package review remain pending.
+Only the workflow service initiates business storage operations through the repository. The browser has no direct database access. Demo identity options are application-owned configuration; the selected identity is stored in the server session. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. The Cycle 1 stack is Java, Spring Boot, Thymeleaf, Maven, and file-backed H2. The decisions cover transactional/versioned updates and local persistence/recovery expectations; implementation and final package review remain pending.
 
 ---
 
@@ -97,9 +112,7 @@ flowchart LR
     Repository --> Store[("Local persistent data store<br/>File-backed H2; ADR-002")]
 ```
 
-The diagram is versioned in this document. It shows logical boundaries, not
-separate servers. No external identity provider, administrator, runtime AI,
-paid service, or institutional integration is part of the Cycle 1 architecture.
+The diagram is versioned in this document. It shows logical boundaries, not separate servers. No external identity provider, administrator, runtime AI, paid service, or institutional integration is part of the Cycle 1 architecture.
 
 ---
 
@@ -144,16 +157,9 @@ The qualities below materially influenced the Cycle 1 architecture.
 | API-006 | Request Workflow Service | Request Repository | Persist/retrieve request records | Internal storage boundary; file-backed H2, ADR-002 | REQ-001 through REQ-006 | Proposed |
 | API-007 | Request Workflow Service | Simulated Role Context | Obtain selected session identity/role | Internal session/context boundary; implementation pending | REQ-001 through REQ-006 | Proposed |
 
-These seven logical contracts do not require seven public endpoints or a JSON
-API. ADR-002 selects the stack; exact HTTP routes, form schemas, and framework configuration remain implementation work.
+These seven logical contracts do not require seven public endpoints or a JSON API. ADR-002 selects the stack; exact HTTP routes, form schemas, and framework configuration remain implementation work.
 
-**Valid status model:** Submitted → In Progress → Resolved, with Resolved →
-In Progress for reopening. Only Reviewer may change status; other transitions
-are rejected. Resolving requires saved nonblank note/resolution text. Reopening
-preserves the text, request ID, and owner. Reviewer may edit the current text
-(up to 2,000 trimmed characters) but cannot clear it while Resolved. See the
-[requirements](../requirements/requirements.md) and [full contracts](api-contracts.md)
-for field validation, permissions, and failure behavior.
+**Valid status model:** Submitted → In Progress → Resolved, with Resolved → In Progress for reopening. Only Reviewer may change status; other transitions are rejected. Resolving requires saved nonblank note/resolution text. Reopening preserves the text, request ID, and owner. Reviewer may edit the current text (up to 2,000 trimmed characters) but cannot clear it while Resolved. See the [requirements](../requirements/requirements.md) and [full contracts](api-contracts.md) for field validation, permissions, and failure behavior.
 
 ---
 
@@ -169,24 +175,9 @@ Full detail is in `data-context.md`. Summary:
 | Runtime AI context | Not applicable in Cycle 1 | None | No runtime AI access | Development AI assistance is recorded separately |
 | Operational logs | Request Workflow Service | Proposed local logs; location/retention pending design | Developers inspecting the local demonstration | No note bodies, descriptions, credentials, or session cookies |
 
-**Data rules:** synthetic data only. The server assigns ID, owner, timestamps,
-and initial status Submitted; normal form values cannot override them. Request
-data and stable owner identities survive ordinary restarts. Successful updates
-preserve ID, owner, and creation time and update last-updated time. Rejected
-operations leave records unchanged; failed writes must not produce success
-confirmations. Failed listings must be distinguishable from empty lists.
+**Data rules:** synthetic data only. The server assigns ID, owner, timestamps, and initial status Submitted; normal form values cannot override them. Request data and stable owner identities survive ordinary restarts. Successful updates preserve ID, owner, and creation time and update last-updated time. Rejected operations leave records unchanged; failed writes must not produce success confirmations. Failed listings must be distinguishable from empty lists.
 
-**Assumptions:** ASM-001 means one current request status; ASM-002 means one
-short current note/resolution without threaded messaging. Q-004's recorded
-answer uses the demo selector and server session. These meanings are preserved
-from [assumptions-open-questions.md](../requirements/assumptions-open-questions.md).
-Accepted ADR-003 requires transactional updates and optimistic version checks
-for reviewer status and note changes. Reject stale writes and ask the reviewer
-to reload. Post/Redirect/Get reduces repeated submissions without guaranteeing
-deduplication. ADR-004 sets backup/recovery expectations. Longer-term retention,
-controlled reset policy, logging location/retention, exact retry handling, and
-executable recovery procedures remain follow-ups. No live identity or
-institutional integration is required.
+**Assumptions:** ASM-001 means one current request status; ASM-002 means one short current note/resolution without threaded messaging. Q-004's recorded answer uses the demo selector and server session. These meanings are preserved from [assumptions-open-questions.md](../requirements/assumptions-open-questions.md). Accepted ADR-003 requires transactional updates and optimistic version checks for reviewer status and note changes. Reject stale writes and ask the reviewer to reload. Post/Redirect/Get reduces repeated submissions without guaranteeing deduplication. ADR-004 sets backup/recovery expectations. Longer-term retention, controlled reset policy, logging location/retention, exact retry handling, and executable recovery procedures remain follow-ups. No live identity or institutional integration is required.
 
 ---
 
@@ -242,10 +233,7 @@ For a representative example of how the team applies these rules in practice, se
 | Restart persistence | Status, owner, fields, and current text remain available after an ordinary restart and identity reselection | Giancarlo Herrera | AC-REQ-003-02 |
 | Operational observability | Review proposed safe event metadata; simulate failures and distinguish failed listings from empty ones | Giancarlo Herrera | [Proposed logging](data-context.md#6-logging-and-observability-expectations); [test strategy](../testing/test-strategy.md) |
 
-The 12 criteria are currently Proposed; baseline acceptance and executed test
-results are separate milestones. Full plan: [test-strategy.md](../testing/test-strategy.md).
-Plan concurrency, failed-transaction, repeated-submission, and recovery checks
-against accepted ADR-003 and ADR-004. Execution remains future work.
+The 12 criteria are currently Proposed; baseline acceptance and executed test results are separate milestones. Full plan: [test-strategy.md](../testing/test-strategy.md). Plan concurrency, failed-transaction, repeated-submission, and recovery checks against accepted ADR-003 and ADR-004. Execution remains future work.
 
 ---
 
@@ -258,10 +246,7 @@ against accepted ADR-003 and ADR-004. Execution remains future work.
 | ADR-003 | Request consistency and concurrent updates | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-003](../decisions/ADR-003-request-consistency.md) |
 | ADR-004 | Local persistence and recovery | Accepted — Cycle 1 | Codex Ramblers Team | [ADR-004](../decisions/ADR-004-local-persistence-and-recovery.md) |
 
-**Note:** retain ADR-001 as historical evidence of the production-stack deferral.
-Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026, establishing
-the local Cycle 1 implementation decisions. This completes that decision
-confirmation; implementation verification and final A3 package review remain pending.
+**Note:** retain ADR-001 as historical evidence of the production-stack deferral. Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026, establishing the local Cycle 1 implementation decisions. This completes that decision confirmation; implementation verification and final A3 package review remain pending.
 
 ---
 
@@ -275,12 +260,7 @@ confirmation; implementation verification and final A3 package review remain pen
 | AR-004 | Implementation may diverge from the accepted framework/database decisions | Medium | Giancarlo Herrera | Apply ADR-002 and review estimate assumptions as implementation evidence develops |
 | AR-005 | Concurrent updates, retries, or storage failures could violate valid status/text combinations | High | Victor Dodan | Apply ADR-003 transactional/versioned updates and ADR-004 recovery expectations; define remaining retry/procedure details and preserve the resolution invariant |
 
-These concerns relate to R-001 (scope), R-002 (technology), R-004 (requirements),
-R-005 (integration), R-006 (late testing), and confirmed active risks R-010
-(persistence), R-011 (conflicting updates), and R-012 (decision alignment) in
-the [risk register](../planning/risk-register.md). A3 planning updates retain
-existing estimate ranges. ADR approval does not confirm available team hours
-or establish that re-estimation is unnecessary.
+These concerns relate to R-001 (scope), R-002 (technology), R-004 (requirements), R-005 (integration), R-006 (late testing), and confirmed active risks R-010 (persistence), R-011 (conflicting updates), and R-012 (decision alignment) in the [risk register](../planning/risk-register.md). A3 planning updates retain existing estimate ranges. ADR approval does not confirm available team hours or establish that re-estimation is unnecessary.
 
 ---
 
