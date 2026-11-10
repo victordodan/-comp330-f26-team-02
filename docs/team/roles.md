@@ -123,7 +123,7 @@ The **Evidence** column should reference a repository-visible confirmation made 
 | Shelby Sierah | Pending |  |
 | Malec Tarabein | Yes | [Issue #3 — acknowledgement comment](https://github.com/victordodan/-comp330-f26-team-02/issues/3#issuecomment-6758470472) |
 
-Acknowledgement corrections (A5): Victor Dodan's and Venkata Aravind Mareddy's links now point to their own Issue #3 comments. Shelby Sierah's row previously linked to Shu Perez's comment, and Issue #3 has no comment from `sshelby-ctrl`, so it is set to `Pending` until Shelby confirms with their own account. Malec Tarabein acknowledged on Issue #3 during A5. Giancarlo Herrera's comment acknowledges Team Charter backup responsibility, but the A1 deliverable table assigns that backup to Shelby Sierah; the team should resolve which record is correct.
+Acknowledgement corrections (A5): Victor Dodan's and Venkata Aravind Mareddy's links now point to their own Issue #3 comments. Shelby Sierah's row previously linked to Shu Perez's comment, and Issue #3 has no comment from `sshelby-ctrl`, so it is set to `Pending` until Shelby confirms with their own account. Malec Tarabein acknowledged on Issue #3 during A5. Open conflict: Giancarlo Herrera's Issue #3 comment (2026-09-20) acknowledges Team Charter backup responsibility, but the A1 deliverable table has assigned that backup to Shelby Sierah since commit `491f2bb` (2026-09-17). `docs/team/team-charter.md` names primary owners only. No assignment is changed here; once the team confirms the intended backup, either the table is updated with a Role Changes entry or the acknowledgement is corrected.
 
 ### Instructions
 
