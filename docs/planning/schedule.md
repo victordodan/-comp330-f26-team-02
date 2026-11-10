@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A3 — Architecture and Review
+**Current Phase:** A5 — Cycle 1 Release and Presentation
 **Release Cycle:** Cycle 1  
 
 ## Schedule Basis
@@ -168,3 +168,25 @@ No revised date, resource commitment, completion percentage, or approval is inve
 The build, model, application bootstrap, workflow, controller, startup-test, and quality-evidence PRs are merged. Their pre-merge code checks passed, superseding the earlier failing-CI checkpoint.
 
 Remaining sequence: verify final main CI → refresh submission evidence and unresolved dispositions → approve the final baseline → create the A4 tag and complete the Word/Sakai submission.
+
+## A5 — Release Schedule Reconciliation
+
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
+
+Sakai remains authoritative for deadlines. Preserve historical planned windows;
+no new deadline or inference about offline work is introduced.
+
+| Sequence | Actual exit evidence | Current status / proposed coordinator |
+|---|---|---|
+| Reconcile release-affecting proposals | Explicit PR disposition; not every unrelated open PR must merge | #98/#100 local work; PR99 excluded; Victor coordinates |
+| Prepare evidence/submission drafts | Release index, changed-file/test indexes, demo/presentation/handoff links | Local #100 additions; Word/PPTX still team work |
+| Select candidate and assess it | Exact SHA; CI; case-specific evidence decisions; independent review | Not frozen; testing/technical reviewers and lead |
+| Decide remaining risks | Named dated scope/mitigations, including dependency and demo limits | Human decisions pending |
+| Release/tag/submission | Approved baseline, tag, matching Word/PPTX/clone URL; private peer reviews | Lead/team; no approval or tag created here |
+
+Evidence/presentation drafting can precede tagging; final artifacts identify the
+approved revision. Preserve real execution timestamps/SHAs and disclose later
+changes. Repeat affected verification if implementation changes, not merely to
+relabel historical logs. Final human presentation rehearsal remains pending.
+
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).

@@ -2,7 +2,7 @@
 
 **Team:** Codex Ramblers\
 **Project:** CampusConnect\
-**Current Phase:** A2 — Planning and Estimation\
+**Current Phase:** A5 — Cycle 1 Release and Presentation\
 **Release Cycle:** Cycle 1
 
 ## Scope Statement
@@ -81,3 +81,19 @@ The A1 scope baseline remains the foundation for the project. During A2, the tea
 | A1 | Initial CampusConnect scope established | Initial baseline | Establish the project boundary before detailed planning and implementation begins. | `docs/requirements/` |
 | A2 | Scope aligned with Cycle 1 requirements and planning evidence | Refined | Connect the existing scope baseline to stable requirement identifiers and current A2 planning evidence. | `docs/requirements/`, `docs/planning/` |
 | A2 | Final production technology stack explicitly deferred | Deferred decision | Preserve architecture flexibility until sufficient engineering evidence exists to support a technology decision. | `docs/decisions/ADR-001-defer-production-technology-stack.md` |
+
+## A5 — Delivered Scope Reconciliation
+
+**Reviewed checkpoint:** `ac228d07bc950251faee006b7ab98857fde81f43`. Proposed planning record; human review pending.
+
+SCP-001–006 are implemented as HTTP student/reviewer workflow operations with
+synthetic sessions, file-backed H2 and versioned writes. They have related tests
+and rehearsal evidence; delivery is not automatic acceptance. Notes are saved
+through a separate endpoint before resolution. SCP-007 repository evidence is
+substantial but final indexes/decisions and submission remain incomplete.
+
+The original proposed graphical/Thymeleaf interface is not a verified shipped
+capability. Notifications, institutional login and production operations remain
+outside the bounded demo claim. No unapproved Cycle2 feature commitment is added.
+
+AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).
