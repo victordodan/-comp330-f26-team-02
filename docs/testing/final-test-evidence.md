@@ -24,3 +24,11 @@ inspects Student A while JUnit covers both students; the unknown-UUID HTTP check
 is a reviewer status PATCH, not a student lookup. The integrated assessment
 preserves these distinctions and grants no human acceptance. No new case
 execution is claimed by this index.
+
+## Acceptance closeout update
+
+[Delegated case dispositions](a5-acceptance-closeout.md) now link a fresh 35-test
+build and 36 HTTP/5 packaged restart checks at source `531d54ca0f391e218752888900c4668173f75e27`.
+The twelve case dispositions are approved under Victor’s explicit delegated
+authority for their recorded scope. Independent human review, dependency-risk
+acceptance and final release identity remain pending.
