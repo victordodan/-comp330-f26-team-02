@@ -70,3 +70,8 @@ No person should fill an approval on another person's behalf without explicit at
 5. Victor authorizes (or declines) the exact final release and creates the tag only after resolving the gate.
 
 **AI-use disclosure:** AI assisted in drafting this checklist from existing repository records. It did not run software, verify final A6 evidence, independently review this PR, or authorize release. Human review and an A6 AI-use log entry are required before final submission.
+
+
+## A6 documentation intake update (2026-11-23)
+
+The [AI-use log](../ai/ai-use-log.md), [final testing evidence intake](../testing/final-test-evidence.md), [CI evidence intake](../testing/ci-evidence.md), [risk register](../planning/risk-register.md) and [partial changed-file index](../release/changed-files-since-a5.md) were updated in [draft PR #112](https://github.com/victordodan/-comp330-f26-team-02/pull/112). **This is documentation progress only:** all A6 execution, independent review, risk authorization and final release gates remain OPEN until supported by attributable final-SHA evidence. The changed-file index is PR-scoped, not the final tag-to-tag team inventory.
