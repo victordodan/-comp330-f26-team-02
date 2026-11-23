@@ -165,3 +165,23 @@ can differ legitimately; the release index must explain their purpose rather
 than overwrite history to make every document show an untested SHA.
 
 AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).
+
+
+---
+
+## Assignment 6 — Cycle 2 risk disposition intake (2026-11-23)
+
+This section tracks **unresolved A6 decisions**, not new defects or approvals. The [A5 conditional classroom release decision](../release/a5-release-decision.md) is historical and does not authorize a production deployment or final A6 release.
+
+| Risk / linkage | Current A6 status | Evidence or accountable decision required |
+|---|---|---|
+| LIM-001 / R-010 — local H2 file loss and recovery | **OPEN** | Shu: verified runbook, path, restart and backup/restore test if claimed; Victor: residual risk |
+| LIM-002 — synthetic session identities | **RESTRICTED / OPEN for A6 decision** | Shelby: governance and negative authorization evidence; Victor: accepted deployment boundary |
+| LIM-003 — no outbound notifications | **KNOWN LIMITATION** | Disclose polling/manual status retrieval; no invented feature completion |
+| LIM-004 — HTTP-only, no GUI | **KNOWN LIMITATION** | Demo API accurately; any GUI requires linked tested change |
+| LIM-005 — monitoring, operations, incident recovery | **OPEN** | Shu: operational runbook, observed failure signal and response evidence |
+| A5-F04 / #104 — final acceptance | **OPEN** | Mareddy: exact-A6-SHA TC-001–012 evidence; Victor: human case decisions |
+| A5-F05 / #105 — independent review, final tag | **OPEN** | Non-author reviewer, CI, Victor decision and matching tag |
+| A5-F06 — dependency/license/advisory assurance | **OPEN** | Dated scoped review or Victor's explicit deferral; no blanket clearance |
+
+See [A6 defect review](../quality/defect-review.md), [A6 quality gate](../quality/a6-final-release-quality-gate.md), and [Issue #107](https://github.com/victordodan/-comp330-f26-team-02/issues/107). **No A6 risks are marked accepted on Victor's behalf.** AI-assisted draft; human confirmation pending.
