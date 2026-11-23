@@ -170,7 +170,7 @@ A5 source/verification references: [A5 acceptance closeout](../testing/a5-accept
 | A5-F01, LIM-001, R-010 — file-backed H2 and recovery | Runbook, consistent datasource path, restart and (if claimed) actual backup/restore evidence | [A6 defect review](../quality/defect-review.md), [runbook](../operations/runbook.md) | **OPEN** — recovery evidence not established |
 | A5-F02, LIM-002 — synthetic identity | Security governance, bounded local demo, negative authorization tests; real SSO only if actually implemented | [Security checklist](../security/security-governance-checklist.md) | **OPEN** — no production authentication claim |
 | A5-F03/F04 — evidence accuracy and acceptance | Exact A6 tests/CI, TC-001–012 case dispositions, accountable human review | [Test catalog](../testing/test-cases.md), [Issue #104](https://github.com/victordodan/-comp330-f26-team-02/issues/104) | **OPEN** — A5 scoped acceptance is not A6 sign-off |
-| A5-F05 — final CI, non-author review and baseline | Final tested SHA, independent review, Victor decision and pushed \`a6-final-release\` tag | [Issue #105](https://github.com/victordodan/-comp330-f26-team-02/issues/105), [A6 quality gate](../quality/a6-final-release-quality-gate.md) | **OPEN** |
+| A5-F05 — final CI, non-author review and baseline | Final tested SHA, independent review, Victor decision and pushed `a6-final-release` tag | [Issue #105](https://github.com/victordodan/-comp330-f26-team-02/issues/105), [A6 quality gate](../quality/a6-final-release-quality-gate.md) | **OPEN** |
 | A5-F06 — dependency, license and advisory decisions | Dated scoped review or attributable risk deferral; no unsupported clearance | [A5 release decision](../release/a5-release-decision.md), [security checklist](../security/security-governance-checklist.md) | **OPEN** for A6 |
 | LIM-003/004 — notifications and GUI not implemented | Disclose HTTP-only and pull-based status, or link independently verified Cycle 2 implementation | [Known limitations](../release/known-limitations.md) | **KNOWN SCOPE LIMITATIONS** |
 | LIM-005 — operational readiness | Project-specific runbook, observability/failure evidence, recovery limits and named owners | [Issue #107](https://github.com/victordodan/-comp330-f26-team-02/issues/107), [observability plan](../observability/observability-plan.md) | **OPEN** |
@@ -187,7 +187,7 @@ A5 source/verification references: [A5 acceptance closeout](../testing/a5-accept
 | Operational/observability/security evidence and exceptions | Pending actual links and human decisions | OPEN |
 | Independent non-author integrated review | Pending named reviewer and SHA | OPEN |
 | Victor GO / CONDITIONAL GO / NO-GO | Pending attributable decision | OPEN |
-| Final notes, presentation evidence and \`a6-final-release\` tag | Pending approved SHA and tag URL | OPEN |
+| Final notes, presentation evidence and `a6-final-release` tag | Pending approved SHA and tag URL | OPEN |
 
 See [A6 quality gate](../quality/a6-final-release-quality-gate.md) for closure criteria and [A6 defect review](../quality/defect-review.md) for finding dispositions. Do not close any row based solely on this documentation PR.
 
