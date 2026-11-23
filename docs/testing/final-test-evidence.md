@@ -40,3 +40,22 @@ The twelve dispositions remain proposed PASS pending named human acceptance
 and accountability confirmation. The closeout reconciles Mareddy’s #109 and
 links artifact verification. Independent non-author review, security/license
 risk acceptance, final release authorization and release tag remain OPEN.
+
+
+---
+
+## Assignment 6 — final testing evidence intake (2026-11-23; OPEN)
+
+This section is an **A6 evidence request**, not a new execution. The A5 evidence and scoped classroom acceptance described above remain historical. A5's [conditional release decision](../release/a5-release-decision.md) is not A6 sign-off. [Quality gate](../quality/a6-final-release-quality-gate.md) and [traceability](../planning/traceability.md) track final requirements.
+
+| Required A6 evidence | Recorded result | Owner / next action |
+|---|---|---|
+| Final candidate commit SHA and execution date/environment | **PENDING** | Shu / Mareddy identify exact tested revision |
+| Clean Maven verification, test counts, failures/skips and report | **PENDING** | Mareddy links actual log/CI artifacts |
+| TC-001–TC-012 case-by-case results and human disposition | **PENDING** | Mareddy supplies execution; Victor records acceptance |
+| HTTP happy path, authorization denials, invalid transitions and concurrency | **PENDING** | Shu / Mareddy provide transcript with tested SHA |
+| Packaged restart, same H2 path and persistent state | **PENDING** | Shu / Mareddy provide restart transcript |
+| Actual backup/restore test, if claimed | **NOT ESTABLISHED** | Shu documents verified procedure or explicit limitation |
+| Regressions, defects, reviewer and residual risks | **PENDING** | Giancarlo links findings and independent reviewer |
+
+Do not reuse historical 35 Maven / 36 HTTP / 5 restart counts as newly run A6 results. The exact A6 SHA, logs, operator and dates must be recorded before closing any row. No test was executed as part of this documentation edit.
