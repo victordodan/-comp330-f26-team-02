@@ -67,3 +67,22 @@ No branch-protection configuration was changed by this local work.
 
 **AI disclosure:** Codex assisted workflow review, configuration corrections and
 evidence documentation. Human review and actual CI execution remain separate.
+
+
+---
+
+## Assignment 6 — CI final-baseline intake (2026-11-23)
+
+**Status: OPEN.** This entry does not report a newly executed workflow. The historical CI links above are not proof of a passing A6 final SHA. Record the workflow actually used, its triggering event and whether path filters, manual-only jobs, skipped checks or branch protection affected the candidate.
+
+| Required field | A6 value |
+|---|---|
+| Final candidate commit SHA / branch | Pending |
+| Workflow file, event and run URL | Pending |
+| Job status, run conclusion and completion timestamp | Pending |
+| Maven/test totals, failures, errors and skips | Pending |
+| Test report/artifact URL | Pending |
+| Skipped or non-required checks and explanation | Pending |
+| Independent reviewer and final tag SHA match | Pending |
+
+**Acceptance rule:** The tested commit and the eventual `a6-final-release` tag target must be reconciled; a documentation-only CI run cannot substitute for verified application behavior. See [A6 quality gate](../quality/a6-final-release-quality-gate.md). AI drafted this intake; it did not run CI.
