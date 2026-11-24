@@ -89,9 +89,9 @@ This deviation is addressed through:
 
 [ADR-006 — REST API Interface Alignment](ADR-006-rest-api-interface-alignment.md)
 
-ADR-006 proposes retaining the implemented REST interface for the Assignment 6 classroom release.
+ADR-006 records the team's acceptance of the implemented REST interface for the local, synthetic-data Assignment 6 classroom release.
 
-Until ADR-006 receives explicit team approval, the interface deviation remains documented rather than formally accepted.
+The November 24, 2026 team approval is recorded in ADR-006.
 
 ### Persistence Clarification
 
@@ -151,9 +151,9 @@ These boundaries demonstrate application-level authorization rather than product
 | ADR-003 | Transactional consistency and concurrent-update requirements remain applicable |
 | ADR-004 | Local persistence and recovery expectations remain applicable |
 | ADR-0005 | JDBC persistence implementation clarification |
-| ADR-006 | Proposed partial supersession of the Thymeleaf interface requirement |
+| ADR-006 | Supersedes the Thymeleaf interface choice for the A6 classroom release |
 
-If ADR-006 is approved, only the server-rendered interface requirement is superseded for the classroom release.
+ADR-006 supersedes only the server-rendered interface requirement for the classroom release.
 
 The remaining approved technology selections continue to apply.
 
@@ -195,9 +195,9 @@ No new automated tests, live HTTP verification, or database recovery tests were 
 - [x] Original approved technology decision preserved.
 - [x] Implementation deviation identified.
 - [x] Implemented persistence configuration reviewed.
-- [x] REST interface alignment proposal documented.
+- [x] REST interface decision documented.
 - [ ] ADR-006 independently reviewed.
-- [ ] Team approval of interface deviation recorded.
+- [x] Team approval of interface deviation recorded in ADR-006.
 - [ ] Architecture documentation reconciled against the exact final release revision.
 - [ ] Runtime verification completed.
 - [ ] Persistence and concurrency evidence confirmed.
@@ -214,13 +214,13 @@ No new automated tests, live HTTP verification, or database recovery tests were 
 
 **A6 Implementation Clarification:** Human review pending.
 
-**Proposed Interface Change:** Subject to ADR-006 approval.
+**A6 Interface Decision:** Accepted by the team in ADR-006.
 
 **Final Implementation Verification:** Pending integrated release verification.
 
 **Final Release Authorization:** Pending.
 
-The original approval does not constitute approval of the subsequent REST interface deviation.
+ADR-006 records the separate approval of the REST interface for A6.
 
 ### AI Assistance
 
