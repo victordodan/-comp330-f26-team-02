@@ -5,9 +5,10 @@
 **Milestone:** MS-006 Cycle 2 maturity planning (Nov 11–Nov 24, 2026)
 **Prepared by:** Malec Tarabein (Planning & Process Lead) · **Backup:** Shú Perez
 **Prepared:** 2026-11-24 · **Cycle 1 baseline:** `a5-cycle1-release` → `3f297d8`
-**Status:** **PROPOSED.** Target selection and owners need Victor's confirmation
-and each owner's acknowledgement in the PR. Nothing here is a commitment until
-that happens.
+**Status:** **PROPOSED.** Victor confirmed the MT-02 runbook assignment on
+November 24, 2026. Shú Perez writes the runbook and Giancarlo Herrera follows it
+and records the results. Target selection, remaining assignments, and owner
+acknowledgements are pending.
 
 ## Purpose
 
@@ -27,14 +28,13 @@ is that record. It starts from the six candidates in
 4. A target that cannot be proven is **deferred** with a named owner, not
    claimed. A documented deferral is an acceptable outcome.
 
-## Not selected for Cycle 2
+## Scope decisions
 
-These were considered and are explicitly **not** Cycle 2 commitments, matching
-the Cycle 1 handoff:
+The following decisions update the Cycle 1 handoff.
 
-| Candidate | Reason not selected | Disposition |
+| Candidate | Rationale | Disposition |
 |---|---|---|
-| Browser GUI (LIM-004) | New feature work; no Cycle 1 risk requires it, and it would need its own tests and evidence. | Removed from scope; HTTP demo stays the release interface |
+| Browser GUI (LIM-004) | The team approved a lightweight HTML, CSS, and JavaScript client of the existing REST API for the classroom demo. | Implemented in PRs #126–#128. Verify the integrated browser workflow and record the final disposition at freeze. |
 | Email/push notifications (LIM-003) | Outside agreed scope; pull-based status meets REQ-002. | Removed from scope |
 | Institutional authentication / SSO (LIM-002) | Too large for the remaining time; the risk is controlled by the loopback/synthetic boundary instead (MT-03). | Deferred beyond the course |
 | Production hosting / deployment (LIM-005) | No production use is authorized. | Deferred beyond the course |
@@ -48,7 +48,7 @@ and the owners already named in draft [PR #112](https://github.com/victordodan/-
 | ID | Target | Tier | Cycle 1 evidence that justifies it | Expected proof (A6) | Owner / backup | Tracking |
 |---|---|---|---|---|---|---|
 | MT-01 | **Bounded data recovery** | B | LIM-001 (High data-loss risk), A5-F01, R-010; TC-007 restoration deferred in the A5 decision | Documented backup and restore steps in the runbook, plus one executed restore transcript at the A6 SHA in `/test-evidence`. Otherwise an explicit deferral recorded by Victor. | Shú / Mareddy | Defect review A5-F01 |
-| MT-02 | **Operational readiness and observability** | C | LIM-005; PM-06 (eight starter-kit files untouched since Sep 10); Issue #107 | Project-specific `runbook.md` (start, verify, restart, common failures), `observability-plan.md` stating what logging actually exists, and one observed failure signal recorded in `runtime-evidence.md`. Any file not used is marked out of scope instead of kept as a template. | Shelby / Mareddy; Shú for runbook per #112 *(confirm)* | Issue #107 |
+| MT-02 | **Operational readiness and observability** | C | LIM-005; PM-06 (eight starter-kit files untouched since Sep 10); Issue #107 | Project-specific `runbook.md` (start, verify, restart, common failures), `observability-plan.md` stating what logging actually exists, and a runbook exercise covering startup, one observed failure signal, and same-store restart. Record observations, environment, and candidate SHA in `runtime-evidence.md`. Any file not used is marked out of scope instead of kept as a template. | Shú (runbook), Giancarlo (exercise and evidence); Shelby / Mareddy (observability planning) | Issue #107 |
 | MT-03 | **Identity boundary and negative authorization** | C | LIM-002 (High outside demo), A5-F02 | `permission-boundaries.md` filled in with the real who-can-do-what table, plus negative-path tests (student cannot act as reviewer, forged headers rejected) passing in CI at the A6 SHA. | Shú / Mareddy | Defect review A5-F02 |
 | MT-04 | **Acceptance and independent review discipline** | C | PM-05; A5-F04, A5-F05; independent review deferred in A5; Issues #104, #105 | TC-001–TC-012 re-run or re-mapped at the A6 SHA with a named human disposition per case; a **named non-author** integrated review before tagging; CI run URL and test totals at the exact tag commit. | Mareddy (acceptance), Giancarlo (quality gate) / Victor (decision) | #104, #105, #111, #112, #113 |
 | MT-05 | **Supply-chain assurance** | B | PM-08; A5-F06; Tomcat 10.1.55 advisories and Boot 3.5 support accepted for A5 only | Either a compatible Tomcat/Boot update with CI re-run, or a dated, scoped advisory/license review. Otherwise Victor's explicit, dated deferral. | Victor-appointed reviewer / Victor | A5 dependency disposition |
@@ -93,6 +93,5 @@ than claim an outcome without evidence.
 
 **AI disclosure:** Claude (Claude Code) helped Malec Tarabein draft this plan
 from the Cycle 2 handoff, A5 release decision, known limitations, defect review
-(A5-F01–F06) and draft PR #112. Target selection, tiers and owners are
-proposals for Victor and the named owners to confirm. No work, test or
+(A5-F01–F06) and draft PR #112. Victor confirmed the MT-02 runbook assignment. The remaining target, tier, and owner proposals await confirmation. No work, test or
 disposition is claimed as complete. See the [AI-use log](../ai/ai-use-log.md).
