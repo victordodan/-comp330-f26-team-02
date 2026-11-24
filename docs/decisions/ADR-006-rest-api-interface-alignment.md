@@ -4,7 +4,7 @@
 **Project:** CampusConnect  
 **Team:** Codex Ramblers — Team 2  
 **Phase:** A6 — Cycle 2 Final Release  
-**Status:** Proposed — Human Review and Approval Pending  
+**Status:** Accepted — A6 classroom release  
 **Date:** 2026-11-24  
 **Architecture Owner:** Shú Perez  
 **Backup:** Giancarlo Herrera  
@@ -38,7 +38,7 @@ This creates a documented difference between the historical architecture decisio
 
 Assignment 6 requires architecture documentation, implementation, verification evidence, and architecture decisions to remain consistent.
 
-This ADR proposes formally accepting the implemented REST interface as the classroom release architecture while preserving the original historical decision.
+The team accepts the implemented Spring Boot REST API as the supported interface for the local, synthetic-data A6 classroom release. The original Cycle 1 decision remains part of the project record.
 
 ---
 
@@ -46,7 +46,7 @@ This ADR proposes formally accepting the implemented REST interface as the class
 
 Retain the implemented Spring Boot REST API as the supported interface for the Assignment 6 classroom release.
 
-The proposed release architecture consists of:
+The accepted release architecture consists of:
 
 | Technology or Component | Responsibility |
 |---|---|
@@ -60,7 +60,7 @@ The proposed release architecture consists of:
 | HTTP Session | Synthetic identity context |
 | ETag and If-Match | Version-aware modification preconditions |
 
-The originally proposed Thymeleaf server-rendered interface is not required for the reviewed REST-based classroom workflow under this proposed decision.
+The originally proposed Thymeleaf server-rendered interface is not required for the reviewed REST-based classroom workflow under this decision.
 
 This ADR does not approve a new production frontend, production deployment, or institutional authentication system.
 
@@ -204,7 +204,7 @@ Disadvantages:
 
 ## 4. Decision Rationale
 
-Alternative A is recommended for the Assignment 6 classroom release.
+The team selected Alternative A for the Assignment 6 classroom release.
 
 The existing REST implementation supports the core student and reviewer workflow without requiring additional frontend development.
 
@@ -246,7 +246,7 @@ Future production interface decisions remain deferred.
 | Session cookies must be retained | Document identity selection and session handling |
 | Clients must retain current ETags | Document If-Match requirements and reload behavior |
 | Synthetic identity switching is not authentication | Restrict demonstration to synthetic data |
-| Historical architecture differs from implementation | Preserve ADR-002 and document the proposed deviation through this ADR |
+| Historical architecture differs from implementation | Preserve ADR-002 and document the approved interface deviation through this ADR |
 | Final documentation may diverge from source | Verify against the exact release candidate |
 | Runtime evidence may not match the final revision | Require final test and CI evidence |
 
@@ -256,9 +256,7 @@ The decision does not eliminate production authentication, deployment, recovery,
 
 ## 7. Consequences
 
-If approved:
-
-- The REST API becomes the accepted classroom release interface.
+- The REST API is the accepted classroom release interface.
 - Thymeleaf is no longer a required interface component for this release.
 - Architecture documentation must describe the implemented REST boundaries.
 - API contracts must document actual endpoints, DTOs, response codes, and version preconditions.
@@ -277,14 +275,14 @@ No application source changes are introduced by this decision record alone.
 | Decision Record | Relationship |
 |---|---|
 | ADR-001 | Production technology decisions remain deferred |
-| ADR-002 | Original approved technology selection is preserved; the Thymeleaf interface requirement is proposed for partial supersession |
+| ADR-002 | Original approved technology selection is preserved; the Thymeleaf interface requirement is superseded for this classroom release |
 | ADR-003 | Transactional consistency and optimistic concurrency requirements remain applicable |
 | ADR-004 | Local persistence and recovery expectations remain applicable |
 | ADR-0005 | Existing JDBC persistence clarification remains applicable and subject to its own review status |
 
 This ADR does not invalidate the historical approval of ADR-002.
 
-Upon explicit team approval, this ADR supersedes only the server-rendered interface requirement for the classroom release.
+This ADR supersedes only the server-rendered interface requirement for the classroom release.
 
 Java, Spring Boot, Maven, file-backed H2, local execution, and synthetic identity constraints remain consistent with the existing architecture decisions.
 
@@ -370,7 +368,7 @@ These outcomes are implementation-aligned verification expectations, not newly e
 - [ ] Confirm final automated test results.
 - [ ] Confirm CI evidence for the exact release revision.
 - [ ] Complete independent human review.
-- [ ] Record team decision approval.
+- [x] Record team decision approval.
 - [ ] Record AI assistance and human verification.
 
 ---
@@ -425,19 +423,17 @@ These outcomes are implementation-aligned verification expectations, not newly e
 
 **Team Lead:** Victor Dodan
 
-**Decision Status:** Proposed
+**Decision Status:** Accepted — A6 classroom release
 
-**Human Review:** Pending
+**Independent technical review:** Pending
 
-**Team Approval:** Pending
+**Team Approval:** Giancarlo Herrera, Victor Dodan (team lead), Shú Perez, and Venkata Aravind Mareddy. Agreement reported by Victor Dodan.
 
-**Approval Date:** Pending
+**Approval Recorded:** November 24, 2026
 
 **Implementation Verification:** Source-level review completed; final runtime verification pending.
 
 **Release Authorization:** Pending final Assignment 6 release-gate review.
-
-This decision must not be represented as accepted until explicit team approval is recorded.
 
 ---
 
@@ -452,7 +448,7 @@ AI assistance supported:
 - Component and interface traceability.
 - Preparation of verification requirements.
 
-Independent human review and team approval remain required.
+Independent technical review and final release verification remain pending.
 
 No new runtime tests, source code changes, or release approvals were performed through this documentation activity.
 
