@@ -85,4 +85,6 @@ evidence documentation. Human review and actual CI execution remain separate.
 | Skipped or non-required checks and explanation | Pending |
 | Independent reviewer and final tag SHA match | Pending |
 
+**Scoped A6 evidence:** [PR #113](https://github.com/victordodan/-comp330-f26-team-02/pull/113) added HTTP 428/400 regression coverage for resolution-note updates. The PR records 36 tests passed in [run #73](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45249178158), and Giancarlo verified [run #74](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45253604010) on the exact PR head before approval. Treat these as PR-level evidence.
+
 **Acceptance rule:** The tested commit and the eventual `a6-final-release` tag target must be reconciled; a documentation-only CI run cannot substitute for verified application behavior. See [A6 quality gate](../quality/a6-final-release-quality-gate.md). AI drafted this intake; it did not run CI.

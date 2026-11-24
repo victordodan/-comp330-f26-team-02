@@ -18,8 +18,8 @@ Assignment 6 evaluates Cycle 2 maturity: what changed after Cycle 1, whether it 
 | A6-QG-02 Defects and limitations | [A6 defect review](defect-review.md), reproducible defects with owners, fix PRs and retests; LIM-001–LIM-005 dispositions | **PARTIAL** — initial inventory only; no new A6 regression results | Giancarlo coordinates; Victor accepts residual risk |
 | A6-QG-03 Acceptance and traceability | REQ/AC → issue/PR/commit → TC-001–TC-012 → executed evidence → human disposition at exact A6 SHA | **OPEN** — A5 history exists, A6 evidence pending | Mareddy / Giancarlo; Victor accepts |
 | A6-QG-04 CI/CD and validation | Exact final SHA, CI run URL and outcome, test totals, negative paths, restart/concurrency evidence, skipped-check explanation | **OPEN** — no new A6 run asserted | Shu / Mareddy |
-| A6-QG-05 Runbook and recovery | Project-specific startup, health checks, troubleshooting, data path, safe restart, backup/restore status, incident owner | **OPEN** — [runbook](../operations/runbook.md) still needs project-specific cleanup and verification | Shu |
-| A6-QG-06 Observability | Actual logs/health signals, how to detect failures, evidence of exercising a failure signal, operator response and gaps | **OPEN** — [observability plan](../observability/observability-plan.md) needs evidence and cleanup | Shu |
+| A6-QG-05 Runbook and recovery | Project-specific startup, health checks, troubleshooting, data path, safe restart, backup/restore status, incident owner | **OPEN** — [runbook](../operations/runbook.md) still needs project-specific cleanup and verification | Shú writes the runbook. Giancarlo follows it and records the results. |
+| A6-QG-06 Observability | Actual logs/health signals, how to detect failures, evidence of exercising a failure signal, operator response and gaps | **OPEN** — [observability plan](../observability/observability-plan.md) needs evidence and cleanup | Giancarlo records the runbook exercise and observed failure signal. |
 | A6-QG-07 Security and governance | Updated [security checklist](../security/security-governance-checklist.md), demo-identity boundary, advisory/license review and documented exceptions | **OPEN** — A3/A5 records do not certify A6 security | Shelby / Victor |
 | A6-QG-08 AI accountability | AI-use log for A6 changes: tool, purpose, outputs, human verification, rejected/incorrect outputs, decision authority | **OPEN** — add A6 work to [AI-use log](../ai/ai-use-log.md) | Each contributor / Victor |
 | A6-QG-09 Independent review | Named non-author reviewer checks final integrated SHA, relevant evidence and remaining findings | **OPEN** — PR review alone must be scoped accurately | Victor assigns; Giancarlo tracks |
@@ -63,7 +63,7 @@ No person should fill an approval on another person's behalf without explicit at
 
 ## Next review actions
 
-1. Mareddy and Shu provide reproducible A6 test, CI, restart and operational evidence with exact commit SHAs.
+1. Mareddy and Shú provide reproducible A6 test and CI evidence. Shú writes the runbook. Giancarlo executes it and records the restart and failure observations against the candidate SHA.
 2. Shelby and Victor record security, dependency and governance dispositions.
 3. Malec connects postmortem findings to Cycle 2 issues, re-estimation and actual changes.
 4. Giancarlo updates [Issue #111](https://github.com/victordodan/-comp330-f26-team-02/issues/111) and this gate with verified links, challenges unsupported claims, and requests **independent** review.

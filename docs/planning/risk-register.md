@@ -176,10 +176,11 @@ This section tracks **unresolved A6 decisions**, not new defects or approvals. T
 | Risk / linkage | Current A6 status | Evidence or accountable decision required |
 |---|---|---|
 | LIM-001 / R-010 — local H2 file loss and recovery | **OPEN** | Shu: verified runbook, path, restart and backup/restore test if claimed; Victor: residual risk |
-| LIM-002 — synthetic session identities | **RESTRICTED / OPEN for A6 decision** | Shelby: governance and negative authorization evidence; Victor: accepted deployment boundary |
+| LIM-002 — synthetic session identities | **RESTRICTED / OPEN for A6 decision** | Shelby: governance and deployment-boundary documentation. Shú and Mareddy: technical authorization verification. Victor: decision on the deployment boundary. |
+| R-011 — concurrent updates and optimistic locking | **OPEN for A6 verification** | Mareddy: link exact-candidate concurrency and stale-version checks. Record conflicts and verify rejected updates preserve stored data. |
 | LIM-003 — no outbound notifications | **KNOWN LIMITATION** | Disclose polling/manual status retrieval; no invented feature completion |
 | LIM-004 — HTTP-only, no GUI | **KNOWN LIMITATION** | Demo API accurately; any GUI requires linked tested change |
-| LIM-005 — monitoring, operations, incident recovery | **OPEN** | Shu: operational runbook, observed failure signal and response evidence |
+| LIM-005 — monitoring, operations, incident recovery | **OPEN** | Shú writes the runbook. Giancarlo follows it and records the observed failure signal and response. |
 | A5-F04 / #104 — final acceptance | **OPEN** | Mareddy: exact-A6-SHA TC-001–012 evidence; Victor: human case decisions |
 | A5-F05 / #105 — independent review, final tag | **OPEN** | Non-author reviewer, CI, Victor decision and matching tag |
 | A5-F06 — dependency/license/advisory assurance | **OPEN** | Dated scoped review or Victor's explicit deferral; no blanket clearance |

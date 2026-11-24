@@ -5,7 +5,7 @@
 **Source:** [Draft PR #112](https://github.com/victordodan/-comp330-f26-team-02/pull/112) on `a6-quality-defect-review-gherrera`.  
 **Scope:** This is a **partial, PR-scoped change index**, not an exhaustive diff between the A5 release tag and the eventual A6 final tag. Victor must reconcile all team PRs against the exact A5 and A6 tag SHAs before the Word submission.
 
-| Path | Change since A5 in PR #112 | Owner | Evidence / status |
+| Path | Change included in PR #112 | Owner | Evidence / status |
 |---|---|---|---|
 | `docs/quality/defect-review.md` | Add A6 defect dispositions, residual limitations and release-assurance gaps; correct Markdown | Giancarlo | Draft PR #112; independent review pending |
 | `docs/quality/a6-final-release-quality-gate.md` | New A6 quality gate with 11 evidence checks and decision template | Giancarlo | Draft PR #112; final gate OPEN |
