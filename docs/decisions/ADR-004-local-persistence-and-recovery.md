@@ -538,7 +538,7 @@ Restart persistence, transaction rollback, and backup restoration must be record
 |---|---|
 | REQ-001 | Successful request creation |
 | REQ-002 | Persistent student ownership and privacy |
-| REQ-003 | Validated and persistent request creation |
+| REQ-003 | Unique request identifiers and persistence across application restarts |
 | REQ-004 | Authorized reviewer access to stored records |
 | REQ-005 | Persistent status transitions |
 | REQ-006 | Persistent resolution notes |
@@ -565,7 +565,7 @@ Detailed acceptance-criteria mappings remain in the central requirements, API co
 | ADR-003 | Establishes transactional consistency and optimistic concurrency |
 | ADR-004 | Establishes local persistence and recovery expectations |
 | ADR-0005 | Clarifies implemented transactional JDBC persistence |
-| ADR-006 | Proposes retaining the implemented REST interface |
+| ADR-006 | Accepts the implemented REST interface for the local, synthetic-data A6 classroom release |
 
 The implemented persistence architecture remains consistent with the original file-backed H2 decision.
 
