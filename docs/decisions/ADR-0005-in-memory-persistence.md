@@ -311,7 +311,7 @@ These controls do not establish production database security, institutional comp
 |---|---|
 | REQ-001 | Successful request submission |
 | REQ-002 | Persistent student ownership and privacy |
-| REQ-003 | Validated and persistent request creation |
+| REQ-003 | Unique request identifiers and persistence across application restarts |
 | REQ-004 | Authorized reviewer access |
 | REQ-005 | Persistent status transitions |
 | REQ-006 | Persistent resolution notes |
@@ -474,7 +474,7 @@ Historical CI evidence must not be substituted for final exact-revision verifica
 | ADR-003 | Establishes transactional consistency and optimistic concurrency requirements |
 | ADR-004 | Establishes local persistence and recovery requirements |
 | ADR-0005 | Corrects the inaccurate in-memory persistence proposal |
-| ADR-006 | Proposes retaining the implemented REST interface |
+| ADR-006 | Accepts the implemented REST interface for the local, synthetic-data A6 classroom release |
 
 ADR-0005 remains consistent with ADR-002, ADR-003, and ADR-004.
 
