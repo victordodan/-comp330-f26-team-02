@@ -172,7 +172,8 @@ A5 source/verification references: [A5 acceptance closeout](../testing/a5-accept
 | A5-F03/F04 — evidence accuracy and acceptance | Exact A6 tests/CI, TC-001–012 case dispositions, accountable human review | [Test catalog](../testing/test-cases.md), [Issue #104](https://github.com/victordodan/-comp330-f26-team-02/issues/104) | **OPEN** — A5 scoped acceptance is not A6 sign-off |
 | A5-F05 — final CI, non-author review and baseline | Final tested SHA, independent review, Victor decision and pushed `a6-final-release` tag | [Issue #105](https://github.com/victordodan/-comp330-f26-team-02/issues/105), [A6 quality gate](../quality/a6-final-release-quality-gate.md) | **OPEN** |
 | A5-F06 — dependency, license and advisory decisions | Dated scoped review or attributable risk deferral; no unsupported clearance | [A5 release decision](../release/a5-release-decision.md), [security checklist](../security/security-governance-checklist.md) | **OPEN** for A6 |
-| LIM-003/004 — notifications and GUI not implemented | Disclose HTTP-only and pull-based status, or link independently verified Cycle 2 implementation | [Known limitations](../release/known-limitations.md) | **KNOWN SCOPE LIMITATIONS** |
+| LIM-003 — outbound notifications | Status is retrieved on demand | [Known limitations](../release/known-limitations.md) | **KNOWN LIMITATION** |
+| LIM-004 — browser access | PRs #126–#128 added the browser client. PRs #129–#130 added integration tests and smoke checks. | [Candidate test results](../testing/final-test-evidence.md#november-24-browser-candidate) | **Mitigated on candidate** |
 | LIM-005 — operational readiness | Project-specific runbook, observability/failure evidence, recovery limits and named owners | [Issue #107](https://github.com/victordodan/-comp330-f26-team-02/issues/107), [observability plan](../observability/observability-plan.md) | **OPEN** |
 
 ## Final A6 evidence and approval ledger

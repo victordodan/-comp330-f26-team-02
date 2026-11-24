@@ -179,7 +179,7 @@ This section tracks **unresolved A6 decisions**, not new defects or approvals. T
 | LIM-002 — synthetic session identities | **RESTRICTED / OPEN for A6 decision** | Shelby: governance and deployment-boundary documentation. Shú and Mareddy: technical authorization verification. Victor: decision on the deployment boundary. |
 | R-011 — concurrent updates and optimistic locking | **OPEN for A6 verification** | Mareddy: link exact-candidate concurrency and stale-version checks. Record conflicts and verify rejected updates preserve stored data. |
 | LIM-003 — no outbound notifications | **KNOWN LIMITATION** | Disclose polling/manual status retrieval; no invented feature completion |
-| LIM-004 — HTTP-only, no GUI | **KNOWN LIMITATION** | Demo API accurately; any GUI requires linked tested change |
+| LIM-004 — browser access | **Mitigated on the November 24 candidate** | PRs #126–#128 added the portal. See the [candidate test results](../testing/final-test-evidence.md#november-24-browser-candidate). Reconcile with the final release SHA. |
 | LIM-005 — monitoring, operations, incident recovery | **OPEN** | Shú writes the runbook. Giancarlo follows it and records the observed failure signal and response. |
 | A5-F04 / #104 — final acceptance | **OPEN** | Mareddy: exact-A6-SHA TC-001–012 evidence; Victor: human case decisions |
 | A5-F05 / #105 — independent review, final tag | **OPEN** | Non-author reviewer, CI, Victor decision and matching tag |

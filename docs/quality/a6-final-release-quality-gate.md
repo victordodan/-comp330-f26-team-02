@@ -31,7 +31,7 @@ Assignment 6 evaluates Cycle 2 maturity: what changed after Cycle 1, whether it 
 - A5 recorded a **CONDITIONAL GO** for a local synthetic classroom HTTP demonstration under Victor's delegated authority. See [release decision](../release/a5-release-decision.md).
 - A5 recorded 35 passing Maven tests at its stated integration checkpoint; earlier packaged HTTP/restart evidence is bounded to its stated source and environment. **Do not present these as newly executed A6 results.**
 - A5 accepted TC-001–TC-012 **within the bounded classroom scope**, while independent final integrated review and broader security/operations assurance were explicitly deferred.
-- The local file-backed H2 database, synthetic session identity, missing outbound notifications, HTTP-only interface and unverified production operations remain relevant until changed and independently evidenced.
+- The local file-backed H2 database, synthetic session identity, missing outbound notifications, HTTP-only interface and unverified production operations were A5 limitations. For the A6 browser interface, see the [candidate test results](../testing/final-test-evidence.md#november-24-browser-candidate).
 - [A5 quality gate](a5-final-release-quality-gate.md) and [traceability ledger](../planning/traceability.md) retain historical checkpoints and must not be silently reinterpreted as A6 sign-off.
 
 ## Evidence ledger — fill only after actual work

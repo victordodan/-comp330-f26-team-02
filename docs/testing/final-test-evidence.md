@@ -59,3 +59,20 @@ This section is an **A6 evidence request**, not a new execution. The A5 evidence
 | Regressions, defects, reviewer and residual risks | **PENDING** | Giancarlo links findings and independent reviewer |
 
 Do not reuse historical 35 Maven / 36 HTTP / 5 restart counts as newly run A6 results. The exact A6 SHA, logs, operator and dates must be recorded before closing any row. No test was executed as part of this documentation edit.
+
+## November 24 browser candidate
+
+Codex ran the following checks on a clean checkout of merged main at
+`373a0f6b6d6190d6067099178a8c71862bb12dec` on November 24, 2026.
+[Main CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45509064331) passed on the same revision.
+
+| Check | Observed result |
+|---|---|
+| JDK 17, Maven 3.9.9, `mvn -B clean verify` | 51 tests passed, zero failures, errors, or skips. |
+| Packaged Spring Boot application on loopback with a fresh file-backed H2 store | The root URL served the CampusConnect portal. |
+| `bash scripts/frontend-smoke-test.sh` | All 38 HTTP checks passed. |
+| Automated Chromium exercise against the packaged application | Student A submitted a request, Student B could not see it, and Reviewer updated its status and note. A stale reviewer edit preserved the concurrent update. Student A saw the resolved status and final note. |
+| `bash scripts/demo-data.sh`, confirmed twice on the same store | First run created six examples. Second run skipped all six with zero new requests and zero reviewer updates. |
+
+These results support the browser integration review. Final TC-001–TC-012 dispositions,
+Giancarlo's runbook exercise, independent integrated review, and release authorization remain open.
