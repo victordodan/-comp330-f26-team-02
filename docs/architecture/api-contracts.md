@@ -3,625 +3,911 @@
 
 **Project:** CampusConnect  
 **Team:** Team 2 — Codex Ramblers  
-**Assignment:** A3 — Cycle 1 Architecture and Review  
-**Status:** Documented Cycle 1 proposal — final baseline acceptance pending
+**Assignment:** A6 — Cycle 2 Final Release Candidate  
+**Owner:** Shú Perez  
+**Backup:** Giancarlo Herrera  
+**Last Updated:** 2026-11-24  
+**Target Release:** `a6-final-release`  
+**Status:** Implementation-aligned documentation; final verification pending
+
+---
 
 ## 1. Purpose and Scope
 
-This document defines the significant logical interactions between CampusConnect components for the Cycle 1 student support-request workflow.
+This document defines the implemented REST interfaces and internal component contracts for CampusConnect.
 
-It covers student submission, student-owned request retrieval, reviewer access, status changes, reviewer notes or resolutions, persistence, and simulated role context.
+The contracts cover:
 
-These contracts describe proposed component boundaries and observable behavior. They do not claim that HTTP endpoints, database schemas, or working implementations have been approved or verified.
+- Student support request submission.
+- Student-owned request retrieval.
+- Reviewer request listing and inspection.
+- Request status transitions.
+- Reviewer resolution notes.
+- Transactional persistence.
+- Optimistic concurrency.
+- Session-based synthetic identity.
+- Authorization and failure handling.
 
-Cycle 1 uses synthetic data, Java with server-rendered pages, and a local class demonstration. Real Loyola authentication, institutional integrations, notifications, paid services, and user-facing AI are outside the required workflow.
+CampusConnect uses Java, Spring Boot, Spring JDBC, Maven, and file-backed H2.
 
-The detailed behavior reflects the documented requirements merged in PR #46, pending explicit baseline acceptance. Those decisions remain subject to team review and are not implementation evidence.
+The implemented interface is a REST HTTP API using JSON rather than the server-rendered interface originally proposed during Assignment 3.
+
+The application remains restricted to a local classroom demonstration using synthetic data.
+
+Final acceptance requires verification against the exact Assignment 6 release candidate.
+
+---
 
 ## 2. Contract Summary
 
 | ID | Consumer | Provider | Interaction | Requirements | Status |
 |---|---|---|---|---|---|
-| API-001 | Requester UI | Request Workflow Service | Submit support request | REQ-001, REQ-003 | Proposed |
-| API-002 | Requester UI | Request Workflow Service | Retrieve student-owned requests | REQ-002 | Proposed |
-| API-003 | Reviewer UI | Request Workflow Service | List and inspect requests | REQ-004 | Proposed |
-| API-004 | Reviewer UI | Request Workflow Service | Update request status | REQ-005 | Proposed |
-| API-005 | Reviewer UI | Request Workflow Service | Save or replace note or resolution | REQ-006 | Proposed |
-| API-006 | Request Workflow Service | Request Repository | Persist and retrieve records | REQ-001 through REQ-006 | Proposed |
-| API-007 | Request Workflow Service | Simulated Role Context | Obtain session role and identity | REQ-001 through REQ-006 | Proposed |
+| API-001 | Student HTTP Client | RequestController / WorkflowService | Submit support request | REQ-001, REQ-003 | Implemented |
+| API-002 | Student HTTP Client | RequestController / WorkflowService | Retrieve student-owned requests | REQ-002 | Implemented |
+| API-003 | Reviewer HTTP Client | RequestController / WorkflowService | List and inspect requests | REQ-004 | Implemented |
+| API-004 | Reviewer HTTP Client | RequestController / WorkflowService | Update request status | REQ-005 | Implemented |
+| API-005 | Reviewer HTTP Client | RequestController / WorkflowService | Save or replace resolution note | REQ-006 | Implemented |
+| API-006 | WorkflowService | RequestRepository / JdbcRequestRepository | Persist and retrieve records | REQ-001 through REQ-006 | Implemented |
+| API-007 | RequestController | HTTP Session / DemoIdentity | Select and retrieve synthetic identity | REQ-001 through REQ-006 | Implemented |
 
-The contracts describe logical interfaces. Specific HTTP paths, request/response schemas, framework choices, and database technology remain subject to accepted architecture decisions.
+Implemented status indicates that corresponding behavior exists in the reviewed source code. It does not independently establish final acceptance or successful test execution.
+
+### 2.1 HTTP Endpoint Summary
+
+| Contract | Method | Endpoint | Authorized Identity | Success |
+|---|---|---|---|---|
+| API-007 | POST | `/api/demo/identity` | Demo participant | 200 |
+| API-001 | POST | `/api/requests` | Student | 201 |
+| API-002 | GET | `/api/requests` | Student | 200 |
+| API-002 | GET | `/api/requests/{id}` | Owning student | 200 |
+| API-003 | GET | `/api/reviewer/requests` | Reviewer | 200 |
+| API-003 | GET | `/api/reviewer/requests/{id}` | Reviewer | 200 |
+| API-004 | PATCH | `/api/requests/{id}/status` | Reviewer | 200 |
+| API-005 | PATCH | `/api/requests/{id}/note` | Reviewer | 200 |
+
+Both PATCH endpoints require the current request version through the `If-Match` header.
+
+---
 
 ## 3. Shared Contract Rules
 
-### Request data and validation
+### 3.1 Communication Protocol
 
-A valid Cycle 1 request requires:
+The application exposes REST endpoints through `RequestController`.
 
-- Title: 5–100 characters after trimming surrounding whitespace.
-- Category: Academic, IT, Campus Services, or Other.
-- Description: 10–2,000 characters after trimming surrounding whitespace.
+Requests containing JSON bodies should use:
 
-The limits are inclusive. Missing, whitespace-only, out-of-range, or unsupported values must be rejected.
+```http
+Content-Type: application/json
+```
 
-The application assigns:
+The client must preserve the server-issued session cookie between identity selection and subsequent protected requests.
 
-- A unique request identifier.
-- The selected student requester identity.
-- Creation and last-updated timestamps.
+Individual request responses include an ETag representing the current record version.
+
+List responses return JSON arrays of request records.
+
+### 3.2 Request Validation
+
+Validation is implemented through `RequestValidator`.
+
+| Field | Validation Rule |
+|---|---|
+| title | Required; 5–100 characters after trimming |
+| category | Required; Academic, IT, Campus Services, or Other |
+| description | Required; 10–2,000 characters after trimming |
+
+All length boundaries are inclusive.
+
+Surrounding whitespace is removed before validation and storage.
+
+Missing, whitespace-only, unsupported, and out-of-range values are rejected.
+
+These rules implement the requirements associated with Q-001.
+
+### 3.3 System-Managed Fields
+
+The application assigns and maintains:
+
+- Unique UUID-based request identifier.
+- Student ownership from the selected server-session identity.
 - Initial status `Submitted`.
+- Initial empty resolution note.
+- Creation timestamp.
+- Last-updated timestamp.
+- Initial version `0`.
 
-Students cannot edit or delete submitted requests.
+Clients cannot override system-managed ownership through submitted identity fields.
 
-These field limits and categories are draft defaults established by Q-001.
+Students cannot edit or delete submitted requests through the implemented API.
 
-### Status and transition rules
+### 3.4 Status and Transition Rules
 
-The proposed status model contains exactly three values:
+The supported status values are:
 
 - `Submitted`
 - `In Progress`
 - `Resolved`
 
-Permitted reviewer transitions are:
-
 | Current Status | New Status | Condition |
 |---|---|---|
-| Submitted | In Progress | Reviewer authorization |
-| In Progress | Resolved | Reviewer authorization and saved nonblank resolution text |
-| Resolved | In Progress | Reviewer authorization; preserve existing note or resolution |
+| Submitted | In Progress | Reviewer authorization and current version |
+| In Progress | Resolved | Reviewer authorization, current version, and saved nonblank resolution note |
+| Resolved | In Progress | Reviewer authorization and current version |
 
-All other status transitions and unsupported status values are rejected.
+All other transitions are rejected.
 
-Only Reviewer may change request status. Reopening preserves the request identifier, owner, and existing note or resolution.
+Reopening preserves the existing request identifier, owner, creation timestamp, and resolution note.
 
-These are the draft rules established by Q-002.
+These rules implement the requirements associated with Q-002.
 
-### Reviewer note and resolution rules
+### 3.5 Resolution Note Rules
 
-Each request has one current student-visible note or resolution field.
+Each request contains one current student-visible resolution note.
 
-- Reviewer may save or replace the field.
+- Only Reviewer may save or replace the note.
 - Maximum length is 2,000 characters after trimming.
-- The field may be empty while status is `Submitted` or `In Progress`.
-- Clearing the field while status is `Resolved` is prohibited.
-- Moving a request to `Resolved` requires saved nonblank resolution text.
-- Reopening preserves the current text.
-- Comment threads and edit history are outside Cycle 1 scope.
+- Null or whitespace-only text is normalized to an empty string.
+- Empty text is permitted while Submitted or In Progress.
+- Clearing text while Resolved is prohibited.
+- Resolution requires previously saved nonblank text.
+- Reopening preserves existing resolution text.
+- Note edits and status transitions are separate operations.
+- Comment threads and note-edit history are not implemented.
 
-These are the draft rules established by Q-003.
+These rules implement the requirements associated with Q-003.
 
-### Role and ownership rules
+### 3.6 Role and Ownership Rules
 
-The proposed demo selector provides three identities:
+Supported synthetic identities:
 
-- Student A
-- Student B
-- Reviewer
+- `student-a`
+- `student-b`
+- `reviewer`
 
-The selected identity is stored in the server session.
+The selected identity is stored in the server-side HTTP session.
 
-- Only students may submit requests.
-- Students may view only their own requests.
-- Reviewer may list and inspect requests from both students.
-- Only Reviewer may change statuses or save notes.
-- Every operation must enforce role and ownership rules in the application.
-- Form-supplied roles or requester identifiers cannot override session context.
-- Missing or invalid session context must be rejected.
-- Switching the selected demo identity must not change stored request ownership.
+The controller retrieves the selected identity and passes it to the workflow service.
 
-The selector intentionally permits demo impersonation. It is not real authentication or institutional identity verification.
+The workflow service enforces role and ownership restrictions.
 
-Stable stored requester identities allow request ownership to be recovered after application restart and demo-user reselection.
+| Operation | Student | Reviewer |
+|---|---|---|
+| Create request | Allowed | Denied |
+| List own requests | Allowed | Denied |
+| Retrieve owned request | Allowed | Denied through student endpoint |
+| List all requests | Denied | Allowed |
+| Retrieve reviewer request details | Denied | Allowed |
+| Update status | Denied | Allowed |
+| Update resolution note | Denied | Allowed |
 
-These are the draft rules established by Q-004.
+Client-provided `X-User-ID`, `X-User-Role`, and ownership fields do not grant authorization.
 
-### Persistence and consistency rules
+Switching the selected demo identity does not modify existing request ownership.
 
-- Successfully submitted requests receive unique identifiers.
-- Stored request data must survive ordinary application restarts against the same local store.
-- Request identifier, owner, and creation timestamp remain unchanged during updates.
-- Successful updates change the last-updated timestamp.
-- Successful storage must occur before success confirmation.
-- Failed writes must not be reported as successful.
-- Rejected operations must leave stored records unchanged.
-- Unknown identifiers and unauthorized access must not expose another student's request information.
-- Failed retrieval or listing must be distinguishable from an empty result.
-- Accepted ADR-003 requires Post/Redirect/Get for practical repeat-submission protection, transactional updates, and optimistic version checking. Stronger duplicate prevention and exact retry handling remain implementation follow-ups.
+The selector intentionally permits classroom impersonation and does not provide real authentication.
 
-### Failure categories
+These rules implement the requirements associated with Q-004.
 
-Contracts distinguish:
+### 3.7 Persistence and Consistency
 
-- Invalid or missing input.
-- Unsupported category, status, or transition.
-- Missing request identifier or record.
-- Unauthorized role or request ownership.
-- Missing or invalid simulated session context.
-- Failed storage, retrieval, or update.
-- Unexpected service failure.
+The workflow service coordinates repository operations using Spring transactions.
 
-Exact protocol response codes and error schemas will be defined when the implementation architecture is accepted.
+Persistence uses JDBC and file-backed H2.
 
-### Observability
+Successful updates preserve:
 
-The implementation should provide enough evidence to investigate request creation, authorized updates, rejected operations, and persistence failures.
+- Request identifier.
+- Student ownership.
+- Title.
+- Category.
+- Description.
+- Creation timestamp.
 
-Logs should avoid unnecessary request descriptions and other potentially sensitive content. Logging detail and retention remain subject to architecture review.
+Successful updates change:
+
+- The applicable status or resolution note.
+- Last-updated timestamp.
+- Record version.
+
+Rejected operations must not modify stored records.
+
+Failed storage operations must not return false success confirmations.
+
+A failed listing must be distinguishable from a successful empty listing.
+
+---
 
 ## 4. Detailed Interface Contracts
 
 ### API-001 — Submit Support Request
 
-**Consumer:** Requester UI  
-**Provider:** Request Workflow Service  
-**Related requirements:** REQ-001, REQ-003  
-**Acceptance criteria:** AC-REQ-001-01, AC-REQ-001-02, AC-REQ-003-01, AC-REQ-003-02  
-**Status:** Proposed
+**Method:** POST  
+**Endpoint:** `/api/requests`  
+**Authorized Identity:** Student A or Student B  
+**DTO:** `CreateRequestDto`  
+**Related Requirements:** REQ-001, REQ-003  
+**Acceptance Criteria:** AC-REQ-001-01, AC-REQ-001-02, AC-REQ-003-01, AC-REQ-003-02  
+**Status:** Implemented; final verification pending
 
-**Input**
+#### Request Body
 
-- Simulated student identity from the server session (Student A or Student B).
-- Title: 5–100 characters after trimming whitespace.
-- Category: Academic, IT, Campus Services, or Other.
-- Description: 10–2,000 characters after trimming whitespace.
+```json
+{
+  "title": "Unable to access course materials",
+  "category": "IT",
+  "description": "The course materials are unavailable through the student portal."
+}
+```
 
-The application assigns the unique request ID, requester identity, creation and last-updated timestamps, and initial status `Submitted`. Students cannot supply or override these system-managed values. These are draft rules from Q-001 and Q-004, pending team approval.
+The DTO also contains a `studentID` field for compatibility with the existing model.
 
-**Successful output**
+However, the controller does not use that field to determine ownership. The stored student identity is obtained exclusively from the server session.
 
-- Unique request identifier.
-- Confirmation that the request was successfully stored.
-- Initial status `Submitted`.
-- System-managed creation and last-updated timestamps.
+#### DTO Structure
 
-**Failure behavior**
+| Field | Java Type | Purpose |
+|---|---|---|
+| studentID | String | Not authoritative; ignored for ownership assignment |
+| title | String | Request title |
+| category | String | Supported request category |
+| description | String | Request description |
 
-- Reject missing, whitespace-only, too-short, or too-long titles and descriptions according to Q-001.
-- Reject missing or unsupported categories.
-- Reject submissions without a valid Student A or Student B server-session context, including submissions attempted as Reviewer.
-- Do not allow form-supplied requester identities or roles to override server-session context.
-- Reject invalid submissions without creating or modifying a request.
-- Report persistence failures without claiming successful creation.
+#### Successful Response
 
-**Contract rules**
+```http
+HTTP/1.1 201 Created
+ETag: "0"
+```
 
-- Trim surrounding whitespace from title and description before validation and storage.
-- Enforce the draft field limits and allowed categories defined in Q-001.
-- Use the selected student identity from the server session; never trust a form-supplied requester ID or role.
-- Assign a unique request identifier, creation and last-updated timestamps, and initial status `Submitted`.
-- Persist the request and its ownership before confirming successful submission.
-- Do not allow students to edit or delete submitted requests.
-- Do not report success unless storage succeeds.
-- Use Post/Redirect/Get as accepted in ADR-003. It does not guarantee duplicate prevention; stronger submission tokens/idempotency and exact retry handling remain follow-ups.
+The response body contains the created `SupportRequest` record.
 
-**Planned verification**
+#### Failure Responses
 
-- Valid title, category, and description create a stored request with a unique identifier and initial status `Submitted`.
-- Test title lengths of 4, 5, 100, and 101 characters after trimming.
-- Test description lengths of 9, 10, 2,000, and 2,001 characters after trimming.
-- Reject missing, whitespace-only, and unsupported field values without storing a request.
-- Confirm Student A and Student B can submit requests, but Reviewer cannot.
-- Confirm form-supplied requester IDs and roles cannot override server-session context.
-- Confirm the stored request has the correct owner and system-managed timestamps.
-- Confirm a simulated persistence failure does not produce a false success confirmation.
-- Confirm the created request remains available after restarting against the same local store and reselecting its owner.
+| Status | Condition |
+|---|---|
+| 400 | Invalid request fields or malformed JSON |
+| 403 | Missing student identity or unauthorized role |
+| 503 | Storage or transaction failure |
 
-### API-002 — Retrieve Requester-Owned Requests
+#### Contract Invariants
 
-**Consumer:** Requester UI  
-**Provider:** Request Workflow Service  
-**Related requirement:** REQ-002  
-**Acceptance criteria:** AC-REQ-002-01, AC-REQ-002-02, AC-REQ-002-03  
-**Status:** Proposed
+- A successful creation generates a unique UUID.
+- Ownership is assigned from the server session.
+- Initial status is Submitted.
+- Initial resolution note is empty.
+- Initial version is 0.
+- Invalid submissions do not create records.
+- Success is returned only after the storage operation completes.
 
-**Input**
+---
 
-- Request identifier when viewing a specific request, or a request-listing operation for the selected student.
-- Student A or Student B identity obtained from the server session.
-- The selected student's identity must be used for ownership checks; form-supplied requester IDs or roles cannot override session context.
+### API-002 — Retrieve Student-Owned Requests
 
-**Successful output**
+**Methods:** GET  
+**Endpoints:**
 
-- Only request records belonging to the selected student.
-- Request identifier and stored request details.
-- Current stored status (`Submitted`, `In Progress`, or `Resolved`).
-- Current reviewer note or resolution text, when available.
-- Updated status and note information after reviewer changes or reopening.
+- `/api/requests`
+- `/api/requests/{id}`
 
-**Failure behavior**
+**Authorized Identity:** Student A or Student B  
+**Related Requirement:** REQ-002  
+**Acceptance Criteria:** AC-REQ-002-01, AC-REQ-002-02, AC-REQ-002-03  
+**Status:** Implemented; final verification pending
 
-- Reject access when Student A or Student B attempts to retrieve another student's request.
-- Reject retrieval without a valid student identity in the server session, including attempts made as Reviewer through this student-only operation.
-- Handle unknown request identifiers without exposing unrelated records or another student's information.
-- Do not allow form-supplied roles or requester identities to override server-session context.
-- Report storage or retrieval failures without displaying misleading request information.
+#### Request
 
-**Contract rules**
+No JSON request body is required.
 
-- Obtain Student A or Student B identity from the server session.
-- Enforce request ownership in the Request Workflow Service for every retrieval or student request-listing operation.
-- Return only records belonging to the selected student; never rely solely on UI filtering.
-- Do not allow form-supplied roles or requester IDs to override the session identity.
-- Return the latest stored status and current note or resolution text, including reviewer edits and text preserved after reopening.
-- Unknown request identifiers and unauthorized access must not expose another student's request information.
-- A failed listing must be distinguishable from a successful empty listing.
+The selected student identity is obtained from the server session.
 
-**Planned verification**
+The individual retrieval endpoint requires a request identifier in the URL.
 
-- Student A retrieves their own request.
-- Student B retrieves their own request.
-- Student B cannot list or directly retrieve Student A's request.
-- Unknown identifiers expose no unrelated records.
-- Missing or invalid session context is rejected.
-- Status changes appear when the owning student retrieves the request.
-- Saved and replaced notes are visible to the owning student.
-- Reopening preserves the existing note and updates the visible status.
-- Request data remains available after an ordinary application restart and user reselection.
+#### Successful Response
 
-### API-003 — View Submitted Requests for Review
+```http
+HTTP/1.1 200 OK
+```
 
-**Consumer:** Reviewer UI  
-**Provider:** Request Workflow Service  
-**Related requirement:** REQ-004  
-**Acceptance criteria:** AC-REQ-004-01, AC-REQ-004-02  
-**Status:** Proposed
+The list endpoint returns a JSON array containing only requests owned by the selected student.
 
-**Input**
+An empty successful list returns:
 
-- Reviewer identity obtained from the server session.
-- Optional request identifier when inspecting a specific stored request.
+```json
+[]
+```
 
-**Successful output**
+The individual endpoint returns one `SupportRequest` record and its current ETag.
 
-- Stored support requests from both Student A and Student B.
-- Information needed to identify and inspect requests.
-- Current status and note or resolution information.
+#### Failure Responses
 
-**Failure behavior**
+| Status | Condition |
+|---|---|
+| 403 | Missing student identity or unauthorized role |
+| 404 | Unknown request identifier or request owned by another student |
+| 503 | Storage or retrieval failure |
 
-- Reject student access to reviewer-only listing and inspection operations.
-- Reject missing or invalid reviewer session context.
-- Do not allow form-supplied roles to grant reviewer permissions.
-- Handle missing request identifiers without exposing unrelated records.
-- Distinguish an empty request list from a retrieval failure.
+#### Contract Invariants
 
-**Contract rules**
+- Ownership is enforced by the workflow service.
+- Students cannot retrieve another student's records.
+- Cross-student access returns 404 rather than exposing request existence.
+- Retrieved records contain the current saved status and resolution note.
+- A failed retrieval is not represented as a successful empty result.
 
-- Verify the Reviewer role in the Request Workflow Service.
-- Use session context rather than trusting UI controls or form values.
-- Permit Reviewer to inspect requests from both simulated students.
-- Avoid unnecessary exposure of request data.
-- Pagination and filtering are not assumed for Cycle 1.
+---
 
-**Planned verification**
+### API-003 — Reviewer Request Listing and Inspection
 
-- Reviewer lists requests submitted by both Student A and Student B.
-- Reviewer can inspect a stored request.
-- Students cannot access reviewer-only listing or inspection operations.
-- Form-supplied reviewer role values cannot bypass authorization.
-- Missing or invalid session context is rejected.
-- Empty results and retrieval failures are distinguishable.
+**Methods:** GET  
+**Endpoints:**
+
+- `/api/reviewer/requests`
+- `/api/reviewer/requests/{id}`
+
+**Authorized Identity:** Reviewer  
+**Related Requirement:** REQ-004  
+**Acceptance Criteria:** AC-REQ-004-01, AC-REQ-004-02  
+**Status:** Implemented; final verification pending
+
+#### Request
+
+No JSON request body is required.
+
+The individual retrieval endpoint requires a request identifier.
+
+#### Successful Response
+
+```http
+HTTP/1.1 200 OK
+```
+
+The listing endpoint returns requests across both synthetic student identities.
+
+The individual endpoint returns the selected request and its current ETag.
+
+#### Failure Responses
+
+| Status | Condition |
+|---|---|
+| 403 | Missing reviewer identity or student attempting reviewer access |
+| 404 | Unknown request identifier |
+| 503 | Storage or retrieval failure |
+
+#### Contract Invariants
+
+- Reviewer authorization is enforced server-side.
+- Student sessions cannot access reviewer-only endpoints.
+- Reviewer access includes requests from both synthetic students.
+- Pagination and filtering are not part of the reviewed implementation.
+- Empty results remain distinguishable from storage failures.
+
+---
 
 ### API-004 — Update Request Status
 
-**Consumer:** Reviewer UI  
-**Provider:** Request Workflow Service  
-**Related requirement:** REQ-005  
-**Acceptance criteria:** AC-REQ-005-01, AC-REQ-005-02, AC-REQ-004-02  
-**Status:** Proposed
+**Method:** PATCH  
+**Endpoint:** `/api/requests/{id}/status`  
+**Authorized Identity:** Reviewer  
+**DTO:** `UpdateStatusDto`  
+**Related Requirement:** REQ-005  
+**Acceptance Criteria:** AC-REQ-005-01, AC-REQ-005-02, AC-REQ-004-02  
+**Status:** Implemented; final verification pending
 
-**Input**
+#### Required Header
 
-- Request identifier.
-- Proposed new status.
-- Reviewer identity from the server session.
+```http
+If-Match: "0"
+```
 
-**Successful output**
+The supplied version must correspond to the current request version.
 
-- Confirmation of the persisted status change.
-- Updated current status.
-- Updated last-updated timestamp.
+#### Request Body
 
-**Failure behavior**
+```json
+{
+  "status": "In Progress"
+}
+```
 
-- Reject unsupported statuses and transitions.
-- Reject status changes attempted by Student A or Student B.
-- Reject missing or invalid reviewer session context.
-- Reject changes to nonexistent requests.
-- Reject transition to `Resolved` without saved nonblank resolution text.
-- Report persistence failure without falsely confirming an update.
-- Preserve the stored record when an operation is rejected or a write fails.
+#### DTO Structure
 
-**Contract rules**
+| Field | Java Type | Purpose |
+|---|---|---|
+| status | String | Requested new status |
+| resolutionNote | String | Legacy DTO field; non-null values are rejected by the status endpoint |
+
+Resolution notes must be saved through API-005 rather than included in the status update.
+
+#### Successful Response
+
+```http
+HTTP/1.1 200 OK
+ETag: "1"
+```
+
+The response body contains the updated request.
+
+The returned version is incremented from the previous stored version.
+
+#### Failure Responses
+
+| Status | Condition |
+|---|---|
+| 400 | Unsupported status, invalid transition, malformed version, non-null resolutionNote, or missing required saved resolution text |
+| 403 | Missing reviewer identity or unauthorized role |
+| 404 | Unknown request identifier |
+| 412 | Stale request version |
+| 428 | Missing or blank If-Match header |
+| 503 | Storage or transaction failure |
+
+#### Contract Invariants
 
 - Only Reviewer may update status.
-- Permit `Submitted` to `In Progress`.
-- Permit `In Progress` to `Resolved` only when nonblank resolution text has already been saved.
-- Permit `Resolved` to `In Progress` for reopening.
-- Reject all other transitions.
-- Preserve request identifier, owner, and creation timestamp.
-- Preserve the current note or resolution when reopening.
-- Update last-updated time after a successful status change.
-- Validate authorization and transition rules before persisting.
-- Under accepted ADR-003, carry the version loaded by the reviewer into the save operation. Check that version and persist atomically; reject a stale change without modifying the record and ask the reviewer to reload.
+- Only supported transitions are permitted.
+- Resolving requires previously saved nonblank resolution text.
+- Reopening preserves existing resolution text.
+- Successful updates increment the record version.
+- Stale updates are rejected.
+- Rejected operations preserve existing stored data.
 
-**Planned verification**
+---
 
-- Reviewer changes `Submitted` to `In Progress`.
-- Reviewer changes `In Progress` to `Resolved` when saved nonblank resolution text exists.
-- Reviewer reopens `Resolved` to `In Progress`.
-- Reopening preserves the request ID, owner, and note or resolution.
-- Students cannot change status.
-- Unsupported transitions and values are rejected.
-- Resolving without saved nonblank text is rejected.
-- Unknown request identifiers are rejected.
-- Failed persistence does not produce false success or change the stored record.
-- The owning student sees the latest saved status.
+### API-005 — Save or Replace Resolution Note
 
-### API-005 — Record or Replace Reviewer Note or Resolution
+**Method:** PATCH  
+**Endpoint:** `/api/requests/{id}/note`  
+**Authorized Identity:** Reviewer  
+**DTO:** `UpdateNoteDto`  
+**Related Requirement:** REQ-006  
+**Acceptance Criteria:** AC-REQ-006-01, AC-REQ-004-02  
+**Status:** Implemented; final verification pending
 
-**Consumer:** Reviewer UI  
-**Provider:** Request Workflow Service  
-**Related requirement:** REQ-006  
-**Acceptance criteria:** AC-REQ-006-01, AC-REQ-004-02  
-**Status:** Proposed
+#### Required Header
 
-**Input**
+```http
+If-Match: "1"
+```
 
-- Request identifier.
-- Proposed note or resolution text.
-- Reviewer identity from the server session.
+#### Request Body
 
-**Successful output**
+```json
+{
+  "resolutionNote": "Course access permissions have been corrected."
+}
+```
 
-- Confirmation that the current note or resolution was saved.
-- Current stored note or resolution text.
-- Updated last-updated timestamp.
+#### DTO Structure
 
-**Failure behavior**
+| Field | Java Type | Purpose |
+|---|---|---|
+| resolutionNote | String | Current reviewer note or resolution text |
 
-- Reject note changes attempted by students.
-- Reject missing or invalid reviewer session context.
-- Reject text exceeding 2,000 characters after trimming.
-- Reject clearing the note or resolution while the request is `Resolved`.
-- Reject changes to nonexistent requests.
-- Report persistence failures without falsely confirming that text was saved.
-- Preserve existing stored content when an operation is rejected or a write fails.
+#### Successful Response
 
-**Contract rules**
+```http
+HTTP/1.1 200 OK
+ETag: "2"
+```
 
-- Only Reviewer may save or replace note or resolution text.
-- Each request has one current student-visible note or resolution field.
-- Trim text before validating and storing it.
-- Allow a maximum of 2,000 characters after trimming.
-- Permit empty text while status is `Submitted` or `In Progress`.
-- Do not permit clearing the field while status is `Resolved`.
-- Replacing text updates the current stored value.
-- Preserve request identifier, owner, and creation timestamp.
-- Update last-updated time after a successful change.
-- Keep the note or resolution associated with the correct request.
-- No comment thread or edit history is required.
-- Reopening a request preserves the current text.
+The response contains the updated request and its current version.
 
-**Planned verification**
+#### Failure Responses
 
-- Reviewer saves a valid note or resolution.
-- Reviewer replaces an existing note.
-- Student sees the current saved text.
-- Text at the 2,000-character limit is accepted.
-- Text exceeding 2,000 characters after trimming is rejected.
-- Clearing is allowed while `Submitted` or `In Progress`.
-- Clearing while `Resolved` is rejected.
-- Students cannot save or replace reviewer notes.
-- Unknown request identifiers are rejected.
-- Failed writes preserve existing stored content and do not produce false confirmation.
-- Reopening preserves the saved note or resolution.
+| Status | Condition |
+|---|---|
+| 400 | Note exceeds 2,000 trimmed characters, clearing while Resolved, or malformed version |
+| 403 | Missing reviewer identity or unauthorized role |
+| 404 | Unknown request identifier |
+| 412 | Stale request version |
+| 428 | Missing or blank If-Match header |
+| 503 | Storage or transaction failure |
+
+#### Contract Invariants
+
+- Only Reviewer may save or replace notes.
+- Text is trimmed before storage.
+- Null text is normalized to an empty string.
+- Empty text is allowed unless the request is Resolved.
+- Note changes do not independently change request status.
+- Successful updates increment the record version.
+- The owning student can retrieve the latest saved note.
+- Rejected updates preserve existing stored content.
+
+---
 
 ### API-006 — Request Repository Operations
 
-**Consumer:** Request Workflow Service  
-**Provider:** Request Repository  
-**Related requirements:** REQ-001 through REQ-006  
-**Acceptance criteria:** AC-REQ-003-01, AC-REQ-003-02, plus persistence behavior supporting the other relevant acceptance criteria  
-**Status:** Proposed
+**Consumer:** `WorkflowService`  
+**Provider:** `RequestRepository` / `JdbcRequestRepository`  
+**Related Requirements:** REQ-001 through REQ-006  
+**Acceptance Criteria:** AC-REQ-003-01, AC-REQ-003-02 and supporting persistence requirements  
+**Status:** Implemented; final verification pending
 
-**Logical operations**
+This is an internal application contract rather than a public HTTP endpoint.
 
-- Create and persist a request with a unique identifier.
-- Store the selected student requester identity.
-- Store the validated title, category, and description.
-- Store creation and last-updated timestamps.
-- Store the initial status `Submitted`.
-- Retrieve a request by identifier.
-- Retrieve requests belonging to a selected student.
-- Retrieve requests for reviewer listing and inspection.
-- Persist permitted status changes.
-- Persist reviewer note or resolution changes.
-- Retain records across ordinary application restarts against the same local store.
+#### Repository Operations
 
-**Contract rules**
+| Operation | Responsibility |
+|---|---|
+| insert | Persist a newly created request |
+| findById | Retrieve a request by identifier |
+| findByStudentID | Retrieve requests belonging to a student |
+| findAll | Retrieve all stored requests |
+| replace | Persist an updated request using the expected version |
 
-- The Request Workflow Service must enforce role, ownership, and workflow authorization before repository operations.
-- Repository operations must not be exposed as an authorization bypass.
-- Successfully stored requests must have unique identifiers.
-- Request ownership must remain stable when demo identities change.
-- Updates preserve request ID, owner, and creation timestamp.
-- Successful changes update last-updated time.
-- Failed writes must not be reported as successful.
-- Rejected operations must not modify stored records.
-- Failed retrieval must be distinguishable from an empty result.
-- Persistence must survive ordinary application restarts using the same local store.
-- Use file-backed H2 as selected in accepted ADR-002.
-- Accepted ADR-003 requires transactional persistence and atomic optimistic version checks for status and note updates. Persist a request version and compare it with the version loaded by the reviewer. Identifier-generation and exact retry details remain implementation work; persistence/recovery expectations follow accepted ADR-004.
+#### Persistence Contract
 
-**Planned verification**
+- Requests use UUID-based identifiers.
+- Records are stored through Spring JDBC.
+- The default database is file-backed H2.
+- Database operations are coordinated through Spring transactions.
+- Updates compare the expected version with the stored version.
+- Failed version comparisons prevent conflicting writes.
+- Repository operations are not exposed directly as public API endpoints.
+- Authorization and workflow rules remain the responsibility of WorkflowService.
 
-- Created records can be retrieved by identifier.
-- Successfully created records have unique identifiers.
-- Student ownership remains associated with the correct record.
-- Student-specific retrieval does not expose another student's records.
-- Reviewer retrieval can access requests from both students.
-- Status and note updates persist.
-- Records remain available after restarting the application against the same local store.
-- Reopening preserves the existing note.
-- Failed writes are reported without false success.
-- Rejected operations preserve existing stored records.
-- Updated records retain their original ID, owner, and creation timestamp.
+#### Default Database Location
 
-### API-007 — Simulated Role Context
+```text
+jdbc:h2:file:./data/campusconnect
+```
 
-**Consumer:** Request Workflow Service  
-**Provider:** Simulated Role Context  
-**Related requirements:** REQ-001 through REQ-006  
-**Acceptance criteria:** AC-REQ-002-03, AC-REQ-004-02, plus role checks supporting other relevant acceptance criteria  
-**Status:** Proposed
+The database location is relative to the application working directory.
 
-**Purpose**
+Ordinary restart retention requires reuse of the same database store.
 
-Provide the simulated role and identity information needed to distinguish student requester and support reviewer behavior.
+Backup restoration, disaster recovery, and distributed deployment require separate verification.
 
-**Expected information**
+---
 
-- Selected demo identity: Student A, Student B, or Reviewer.
-- Role associated with the selected identity.
-- Stable student requester identity when applicable.
-- Server-session context used for application authorization checks.
+### API-007 — Synthetic Identity Context
 
-**Contract rules**
+**Method:** POST  
+**Endpoint:** `/api/demo/identity`  
+**Consumer:** HTTP Client  
+**Provider:** `RequestController` / `DemoIdentity` / HTTP Session  
+**Related Requirements:** REQ-001 through REQ-006  
+**Acceptance Criteria:** AC-REQ-002-03, AC-REQ-004-02 and supporting role checks  
+**Status:** Implemented; final verification pending
 
-- The demo selector stores the selected identity in the server session.
-- The Request Workflow Service obtains role and identity from the session context.
-- Students may submit requests and view only their own requests.
-- Reviewer may list and inspect all requests and perform reviewer-only updates.
-- Form-supplied roles or requester IDs cannot override session context.
-- Missing or invalid session context must be rejected.
-- Switching demo identity does not alter stored request ownership.
-- Stable stored requester identities allow ownership to be recovered after application restart and demo-user reselection.
-- The demo selector intentionally permits impersonation for classroom testing.
-- This mechanism is not real authentication or Loyola single sign-on.
+#### Request Body
 
-**Planned verification**
+```json
+{
+  "identity": "student-a"
+}
+```
 
-- Student A and Student B remain distinguishable.
-- Reviewer operations are available only with Reviewer session context.
-- Student A cannot access Student B's requests, and vice versa.
-- Form-supplied roles or requester IDs cannot bypass authorization.
-- Missing or invalid session context is rejected.
-- Switching demo users does not change stored ownership.
-- Reselecting a demo student after restart restores access to that student's persisted requests.
+Supported values:
 
-## 5. AI and External Tool Boundaries
+- `student-a`
+- `student-b`
+- `reviewer`
 
-The Cycle 1 support-request workflow does not include user-facing AI, external APIs, or institutional integrations in its current requirements baseline.
+#### Successful Response
+
+```http
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "identity": "student-a"
+}
+```
+
+The selected identity is stored in the server session using:
+
+```text
+campusconnect.demoIdentity
+```
+
+The client must retain its session cookie for subsequent operations.
+
+#### Failure Responses
+
+| Status | Condition |
+|---|---|
+| 400 | Malformed or unreadable JSON body |
+| 403 | Unsupported or missing identity value |
+
+#### Contract Invariants
+
+- Only fixed synthetic identities are accepted.
+- Identity selection does not modify stored request ownership.
+- Protected operations require an appropriate selected identity.
+- Client-supplied role headers cannot replace session authorization.
+- The selector intentionally allows switching between demo identities.
+- The selector is not real authentication or institutional SSO.
+
+---
+
+## 5. Shared Response and Error Contracts
+
+### 5.1 SupportRequest Response Model
+
+The implemented domain response is represented by the `SupportRequest` record.
+
+| Field | Java Type | Description |
+|---|---|---|
+| id | String | Unique request UUID |
+| studentID | String | Stored synthetic student owner |
+| title | String | Validated request title |
+| category | String | Validated request category |
+| description | String | Validated request description |
+| status | String | Current workflow status |
+| resolutionNote | String | Current reviewer note |
+| createdAt | Instant | Server-generated creation timestamp |
+| updatedAt | Instant | Server-managed modification timestamp |
+| version | long | Current optimistic concurrency version |
+
+Illustrative response:
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "studentID": "student-a",
+  "title": "Unable to access course materials",
+  "category": "IT",
+  "description": "The course materials are unavailable through the student portal.",
+  "status": "Submitted",
+  "resolutionNote": "",
+  "createdAt": "2026-11-24T18:00:00Z",
+  "updatedAt": "2026-11-24T18:00:00Z",
+  "version": 0
+}
+```
+
+This example illustrates the response structure and is not captured runtime evidence.
+
+### 5.2 HTTP Error Responses
+
+`ApiExceptionHandler` translates workflow and storage exceptions into HTTP responses.
+
+| HTTP Status | Application Error Code | Meaning |
+|---|---|---|
+| 400 Bad Request | BAD_INPUT | Invalid input or prohibited workflow operation |
+| 403 Forbidden | DENIED | Missing or unauthorized identity |
+| 404 Not Found | NOT_FOUND | Unknown or inaccessible request |
+| 412 Precondition Failed | CONFLICT | Stale request version |
+| 428 Precondition Required | PRECONDITION_REQUIRED | Missing required version header |
+| 503 Service Unavailable | STORAGE_ERROR | Storage or transaction failure |
+
+Handled application errors use the following JSON structure:
+
+```json
+{
+  "code": "DENIED",
+  "errors": [
+    "The Reviewer demo identity is required."
+  ]
+}
+```
+
+The `errors` field contains a list of error messages.
+
+This schema describes errors handled by `ApiExceptionHandler`; unrelated framework-generated errors are not assumed to use the same structure.
+
+### 5.3 Optimistic Concurrency Contract
+
+Both reviewer modification endpoints require `If-Match`.
+
+The version must be a single quoted, nonnegative numeric value within the Java long range.
+
+Valid format:
+
+```http
+If-Match: "2"
+```
+
+The controller rejects missing, blank, malformed, and out-of-range version values.
+
+The workflow service compares the expected version with the current record version.
+
+The repository performs a version-aware replacement to prevent conflicting writes.
+
+A successful update:
+
+1. Preserves immutable request fields.
+2. Updates the applicable status or note.
+3. Advances the last-updated timestamp.
+4. Increments the version.
+5. Returns the new ETag.
+
+A stale update returns:
+
+```http
+HTTP/1.1 412 Precondition Failed
+```
+
+The client must retrieve the current request and its latest ETag before attempting another modification.
+
+Automatic overwrite of newer data is prohibited.
+
+---
+
+## 6. AI and External Tool Boundaries
+
+The implemented support request workflow does not include runtime AI, external service APIs, or institutional integrations.
 
 Accordingly:
 
-- No AI model is authorized to create, modify, or approve request state.
-- No external service contract is assumed.
-- Development-time AI assistance is documented separately in the team's AI-use log.
-- Real Loyola authentication and institutional systems are excluded.
-- Real email and text-message notifications are excluded.
-- Any future AI or external integration requires scope review, architecture decisions, appropriate permissions, documented risk review, and applicable instructor approval.
+- No AI model is authorized to create or modify request state.
+- No external service is assumed to participate in authorization or persistence.
+- Real Loyola authentication and institutional systems remain excluded.
+- Automated email and text-message notifications are not implemented.
+- Development-time AI assistance must be recorded in the AI Use Log.
+- AI-assisted changes require human review and verification.
 
-## 6. Open Decisions and Dependencies
+Future external integrations require requirements review, architecture approval, security assessment, and documented governance decisions.
 
-Q-001 through Q-004 have draft resolutions in PR #46. They are not treated as implementation-verified decisions.
+References:
 
-| Reference | Draft Resolution or Pending Decision | Affected Contracts |
+- [AI Use Policy](../ai/ai-policy.md)
+- [AI Use Log](../ai/ai-use-log.md)
+
+---
+
+## 7. Architecture Decisions and Dependencies
+
+| Reference | Implemented Behavior or Remaining Boundary | Affected Contracts |
 |---|---|---|
-| Q-001 | Title, category, and description validation rules; draft defaults pending baseline approval | API-001, API-006 |
-| Q-002 | Submitted, In Progress, Resolved, and permitted transitions | API-002, API-004, API-006 |
-| Q-003 | One editable note or resolution field with clearing restrictions | API-002, API-005, API-006 |
-| Q-004 | Student A, Student B, Reviewer; server-session context and stable ownership | API-001 through API-007 |
-| Architecture ADR | ADR-002 selects Java, Spring Boot, Thymeleaf, Maven, file-backed H2, and local execution; exact routes/forms remain implementation detail | All relevant contracts |
-| Retry and concurrency | ADR-003 selects Post/Redirect/Get, transactional updates, and optimistic version checking; exact retry handling remains open | API-001, API-004, API-005, API-006 |
-| Logging and recovery | ADR-004 establishes local persistence and backup/recovery expectations; logging retention and executable recovery procedures remain implementation detail | API-001 through API-006 |
+| Q-001 | Request field validation and supported categories | API-001, API-006 |
+| Q-002 | Supported statuses and permitted transitions | API-002, API-004, API-006 |
+| Q-003 | Resolution note length and clearing restrictions | API-002, API-005, API-006 |
+| Q-004 | Fixed synthetic identities and stable ownership | API-001 through API-007 |
+| ADR-001 | Production technology stack remains deferred | All contracts |
+| ADR-002 | Local Java, Spring Boot, Maven, and H2 architecture; REST implementation replaces proposed server-rendered interface | All contracts |
+| ADR-003 | Transactional updates and optimistic version checking | API-004, API-005, API-006 |
+| ADR-004 | Local persistence and recovery expectations | API-006 |
+| ADR-0005 | Clarifies transactional JDBC and file-backed H2 implementation | API-006 |
 
-Victor Dodan approved ADR-002 through ADR-004 on October 16, 2026. The Cycle 1 stack is Java, Spring Boot, Thymeleaf, Maven, and file-backed H2 for local server-rendered pages. This records accepted design decisions; implementation and final package review remain pending.
+ADR-002 through ADR-004 were historically approved on October 16, 2026.
 
-Architecture-critical decisions must be accepted or explicitly deferred with owners and decision points before dependent construction.
+The original design included Thymeleaf and Post/Redirect/Get. The reviewed implementation uses REST endpoints instead.
 
-## 7. Additional Verification and Boundary Test Scenarios
+Post/Redirect/Get is not claimed as an implemented API capability.
 
-The following scenarios supplement the 12 proposed acceptance criteria. They are design-time test proposals, not executed results.
+Stronger duplicate-submission prevention, idempotency, and exact retry handling remain separate concerns.
 
-| Test ID | Related Contract | Scenario | Expected Behavior |
+Architecture decisions must remain consistent with the final implementation and release limitations.
+
+---
+
+## 8. Verification and Boundary Test Scenarios
+
+The following scenarios preserve the existing negative-path and boundary test identifiers while aligning expected behavior with the implemented HTTP contracts.
+
+| Test ID | Contract | Scenario | Expected Behavior |
 |---|---|---|---|
-| NEG-001 | API-001 | Student submits missing or invalid required information | Reject with validation feedback; store no request |
-| NEG-002 | API-001, API-006 | Two valid requests are successfully created | Each receives a distinct identifier |
-| NEG-003 | API-002 | Student B attempts to view Student A's request | Reject access without exposing Student A's information |
-| NEG-004 | API-002 | Student enters an unknown request identifier | Report unavailable request without exposing unrelated records |
-| NEG-005 | API-003 | Student attempts reviewer-only request listing | Reject unauthorized operation |
-| NEG-006 | API-004 | Student attempts to change request status | Reject update; preserve stored status |
-| NEG-007 | API-004 | Reviewer attempts unsupported status transition | Reject transition; preserve existing status |
-| NEG-008 | API-005 | Student attempts reviewer note or resolution modification | Reject unauthorized modification |
-| NEG-009 | API-001, API-006 | Persistence fails during request creation | Report failure without confirming creation |
-| NEG-010 | API-004, API-006 | Persistence fails during status update | Report failure without confirming status change |
-| NEG-011 | API-007 | Operation has missing or invalid session role context | Reject rather than assuming authorization |
-| NEG-012 | API-004 | Reviewer attempts status update for nonexistent request | Reject without creating or modifying another record |
-| NEG-013 | API-005 | Reviewer attempts note update for nonexistent request | Reject without saving the note |
-| NEG-014 | API-005, API-006 | Persistence fails while saving reviewer text | Report failure without falsely confirming storage |
-| NEG-015 | API-001 | Title is 4 or 101 characters after trimming | Reject submission |
-| NEG-016 | API-001 | Description is 9 or 2,001 characters after trimming | Reject submission |
-| NEG-017 | API-001 | Category is unsupported or missing | Reject submission |
-| NEG-018 | API-001, API-007 | Reviewer attempts student-only submission | Reject unauthorized submission |
-| NEG-019 | API-002, API-007 | Student B attempts to list Student A's requests | Return no Student A records |
-| NEG-020 | API-004 | Reviewer attempts to resolve without saved nonblank resolution text | Reject transition; preserve status |
-| NEG-021 | API-004 | Reviewer reopens a resolved request | Change status to In Progress and preserve note, ID, and owner |
-| NEG-022 | API-005 | Reviewer attempts to clear resolution while status is Resolved | Reject clearing; preserve existing text |
-| NEG-023 | API-005 | Reviewer submits note longer than 2,000 trimmed characters | Reject update; preserve existing text |
-| NEG-024 | API-006 | Application restarts against the same local store | Previously saved request data, ownership, status, and note remain available |
-| NEG-025 | API-007 | Form submits a forged Reviewer role or requester identity | Form values cannot override server-session context |
-| NEG-026 | API-003, API-006 | Reviewer listing encounters storage failure | Show an error distinguishable from a successful empty list |
-| NEG-027 | API-005 | Reviewer replaces an existing note | Store the new current value and make it visible to the owning student |
-| NEG-028 | API-004, API-006 | Successful status update occurs | Preserve ID, owner, and creation time; update last-updated time |
+| NEG-001 | API-001 | Invalid required request fields | 400; no record created |
+| NEG-002 | API-001, API-006 | Two successful request creations | Distinct UUIDs |
+| NEG-003 | API-002 | Student accesses another student's request | 404; no information disclosed |
+| NEG-004 | API-002 | Unknown request identifier | 404 |
+| NEG-005 | API-003 | Student attempts reviewer listing | 403 |
+| NEG-006 | API-004 | Student attempts status update | 403; no modification |
+| NEG-007 | API-004 | Unsupported status transition | 400; status preserved |
+| NEG-008 | API-005 | Student attempts note update | 403; note preserved |
+| NEG-009 | API-001, API-006 | Storage failure during creation | 503; no false success |
+| NEG-010 | API-004, API-006 | Storage failure during status update | 503; no false success |
+| NEG-011 | API-007 | Missing or invalid session identity | 403 for protected operation |
+| NEG-012 | API-004 | Status update for nonexistent request | 404 |
+| NEG-013 | API-005 | Note update for nonexistent request | 404 |
+| NEG-014 | API-005, API-006 | Storage failure during note update | 503; no false success |
+| NEG-015 | API-001 | Title length of 4 or 101 characters | 400 |
+| NEG-016 | API-001 | Description length of 9 or 2,001 characters | 400 |
+| NEG-017 | API-001 | Missing or unsupported category | 400 |
+| NEG-018 | API-001, API-007 | Reviewer attempts student submission | 403 |
+| NEG-019 | API-002, API-007 | Student B lists requests | No Student A records returned |
+| NEG-020 | API-004 | Resolve without saved nonblank note | 400 |
+| NEG-021 | API-004 | Reopen resolved request with current version | 200; existing note preserved |
+| NEG-022 | API-005 | Clear resolution note while Resolved | 400 |
+| NEG-023 | API-005 | Note exceeds 2,000 trimmed characters | 400 |
+| NEG-024 | API-006 | Restart against same local database | Stored records remain available |
+| NEG-025 | API-007 | Forged role or ownership information | Cannot override session identity |
+| NEG-026 | API-003, API-006 | Storage failure during reviewer listing | 503 rather than empty success |
+| NEG-027 | API-005 | Replace existing note with current version | 200; latest note stored |
+| NEG-028 | API-004, API-006 | Successful status update | Preserve immutable fields; update timestamp and version |
+| NEG-029 | API-004 | Stale If-Match during status update | 412; no modification |
+| NEG-030 | API-005 | Stale If-Match during note update | 412; no modification |
+| NEG-031 | API-004, API-005 | Missing or blank If-Match | 428 |
+| NEG-032 | API-004, API-005 | Malformed or out-of-range If-Match | 400 |
+| NEG-033 | API-004 | Non-null resolutionNote included in status update | 400 |
+| NEG-034 | API-007 | Unsupported synthetic identity | 403 |
+| NEG-035 | API-001, API-004, API-005, API-007 | Malformed JSON body | 400 |
 
-### Verification Boundaries
+NEG-029 through NEG-035 are proposed additional verification identifiers for the implemented HTTP boundary behavior. They must be reconciled with the central test catalog before final acceptance.
 
-- Q-001 through Q-004 are resolved for draft review, not implementation verification.
-- Boundary tests should cover valid minimum and maximum lengths as well as invalid adjacent values.
-- Application-level role and ownership enforcement must be tested independently of UI visibility.
-- Persistence checks must include an ordinary application restart against the same local store.
-- Failure tests must verify that rejected operations leave stored records unchanged.
-- Tests will be implemented and linked to repository evidence during construction.
-- No scenario in this document is claimed to have passed.
+For scenarios testing workflow behavior, supply otherwise valid request bodies, identities, identifiers, and version headers so that the intended boundary is isolated.
 
-## 8. Review and Verification Plan
+### 8.1 Verification Boundaries
 
-Before marking a contract Accepted:
+- Expected outcomes are not recorded test results.
+- Automated and manual verification must identify the tested revision.
+- Boundary tests should cover valid minimum and maximum lengths.
+- Authorization tests must verify server-side enforcement.
+- Rejected operations must preserve existing stored records.
+- Concurrent update tests must verify that stale writes cannot overwrite newer data.
+- Persistence verification must reuse the same database location.
+- Final acceptance evidence must be recorded separately.
 
-1. Compare it with the accepted architecture overview and diagram.
-2. Confirm component names and boundaries match the component responsibility map.
-3. Reconcile the contracts with the approved requirements and acceptance criteria.
-4. Review inputs, outputs, permissions, failures, invariants, and persistence behavior.
-5. Confirm the dispositions of Q-001 through Q-004.
-6. Record independent reviewer findings and their resolutions.
-7. Reconcile planned tests with the test strategy in PR #44.
-8. Update planning traceability, estimates, risks, and tasks if the design changes.
-9. Verify that the final architecture decisions and PR review evidence are linked.
+---
 
-These are planned review activities, not claims of completed tests.
+## 9. Review and Release Verification
 
-## 9. Related Engineering Evidence
+Before final Assignment 6 acceptance:
 
-- `docs/requirements/requirements.md`
-- `docs/requirements/acceptance-criteria.md`
-- `docs/requirements/assumptions-open-questions.md`
-- `docs/architecture/architecture.md`
-- `docs/architecture/component-responsibilities.md`
-- `docs/planning/traceability.md`
-- `docs/planning/risk-register.md`
-- `docs/decisions/ADR-001-defer-production-technology-stack.md`
-- `docs/testing/test-strategy.md`
-- `docs/ai/ai-use-log.md`
+- [ ] Confirm endpoint paths and HTTP methods against the final controller implementation.
+- [ ] Confirm DTO fields against the final Java records.
+- [ ] Confirm validation rules against RequestValidator.
+- [ ] Confirm authorization and lifecycle rules against WorkflowService.
+- [ ] Confirm HTTP status and error mappings against ApiExceptionHandler.
+- [ ] Confirm repository and persistence behavior.
+- [ ] Verify stale-version rejection for both PATCH endpoints.
+- [ ] Verify missing and malformed version handling.
+- [ ] Verify student ownership isolation.
+- [ ] Reconcile negative-path identifiers with the central test catalog.
+- [ ] Confirm final automated test and CI evidence.
+- [ ] Confirm architecture diagram and component responsibility alignment.
+- [ ] Review applicable ADRs and known limitations.
+- [ ] Record independent human review.
+- [ ] Record AI assistance and human verification.
+- [ ] Confirm alignment with the approved `a6-final-release` revision.
 
-**Related pull requests**
+---
+
+## 10. Related Engineering Evidence
+
+### Architecture
+
+- [Architecture Overview](architecture.md)
+- [Architecture Diagram](architecture-diagram.png)
+- [Component Responsibilities](component-responsibilities.md)
+- [Data Context](data-context.md)
+
+### Requirements and Planning
+
+- [Requirements](../requirements/requirements.md)
+- [Acceptance Criteria](../requirements/acceptance-criteria.md)
+- [Assumptions and Open Questions](../requirements/assumptions-open-questions.md)
+- [Traceability](../planning/traceability.md)
+- [Risk Register](../planning/risk-register.md)
+
+### Implementation
+
+- [RequestController](../../src/main/java/edu/loyola/campusconnect/controller/RequestController.java)
+- [ApiExceptionHandler](../../src/main/java/edu/loyola/campusconnect/controller/ApiExceptionHandler.java)
+- [WorkflowService](../../src/main/java/edu/loyola/campusconnect/service/WorkflowService.java)
+- [RequestValidator](../../src/main/java/edu/loyola/campusconnect/validation/RequestValidator.java)
+- [SupportRequest](../../src/main/java/edu/loyola/campusconnect/model/SupportRequest.java)
+- [CreateRequestDto](../../src/main/java/edu/loyola/campusconnect/model/CreateRequestDto.java)
+- [UpdateStatusDto](../../src/main/java/edu/loyola/campusconnect/model/UpdateStatusDto.java)
+- [UpdateNoteDto](../../src/main/java/edu/loyola/campusconnect/model/UpdateNoteDto.java)
+- [DemoIdentity](../../src/main/java/edu/loyola/campusconnect/model/DemoIdentity.java)
+- [RequestRepository](../../src/main/java/edu/loyola/campusconnect/repository/RequestRepository.java)
+- [JdbcRequestRepository](../../src/main/java/edu/loyola/campusconnect/repository/JdbcRequestRepository.java)
+
+### Testing and Release
+
+- [Test Strategy](../testing/test-strategy.md)
+- [HTTP API Guide](../testing/a4-http-api.md)
+- [CI Evidence](../testing/ci-evidence.md)
+- [A5 Acceptance Evidence Matrix](../testing/a5-acceptance-evidence-matrix.md)
+- [Known Limitations](../release/known-limitations.md)
+- [Operational Runbook](../operations/runbook.md)
+- [Observability Plan](../observability/observability-plan.md)
+
+### Historical Review References
 
 - PR #43 — Component Responsibilities and API Contracts.
-- PR #46 — Draft Requirements and Acceptance Criteria Updates.
 - PR #44 — Test Strategy Alignment.
+- PR #46 — Draft Requirements and Acceptance Criteria Updates.
 
-Links to accepted architecture decisions, independent review findings, and final GitHub evidence must be verified before the A3 phase gate.
+---
 
-**Evidence status:** Architecture and contract proposal only. No implemented or verified API behavior is claimed.
+**Architecture Lead:** Shú Perez
+
+**Backup:** Giancarlo Herrera
+
+**Evidence Status:** Contracts aligned with reviewed implementation source. Final integrated testing, independent review, and release authorization remain pending.

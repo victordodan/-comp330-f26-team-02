@@ -1,5 +1,17 @@
 # AI Use Log
 
+## A6 — Cycle 1 Postmortem and Cycle 2 Maturity Plan (Malec Tarabein)
+
+Claude (Claude Code) assisted Malec Tarabein with drafting
+`docs/operations/postmortem-cycle1.md` and `docs/planning/cycle2-maturity-plan.md`.
+Commit counts, author dates and SHAs were computed from `git log` and tag data
+between `a4-construction-integration` and `a5-cycle1-release` (`3f297d8`), and
+findings were cross-checked against the A5 release decision, known limitations,
+defect review (A5-F01–F06), the Cycle 2 handoff and draft PR #112. Maturity
+targets, tiers and owners are proposals pending Victor's and each owner's
+confirmation. Cycle 1 presentation feedback was left for the team to add. No
+tests, reviews, acceptance or risk decisions are claimed.
+
 ## A5 — Role Matrix Identity Correction (Malec Tarabein)
 
 Claude (Claude Code) assisted Malec Tarabein with correcting `docs/team/roles.md`.

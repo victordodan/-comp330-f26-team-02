@@ -318,6 +318,51 @@ class RequestControllerTest {
         noteChange(second, id, "\"0\"", "Second reviewer stale edit", 412);
         assertEquals(body(saved), ownRequest(student, id));
     }
+   
+    @Test
+    void noteUpdateRejectsMissingAndMalformedIfMatchWithoutChangingRequest() throws Exception {
+        MockHttpSession student = identity("student-a");
+        MockHttpSession reviewer = identity("reviewer");
+
+        MvcResult created = create(student);
+        String requestId = id(created);
+        String payload = "{\"resolutionNote\":\"Must not be stored\"}";
+
+        // Missing If-Match header must be rejected.
+        mvc.perform(patch("/api/requests/{id}/note", requestId)
+                .session(reviewer)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payload))
+                .andExpect(status().is(428));
+
+        // Malformed version headers must be rejected.
+        for (String invalid : List.of(
+                "0",
+                "W/\"0\"",
+                "\"-1\"",
+                "*",
+                "\"0\", \"1\"",
+                "\"999999999999999999999999999\"")) {
+
+            mvc.perform(patch("/api/requests/{id}/note", requestId)
+                    .session(reviewer)
+                    .header("If-Match", invalid)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(payload))
+                    .andExpect(status().isBadRequest());
+        }
+
+        // Rejected updates must not modify the saved request.
+        assertEquals(body(created), ownRequest(student, requestId));
+        assertEquals(1, count());
+
+        // Positive control: a valid version should still succeed.
+        MvcResult saved = noteChange(
+                reviewer, requestId, "\"0\"", "Verified note", 200);
+
+        assertEquals("Verified note", body(saved).get("resolutionNote"));
+        assertEquals(1, body(saved).get("version"));
+    }
 
     private MockHttpSession identity(String identity) throws Exception {
         MockHttpSession session = new MockHttpSession();
