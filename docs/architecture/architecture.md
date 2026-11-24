@@ -534,7 +534,7 @@ Future changes affecting persistence, authentication, deployment, concurrency, e
 
 | Risk ID | Risk / Limitation | Mitigation | Remaining Boundary |
 |---|---|---|---|
-| AR-001 | Synthetic identity impersonation | Server-side session, role, and ownership checks | No production authentication |
+| AR-001 | Synthetic identity impersonation | Loopback-only operation and synthetic data limit exposure | Demo participants can switch to any supported identity, including Reviewer. Role and ownership checks apply to the currently selected identity. |
 | AR-002 | Invalid workflow transitions | Explicit lifecycle and resolution rules | Future state expansion requires review |
 | AR-003 | Runtime AI or external integration risk | Runtime AI and institutional integrations excluded | Future integration requires governance review |
 | AR-004 | Architecture and implementation divergence | Source-linked documentation and ADR maintenance | Final independent review required |
