@@ -96,7 +96,7 @@ The REST interface deviation is addressed by:
 
 [ADR-006 — REST API Interface Alignment](ADR-006-rest-api-interface-alignment.md)
 
-ADR-006 remains subject to explicit team approval.
+The team accepted the REST interface for the local, synthetic-data A6 classroom release in ADR-006. This decision leaves duplicate-submission and retry limitations in place.
 
 ---
 
@@ -450,7 +450,7 @@ The exact final release revision requires independent verification.
 |---|---|
 | REQ-001 | Successful student request creation |
 | REQ-002 | Student request ownership and privacy |
-| REQ-003 | Validated and persistent request creation |
+| REQ-003 | Unique request identifiers and persistence across application restarts |
 | REQ-004 | Reviewer access and authorization |
 | REQ-005 | Valid status transitions |
 | REQ-006 | Resolution note consistency |
@@ -472,7 +472,7 @@ Detailed acceptance-criteria mappings remain in the requirements, API contracts,
 | Risk or Limitation | Current Disposition |
 |---|---|
 | Repeated valid creation requests may create equivalent records | Document as known limitation |
-| Post/Redirect/Get is not established in the reviewed REST implementation | Address interface deviation through ADR-006 |
+| Post/Redirect/Get is not established in the reviewed REST implementation | ADR-006 accepts the REST interface. Duplicate-submission and retry limitations remain. |
 | Idempotency keys are not implemented | Deferred |
 | Automatic retry safety is not guaranteed | Document client retry limitations |
 | Concurrent reviewer modifications require current versions | Retain ETag and If-Match requirements |
