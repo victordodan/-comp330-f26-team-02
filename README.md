@@ -8,11 +8,11 @@ CampusConnect focuses on one small end-to-end workflow rather than a complete un
 
 ## Project Status
 
-**Current Phase Gate:** A4 — Construction & Integration
-**Release Cycle:** Cycle 1  
-**Status:** Active Development
+**Current phase:** A6 — Cycle 2 release candidate
 
-The repository is implementing the Cycle 1 workflow in reviewed increments. PR #73 supplies the local Spring Boot HTTP bootstrap. The request model (#69), startup test (#77), persistent workflow (#71), and HTTP API (#72) are separate reviewed increments. Consult each PR and its tests for the features present on your checkout. Server-rendered pages remain follow-up work.
+CampusConnect runs locally with synthetic Student A, Student B, and Reviewer identities. Students submit and track their own support requests. Reviewers can update status, save resolution notes, and reopen resolved requests using a browser client of the existing REST API.
+
+The tagged Cycle 1 release is [a5-cycle1-release](https://github.com/victordodan/-comp330-f26-team-02/releases/tag/a5-cycle1-release). For Cycle 2, see the [postmortem](docs/operations/postmortem-cycle1.md), [maturity plan](docs/planning/cycle2-maturity-plan.md), and [REST interface decision](docs/decisions/ADR-006-rest-api-interface-alignment.md). Final A6 acceptance, independent review, and release authorization are pending.
 
 ## Team
 
@@ -73,7 +73,7 @@ Spring Boot 3.5.16 is pinned in the parent POM, which manages compatible framewo
 mvn -B clean verify
 ```
 
-Maven runs the tests present in the checkout and packages the application. PR #77 adds HTTP startup coverage; #71 and #72 add workflow and controller coverage.
+Maven runs the unit and integration tests and packages the application.
 
 ### Run locally
 
@@ -87,7 +87,14 @@ Alternatively, after verification:
 java -jar target/campusconnect-0.1.0-SNAPSHOT.jar
 ```
 
-The application binds to `http://127.0.0.1:8080`. The root URL has no page, so HTTP 404 at `/` is expected. The workflow API and usage guide are introduced in [PR #72](https://github.com/victordodan/-comp330-f26-team-02/pull/72). Stop it with Ctrl+C. It uses no institutional authentication, external university integration, or real student data. Simulated-role checks and persistent storage must be verified with the later workflow integration.
+Open [CampusConnect](http://127.0.0.1:8080/) and select a synthetic identity. Submit a request as Student A, switch to Reviewer to update it, then switch back to Student A to see its status and resolution note. The [HTTP API guide](docs/testing/a4-http-api.md) describes the underlying endpoints. Stop the application with Ctrl+C.
+
+The default H2 database is stored under `./data/` relative to the application working directory. Use synthetic information only. The identity selector is available to everyone using the local demo.
+
+With the application running on the default port:
+
+- Run `bash scripts/frontend-smoke-test.sh` to check HTTP resources and session permissions. This script requires curl.
+- Run `bash scripts/demo-data.sh` to prepare example requests if needed. This optional script requires curl and Python 3. It asks for confirmation before writing persistent synthetic data.
 
 ## Engineering Practices
 
