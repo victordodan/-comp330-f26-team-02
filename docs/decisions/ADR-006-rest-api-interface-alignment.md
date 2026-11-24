@@ -294,7 +294,7 @@ Java, Spring Boot, Maven, file-backed H2, local execution, and synthetic identit
 |---|---|
 | REQ-001 | Student request submission |
 | REQ-002 | Student-owned request visibility |
-| REQ-003 | Validated and persistent request creation |
+| REQ-003 | Unique request identifiers and persistence across application restarts |
 | REQ-004 | Reviewer request visibility and permissions |
 | REQ-005 | Authorized status transitions |
 | REQ-006 | Authorized resolution note management |
