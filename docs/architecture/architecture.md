@@ -26,7 +26,7 @@ Final release approval remains subject to integrated testing, independent human 
 | Architecture owner | Shú Perez |
 | Backup owner | Giancarlo Herrera |
 | Cycle 1 scope | Student request submission, request tracking, reviewer triage, status transitions, and resolution notes. |
-| Application address | `http://campusconnect.local:8080` |
+| Default application address | `http://127.0.0.1:8080/`. `campusconnect.local` is an optional local alias. |
 | Cycle 2 release focus | Browser presentation, system reliability, architectural consistency, negative-path verification, security governance, observability, and operational readiness evidence. |
 | Release target | `a6-final-release` |
 | AI governance | [AI Use Policy](../ai/ai-policy.md) and [AI Use Log](../ai/ai-use-log.md) |
