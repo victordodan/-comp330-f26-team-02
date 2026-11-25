@@ -4,7 +4,7 @@
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A6 — Cycle 2 Final Release Candidate  
 **Owner:** Shú Perez  
-**Backup:** Giancarlo Herrera  
+**Document backup:** Giancarlo Herrera  
 **Last Updated:** 2026-11-24  
 **Target Release:** `a6-final-release`  
 **Status:** Implementation-aligned documentation; final verification pending
@@ -29,9 +29,7 @@ The implemented architecture uses HTML, CSS, vanilla JavaScript, Java, Spring Bo
 
 The browser presentation layer communicates with the existing REST API through same-origin HTTP requests.
 
-The application is accessible through the locally configured address:
-
-`http://campusconnect.local:8080`
+The default local address is `http://127.0.0.1:8080/`. The optional hostname `campusconnect.local` requires a local mapping to loopback.
 
 This document replaces the proposed server-rendered component structure from Assignment 3 with the reviewed implementation structure, including the approved Cycle 2 browser presentation layer.
 
@@ -977,7 +975,9 @@ Source-level documentation review does not replace automated testing, runtime ve
 
 **Architecture Lead:** Shú Perez
 
-**Backup:** Giancarlo Herrera
+**Document backup:** Giancarlo Herrera
+
+**Architecture & Development role backup:** Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md).
 
 **Evidence Status:** Component responsibilities aligned with reviewed implementation source. Final integrated verification, independent review, and release authorization remain pending.
 
