@@ -2,8 +2,8 @@
 
 **Team:** Codex Ramblers  
 **Project:** CampusConnect  
-**Current Phase:** A5 — Cycle 1 Release and Presentation
-**Release Cycle:** Cycle 1  
+**Current Phase:** A6 — Final Cycle Release, Presentation and Peer Review
+**Release Cycle:** Cycle 2  
 
 ## Schedule Basis
 
@@ -24,11 +24,12 @@ Sakai deadlines remain the authoritative course deadlines. Internal milestones a
 | ID | Milestone | Planned Date / Date Range | Planned Outcome | Dependencies | Related Tasks / Estimates | Owner | Status |
 |---|---|---|---|---|---|---|---|
 | MS-001 | Project Launch baseline | Sep 10–Sep 20, 2026 | Establish initial team, repository, scope, planning, and engineering evidence. | Team formation and project direction | EST-001 | Codex Ramblers | Complete |
-| MS-002 | A2 planning and requirements baseline | Sep 22–Sep 29, 2026 | Finalize/refine Cycle 1 requirements, acceptance criteria, scope, estimates, task plan, schedule, risks, and traceability. | MS-001 | TASK-010, TASK-011, EST-002 | Planning and Requirements owners | In Progress |
-| MS-003 | Architecture baseline | Sep 30–Oct 15, 2026 | Establish system structure, interfaces, technology decisions, and major ADRs required for implementation. | MS-002 | TASK-012, EST-003 | Architecture & Development Lead | In Progress |
-| MS-004 | Cycle 1 implementation baseline | Oct 16–Oct 29, 2026 | Complete the controlled CampusConnect support-request workflow and integrate its major components. | MS-003 | TASK-013, TASK-014, EST-004 | Development team | Planned |
-| MS-005 | Cycle 1 verification and release readiness | Oct 30–Nov 10, 2026 | Verify the required workflow, resolve material defects, document limitations, and prepare release evidence. | MS-004 | TASK-015, TASK-016, EST-005 | Quality & Review Lead / team | Planned |
-| MS-006 | Cycle 2 maturity planning | Nov 11–Nov 24, 2026 | Use Cycle 1 evidence to select a limited set of justified maturity improvements. | MS-005 | TASK-017, EST-006 | Codex Ramblers | Planned |
+| MS-002 | A2 planning and requirements baseline | Sep 22–Sep 29, 2026 | Finalize/refine Cycle 1 requirements, acceptance criteria, scope, estimates, task plan, schedule, risks, and traceability. | MS-001 | TASK-010, TASK-011, EST-002 | Planning and Requirements owners | Complete |
+| MS-003 | Architecture baseline | Sep 30–Oct 15, 2026 | Establish system structure, interfaces, technology decisions, and major ADRs required for implementation. | MS-002 | TASK-012, EST-003 | Architecture & Development Lead | Complete |
+| MS-004 | Cycle 1 implementation baseline | Oct 16–Oct 29, 2026 | Complete the controlled CampusConnect support-request workflow and integrate its major components. | MS-003 | TASK-013, TASK-014, EST-004 | Development team | Complete |
+| MS-005 | Cycle 1 verification and release readiness | Oct 30–Nov 10, 2026 | Verify the required workflow, resolve material defects, document limitations, and prepare release evidence. | MS-004 | TASK-015, TASK-016, EST-005 | Quality & Review Lead / team | Complete |
+| MS-006 | Cycle 2 maturity planning | Nov 11–Nov 24, 2026 | Use Cycle 1 evidence to select a limited set of justified maturity improvements. | MS-005 | TASK-017, EST-006 | Codex Ramblers | Complete (PR #115; targets proposed) |
+| MS-007 | Cycle 2 maturity work and final release | Sakai deadline Nov 24, 2026, 11:55 p.m. Chicago time | Prove or defer the selected maturity targets and deliver the A6 release. | MS-006 | TASK-018, C2-01–C2-07 | Victor Dodan / Malec Tarabein | In Progress |
 
 ## Near-Term Cycle 1 Schedule
 
@@ -190,3 +191,43 @@ changes. Repeat affected verification if implementation changes, not merely to
 relabel historical logs. Final human presentation rehearsal remains pending.
 
 AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).
+
+## A6 — Cycle 2 Schedule (2026-11-24)
+
+**Prepared by:** Malec Tarabein (Planning & Process Lead) · **Backup:** Shú Perez.
+**Status:** Closeout in progress. Remaining scope and ownership decisions need team confirmation. Sakai lists November 24, 2026 at 11:55 p.m. Chicago time as the submission deadline.
+
+### Milestone status corrections
+
+The postmortem (PM-03) found MS-004 and MS-005 still marked "Planned" after both
+finished. The milestone table above now reads:
+
+- **MS-002 to MS-005 → Complete.** Cycle 1 was released and tagged
+  `a5-cycle1-release` (`3f297d8`).
+- **MS-006 → Complete.** The Cycle 1 postmortem and Cycle 2 maturity plan were
+  merged in PR #115 on November 24. Target selection remains **proposed** until
+  Victor confirms it.
+- **MS-007 → added** for the Cycle 2 maturity work and final release.
+
+### Cycle 2 milestone
+
+| ID | Milestone | Window | Planned outcome | Dependencies | Related tasks / estimates | Owner | Status |
+|---|---|---|---|---|---|---|---|
+| MS-007 | Cycle 2 maturity work and final release | November 24, 2026 at 11:55 p.m. Chicago time (Sakai) | Selected maturity targets proven or explicitly deferred; A6 release tagged; Word summary, PPTX and peer reviews submitted; presentation in Classes 27–28 | MS-006; Victor's confirmation of the targets | TASK-018.1–018.7; C2-01–C2-07 | Victor Dodan (release) / Malec Tarabein (schedule) | In Progress |
+
+### Cycle 2 closeout checkpoints
+
+| Checkpoint | Observed status on November 24 | Remaining evidence or decision |
+|---|---|---|
+| CP-A6-1 — planning and implementation | #115 merged, and #126–#131 integrated the portal and its verification tools. | Remaining target and owner confirmations plus contributor effort records. No separate midpoint completion is recorded. |
+| CP-A6-2 — candidate freeze | Main candidate `373a0f6` passed [CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45509064331). | Select the final SHA after documentation reconciliation and verify it. |
+| Final release and submission | Notes, quality evidence and inventory are in review. | Record acceptance dispositions, independent review outcome or gap, residual risks, decision, tag and Sakai package. |
+
+### Schedule change history (A6)
+
+| Effective gate | Change | Reason | Related evidence |
+|---|---|---|---|
+| A6 | Marked MS-002–MS-006 Complete; added MS-007 and checkpoints CP-A6-1/CP-A6-2 | Statuses were stale (PM-03); A6 needs an interim checkpoint (PM-01) | [Postmortem](../operations/postmortem-cycle1.md), [maturity plan](cycle2-maturity-plan.md) |
+
+AI assistance: Claude (Claude Code) drafted this update for Malec Tarabein. No
+additional checkpoint dates are approved. Observed statuses cite merged PRs and CI. See the [AI-use log](../ai/ai-use-log.md).

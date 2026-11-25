@@ -89,7 +89,7 @@ than claim an outcome without evidence.
 - [Risk register](../planning/risk-register.md) and the A6 intake in draft PR #112
 - [Traceability](../planning/traceability.md) (A6 addendum in draft PR #112)
 - [Task plan](../planning/task-plan.md): TASK-017, TASK-018
-- [Re-estimation](../planning/re-estimation.md): Cycle 2 update to follow
+- [Re-estimation](../planning/re-estimation.md): Cycle 2 scope, estimates and cut items
 
 **AI disclosure:** Claude (Claude Code) helped Malec Tarabein draft this plan
 from the Cycle 2 handoff, A5 release decision, known limitations, defect review
