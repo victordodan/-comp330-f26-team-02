@@ -24,7 +24,8 @@ Final release approval remains subject to integrated testing, independent human 
 | Team number / name | Team 2 — Codex Ramblers |
 | Repository URL (clone) | https://github.com/victordodan/-comp330-f26-team-02.git |
 | Architecture owner | Shú Perez |
-| Backup owner | Giancarlo Herrera |
+| Architecture & Development role backup | Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md). |
+| Architecture document backup | Giancarlo Herrera, as listed in the preceding revision of this document. |
 | Cycle 1 scope | Student request submission, request tracking, reviewer triage, status transitions, and resolution notes. |
 | Default application address | `http://127.0.0.1:8080/`. `campusconnect.local` is an optional local alias. |
 | Cycle 2 release focus | Browser presentation, system reliability, architectural consistency, negative-path verification, security governance, observability, and operational readiness evidence. |
@@ -210,7 +211,7 @@ The workflow service coordinates business operations and delegates persistence t
 
 The database is not directly accessible through the REST API.
 
-The separate [architecture diagram](architecture-diagram.png) must be reconciled with this representation.
+The [architecture diagram](architecture-diagram.png) updated in `398ea7f` shows the same browser, REST, service, and JDBC/H2 boundaries.
 
 ---
 
@@ -795,7 +796,7 @@ The Team Lead retains responsibility for the final release decision.
 - [ ] Confirm architecture diagram and API contract alignment.
 - [ ] Confirm frontend alignment in component responsibilities and data context.
 - [ ] Confirm ADR-006 amendment integration and review.
-- [ ] Confirm architecture backup assignment against the authoritative team roles record.
+- [x] Confirm the architecture role backup against the [team role matrix](../team/roles.md).
 - [ ] Review all applicable ADRs for final implementation consistency.
 - [ ] Confirm negative-path and boundary test results.
 - [ ] Confirm final CI evidence.
