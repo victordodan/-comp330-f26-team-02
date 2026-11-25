@@ -76,3 +76,8 @@ Codex ran the following checks on a clean checkout of merged main at
 
 These results support the browser integration review. Final TC-001–TC-012 dispositions,
 Giancarlo's runbook exercise, independent integrated review, and release authorization remain open.
+
+
+## November 24 — Quality Lead Windows operational exercise
+
+Operator: Giancarlo Herrera. Tested checkout `0860160bc458af670c7944ccd035d21425e7511d` (not final tag). Windows PowerShell 5.1, Temurin Java 17.0.21. `mvn -B clean verify` BUILD SUCCESS at 22:04:18 CST, 23.277 s. Surefire summaries: application 1, frontend 15, request controller 15, workflow service 13, validator 7; total 51, zero failures/errors/skips. Operator screenshots supplied in chat; not repository attachments. Packaged JAR bound to 127.0.0.1:18080 with `jdbc:h2:file:./work/demo-runtime/campusconnect`. Initial connection refused was resolved by starting the server with the runtime directory prepared. Manual checks: build, startup, Student A submission, Student B empty dashboard, reviewer access, Submitted→In Progress, resolution note and Resolved transition, Student A status/note visibility, controlled stop/restart (operator confirmed), and persistence of same request ID/status/note after restart: 10/10 scoped checks passed. Synthetic request `cc60ec5e-b301-46b6-ad99-d2a0466b8e21`, created 22:07:48, In Progress 22:11:31, Resolved 22:12:08 CST. No independent outage screenshot, direct API authorization exercise, backup restoration, crash recovery or final-tag acceptance claimed. Final integrated release authorization remains pending.
