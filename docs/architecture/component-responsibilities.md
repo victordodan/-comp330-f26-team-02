@@ -4,7 +4,7 @@
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A6 — Cycle 2 Final Release Candidate  
 **Owner:** Shú Perez  
-**Backup:** Giancarlo Herrera  
+**Document backup:** Giancarlo Herrera  
 **Last Updated:** 2026-11-24  
 **Target Release:** `a6-final-release`  
 **Status:** Implementation-aligned documentation; final verification pending
@@ -25,9 +25,13 @@ CampusConnect supports an end-to-end student support request workflow in which:
 - The reviewer performs authorized status transitions and resolution note updates.
 - The owning student retrieves the latest stored request information.
 
-The implemented architecture uses Java, Spring Boot, REST HTTP endpoints, Spring JDBC, Maven, and file-backed H2.
+The implemented architecture uses HTML, CSS, vanilla JavaScript, Java, Spring Boot, REST HTTP endpoints, Spring JDBC, Maven, and file-backed H2.
 
-This document replaces the proposed server-rendered component structure from Assignment 3 with the reviewed implementation structure.
+The browser presentation layer communicates with the existing REST API through same-origin HTTP requests.
+
+The default local address is `http://127.0.0.1:8080/`. The optional hostname `campusconnect.local` requires a local mapping to loopback.
+
+This document replaces the proposed server-rendered component structure from Assignment 3 with the reviewed implementation structure, including the approved Cycle 2 browser presentation layer.
 
 Component responsibilities must remain consistent with the architecture overview, architecture diagram, API contracts, requirements, and applicable architecture decision records.
 
@@ -39,6 +43,11 @@ Final acceptance remains subject to integrated verification and independent huma
 
 | Component | Primary Responsibilities | Does Not Own | Dependencies | Related Contracts |
 |---|---|---|---|---|
+| Browser Presentation Layer | Provide student and reviewer interfaces, coordinate user interactions, and display application responses | Authoritative authorization, business rules, persistence | HTML, CSS, JavaScript, Spring Boot static resources, REST API | API-001 through API-005, API-007 |
+| index.html | Define identity selection, dashboards, request forms, request cards, and feedback structures | Business rules, authorization, database operations | styles.css, app.js | API-001 through API-005, API-007 |
+| styles.css | Provide responsive layout, status indicators, focus indicators, and visual feedback | Application state, workflow decisions, HTTP requests | HTML interface | Presentation only |
+| app.js | Manage temporary browser state, identity selection, REST requests, conditional updates, filtering, and response handling | Authoritative authorization, workflow policy, persistent data | Browser Fetch API, HTML interface, REST API | API-001 through API-005, API-007 |
+| Spring Boot Static Resource Delivery | Serve frontend HTML, CSS, and JavaScript resources | Protected API authorization, workflow decisions | Spring Boot, static resources | Presentation delivery |
 | HTTP Client | Submit HTTP requests, retain session cookies, provide JSON input, retain ETags, interpret responses | Authoritative authorization, business rules, persistence | RequestController | API-001 through API-005, API-007 |
 | RequestController | Expose REST endpoints, process DTOs, retrieve session identity, parse If-Match, construct HTTP responses | SQL operations, persistent storage, authoritative workflow rules | WorkflowService, DTOs, DemoIdentity, HTTP Session | API-001 through API-005, API-007 |
 | RequestValidator | Normalize and validate student submission fields | Authorization, persistence, status transitions | Java standard library | API-001 |
@@ -58,6 +67,11 @@ Final acceptance remains subject to integrated verification and independent huma
 
 | Component | Inputs | Outputs | Failure Responsibilities |
 |---|---|---|---|
+| Browser Presentation Layer | User actions, interface state, server responses | Student and reviewer dashboards, operation feedback | Communicate failed operations without displaying false success |
+| index.html | Static interface definitions | Structured browser interface | Provides interface elements for loading, empty, and error states |
+| styles.css | HTML elements and interface state classes | Visual presentation and responsive layout | Does not independently handle application failures |
+| app.js | User actions, request fields, session context, JSON responses, ETags | REST requests, updated interface state, operation feedback | Report HTTP and network failures, prevent stale modifications, avoid automatic conflicting retries |
+| Spring Boot Static Resource Delivery | HTTP requests for frontend resources | HTML, CSS, and JavaScript resources | Return appropriate HTTP responses for unavailable resources |
 | HTTP Client | User actions, request fields, session cookie, current ETag | HTTP requests and interpreted responses | Display or report errors; retrieve current version before retrying stale updates |
 | RequestController | HTTP requests, JSON bodies, request IDs, session state, If-Match headers | JSON responses, HTTP status codes, ETags | Reject missing identity, unauthorized reviewer access, invalid version headers, and prohibited combined status/note updates |
 | RequestValidator | Title, category, description | Normalized fields and validation results | Identify missing, unsupported, and out-of-range input |
@@ -79,7 +93,7 @@ Final acceptance remains subject to integrated verification and independent huma
 
 The implemented application exposes a REST API for local demonstration.
 
-HTTP clients may include Postman, cURL, or another compatible HTTP client.
+HTTP clients may include the implemented browser presentation layer, Postman, cURL, or another compatible HTTP client.
 
 Student operations include:
 
@@ -97,11 +111,11 @@ Reviewer operations include:
 - Updating request status.
 - Saving or replacing resolution notes.
 
-The client is responsible for retaining the session cookie and current ETag when performing applicable operations.
+The client is responsible for maintaining the applicable session context and supplying the current ETag when performing conditional operations.
 
 Client-side restrictions are not authoritative security controls.
 
-The server-rendered Thymeleaf interface proposed during Assignment 3 is not claimed as implemented functionality.
+The server-rendered Thymeleaf interface proposed during Assignment 3 is not implemented. Cycle 2 instead introduces a same-origin static browser presentation layer served by Spring Boot.
 
 ### 4.2 RequestController
 
@@ -398,9 +412,13 @@ Stored fields include:
 
 Persistence across ordinary application restarts requires reuse of the same local database store.
 
+Same-store restart persistence was demonstrated during the recorded November 24, 2026, operational exercises.
+
 The database does not replace application-level authorization or workflow validation.
 
-Production database deployment, distributed storage, and disaster recovery are not established by the local persistence implementation.
+Production database deployment, distributed storage, backup restoration, and disaster recovery are not established by the local persistence implementation.
+
+Reference: [Runtime Evidence](../observability/runtime-evidence.md).
 
 ### 4.10 DemoIdentity and HTTP Session
 
@@ -429,6 +447,12 @@ Client-supplied role headers and requester identifiers cannot override the selec
 Switching identities does not modify stored request ownership.
 
 The demo selector intentionally permits synthetic identity switching.
+
+The browser presentation layer uses the same server-side session mechanism as other HTTP clients.
+
+Multiple browser tabs may share the same session cookie. Selecting a different identity in one tab may affect the server-side identity used by another tab.
+
+Independent browser profiles should be used for simultaneous student and reviewer demonstrations.
 
 It does not provide:
 
@@ -469,12 +493,162 @@ Handled application errors contain:
 
 ApiExceptionHandler does not determine workflow policy or independently execute recovery operations.
 
+The browser presentation layer consumes these HTTP responses and communicates operation outcomes to the user.
+
+### 4.12 Browser Presentation Layer
+
+The approved Cycle 2 browser presentation layer provides a graphical interface for the existing CampusConnect REST workflow.
+
+The frontend resources are located in:
+
+`src/main/resources/static/`
+
+The presentation layer introduces no additional business REST endpoints, separate application server, or independent persistent database.
+
+#### HTML Interface
+
+**Source:** `src/main/resources/static/index.html`
+
+Responsibilities include:
+
+- Defining synthetic identity selection controls.
+- Providing student and reviewer dashboard structures.
+- Providing student request submission fields.
+- Providing request listing and status filter structures.
+- Providing reviewer interaction containers.
+- Providing loading, empty, and notification structures.
+- Communicating the synthetic classroom demonstration boundary.
+
+The HTML interface does not independently authorize users or enforce backend workflow rules.
+
+#### CSS Presentation
+
+**Source:** `src/main/resources/static/styles.css`
+
+Responsibilities include:
+
+- Defining application layout and visual appearance.
+- Providing responsive interface styling.
+- Styling forms, buttons, request cards, and dashboards.
+- Visually distinguishing workflow statuses.
+- Providing focus indicators and operation feedback styling.
+- Supporting readable presentation across different viewport sizes.
+
+CSS does not perform HTTP requests, modify stored data, or determine application permissions.
+
+Comprehensive browser compatibility and accessibility compliance remain unverified.
+
+#### JavaScript Application Logic
+
+**Source:** `src/main/resources/static/app.js`
+
+Responsibilities include:
+
+- Coordinating synthetic identity selection.
+- Submitting same-origin REST requests.
+- Loading student-specific or reviewer-wide request lists.
+- Maintaining temporary browser interface state.
+- Coordinating student request submission.
+- Rendering request records and saved resolution notes.
+- Applying status filters.
+- Coordinating reviewer note and status modifications.
+- Retrieving current request versions and ETags.
+- Preventing submission of detected stale modifications.
+- Supplying If-Match headers for conditional updates.
+- Displaying successful and failed operation outcomes.
+- Refreshing relevant request information after successful modifications.
+- Preventing conflicting automatic retries.
+- Clearing or updating interface state when authorization changes.
+
+The browser uses the following existing REST endpoints:
+
+| Method | Endpoint | Browser Responsibility |
+|---|---|---|
+| POST | `/api/demo/identity` | Select or switch synthetic identity |
+| POST | `/api/requests` | Submit a student support request |
+| GET | `/api/requests` | Load student-owned requests |
+| GET | `/api/reviewer/requests` | Load the reviewer queue |
+| GET | `/api/reviewer/requests/{id}` | Retrieve current request details and ETag |
+| PATCH | `/api/requests/{id}/status` | Submit a conditional status update |
+| PATCH | `/api/requests/{id}/note` | Submit a conditional resolution note update |
+
+The browser obtains student request information through the student request list. The individual student request-detail endpoint remains available to compatible REST clients.
+
+JavaScript does not replace server-side authorization, validation, ownership enforcement, workflow rules, or persistent storage.
+
+#### Static Resource Delivery
+
+Spring Boot serves the frontend resources through its existing static resource support.
+
+The browser presentation layer and REST API are delivered from the same application origin.
+
+Static resource availability does not grant authorization to protected REST endpoints.
+
+The frontend requires no separate application server or JavaScript build pipeline.
+
+#### Browser Failure Handling
+
+The presentation layer communicates relevant application failures, including:
+
+- Invalid input or prohibited operations.
+- Unauthorized identity or role.
+- Missing or inaccessible resources.
+- Stale request versions.
+- Missing update preconditions.
+- Storage or transaction failures.
+- Network and application availability failures.
+
+A successful backend modification followed by a failed dashboard refresh must remain distinguishable from a failed modification.
+
+The browser must not display an unsuccessful modification as confirmed successful.
+
+#### Browser State Boundary
+
+Temporary browser state includes:
+
+- Displayed synthetic identity.
+- Loaded request information.
+- Active status filters.
+- Unsaved request form input.
+- Unsaved reviewer note text.
+- Loading indicators.
+- Operation feedback.
+
+This state is not an independent authoritative application datastore.
+
+Unsaved input may be lost when the interface refreshes, changes identity, or re-renders relevant components.
+
+Persistent request information remains authoritative in the backend and configured H2 database.
+
+### 4.13 Verification and Demonstration Support Components
+
+The following scripts support local verification and demonstration preparation.
+
+They are engineering support artifacts rather than independent application runtime components.
+
+| Artifact | Responsibility | Boundary |
+|---|---|---|
+| `scripts/frontend-smoke-test.sh` | Verify frontend resource availability, required interface content, and selected REST permission boundaries | Does not establish comprehensive browser interaction coverage or create persistent request records |
+| `scripts/demo-data.sh` | Prepare synthetic requests and reviewer updates through the existing REST API | Modifies the configured persistent database; does not bypass backend workflow rules |
+
+The demonstration data script uses sequential existing-record matching to reduce unnecessary duplicate creation.
+
+It does not establish atomic duplicate prevention across concurrent executions or automatic recovery from interrupted preparation.
+
+Demonstration preparation must remain restricted to synthetic classroom data.
+
 ---
 
 ## 5. Data Ownership and Consistency
 
 | Data or Rule | Responsible Component |
 |---|---|
+| Browser interface structure | index.html |
+| Browser visual presentation | styles.css |
+| Temporary browser state | app.js |
+| Browser REST request coordination | app.js |
+| Browser operation feedback | app.js |
+| Static frontend resource delivery | Spring Boot |
 | HTTP request routing | RequestController |
 | JSON request structure | Request DTOs |
 | Session identity selection | RequestController / DemoIdentity |
@@ -522,12 +696,14 @@ A failed retrieval must remain distinguishable from a successful empty result.
 
 Successful creation or modification must not be confirmed before the corresponding storage operation completes.
 
+Displayed browser information must not be treated as more authoritative than the corresponding server response.
+
 ### 5.2 Optimistic Concurrency Responsibilities
 
 Optimistic concurrency is shared across component boundaries.
 
 1. RequestController returns the current version through an ETag.
-2. The HTTP client retains the ETag.
+2. The HTTP client retains or retrieves the applicable ETag.
 3. The HTTP client submits the ETag through If-Match.
 4. RequestController validates and parses the supplied version.
 5. WorkflowService checks the expected version against the stored version.
@@ -539,6 +715,18 @@ Optimistic concurrency is shared across component boundaries.
 
 This division prevents stale reviewer changes from silently overwriting newer stored data.
 
+The browser presentation layer supplements this mechanism by retrieving current reviewer request details before submitting a modification.
+
+The retrieved request version and ETag are compared with the version originally displayed to the reviewer.
+
+If a mismatch is detected, the browser prevents the stale modification and displays conflict feedback.
+
+A concurrent update may still occur between the browser's retrieval and its subsequent modification request.
+
+The backend remains responsible for detecting and rejecting such conflicts.
+
+The browser does not automatically retry conflicting modifications or overwrite newer stored data.
+
 ---
 
 ## 6. Architecture Constraints
@@ -548,6 +736,7 @@ The reviewed implementation operates within the following boundaries:
 - Synthetic or made-up request data only.
 - Local classroom demonstration.
 - Java and Spring Boot application.
+- Same-origin HTML, CSS, and JavaScript browser presentation.
 - REST HTTP and JSON interfaces.
 - Maven-based build.
 - Spring JDBC persistence.
@@ -560,7 +749,10 @@ The reviewed implementation operates within the following boundaries:
 - No real email or text-message integration.
 - No live institutional integrations.
 - No runtime user-facing AI.
-- No verified server-rendered browser interface.
+- No server-rendered Thymeleaf interface.
+- No separate frontend application server.
+- No independent persistent browser request database.
+- No comprehensive browser compatibility or accessibility certification.
 - No verified production monitoring or disaster recovery.
 
 Development-time AI assistance must be documented and independently verified.
@@ -584,10 +776,13 @@ The team prioritizes the complete support request workflow over additional unapp
 | ADR-003 | Transactional updates and optimistic version checking | RequestController, WorkflowService, Repository |
 | ADR-004 | Local persistence and recovery expectations | Repository, H2, operations |
 | ADR-0005 | Clarification of transactional JDBC and file-backed persistence | WorkflowService, JdbcRequestRepository |
+| ADR-006 | REST interface alignment and approved browser presentation extension | Browser presentation layer, static resource delivery, RequestController |
 
 ADR-002 through ADR-004 were historically approved on October 16, 2026.
 
-The original architecture proposed Thymeleaf and Post/Redirect/Get. The reviewed implementation instead exposes REST endpoints.
+The original architecture proposed Thymeleaf and Post/Redirect/Get. The reviewed implementation instead exposes REST endpoints extended by a same-origin static browser presentation layer.
+
+The Cycle 2 browser presentation direction is documented in the [Cycle 2 Maturity Plan](../planning/cycle2-maturity-plan.md) and the corresponding [ADR-006](../decisions/ADR-006-rest-api-interface-alignment.md) amendment.
 
 The original decisions must remain available as historical engineering evidence.
 
@@ -600,6 +795,10 @@ Remaining concerns include:
 - Production authentication.
 - Operational logging and retention.
 - Verified backup restoration and recovery.
+- Shared browser session behavior.
+- Temporary browser state synchronization.
+- Recovery of unsaved browser input.
+- Comprehensive browser compatibility and accessibility verification.
 - Final integrated human review.
 
 ---
@@ -608,6 +807,7 @@ Remaining concerns include:
 
 | Component | Requirements Supported | Acceptance Criteria Supported |
 |---|---|---|
+| Browser Presentation Layer | REQ-001 through REQ-006 | Browser interaction supporting the existing workflow criteria |
 | HTTP Client / RequestController | REQ-001 through REQ-006 | HTTP interaction and response behavior supporting the workflow criteria |
 | RequestValidator | REQ-001, REQ-003 | Submission validation behavior |
 | WorkflowService | REQ-001 through REQ-006 | All core workflow acceptance criteria |
@@ -616,6 +816,8 @@ Remaining concerns include:
 | RequestRepository / JdbcRequestRepository | REQ-001 through REQ-006 | AC-REQ-003-01, AC-REQ-003-02, and supporting persistence behavior |
 | DemoIdentity / HTTP Session | REQ-001 through REQ-006 | AC-REQ-002-03, AC-REQ-004-02, and supporting role behavior |
 | ApiExceptionHandler | REQ-001 through REQ-006 | Failure handling supporting the relevant acceptance criteria |
+
+The browser presentation layer supports the existing workflow requirements without replacing their authoritative backend implementation.
 
 Detailed requirement-to-test mappings remain in the central requirements, acceptance criteria, and traceability documents.
 
@@ -627,10 +829,43 @@ Final verification must reference evidence associated with the exact release can
 
 ## 9. Review and Verification Dependencies
 
+### 9.1 Recorded Component Verification Evidence
+
+The following existing verification results support the reviewed component responsibilities.
+
+| Verification Context | Recorded Results |
+|---|---|
+| Local frontend verification by Shú Perez, November 24, 2026 | 38 smoke checks passed, zero failed; six synthetic requests created; ten reviewer updates completed |
+| Integrated browser candidate `373a0f6` | 38 passing HTTP smoke checks, Chromium browser workflow verification, stale-edit rejection, owner visibility, and repeat demonstration setup that skipped six matching records |
+| Integrated revision `0860160bc458af670c7944ccd035d21425e7511d` | 51 Maven tests passed with zero failures, errors, or skips; 36 packaged HTTP workflow checks and five restart checks passed |
+| Separate Windows exercise reported by Giancarlo Herrera | Ten of ten manual workflow checks passed and same-store restart retention reported |
+
+The Linux build, packaged HTTP workflow, and restart checks were performed by Codex.
+
+Giancarlo Herrera performed and reported the separate Windows browser and restart exercise.
+
+Supporting evidence:
+
+- [Runtime Evidence](../observability/runtime-evidence.md)
+- [Integrated CI Execution](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45543404188)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [Packaged Workflow Transcript](../../test-evidence/a6-operations-0860160/workflow.jsonl)
+- [Packaged Restart Transcript](../../test-evidence/a6-operations-0860160/restart.jsonl)
+
+HTTP smoke checks, automated regression tests, and browser workflow exercises provide distinct verification evidence.
+
+These recorded results retain their original execution contexts and tested revisions.
+
+They do not independently establish verification of the final tagged release.
+
+### 9.2 Final Review Checklist
+
 Before final Assignment 6 acceptance:
 
 - [ ] Confirm component names against the final Java implementation.
+- [ ] Confirm frontend component names against the final static resource implementation.
 - [ ] Confirm dependency directions against the architecture diagram.
+- [ ] Confirm browser-to-REST integration against API contracts.
 - [ ] Confirm controller responsibilities against API contracts.
 - [ ] Confirm submission validation boundaries.
 - [ ] Confirm service-level role and ownership enforcement.
@@ -641,6 +876,9 @@ Before final Assignment 6 acceptance:
 - [ ] Confirm parameterized SQL operations.
 - [ ] Confirm transactional persistence.
 - [ ] Confirm atomic optimistic concurrency behavior.
+- [ ] Confirm browser-side concurrency handling.
+- [ ] Confirm temporary browser state and persistent data boundaries.
+- [ ] Confirm shared session behavior is accurately documented.
 - [ ] Confirm HTTP error mappings.
 - [ ] Confirm negative-path test evidence.
 - [ ] Confirm final CI results.
@@ -663,6 +901,7 @@ Source-level documentation review does not replace automated testing, runtime ve
 - [Architecture Diagram](architecture-diagram.png)
 - [API Contracts](api-contracts.md)
 - [Data Context](data-context.md)
+- [ADR-006 — REST API Interface Alignment](../decisions/ADR-006-rest-api-interface-alignment.md)
 
 ### Requirements and Planning
 
@@ -671,9 +910,14 @@ Source-level documentation review does not replace automated testing, runtime ve
 - [Assumptions and Open Questions](../requirements/assumptions-open-questions.md)
 - [Traceability](../planning/traceability.md)
 - [Risk Register](../planning/risk-register.md)
+- [Cycle 2 Maturity Plan](../planning/cycle2-maturity-plan.md)
+- [Team Roles](../team/roles.md)
 
 ### Implementation
 
+- [Browser Interface](../../src/main/resources/static/index.html)
+- [Frontend Styling](../../src/main/resources/static/styles.css)
+- [Browser Application Logic](../../src/main/resources/static/app.js)
 - [RequestController](../../src/main/java/edu/loyola/campusconnect/controller/RequestController.java)
 - [ApiExceptionHandler](../../src/main/java/edu/loyola/campusconnect/controller/ApiExceptionHandler.java)
 - [WorkflowService](../../src/main/java/edu/loyola/campusconnect/service/WorkflowService.java)
@@ -693,9 +937,14 @@ Source-level documentation review does not replace automated testing, runtime ve
 - [HTTP API Guide](../testing/a4-http-api.md)
 - [CI Evidence](../testing/ci-evidence.md)
 - [A5 Acceptance Evidence Matrix](../testing/a5-acceptance-evidence-matrix.md)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [Frontend Smoke Testing Script](../../scripts/frontend-smoke-test.sh)
+- [Demonstration Data Script](../../scripts/demo-data.sh)
 - [Known Limitations](../release/known-limitations.md)
 - [Operational Runbook](../operations/runbook.md)
 - [Observability Plan](../observability/observability-plan.md)
+- [Runtime Evidence](../observability/runtime-evidence.md)
+- [Permission Boundaries](../security/permission-boundaries.md)
 
 ### AI Governance
 
@@ -708,11 +957,27 @@ Source-level documentation review does not replace automated testing, runtime ve
 - PR #44 — Test Strategy Alignment.
 - PR #46 — Draft Requirements and Acceptance Criteria Updates.
 
+### Cycle 2 Review References
+
+- PR #116 — Architecture Overview.
+- PR #117 — Architecture Diagram.
+- PR #118 — API Contracts.
+- PR #119 — Component Responsibilities.
+- PR #120 — Data Context.
+- PR #126 — HTML Browser Interface.
+- PR #127 — Frontend Styling.
+- PR #128 — Browser Application Logic.
+- PR #129 — Frontend Integration Tests.
+- PR #130 — Frontend Smoke Testing.
+- PR #131 — Synthetic Demonstration Data Generation.
+
 ---
 
 **Architecture Lead:** Shú Perez
 
-**Backup:** Giancarlo Herrera
+**Document backup:** Giancarlo Herrera
+
+**Architecture & Development role backup:** Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md).
 
 **Evidence Status:** Component responsibilities aligned with reviewed implementation source. Final integrated verification, independent review, and release authorization remain pending.
 
