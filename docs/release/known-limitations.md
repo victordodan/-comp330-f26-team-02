@@ -992,7 +992,7 @@ Authoritative defect records are maintained in:
 
 - [Defect Log](../quality/defect-log.md)
 - [Defect Review](../quality/defect-review.md)
-- [Final Defect Summary](defect-summary.md)
+- [Final Defect Summary](../quality/defect-review.md)
 - [Risk Register](../planning/risk-register.md)
 
 This document does not replace those records.
@@ -1193,4 +1193,3 @@ Known limitations, outstanding verification, deferred functionality, and residua
 The objective is to provide an accurate and defensible engineering baseline rather than claim unrestricted production readiness.
 
 Final release authorization remains subject to the team's documented approval process.
-
