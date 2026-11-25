@@ -58,7 +58,7 @@ capacity allows, otherwise closed with an explicit, dated deferral.
 
 | Item | Decision | Reason | Where it is recorded |
 |---|---|---|---|
-| Browser GUI (LIM-004) | **Added (lightweight)** | The team approved a lightweight HTML, CSS and JavaScript client of the existing REST API for the classroom demo; implemented in PRs #126–#128. The integrated browser workflow is verified and its final disposition recorded at freeze, under C2-04. Its implementation hours were not estimated here. | Maturity plan, scope decisions |
+| Browser GUI (LIM-004) | **Added (lightweight)** | The team approved a lightweight HTML, CSS and JavaScript client of the existing REST API for the classroom demo; implemented in PRs #126–#128. The browser workflow passed on candidate `373a0f6`. Record its final disposition at freeze under C2-04. Its implementation hours were not estimated here. | Maturity plan, scope decisions |
 
 ## Cycle 2 estimates (proposed)
 
@@ -78,12 +78,10 @@ Cycle 1 commit counts. They will be compared with the effort log at CP-A6-1.
 | C2-07 | A6 release package | 10 h | 14 h | 20 h | Release notes, `changed-files-since-a5.md`, final test evidence, Word summary, PPTX, rehearsal | Victor, Shelby / team | TASK-018.7 |
 | | **Total** | **42 h** | **64 h** | **100 h** | | | |
 
-**Capacity check.** Six members over roughly two weeks (A6 opens after
-Class 21, Week 13; hard due before Class 27, Week 15). The likely total is about
-11 hours per person, which fits only if work starts now and is spread across
-members rather than landing on the Team Lead (PM-07). If the effort log at
-CP-A6-1 shows the team tracking toward the high end, MT-01 and MT-05 are the
-first to be deferred, in that order, before any C-tier target is reduced.
+**Capacity at closeout.** The 42 / 64 / 100 hour range is a proposed estimate
+of total Cycle 2 effort. Actual hours and remaining capacity require contributor
+input. The November 24 Sakai deadline governs closeout. If proof for MT-01 or
+MT-05 remains unavailable, record the evidence gap and Victor’s dated decision.
 
 ## Re-estimation rules for Cycle 2
 

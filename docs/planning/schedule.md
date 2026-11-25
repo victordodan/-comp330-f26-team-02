@@ -29,7 +29,7 @@ Sakai deadlines remain the authoritative course deadlines. Internal milestones a
 | MS-004 | Cycle 1 implementation baseline | Oct 16–Oct 29, 2026 | Complete the controlled CampusConnect support-request workflow and integrate its major components. | MS-003 | TASK-013, TASK-014, EST-004 | Development team | Complete |
 | MS-005 | Cycle 1 verification and release readiness | Oct 30–Nov 10, 2026 | Verify the required workflow, resolve material defects, document limitations, and prepare release evidence. | MS-004 | TASK-015, TASK-016, EST-005 | Quality & Review Lead / team | Complete |
 | MS-006 | Cycle 2 maturity planning | Nov 11–Nov 24, 2026 | Use Cycle 1 evidence to select a limited set of justified maturity improvements. | MS-005 | TASK-017, EST-006 | Codex Ramblers | Complete (PR #115; targets proposed) |
-| MS-007 | Cycle 2 maturity work and final release | Week 13 – Week 15 (see A6 section) | Prove or defer the selected maturity targets and deliver the A6 release. | MS-006 | TASK-018, C2-01–C2-07 | Victor Dodan / Malec Tarabein | In Progress |
+| MS-007 | Cycle 2 maturity work and final release | Sakai deadline Nov 24, 2026, 11:55 p.m. Chicago time | Prove or defer the selected maturity targets and deliver the A6 release. | MS-006 | TASK-018, C2-01–C2-07 | Victor Dodan / Malec Tarabein | In Progress |
 
 ## Near-Term Cycle 1 Schedule
 
@@ -195,8 +195,7 @@ AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).
 ## A6 — Cycle 2 Schedule (2026-11-24)
 
 **Prepared by:** Malec Tarabein (Planning & Process Lead) · **Backup:** Shú Perez.
-**Status:** Proposed; checkpoint dates need team agreement. Sakai remains the
-authoritative source for the A6 due date.
+**Status:** Closeout in progress. Remaining scope and ownership decisions need team confirmation. Sakai lists November 24, 2026 at 11:55 p.m. Chicago time as the submission deadline.
 
 ### Milestone status corrections
 
@@ -206,7 +205,7 @@ finished. The milestone table above now reads:
 - **MS-002 to MS-005 → Complete.** Cycle 1 was released and tagged
   `a5-cycle1-release` (`3f297d8`).
 - **MS-006 → Complete.** The Cycle 1 postmortem and Cycle 2 maturity plan were
-  prepared in its window (PR #115). Target selection remains **proposed** until
+  merged in PR #115 on November 24. Target selection remains **proposed** until
   Victor confirms it.
 - **MS-007 → added** for the Cycle 2 maturity work and final release.
 
@@ -214,24 +213,15 @@ finished. The milestone table above now reads:
 
 | ID | Milestone | Window | Planned outcome | Dependencies | Related tasks / estimates | Owner | Status |
 |---|---|---|---|---|---|---|---|
-| MS-007 | Cycle 2 maturity work and final release | A6 opens after Class 21 (Tue, Week 13) → hard due before Class 27 (Tue, Week 15) | Selected maturity targets proven or explicitly deferred; A6 release tagged; Word summary, PPTX and peer reviews submitted; presentation in Classes 27–28 | MS-006; Victor's confirmation of the targets | TASK-018.1–018.7; C2-01–C2-07 | Victor Dodan (release) / Malec Tarabein (schedule) | In Progress |
+| MS-007 | Cycle 2 maturity work and final release | November 24, 2026 at 11:55 p.m. Chicago time (Sakai) | Selected maturity targets proven or explicitly deferred; A6 release tagged; Word summary, PPTX and peer reviews submitted; presentation in Classes 27–28 | MS-006; Victor's confirmation of the targets | TASK-018.1–018.7; C2-01–C2-07 | Victor Dodan (release) / Malec Tarabein (schedule) | In Progress |
 
-### Cycle 2 sequence
+### Cycle 2 closeout checkpoints
 
-| Sequence | Work | Window | Exit evidence | Related |
-|---|---|---|---|---|
-| 1 | Confirm the remaining targets and owners (MT-02 runbook assignment already confirmed); merge PR #115 and this update | Week 13 (from A6 kickoff, 2026-11-24) | Victor's confirmation and owner acknowledgements on the PRs | MT-06, TASK-018.6 |
-| 2 | Start every C-tier subtask; start or defer each B-tier subtask; log hours weekly | Week 13 – early Week 14 | An open PR or issue per subtask; effort log entries | TASK-018.1–018.5 |
-| 3 | **CP-A6-1 — midpoint** | Midpoint of Week 14 *(date to agree)* | Every C-tier target has an open PR or issue with an owner; every B-tier target is "in progress" or "deferred"; effort log has entries from each member; estimates checked against logged hours | Malec |
-| 4 | Finish maturity evidence; draft release notes, changed-file index and test evidence as PRs merge | Week 14 | Merged PRs with linked evidence | TASK-018.1–018.5, 018.7 |
-| 5 | **CP-A6-2 — freeze candidate** | End of Week 14 (the A6 recommended engineering target) | Candidate SHA named; CI green at that SHA; MT-04 independent review requested | Victor / Giancarlo |
-| 6 | Acceptance re-run, independent review, final disposition table, tag, Word/PPTX | Week 15, before Class 27 | A6 tag at the reviewed SHA; final disposition for MT-01–MT-06; Sakai submission by Victor | TASK-018.4, 018.7 |
-| 7 | Present Cycle 2 | Classes 27–28, Week 15 | Presentation delivered from the tagged release | Team |
-
-The buffer between CP-A6-2 and the hard due date is for review and fixes, not
-new work. If CP-A6-1 shows the team tracking past the Likely estimates, MT-01
-and then MT-05 are deferred first, as set out in
-[re-estimation](re-estimation.md#cycle-2-estimates-proposed).
+| Checkpoint | Observed status on November 24 | Remaining evidence or decision |
+|---|---|---|
+| CP-A6-1 — planning and implementation | #115 merged, and #126–#131 integrated the portal and its verification tools. | Remaining target and owner confirmations plus contributor effort records. No separate midpoint completion is recorded. |
+| CP-A6-2 — candidate freeze | Main candidate `373a0f6` passed [CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45509064331). | Select the final SHA after documentation reconciliation and verify it. |
+| Final release and submission | Notes, quality evidence and inventory are in review. | Record acceptance dispositions, independent review outcome or gap, residual risks, decision, tag and Sakai package. |
 
 ### Schedule change history (A6)
 
@@ -240,4 +230,4 @@ and then MT-05 are deferred first, as set out in
 | A6 | Marked MS-002–MS-006 Complete; added MS-007 and checkpoints CP-A6-1/CP-A6-2 | Statuses were stale (PM-03); A6 needs an interim checkpoint (PM-01) | [Postmortem](../operations/postmortem-cycle1.md), [maturity plan](cycle2-maturity-plan.md) |
 
 AI assistance: Claude (Claude Code) drafted this update for Malec Tarabein. No
-dates are approved and no work is claimed. See the [AI-use log](../ai/ai-use-log.md).
+additional checkpoint dates are approved. Observed statuses cite merged PRs and CI. See the [AI-use log](../ai/ai-use-log.md).

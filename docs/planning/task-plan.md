@@ -45,8 +45,8 @@ Tasks that are waiting on another task, decision, or dependency should be marked
 
 ## Blocked Work
 
-No task is blocked, but one decision gates TASK-018 (see the A6 section below):
-Victor's confirmation of the remaining maturity targets and owners in PR #115
+Final disposition of TASK-018 depends on the decisions below. Work with confirmed scope can proceed:
+Victor's confirmation of the remaining maturity targets and owners documented in merged PR #115
 (the MT-02 runbook assignment was confirmed on 2026-11-24).
 
 Future work may be marked **Blocked** when a required dependency, decision, review, or prerequisite prevents meaningful progress.
@@ -219,11 +219,11 @@ done. The table above now reflects repository evidence:
 |---|---|---|---|---|---|---|---|---|
 | TASK-018.1 | Bounded backup and restore (tier B) | Shú Perez | Venkata Aravind Mareddy | MT-01 | C2-01 | Restore steps in `runbook.md`; executed restore transcript at the A6 SHA in `/test-evidence`; or Victor's dated deferral | Target confirmation | Not Started |
 | TASK-018.2 | Operational readiness and observability | Shú Perez (runbook), Giancarlo Herrera (runbook exercise and evidence); Shelby Sierah (observability planning) | Venkata Aravind Mareddy | MT-02 | C2-02 | Project-specific `runbook.md` and `observability-plan.md`; runbook exercise (startup, one observed failure signal, same-store restart) with environment and candidate SHA in `runtime-evidence.md`; unused starter files marked out of scope | Target confirmation (runbook assignment confirmed 2026-11-24) | Not Started |
-| TASK-018.3 | Identity boundary and negative authorization tests | Shú Perez | Venkata Aravind Mareddy | MT-03 | C2-03 | Filled `permission-boundaries.md`; negative-path tests passing in CI at the A6 SHA | Target confirmation | Not Started |
-| TASK-018.4 | Acceptance re-run and independent review | Venkata Aravind Mareddy (acceptance), Giancarlo Herrera (quality gate) | Victor Dodan (decision) | MT-04 | C2-04 | TC-001–TC-012 human disposition per case at the A6 SHA; integrated browser workflow (PRs #126–#128) verified; named non-author review; CI URL and totals at the tag commit; Issues #104/#105 closed | TASK-018.1–018.3 merged (freeze candidate) | Not Started |
+| TASK-018.3 | Identity boundary and negative authorization tests | Shú Perez | Venkata Aravind Mareddy | MT-03 | C2-03 | Filled `permission-boundaries.md`; negative-path tests passing in CI at the A6 SHA | Target confirmation and permissions documentation | In Progress. Candidate authorization tests passed. |
+| TASK-018.4 | Acceptance re-run and independent review | Venkata Aravind Mareddy (acceptance), Giancarlo Herrera (quality gate) | Victor Dodan (decision) | MT-04 | C2-04 | TC-001–TC-012 human disposition per case at the A6 SHA; integrated browser workflow (PRs #126–#128) verified; named non-author review; CI URL and totals at the tag commit; Issues #104/#105 closed | Final candidate selected and outstanding evidence reconciled | In Progress. Browser and CI checks passed on candidate `373a0f6`. Human dispositions and independent review are open. |
 | TASK-018.5 | Supply-chain assurance (tier B) | Reviewer appointed by Victor | Victor Dodan | MT-05 | C2-05 | Tomcat/Boot update with CI re-run, or dated advisory/license review, or Victor's dated deferral | Reviewer appointment | Not Started |
 | TASK-018.6 | Planning accuracy and continuous evidence | Malec Tarabein | Shú Perez | MT-06 | C2-06 | Cycle 2 `re-estimation.md`; this task plan and `schedule.md` kept current; effort log; CP-A6-1 and CP-A6-2 records; changed-file index per merged PR | PR #115 | In Progress |
-| TASK-018.7 | A6 release package and presentation | Victor Dodan | Shelby Sierah | — | C2-07 | `release-notes.md`, `changed-files-since-a5.md`, `final-test-evidence.md`, Word summary, PPTX, rehearsal; maturity plan final disposition table filled | TASK-018.4; CP-A6-2 | Not Started |
+| TASK-018.7 | A6 release package and presentation | Victor Dodan | Shelby Sierah | — | C2-07 | `release-notes.md`, `changed-files-since-a5.md`, `final-test-evidence.md`, Word summary, PPTX, rehearsal; maturity plan final disposition table filled | TASK-018.4 and CP-A6-2 | In Progress. Release documents are in review (#133–#135). |
 
 Each subtask follows the Definition of Done above. A subtask closes only with
 the expected evidence linked, or with a dated deferral recorded in the maturity
@@ -231,7 +231,7 @@ plan's final disposition table. A PR existing is not completion.
 
 ### A6 effort log
 
-Started at A6 kickoff (2026-11-24) to close PM-04. Each member adds a row in the
+Added for A6 closeout on November 24 to address PM-04. Each member adds a row in the
 same week they do the work. Record real hours only; do not estimate them later
 from commit times. Planning totals are compared with the
 [Cycle 2 estimates](re-estimation.md#cycle-2-estimates-proposed) at each checkpoint.
@@ -240,17 +240,17 @@ from commit times. Planning totals are compared with the
 |---|---|---|---:|---|
 | | | | | |
 
-**Running totals** (updated at each checkpoint):
+**Recorded effort.** Blank entries represent missing contributor records. The likely estimates are proposed planning values.
 
 | Subtask | Likely estimate | Logged to date | Checked at |
 |---|---:|---:|---|
-| TASK-018.1 | 6 h | 0 h | — |
-| TASK-018.2 | 9 h | 0 h | — |
-| TASK-018.3 | 10 h | 0 h | — |
-| TASK-018.4 | 12 h | 0 h | — |
-| TASK-018.5 | 5 h | 0 h | — |
-| TASK-018.6 | 8 h | 0 h | — |
-| TASK-018.7 | 14 h | 0 h | — |
+| TASK-018.1 | 6 h | No entries | — |
+| TASK-018.2 | 9 h | No entries | — |
+| TASK-018.3 | 10 h | No entries | — |
+| TASK-018.4 | 12 h | No entries | — |
+| TASK-018.5 | 5 h | No entries | — |
+| TASK-018.6 | 8 h | No entries | — |
+| TASK-018.7 | 14 h | No entries | — |
 
 ### Task changes in A6
 
@@ -261,7 +261,7 @@ from commit times. Planning totals are compared with the
   was created for them.
 - The lightweight browser client (LIM-004) was added by team decision and
   implemented in PRs #126–#128; its integrated workflow is verified at freeze
-  under TASK-018.4.
+  under TASK-018.4. Candidate workflow checks passed on `373a0f6`. Final dispositions remain open.
 - Open decision: Victor's confirmation of the remaining targets and owners
   (PR #115), needed before CP-A6-1. The MT-02 runbook assignment (Shú writes,
   Giancarlo exercises and records) was confirmed by Victor on 2026-11-24.
