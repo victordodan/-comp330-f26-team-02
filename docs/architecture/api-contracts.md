@@ -5,7 +5,7 @@
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A6 — Cycle 2 Final Release Candidate  
 **Owner:** Shú Perez  
-**Backup:** Giancarlo Herrera  
+**Document backup:** Giancarlo Herrera  
 **Last Updated:** 2026-11-24  
 **Target Release:** `a6-final-release`  
 **Status:** Implementation-aligned documentation; final verification pending
@@ -27,10 +27,15 @@ The contracts cover:
 - Optimistic concurrency.
 - Session-based synthetic identity.
 - Authorization and failure handling.
+- Browser-to-REST communication.
 
-CampusConnect uses Java, Spring Boot, Spring JDBC, Maven, and file-backed H2.
+CampusConnect uses HTML, CSS, vanilla JavaScript, Java, Spring Boot, Spring JDBC, Maven, and file-backed H2.
 
 The implemented interface is a REST HTTP API using JSON rather than the server-rendered interface originally proposed during Assignment 3.
+
+The approved Cycle 2 browser presentation layer communicates with the existing REST API through same-origin HTTP requests. Direct HTTP clients remain supported.
+
+The default local address is `http://127.0.0.1:8080/`. The optional hostname `campusconnect.local` requires a local mapping to loopback.
 
 The application remains restricted to a local classroom demonstration using synthetic data.
 
@@ -52,6 +57,8 @@ Final acceptance requires verification against the exact Assignment 6 release ca
 
 Implemented status indicates that corresponding behavior exists in the reviewed source code. It does not independently establish final acceptance or successful test execution.
 
+The browser presentation layer acts as a student or reviewer HTTP client. It does not introduce additional business API contracts.
+
 ### 2.1 HTTP Endpoint Summary
 
 | Contract | Method | Endpoint | Authorized Identity | Success |
@@ -66,6 +73,23 @@ Implemented status indicates that corresponding behavior exists in the reviewed 
 | API-005 | PATCH | `/api/requests/{id}/note` | Reviewer | 200 |
 
 Both PATCH endpoints require the current request version through the `If-Match` header.
+
+### 2.2 Browser Endpoint Usage
+
+The implemented browser presentation layer directly uses seven of the eight existing REST endpoints.
+
+| Contract | Method | Endpoint | Browser Usage |
+|---|---|---|---|
+| API-007 | POST | `/api/demo/identity` | Select or switch synthetic identity |
+| API-001 | POST | `/api/requests` | Submit a student support request |
+| API-002 | GET | `/api/requests` | Retrieve student-owned requests |
+| API-002 | GET | `/api/requests/{id}` | Available through REST; not directly invoked by the browser workflow |
+| API-003 | GET | `/api/reviewer/requests` | Retrieve the reviewer queue |
+| API-003 | GET | `/api/reviewer/requests/{id}` | Retrieve current request details and ETag before modification |
+| API-004 | PATCH | `/api/requests/{id}/status` | Submit a conditional status update |
+| API-005 | PATCH | `/api/requests/{id}/note` | Submit a conditional resolution note update |
+
+API-006 remains an internal persistence contract and is not directly accessible to the browser.
 
 ---
 
@@ -87,6 +111,12 @@ Individual request responses include an ETag representing the current record ver
 
 List responses return JSON arrays of request records.
 
+The browser presentation layer uses the Fetch API with same-origin REST requests and browser-managed session cookies.
+
+The frontend and REST API are served by the same Spring Boot application.
+
+The browser does not communicate directly with the workflow service, repository, or database.
+
 ### 3.2 Request Validation
 
 Validation is implemented through `RequestValidator`.
@@ -104,6 +134,8 @@ Surrounding whitespace is removed before validation and storage.
 Missing, whitespace-only, unsupported, and out-of-range values are rejected.
 
 These rules implement the requirements associated with Q-001.
+
+Browser input controls may assist users with valid submissions but do not replace authoritative backend validation.
 
 ### 3.3 System-Managed Fields
 
@@ -157,6 +189,10 @@ Each request contains one current student-visible resolution note.
 
 These rules implement the requirements associated with Q-003.
 
+The browser provides separate controls for saving resolution notes and modifying request status.
+
+Unsaved browser note text does not satisfy the backend requirement for a previously saved resolution note.
+
 ### 3.6 Role and Ownership Rules
 
 Supported synthetic identities:
@@ -187,6 +223,10 @@ Switching the selected demo identity does not modify existing request ownership.
 
 The selector intentionally permits classroom impersonation and does not provide real authentication.
 
+Browser role-specific controls are presentation features rather than authoritative security boundaries.
+
+Multiple browser tabs sharing the same session cookie may share the selected server-side identity. Independent browser profiles should be used for simultaneous student and reviewer demonstrations.
+
 These rules implement the requirements associated with Q-004.
 
 ### 3.7 Persistence and Consistency
@@ -215,6 +255,10 @@ Rejected operations must not modify stored records.
 Failed storage operations must not return false success confirmations.
 
 A failed listing must be distinguishable from a successful empty listing.
+
+Temporary browser state is not an independent persistent request datastore.
+
+The backend response and stored database record remain authoritative.
 
 ---
 
@@ -280,6 +324,14 @@ The response body contains the created `SupportRequest` record.
 - Invalid submissions do not create records.
 - Success is returned only after the storage operation completes.
 
+#### Browser Integration
+
+The student request form submits the title, category, and description through this endpoint.
+
+The browser does not assign the request identifier, student ownership, initial status, timestamps, or record version.
+
+Following successful creation, the browser refreshes the student request dashboard.
+
 ---
 
 ### API-002 — Retrieve Student-Owned Requests
@@ -335,6 +387,16 @@ The individual endpoint returns one `SupportRequest` record and its current ETag
 - Retrieved records contain the current saved status and resolution note.
 - A failed retrieval is not represented as a successful empty result.
 
+#### Browser Integration
+
+The student dashboard retrieves records through `GET /api/requests`.
+
+The browser displays the returned request information, including status and saved resolution notes.
+
+Status filtering is performed against the returned student-owned request list.
+
+The individual student request-detail endpoint remains available through the REST API but is not directly invoked by the implemented browser workflow.
+
 ---
 
 ### API-003 — Reviewer Request Listing and Inspection
@@ -379,8 +441,18 @@ The individual endpoint returns the selected request and its current ETag.
 - Reviewer authorization is enforced server-side.
 - Student sessions cannot access reviewer-only endpoints.
 - Reviewer access includes requests from both synthetic students.
-- Pagination and filtering are not part of the reviewed implementation.
+- Server-side pagination and filtering are not part of the reviewed implementation.
 - Empty results remain distinguishable from storage failures.
+
+#### Browser Integration
+
+The reviewer dashboard retrieves the complete reviewer queue through `GET /api/reviewer/requests`.
+
+The browser may filter the returned records by status without introducing a separate filtering endpoint.
+
+Before submitting a reviewer modification, the browser retrieves the individual request through `GET /api/reviewer/requests/{id}` to obtain its current record version and ETag.
+
+The retrieved version is compared with the version originally displayed to the reviewer.
 
 ---
 
@@ -451,6 +523,20 @@ The returned version is incremented from the previous stored version.
 - Stale updates are rejected.
 - Rejected operations preserve existing stored data.
 
+#### Browser Integration
+
+The browser presents reviewer controls corresponding to the supported status transitions.
+
+Before submitting a status modification, the browser retrieves current reviewer request details and checks the version against the originally displayed record.
+
+The status request includes the applicable If-Match header and the requested status.
+
+The browser does not combine resolution note changes with status modifications.
+
+Unsaved reviewer note changes must be addressed before submitting a status modification through the browser.
+
+The backend remains responsible for authoritative transition validation and concurrency enforcement.
+
 ---
 
 ### API-005 — Save or Replace Resolution Note
@@ -514,6 +600,18 @@ The response contains the updated request and its current version.
 - The owning student can retrieve the latest saved note.
 - Rejected updates preserve existing stored content.
 
+#### Browser Integration
+
+The browser provides a separate reviewer resolution note input and save operation.
+
+Unsaved note text remains temporary browser state.
+
+Before submitting the note modification, the browser retrieves current reviewer request details and checks the displayed version against the retrieved version and ETag.
+
+The browser submits the resolutionNote field and applicable If-Match header.
+
+The saved note becomes authoritative only after the backend successfully completes the modification.
+
 ---
 
 ### API-006 — Request Repository Operations
@@ -547,6 +645,8 @@ This is an internal application contract rather than a public HTTP endpoint.
 - Repository operations are not exposed directly as public API endpoints.
 - Authorization and workflow rules remain the responsibility of WorkflowService.
 
+The browser presentation layer does not directly invoke repository operations.
+
 #### Default Database Location
 
 ```text
@@ -557,7 +657,11 @@ The database location is relative to the application working directory.
 
 Ordinary restart retention requires reuse of the same database store.
 
+Same-store restart persistence was demonstrated during the recorded November 24, 2026, operational exercises.
+
 Backup restoration, disaster recovery, and distributed deployment require separate verification.
+
+Reference: [Runtime Evidence](../observability/runtime-evidence.md).
 
 ---
 
@@ -621,6 +725,22 @@ The client must retain its session cookie for subsequent operations.
 - The selector intentionally allows switching between demo identities.
 - The selector is not real authentication or institutional SSO.
 
+#### Browser Integration
+
+The browser provides identity selection controls for Student A, Student B, and Reviewer.
+
+Following successful identity selection, the browser loads the corresponding student or reviewer dashboard.
+
+The browser uses its same-origin session cookie for subsequent protected operations.
+
+Changing the displayed identity is not independently sufficient to change backend authorization.
+
+The server-side session remains authoritative.
+
+Identity switching is not equivalent to production authentication or server-side logout.
+
+Multiple browser tabs may share the same session identity.
+
 ---
 
 ## 5. Shared Response and Error Contracts
@@ -660,6 +780,10 @@ Illustrative response:
 ```
 
 This example illustrates the response structure and is not captured runtime evidence.
+
+The browser consumes this response model when rendering student and reviewer request information.
+
+The browser does not independently generate authoritative values for system-managed fields.
 
 ### 5.2 HTTP Error Responses
 
@@ -725,6 +849,105 @@ The client must retrieve the current request and its latest ETag before attempti
 
 Automatic overwrite of newer data is prohibited.
 
+#### Browser Concurrency Coordination
+
+The browser supplements the existing optimistic concurrency contract through the following sequence:
+
+1. Retrieve the reviewer request list.
+2. Retain the version associated with the displayed request.
+3. Receive a reviewer note or status modification action.
+4. Retrieve the current individual reviewer request and ETag.
+5. Compare the retrieved version and ETag with the originally displayed version.
+6. Prevent the modification if a version mismatch is detected.
+7. Submit the applicable PATCH request with If-Match when the versions agree.
+8. Interpret the backend response.
+9. Refresh relevant request information following successful modification.
+
+```mermaid
+sequenceDiagram
+    actor Reviewer
+    participant Browser
+    participant Controller as RequestController
+    participant Service as WorkflowService
+    participant Repository as JdbcRequestRepository
+    participant DB as H2 Database
+
+    Browser->>Controller: GET reviewer requests
+    Controller->>Service: Retrieve authorized queue
+    Service->>Repository: Retrieve requests
+    Repository->>DB: Query records
+    DB-->>Repository: Request rows
+    Repository-->>Service: Requests
+    Service-->>Controller: Authorized queue
+    Controller-->>Browser: JSON response
+
+    Reviewer->>Browser: Request note or status modification
+    Browser->>Controller: GET reviewer request details
+    Controller-->>Browser: Current request and ETag
+
+    alt Displayed version differs
+        Browser-->>Reviewer: Conflict feedback
+    else Versions agree
+        Browser->>Controller: PATCH with If-Match
+        Controller->>Service: Authorized conditional modification
+        Service->>Repository: Version-aware replacement
+        Repository->>DB: Conditional update
+
+        alt Version conflict
+            Controller-->>Browser: 412 Precondition Failed
+            Browser-->>Reviewer: Conflict feedback
+        else Successful update
+            Controller-->>Browser: 200 and updated ETag
+            Browser->>Controller: Refresh reviewer queue
+            Browser-->>Reviewer: Updated operation feedback
+        end
+    end
+```
+
+The browser-side version check does not eliminate the possibility of a concurrent modification occurring between retrieval and submission.
+
+The backend remains responsible for the authoritative version comparison and atomic conditional update.
+
+The browser does not automatically retry stale modifications or overwrite newer stored records.
+
+### 5.4 Browser Response Handling
+
+The browser presentation layer interprets successful and failed REST responses.
+
+| Response | Browser Responsibility |
+|---|---|
+| 200 OK | Process successful retrieval, identity selection, or modification |
+| 201 Created | Confirm successful request creation |
+| 400 Bad Request | Communicate invalid input or prohibited workflow operation |
+| 403 Forbidden | Communicate authorization failure and clear or reset protected interface state |
+| 404 Not Found | Communicate missing or inaccessible resources |
+| 412 Precondition Failed | Communicate stale-version conflict without automatically overwriting newer data |
+| 428 Precondition Required | Communicate missing conditional update information |
+| 503 Service Unavailable | Communicate application storage or transaction failure |
+| Network failure | Communicate unsuccessful communication or an unconfirmed operation outcome |
+
+A network failure does not independently establish whether a submitted operation was committed.
+
+The browser must not automatically repeat a potentially completed modification without establishing the current application state.
+
+A confirmed successful modification followed by a failed dashboard refresh must remain distinguishable from a failed modification.
+
+A failed listing must not be displayed as a successful empty result.
+
+### 5.5 Static Resource Delivery Boundary
+
+Spring Boot serves the implemented browser presentation resources from:
+
+`src/main/resources/static/`
+
+These resources include HTML, CSS, and JavaScript.
+
+Static resource delivery supports browser presentation and does not introduce additional business REST endpoints.
+
+Open `http://127.0.0.1:8080/` by default. A workstation that maps `campusconnect.local` to loopback can also use `http://campusconnect.local:8080/`.
+
+Access to frontend resources does not grant authorization to protected REST endpoints.
+
 ---
 
 ## 6. AI and External Tool Boundaries
@@ -742,10 +965,28 @@ Accordingly:
 
 Future external integrations require requirements review, architecture approval, security assessment, and documented governance decisions.
 
+### 6.1 Verification and Demonstration Tool Boundaries
+
+Local engineering support scripts interact with the application through the existing HTTP interfaces.
+
+| Tool | Purpose | Contract Boundary |
+|---|---|---|
+| Postman / cURL | Direct REST interaction and verification | Must preserve applicable session and version requirements |
+| `scripts/frontend-smoke-test.sh` | Verify frontend resources and selected REST permission boundaries | Does not establish comprehensive browser interaction coverage or create persistent request records |
+| `scripts/demo-data.sh` | Create synthetic demonstration records and reviewer updates | Modifies the configured persistent database through existing authorized REST operations |
+
+The demonstration data script does not directly modify the database or bypass backend authorization and workflow rules.
+
+Sequential existing-record matching reduces unnecessary duplicate creation.
+
+Atomic duplicate prevention across concurrent script executions and automatic recovery from interrupted preparation are not established.
+
 References:
 
 - [AI Use Policy](../ai/ai-policy.md)
 - [AI Use Log](../ai/ai-use-log.md)
+- [Frontend Smoke Testing Script](../../scripts/frontend-smoke-test.sh)
+- [Demonstration Data Script](../../scripts/demo-data.sh)
 
 ---
 
@@ -762,12 +1003,15 @@ References:
 | ADR-003 | Transactional updates and optimistic version checking | API-004, API-005, API-006 |
 | ADR-004 | Local persistence and recovery expectations | API-006 |
 | ADR-0005 | Clarifies transactional JDBC and file-backed H2 implementation | API-006 |
+| ADR-006 | REST interface alignment and approved browser presentation extension | API-001 through API-005, API-007 |
 
 ADR-002 through ADR-004 were historically approved on October 16, 2026.
 
-The original design included Thymeleaf and Post/Redirect/Get. The reviewed implementation uses REST endpoints instead.
+The original design included Thymeleaf and Post/Redirect/Get. The reviewed implementation uses REST endpoints extended by a same-origin static browser presentation layer.
 
 Post/Redirect/Get is not claimed as an implemented API capability.
+
+The Cycle 2 browser presentation direction is documented in the [Cycle 2 Maturity Plan](../planning/cycle2-maturity-plan.md) and the corresponding [ADR-006](../decisions/ADR-006-rest-api-interface-alignment.md) amendment.
 
 Stronger duplicate-submission prevention, idempotency, and exact retry handling remain separate concerns.
 
@@ -830,7 +1074,68 @@ For scenarios testing workflow behavior, supply otherwise valid request bodies, 
 - Rejected operations must preserve existing stored records.
 - Concurrent update tests must verify that stale writes cannot overwrite newer data.
 - Persistence verification must reuse the same database location.
+- HTTP resource verification does not independently establish browser JavaScript behavior.
+- Browser interaction verification does not replace backend authorization tests.
 - Final acceptance evidence must be recorded separately.
+
+### 8.2 Browser Integration Verification Scenarios
+
+The following scenarios describe browser integration expectations associated with existing API contracts.
+
+They do not introduce additional formal test identifiers or replace the central test catalog.
+
+| Contract | Browser Scenario | Expected Behavior |
+|---|---|---|
+| API-007 | Select a supported synthetic identity | Appropriate student or reviewer dashboard becomes available |
+| API-007 | Switch from Reviewer to Student B | Subsequent protected reviewer operations are denied |
+| API-001 | Submit valid student request | Successful creation and refreshed student request information |
+| API-001 | Submit invalid student request | Validation feedback without false success |
+| API-002 | Retrieve student request dashboard | Only records owned by the selected student are displayed |
+| API-003 | Retrieve reviewer queue | Requests across both synthetic students are available |
+| API-003 | Apply browser status filter | Displayed records reflect the selected filter |
+| API-004 | Submit supported status modification | Successful update and refreshed request information |
+| API-004 | Attempt resolution without saved note | Operation prevented or rejected |
+| API-005 | Save reviewer resolution note | Latest saved note becomes available to the owning student |
+| API-004, API-005 | Attempt modification using stale displayed version | Conflict feedback without overwriting newer data |
+| API-004, API-005 | Backend rejects conditional update | Failure communicated without false success |
+| API-002, API-003 | Request listing fails | Failure remains distinguishable from a successful empty result |
+| API-001, API-004, API-005 | Confirmed modification followed by failed refresh | Modification success and refresh failure remain distinguishable |
+| Static resources | Request unavailable frontend resource | Appropriate missing-resource response |
+
+These scenarios describe expected integration behavior rather than independently recorded test results.
+
+### 8.3 Recorded Verification Evidence
+
+The following previously recorded November 24, 2026, verification results support the reviewed API and browser integration contracts.
+
+| Verification Context | Recorded Results |
+|---|---|
+| Local frontend verification by Shú Perez | 38 smoke checks passed, zero failed |
+| Local demonstration data preparation | Six synthetic requests created and ten reviewer updates completed |
+| Integrated browser candidate `373a0f6` | 38 passing HTTP smoke checks and scoped Chromium workflow verification |
+| Integrated browser candidate repeat demonstration setup | Six existing matching requests skipped |
+| Integrated revision `0860160bc458af670c7944ccd035d21425e7511d` | 51 Maven tests passed with zero failures, errors, or skips |
+| Packaged HTTP workflow verification | 36 checks passed |
+| Packaged restart verification | Five checks passed |
+| Separate Windows exercise reported by Giancarlo Herrera | Ten of ten manual workflow checks passed and same-store restart retention reported |
+
+The Linux build, packaged HTTP workflow, and restart checks were performed by Codex.
+
+Giancarlo Herrera performed and reported the separate Windows browser and restart exercise.
+
+The recorded Chromium exercise covered student request submission, student isolation, reviewer modifications, stale-edit rejection, and owner visibility.
+
+Supporting evidence:
+
+- [Runtime Evidence](../observability/runtime-evidence.md)
+- [Integrated CI Execution](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45543404188)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [Packaged Workflow Transcript](../../test-evidence/a6-operations-0860160/workflow.jsonl)
+- [Packaged Restart Transcript](../../test-evidence/a6-operations-0860160/restart.jsonl)
+
+These results retain their original execution contexts and tested revisions.
+
+They do not independently establish that every listed boundary scenario has passed or that the final tagged release has been verified.
 
 ---
 
@@ -839,18 +1144,23 @@ For scenarios testing workflow behavior, supply otherwise valid request bodies, 
 Before final Assignment 6 acceptance:
 
 - [ ] Confirm endpoint paths and HTTP methods against the final controller implementation.
+- [ ] Confirm browser endpoint usage against the final frontend implementation.
 - [ ] Confirm DTO fields against the final Java records.
 - [ ] Confirm validation rules against RequestValidator.
 - [ ] Confirm authorization and lifecycle rules against WorkflowService.
 - [ ] Confirm HTTP status and error mappings against ApiExceptionHandler.
 - [ ] Confirm repository and persistence behavior.
 - [ ] Verify stale-version rejection for both PATCH endpoints.
+- [ ] Confirm browser-side version comparison and If-Match handling.
 - [ ] Verify missing and malformed version handling.
 - [ ] Verify student ownership isolation.
+- [ ] Confirm shared browser session behavior is accurately documented.
+- [ ] Confirm browser response handling and temporary state boundaries.
 - [ ] Reconcile negative-path identifiers with the central test catalog.
 - [ ] Confirm final automated test and CI evidence.
 - [ ] Confirm architecture diagram and component responsibility alignment.
 - [ ] Review applicable ADRs and known limitations.
+- [ ] Confirm ADR-006 amendment integration and review.
 - [ ] Record independent human review.
 - [ ] Record AI assistance and human verification.
 - [ ] Confirm alignment with the approved `a6-final-release` revision.
@@ -865,6 +1175,7 @@ Before final Assignment 6 acceptance:
 - [Architecture Diagram](architecture-diagram.png)
 - [Component Responsibilities](component-responsibilities.md)
 - [Data Context](data-context.md)
+- [ADR-006 — REST API Interface Alignment](../decisions/ADR-006-rest-api-interface-alignment.md)
 
 ### Requirements and Planning
 
@@ -873,9 +1184,13 @@ Before final Assignment 6 acceptance:
 - [Assumptions and Open Questions](../requirements/assumptions-open-questions.md)
 - [Traceability](../planning/traceability.md)
 - [Risk Register](../planning/risk-register.md)
+- [Cycle 2 Maturity Plan](../planning/cycle2-maturity-plan.md)
+- [Team Roles](../team/roles.md)
 
 ### Implementation
 
+- [Browser Presentation Resources](../../src/main/resources/static/)
+- [Browser Interface](../../src/main/resources/static/index.html)
 - [RequestController](../../src/main/java/edu/loyola/campusconnect/controller/RequestController.java)
 - [ApiExceptionHandler](../../src/main/java/edu/loyola/campusconnect/controller/ApiExceptionHandler.java)
 - [WorkflowService](../../src/main/java/edu/loyola/campusconnect/service/WorkflowService.java)
@@ -894,9 +1209,19 @@ Before final Assignment 6 acceptance:
 - [HTTP API Guide](../testing/a4-http-api.md)
 - [CI Evidence](../testing/ci-evidence.md)
 - [A5 Acceptance Evidence Matrix](../testing/a5-acceptance-evidence-matrix.md)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [Frontend Smoke Testing Script](../../scripts/frontend-smoke-test.sh)
+- [Demonstration Data Script](../../scripts/demo-data.sh)
 - [Known Limitations](../release/known-limitations.md)
 - [Operational Runbook](../operations/runbook.md)
 - [Observability Plan](../observability/observability-plan.md)
+- [Runtime Evidence](../observability/runtime-evidence.md)
+- [Permission Boundaries](../security/permission-boundaries.md)
+
+### AI Governance
+
+- [AI Use Policy](../ai/ai-policy.md)
+- [AI Use Log](../ai/ai-use-log.md)
 
 ### Historical Review References
 
@@ -904,10 +1229,26 @@ Before final Assignment 6 acceptance:
 - PR #44 — Test Strategy Alignment.
 - PR #46 — Draft Requirements and Acceptance Criteria Updates.
 
+### Cycle 2 Review References
+
+- PR #116 — Architecture Overview.
+- PR #117 — Architecture Diagram.
+- PR #118 — API Contracts.
+- PR #119 — Component Responsibilities.
+- PR #120 — Data Context.
+- PR #126 — HTML Browser Interface.
+- PR #127 — Frontend Styling.
+- PR #128 — Browser Application Logic.
+- PR #129 — Frontend Integration Tests.
+- PR #130 — Frontend Smoke Testing.
+- PR #131 — Synthetic Demonstration Data Generation.
+
 ---
 
 **Architecture Lead:** Shú Perez
 
-**Backup:** Giancarlo Herrera
+**Document backup:** Giancarlo Herrera
+
+**Architecture & Development role backup:** Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md).
 
 **Evidence Status:** Contracts aligned with reviewed implementation source. Final integrated testing, independent review, and release authorization remain pending.
