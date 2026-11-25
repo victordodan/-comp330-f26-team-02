@@ -1,5 +1,17 @@
 # AI Use Log
 
+## A6 — Cycle 2 Re-Estimation, Task Plan and Schedule (Malec Tarabein)
+
+Claude (Claude Code) assisted Malec Tarabein on 2026-11-24 with drafting the
+Cycle 2 `docs/planning/re-estimation.md`, the TASK-018 subtask split and A6
+effort log in `task-plan.md`, and the A6 section of `schedule.md`, from the
+maturity plan, Cycle 1 postmortem and A6 specification. Owners and targets were
+checked against `cycle2-maturity-plan.md` (including the MT-02 runbook
+assignment Victor confirmed on 2026-11-24), and week windows against the A6
+specification. Estimates, the remaining owners and checkpoint dates are
+proposals pending Victor's and each owner's confirmation. No hours, work or
+approvals are claimed.
+
 ## A6 — Cycle 1 Postmortem and Cycle 2 Maturity Plan (Malec Tarabein)
 
 Claude (Claude Code) assisted Malec Tarabein with drafting
