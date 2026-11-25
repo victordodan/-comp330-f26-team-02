@@ -6,10 +6,10 @@
 | Field | Details |
 |---|---|
 | Project | CampusConnect — University Support Portal |
-| Course | COMP 330 — Software Engineering |
+| Course | COMP 330 — Software Project Management |
 | Team | Team 02 — Codex Ramblers |
 | Release Phase | Assignment 6 — Final Cycle 2 Release |
-| Release Tag | `a6-final-release` |
+| Planned Release Tag | `a6-final-release` |
 | Release Environment | Local classroom demonstration |
 | Release Status | Release candidate — pending final integrated verification and approval |
 | Team Lead | Victor Dodan |
@@ -382,7 +382,7 @@ The complete API behavior is documented in:
 
 ---
 
-## 11. Local Runtime Verification Evidence
+## 11. Earlier Local Runtime Verification Evidence
 
 The following results were observed during local Cycle 2 integration on November 24, 2026.
 
@@ -499,6 +499,20 @@ Unperformed verification must remain identified as pending or deferred rather th
 
 ---
 
+### 11.6 Merged Candidate Verification
+
+The November 24 merged candidate `373a0f6b6d6190d6067099178a8c71862bb12dec` passed [GitHub CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45509064331).
+On a clean checkout of that revision, Codex ran 51 Maven tests and 38 HTTP smoke
+checks with zero failures. The Chromium exercise covered student submission
+and isolation, reviewer status and note updates, stale-edit rejection, and
+owner visibility. Demo setup created six requests on the first run. A repeat
+run skipped all six and made zero reviewer updates. [Candidate evidence in #112](https://github.com/victordodan/-comp330-f26-team-02/blob/a6-quality-defect-review-gherrera/docs/testing/final-test-evidence.md#november-24-browser-candidate)
+
+Final acceptance, independent integrated review, release authorization, and
+tag verification remain pending.
+
+---
+
 ## 12. Implementation and Pull Request Traceability
 
 The following pull requests represent the Cycle 2 frontend implementation and supporting verification contributions.
@@ -512,7 +526,7 @@ The following pull requests represent the Cycle 2 frontend implementation and su
 | [PR #130](https://github.com/victordodan/-comp330-f26-team-02/pull/130) | Frontend smoke testing script |
 | [PR #131](https://github.com/victordodan/-comp330-f26-team-02/pull/131) | Synthetic demonstration data script |
 
-All six contributions were integrated into a local verification branch before the recorded runtime executions.
+All six contributions were integrated on the earlier local verification branch and subsequently merged to `main` in PRs #126–#131. The merged verification results are recorded in section 11.6.
 
 Local integration does not establish that the corresponding pull requests have received independent approval or been merged into the final release branch.
 
@@ -764,14 +778,14 @@ The final release owner must verify that each referenced artifact exists, is cur
 | Maturity Area | Current Assessment |
 |---|---|
 | Core Workflow | Existing implemented foundation |
-| Browser Presentation | Implemented and locally integrated |
-| Frontend Resource Availability | Locally verified |
-| HTTP Smoke Testing | 38 of 38 checks passed locally |
+| Browser Presentation | Merged and exercised in Chromium on the November 24 candidate |
+| Frontend Resource Availability | Verified on the packaged merged candidate |
+| HTTP Smoke Testing | 38 of 38 checks passed on the merged candidate |
 | Demonstration Data Setup | Successfully executed locally |
 | Student Data Visibility | Observed for six demonstration records |
 | Reviewer Workflow Updates | Ten successful updates observed |
 | Architecture Alignment | Final reconciliation required |
-| Automated Regression Verification | Final result requires confirmation |
+| Automated Regression Verification | 51 Maven tests passed on the merged candidate |
 | Independent Review | Final review status requires confirmation |
 | Operational Readiness | Bounded classroom readiness; final evidence reconciliation required |
 | Security Readiness | Restricted synthetic classroom environment |
