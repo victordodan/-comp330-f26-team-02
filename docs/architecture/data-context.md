@@ -5,7 +5,7 @@
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A6 — Cycle 2 Final Release Candidate  
 **Owner:** Shú Perez  
-**Backup:** Giancarlo Herrera  
+**Document backup:** Giancarlo Herrera  
 **Last Updated:** 2026-11-24  
 **Target Release:** `a6-final-release`  
 **Status:** Implementation-aligned documentation; final verification pending
@@ -20,9 +20,7 @@ The implemented architecture uses HTML, CSS, vanilla JavaScript, Java, Spring Bo
 
 The approved Cycle 2 browser presentation layer communicates with the existing REST API through same-origin HTTP requests.
 
-The application is accessible through the locally configured address:
-
-`http://campusconnect.local:8080`
+The default local address is `http://127.0.0.1:8080/`. The optional hostname `campusconnect.local` requires a local mapping to loopback.
 
 This document replaces the proposed Assignment 3 data architecture with the reviewed implementation structure and aligns with:
 
@@ -201,11 +199,7 @@ The Cycle 2 browser presentation layer introduces no additional database tables 
 
 These settings describe the default local classroom configuration.
 
-The locally configured application address is:
-
-`http://campusconnect.local:8080`
-
-The custom hostname requires local configuration and does not establish public hosting or production deployment.
+Open `http://127.0.0.1:8080/` by default. A workstation that maps `campusconnect.local` to loopback can also use `http://campusconnect.local:8080/`.
 
 The database path is relative to the application's working directory.
 
@@ -781,7 +775,7 @@ The following consistency boundaries apply to browser interaction.
 | Successful creation response | Backend confirms stored request creation |
 | Successful modification response | Backend confirms stored request modification |
 | Failed conditional update | Existing newer stored state must remain protected |
-| Successful modification followed by failed refresh | Modification succeeded; displayed information may remain outdated |
+| Successful modification followed by failed refresh | The save succeeded. The browser clears the list and reports the refresh failure. On HTTP 403 it also returns to identity selection. |
 | Network failure during modification | Final operation outcome may be unconfirmed |
 | Successful empty list | No matching authorized records returned |
 | Failed listing | Retrieval failure rather than confirmed absence of records |
@@ -1175,6 +1169,8 @@ Source-level documentation review does not replace runtime verification or final
 
 **Architecture Lead:** Shú Perez
 
-**Backup:** Giancarlo Herrera
+**Document backup:** Giancarlo Herrera
+
+**Architecture & Development role backup:** Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md).
 
 **Evidence Status:** Data and context ownership aligned with the reviewed backend implementation, database configuration, and documented Cycle 2 browser presentation layer. Final integrated verification, independent review, and release authorization remain pending.
