@@ -66,16 +66,13 @@ To avoid repeating PM-01, the plan adds one checkpoint before the A6 freeze:
 Dates for CP-A6-1 and CP-A6-2 are set by the team in `schedule.md`; this file
 does not invent deadlines.
 
-### Open decisions for MT-05 and MT-06
+### MT-05 decision and MT-06 disposition
 
 - MT-05 remains open for Victor's scoped A6 dependency and license decision.
   A documented deferral is proposed if the scoped review is unavailable.
   [Historical assessment](../quality/a5-dependency-disposition.md) ·
   [Current limitations](../release/known-limitations.md#616-lim-016--dependency-and-security-assurance)
-- Malec proposes **Mitigated** for MT-06 in [#138](https://github.com/victordodan/-comp330-f26-team-02/pull/138).
-The merged planning updates support the recommendation. The missing effort
-actuals and separate midpoint checkpoint remain visible. Victor's decision
-is pending.
+- Victor approved MT-06 as **Mitigated** in [#138](https://github.com/victordodan/-comp330-f26-team-02/pull/138). The effort actuals and separate midpoint checkpoint remain missing.
 
 ## Final disposition (complete at the A6 freeze)
 
