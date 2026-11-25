@@ -350,3 +350,490 @@ review condition for this conditional classroom baseline, retained Victor as
 accountable owner and disclosed possible course-assessment consequences. This
 is not a teammate’s review or an instructor waiver. The tag must follow a
 successful exact-main CI run and preserve the original evidence identities.
+
+
+---
+
+## A6 — Architecture & Development Lead AI Assistance (Shú Perez)
+
+**Date:** November 24, 2026  
+**Contributor:** Shú Perez  
+**Role:** Architecture & Development Lead   
+**AI Tool:** ChatGPT  
+**Assignment:** A6 — Cycle 2 Final Release  
+**Target Release:** `a6-final-release`  
+**Human Verification Status:** Completed and confirmed by Shú Perez  
+**Independent Review Status:** Pending applicable teammate review
+
+---
+
+### 1. Purpose and Scope
+
+ChatGPT assisted Shú Perez with Assignment 6 architecture reconciliation, frontend development, implementation review, verification planning, release documentation, and preparation of engineering evidence.
+
+AI assistance supported the approved Cycle 2 browser presentation layer while preserving the existing REST API, server-side authorization, workflow rules, optimistic concurrency controls, and file-backed H2 persistence architecture.
+
+All AI-assisted work submitted by Shú was personally checked, reviewed, and confirmed by Shú before repository submission.
+
+ChatGPT was used as an engineering assistance tool rather than an independent decision-maker or substitute for human judgment.
+
+Shú retained responsibility for reviewing, understanding, modifying, accepting, or rejecting AI-generated outputs throughout the development and documentation process.
+
+The assistance was restricted to project development and synthetic classroom data. No runtime AI integration was introduced.
+
+---
+
+### 2. AI-Assisted Activities
+
+| Date | Tool | Purpose | Artifact / Activity | Human Verification | Result / Action |
+|---|---|---|---|---|---|
+| 2026-11-24 | ChatGPT | Review and reconcile the implemented architecture | PR #116; `docs/architecture/architecture.md` | Shú personally reviewed and confirmed the AI-assisted architecture documentation against the intended implementation and project scope. | Accepted for repository submission and subsequently reconciled with browser integration. |
+| 2026-11-24 | ChatGPT | Develop and reconcile the architecture diagram | PR #117; `docs/architecture/architecture-diagram.png` | Shú personally reviewed and confirmed the architectural relationships and AI-assisted diagram content. | Accepted for repository submission; final integrated diagram alignment remains subject to independent review. |
+| 2026-11-24 | ChatGPT | Reconcile API contracts with implemented REST behavior | PR #118; `docs/architecture/api-contracts.md` | Shú personally reviewed and confirmed the AI-assisted contract descriptions, endpoint responsibilities, and implementation boundaries. | API documentation accepted and further reconciled with browser integration. |
+| 2026-11-24 | ChatGPT | Document component responsibilities and architectural boundaries | PR #119; `docs/architecture/component-responsibilities.md` | Shú personally reviewed and confirmed the documented frontend and backend component responsibilities. | Accepted for repository submission. |
+| 2026-11-24 | ChatGPT | Document data ownership, persistence, and context boundaries | PR #120; `docs/architecture/data-context.md` | Shú personally reviewed and confirmed the AI-assisted descriptions of data ownership, persistence, authorization, and temporary browser state. | Accepted for repository submission. |
+| 2026-11-24 | ChatGPT | Develop the browser interface structure | PR #126; HTML frontend | Shú personally reviewed and confirmed the AI-assisted HTML implementation, integrated it locally, and executed frontend smoke verification. | Browser interface implemented using the existing REST architecture. |
+| 2026-11-24 | ChatGPT | Develop responsive frontend styling | PR #127; CSS frontend | Shú personally reviewed and confirmed the styling implementation and verified resource availability through the frontend smoke script. | CampusConnect visual presentation implemented without external frontend dependencies. |
+| 2026-11-24 | ChatGPT | Develop browser interaction and REST communication logic | PR #128; JavaScript frontend | Shú personally reviewed and confirmed the AI-assisted browser logic, integrated it locally, and executed the frontend smoke and demonstration preparation scripts. | Student and reviewer interfaces implemented using existing REST endpoints. |
+| 2026-11-24 | ChatGPT | Develop frontend integration tests | PR #129; `FrontendIntegrationTest.java` | Shú personally reviewed and confirmed the AI-assisted test implementation and its intended coverage. Separate integrated regression evidence is recorded in the repository. | Automated frontend resource and HTTP boundary coverage added. |
+| 2026-11-24 | ChatGPT | Develop frontend smoke verification script | PR #130; `scripts/frontend-smoke-test.sh` | Shú personally reviewed, confirmed, and executed the script against the locally running integrated application. | 38 checks passed; zero failed. |
+| 2026-11-24 | ChatGPT | Develop synthetic demonstration preparation script | PR #131; `scripts/demo-data.sh` | Shú personally reviewed, confirmed, and executed the script and inspected the reported creation and update results. | Six synthetic requests created, zero skipped, and ten reviewer updates completed. |
+| 2026-11-24 | ChatGPT | Reconcile the REST architecture decision with the approved browser presentation layer | `docs/decisions/ADR-006-rest-api-interface-alignment.md` | Shú confirmed the team's frontend approval and personally reviewed and confirmed the AI-assisted architecture amendment. | Browser presentation amendment prepared without replacing the historical decision. |
+| 2026-11-24 | ChatGPT | Prepare and reconcile release documentation | `docs/release/final-release-notes.md`; `docs/release/known-limitations.md`; changed-file comparison drafts | Shú personally reviewed and confirmed the AI-assisted documentation and its intended scope. The team-maintained A5 baseline and changed-file comparison remain authoritative. | Release documentation prepared with explicit verification and acceptance limitations. |
+| 2026-11-24 | ChatGPT | Prepare architecture reconciliation pull request descriptions | Architecture overview, diagram, component responsibilities, API contracts, data context, and ADR-006 amendment | Shú personally reviewed and confirmed the AI-assisted PR descriptions, contribution attribution, and documented limitations. | PR descriptions prepared for repository submission and independent review. |
+| 2026-11-24 | ChatGPT | Document significant individual AI assistance | `docs/ai/ai-use-log.md` | Shú personally reviewed and confirmed the accuracy of the individual AI assistance disclosure and human verification statements. | Individual A6 disclosure prepared without replacing existing team entries. |
+
+---
+
+### 3. Human Verification, Confirmation, and Accountability
+
+All AI-assisted work submitted by Shú Perez was personally reviewed, checked, and confirmed by Shú before being accepted for repository submission.
+
+No AI-generated work submitted under Shú's authorship was accepted without personal review and confirmation.
+
+Human verification applied to the following engineering activities:
+
+- Architecture documentation.
+- Architecture diagrams.
+- Architecture decision records.
+- Component responsibilities.
+- API contracts.
+- Data ownership and persistence documentation.
+- HTML implementation.
+- CSS implementation.
+- JavaScript implementation.
+- Frontend integration tests.
+- Frontend smoke verification scripts.
+- Synthetic demonstration preparation scripts.
+- Release documentation.
+- Technical limitations and risk disclosures.
+- Pull request descriptions.
+- AI assistance disclosures.
+
+AI-assisted outputs were reviewed for:
+
+- Technical accuracy.
+- Relevance to the project.
+- Consistency with the existing implementation.
+- Alignment with the approved architecture.
+- Preservation of existing REST API contracts.
+- Preservation of backend authorization boundaries.
+- Preservation of data ownership and persistence requirements.
+- Consistency with Assignment 6 requirements.
+- Appropriate attribution of engineering contributions.
+- Accurate representation of verification evidence.
+- Appropriate documentation of unresolved limitations.
+
+Shú retained responsibility for determining whether AI-generated recommendations were appropriate, required modification, or should be rejected.
+
+AI-generated outputs were not treated as automatically authoritative.
+
+Shú confirms that the AI-assisted contributions accurately represent the intended implementation, architectural decisions, and documented engineering boundaries to the best of her knowledge.
+
+Previously recorded verification results were reviewed against the available engineering evidence.
+
+Results executed by other contributors or AI tools retain their original attribution and are not represented as personally executed tests by Shú.
+
+#### Human Verification Status
+
+| Verification Activity | Responsible Contributor | Status |
+|---|---|---|
+| Review of submitted AI-assisted architecture documentation | Shú Perez | Completed and confirmed |
+| Review of submitted AI-assisted frontend implementation | Shú Perez | Completed and confirmed |
+| Review of submitted AI-assisted verification scripts | Shú Perez | Completed and confirmed |
+| Review of submitted AI-assisted test implementation | Shú Perez | Completed and confirmed |
+| Review of submitted AI-assisted release documentation | Shú Perez | Completed and confirmed |
+| Review of submitted AI-assisted PR descriptions | Shú Perez | Completed and confirmed |
+| Review of individual AI assistance disclosure | Shú Perez | Completed and confirmed |
+| Local frontend smoke verification | Shú Perez | Completed |
+| Local synthetic demonstration preparation | Shú Perez | Completed |
+| Independent human architecture review | Separate team reviewer | Pending |
+| Final release authorization | Team Lead | Pending |
+
+Personal verification establishes contributor accountability for submitted AI-assisted work.
+
+It does not replace independent teammate review, formal acceptance decisions, risk acceptance, or final release authorization.
+
+---
+
+### 4. Human-Executed Local Verification
+
+Shú personally performed local frontend integration and verification on November 24, 2026.
+
+**Verification Operator:** Shú Perez
+
+**Local Integration Branch:**
+
+`a6-local-integration`
+
+**Tested Local Checkout:**
+
+`f09bd551456c539c92b185dcbbabc0d29f192be6`
+
+**Application Address:**
+
+`http://campusconnect.local:8080`
+
+The local checkout incorporated the six frontend-related pull requests covering HTML, CSS, JavaScript, integration tests, frontend smoke verification, and synthetic demonstration preparation.
+
+The AI-assisted verification scripts were personally reviewed and confirmed by Shú before execution.
+
+The resulting terminal output was inspected to confirm the reported operation outcomes.
+
+#### 4.1 Frontend Smoke Verification
+
+**Script:**
+
+`scripts/frontend-smoke-test.sh`
+
+| Verification Category | Checks |
+|---|---:|
+| Application availability | 2 |
+| Frontend resource availability | 7 |
+| Interface content | 11 |
+| Unauthorized access boundaries | 4 |
+| Student A access | 3 |
+| Student B access | 3 |
+| Reviewer access | 3 |
+| Identity switching and session isolation | 4 |
+| Missing frontend resource | 1 |
+| **Total** | **38** |
+
+**Recorded Result:**
+
+- Total checks: 38
+- Passed: 38
+- Failed: 0
+- Success rate: 100%
+
+**Execution and Confirmation:** Shú Perez
+
+The smoke verification established scoped HTTP resource availability, expected interface content, synthetic identity selection, and selected authorization boundaries.
+
+The recorded results were personally checked and confirmed by Shú.
+
+The smoke verification did not independently establish comprehensive browser JavaScript execution, accessibility compliance, cross-browser compatibility, or final acceptance.
+
+#### 4.2 Synthetic Demonstration Preparation
+
+**Script:**
+
+`scripts/demo-data.sh`
+
+| Operation | Recorded Result |
+|---|---:|
+| Synthetic identities used | 3 |
+| Requests created | 6 |
+| Existing matching requests skipped | 0 |
+| Status updates | 6 |
+| Resolution note updates | 4 |
+| Total reviewer updates | 10 |
+
+The resulting synthetic dataset contained:
+
+- Three requests owned by Student A.
+- Three requests owned by Student B.
+- Two requests with Submitted status.
+- Two requests with In Progress status.
+- Two requests with Resolved status.
+
+The demonstration preparation script operated through the existing REST API rather than directly modifying database files.
+
+These operations were personally executed by Shú using AI-assisted engineering scripts.
+
+The resulting operation counts and reported outcomes were personally checked and confirmed by Shú.
+
+The local execution does not independently establish repeat-run duplicate prevention, backup restoration, or final tagged release verification.
+
+---
+
+### 5. Separate Integrated Verification Evidence
+
+Additional repository evidence was reviewed during architecture and release documentation reconciliation.
+
+These results are distinct from Shú's personal local verification.
+
+Shú reviewed the available recorded evidence when confirming the accuracy of the AI-assisted architecture and release documentation.
+
+| Verification Context | Recorded Result | Execution Attribution |
+|---|---|---|
+| Integrated browser candidate `373a0f6` | 38 HTTP smoke checks passed and scoped Chromium workflow verification | Separate repository verification evidence |
+| Repeated demonstration preparation | Six existing matching requests skipped | Separate repository verification evidence |
+| Integrated revision `0860160bc458af670c7944ccd035d21425e7511d` | 51 Maven tests passed; zero failures, errors, or skips | Codex-executed Linux verification |
+| Packaged HTTP workflow verification | 36 checks passed | Codex-executed verification |
+| Packaged restart verification | Five checks passed | Codex-executed verification |
+| Separate Windows operational exercise | Ten of ten manual checks passed and same-store restart retention reported | Giancarlo Herrera |
+
+The separate Chromium workflow evidence included:
+
+- Student request submission.
+- Student ownership isolation.
+- Reviewer modifications.
+- Stale-edit rejection.
+- Owner visibility.
+
+The recorded restart exercises demonstrated persistence following a controlled application stop and restart using the same database store.
+
+These results retain their original execution contexts, operators, and tested revisions.
+
+Human review of previously recorded evidence is distinct from personally executing the corresponding tests.
+
+These results must not be attributed to Shú as personally executed verification.
+
+Supporting evidence:
+
+- [Runtime Evidence](../observability/runtime-evidence.md)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [Integrated CI Execution](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45543404188)
+- [Packaged Workflow Transcript](../../test-evidence/a6-operations-0860160/workflow.jsonl)
+- [Packaged Restart Transcript](../../test-evidence/a6-operations-0860160/restart.jsonl)
+
+---
+
+### 6. Human Engineering Decisions
+
+Shú directed or confirmed the following decisions during the AI-assisted work:
+
+- Preserve the existing REST API and backend workflow architecture.
+- Incorporate the team-approved browser presentation layer.
+- Use HTML, CSS, and vanilla JavaScript for the browser interface.
+- Retain server-side authorization and ownership enforcement.
+- Preserve optimistic concurrency through ETag and If-Match.
+- Retain file-backed H2 persistence.
+- Preserve existing architecture document structures and contract identifiers.
+- Preserve historical architecture decisions rather than silently replacing them.
+- Document implementation deviations through explicit architecture reconciliation.
+- Use the locally configured CampusConnect hostname.
+- Identify Giancarlo Herrera as the architecture backup in the updated architecture documentation.
+- Distinguish temporary browser state from authoritative persistent data.
+- Distinguish personally executed verification from separately recorded team and Codex evidence.
+- Retain unresolved limitations and pending approval requirements.
+- Personally review and confirm AI-assisted outputs before repository submission.
+
+AI-generated suggestions did not independently authorize architecture decisions, change team responsibilities, accept risks, or approve the final release.
+
+Shú maintained human oversight and responsibility throughout the AI-assisted engineering process.
+
+Team-level decisions remain subject to the applicable team approval process.
+
+---
+
+### 7. AI Access and Data Restrictions
+
+AI assistance used project source code, architecture documentation, requirements, repository metadata, synthetic request information, and recorded engineering evidence.
+
+The application remains restricted to synthetic classroom data.
+
+Protected information must not be included in AI prompts, repository documentation, or shared verification evidence, including:
+
+- Real student records.
+- Real grades or academic records.
+- Private personal information.
+- FERPA-protected information.
+- HIPAA-protected information.
+- Institutional credentials.
+- Passwords.
+- API keys and access tokens.
+- Private keys.
+- Session cookies and session identifiers.
+- Confidential institutional information.
+
+AI assistance remained within the development and documentation scope.
+
+The implemented application does not use runtime AI for:
+
+- Request submission.
+- Identity selection.
+- Authorization.
+- Ownership enforcement.
+- Workflow decisions.
+- Status transitions.
+- Resolution note modifications.
+- Persistence.
+- Optimistic concurrency enforcement.
+- Reviewer modifications.
+
+The browser presentation layer introduces no runtime AI dependency or independent AI context store.
+
+---
+
+### 8. Remaining Verification and Acceptance Boundaries
+
+Personal review and confirmation of AI-assisted contributions have been completed by Shú for her submitted work.
+
+However, contributor confirmation and previously recorded verification evidence do not independently establish:
+
+- Comprehensive browser compatibility.
+- Accessibility compliance.
+- Production authentication or institutional SSO.
+- Production security readiness.
+- Atomic duplicate prevention during concurrent demonstration preparation.
+- Automatic recovery from interrupted demonstration preparation.
+- Verified backup restoration.
+- Verified crash recovery or disaster recovery.
+- Complete dependency and security clearance.
+- Final acceptance of every requirement and test case.
+- Independent human architecture approval.
+- Final risk acceptance.
+- Verification of the exact final tagged release.
+- Final release authorization.
+- Final Sakai submission.
+
+No additional application tests were executed solely to prepare the architecture reconciliation documents or this AI disclosure.
+
+Existing verification evidence was reviewed and incorporated without representing unexecuted tests as passed.
+
+Personal confirmation of AI-assisted work does not imply that every documented application behavior has undergone separate runtime verification.
+
+---
+
+### 9. Result and Disposition
+
+AI assistance contributed to frontend implementation, engineering support scripts, architecture documentation, technical reconciliation, and release preparation.
+
+All AI-assisted work submitted by Shú was personally reviewed, checked, and confirmed before repository submission.
+
+The frontend implementation and support scripts were incorporated into Shú's local integration checkout and subjected to the personally executed verification described above.
+
+The local frontend smoke verification completed with 38 passing checks and zero failures.
+
+The local synthetic demonstration preparation completed with six created requests and ten reviewer updates.
+
+Architecture reconciliation drafts and associated pull request descriptions were personally reviewed and confirmed by Shú for repository submission and independent human review.
+
+Existing team verification evidence was incorporated with its original attribution and tested revision preserved.
+
+AI assistance was accepted as development and documentation support following personal human review.
+
+Shú retains responsibility for the accuracy, appropriateness, and quality of the AI-assisted contributions submitted under her authorship.
+
+#### Final Disposition Summary
+
+| Activity | Disposition |
+|---|---|
+| AI-assisted architecture documentation | Personally reviewed, confirmed, and accepted for submission |
+| AI-assisted frontend implementation | Personally reviewed, confirmed, and incorporated |
+| AI-assisted integration test implementation | Personally reviewed and confirmed |
+| AI-assisted frontend smoke script | Personally reviewed, confirmed, and executed |
+| AI-assisted demonstration preparation script | Personally reviewed, confirmed, and executed |
+| AI-assisted release documentation | Personally reviewed and confirmed |
+| AI-assisted PR descriptions | Personally reviewed and confirmed |
+| Individual AI assistance disclosure | Personally reviewed and confirmed |
+| Human contributor accountability | Confirmed |
+| Independent teammate review | Pending applicable review |
+| Final release authorization | Pending |
+
+---
+
+### 10. Related Engineering Evidence
+
+#### AI Governance
+
+- [AI Use Policy](ai-policy.md)
+- [AI Verification Notes](ai-verification-notes.md)
+
+#### Architecture
+
+- [Architecture Overview](../architecture/architecture.md)
+- [Architecture Diagram](../architecture/architecture-diagram.png)
+- [Component Responsibilities](../architecture/component-responsibilities.md)
+- [API Contracts](../architecture/api-contracts.md)
+- [Data Context](../architecture/data-context.md)
+- [ADR-006 — REST API Interface Alignment](../decisions/ADR-006-rest-api-interface-alignment.md)
+
+#### Implementation and Verification
+
+- [Browser Presentation Resources](../../src/main/resources/static/)
+- [Frontend Smoke Verification Script](../../scripts/frontend-smoke-test.sh)
+- [Synthetic Demonstration Preparation Script](../../scripts/demo-data.sh)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [CI Evidence](../testing/ci-evidence.md)
+- [Runtime Evidence](../observability/runtime-evidence.md)
+
+#### Planning, Security, and Release
+
+- [Cycle 2 Maturity Plan](../planning/cycle2-maturity-plan.md)
+- [Permission Boundaries](../security/permission-boundaries.md)
+- [Operational Runbook](../operations/runbook.md)
+- [Known Limitations](../release/known-limitations.md)
+- [Final Release Notes](../release/final-release-notes.md)
+- [Changed Files Since A5](../release/changed-files-since-a5.md)
+
+---
+
+### 11. Related Pull Requests
+
+| Pull Request | Engineering Contribution |
+|---|---|
+| [PR #116](https://github.com/victordodan/-comp330-f26-team-02/pull/116) | Architecture Overview |
+| [PR #117](https://github.com/victordodan/-comp330-f26-team-02/pull/117) | Architecture Diagram |
+| [PR #118](https://github.com/victordodan/-comp330-f26-team-02/pull/118) | API Contracts |
+| [PR #119](https://github.com/victordodan/-comp330-f26-team-02/pull/119) | Component Responsibilities |
+| [PR #120](https://github.com/victordodan/-comp330-f26-team-02/pull/120) | Data Context |
+| [PR #126](https://github.com/victordodan/-comp330-f26-team-02/pull/126) | HTML Browser Interface |
+| [PR #127](https://github.com/victordodan/-comp330-f26-team-02/pull/127) | Frontend Styling |
+| [PR #128](https://github.com/victordodan/-comp330-f26-team-02/pull/128) | Browser Application Logic |
+| [PR #129](https://github.com/victordodan/-comp330-f26-team-02/pull/129) | Frontend Integration Tests |
+| [PR #130](https://github.com/victordodan/-comp330-f26-team-02/pull/130) | Frontend Smoke Verification |
+| [PR #131](https://github.com/victordodan/-comp330-f26-team-02/pull/131) | Synthetic Demonstration Data Generation |
+
+---
+
+### 12. Contributor Confirmation
+
+I confirm that all AI-assisted work submitted under my authorship was personally reviewed, checked, and confirmed by me.
+
+ChatGPT was used to assist with engineering development, documentation, technical analysis, implementation, and verification preparation.
+
+I maintained responsibility for reviewing the generated outputs, determining their suitability, and confirming their alignment with the intended CampusConnect implementation and Assignment 6 requirements.
+
+I personally executed the local frontend smoke verification and synthetic demonstration preparation described in this disclosure.
+
+I reviewed the reported results and confirmed the recorded outcomes.
+
+I acknowledge that AI assistance does not replace human engineering judgment, contributor accountability, independent peer review, or formal release authorization.
+
+I accept responsibility for the accuracy, appropriateness, and quality of the AI-assisted work submitted under my authorship.
+
+---
+
+**Contributor:** Shú Perez
+
+**Role:** Architecture & Development Lead
+
+**Disclosure Date:** November 24, 2026
+
+**AI Tool:** ChatGPT
+
+**Human Verification Status:** Completed and confirmed by Shú Perez.
+
+**Contributor Confirmation:** All submitted AI-assisted work was personally reviewed, checked, and confirmed by Shú Perez.
+
+**Disclosure Status:** Personally reviewed and confirmed by the contributor.
+
+**Human Accountability:** Shú Perez accepts responsibility for all AI-assisted work submitted under her authorship.
+
+**Independent Review Status:** Pending applicable teammate review.
+
+**Final Acceptance Status:** Pending final integrated release verification, risk acceptance, and release authorization.
+
