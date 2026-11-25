@@ -5,7 +5,7 @@
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A6 — Cycle 2 Final Release Candidate  
 **Owner:** Shú Perez  
-**Backup:** Giancarlo Herrera  
+**Document backup:** Giancarlo Herrera  
 **Last Updated:** 2026-11-24  
 **Target Release:** `a6-final-release`  
 **Status:** Implementation-aligned documentation; final verification pending
@@ -14,9 +14,13 @@
 
 ## 1. Purpose and Scope
 
-This document defines authoritative data ownership, data visibility, identity context, persistence, data lifecycle, security boundaries, and AI access restrictions for CampusConnect.
+This document defines authoritative data ownership, data visibility, identity context, persistence, data lifecycle, security boundaries, browser state, and AI access restrictions for CampusConnect.
 
-The implemented architecture uses Java, Spring Boot, REST HTTP endpoints, Spring JDBC, Maven, and file-backed H2.
+The implemented architecture uses HTML, CSS, vanilla JavaScript, Java, Spring Boot, REST HTTP endpoints, Spring JDBC, Maven, and file-backed H2.
+
+The approved Cycle 2 browser presentation layer communicates with the existing REST API through same-origin HTTP requests.
+
+The default local address is `http://127.0.0.1:8080/`. The optional hostname `campusconnect.local` requires a local mapping to loopback.
 
 This document replaces the proposed Assignment 3 data architecture with the reviewed implementation structure and aligns with:
 
@@ -27,6 +31,7 @@ This document replaces the proposed Assignment 3 data architecture with the revi
 - Requirements and acceptance criteria.
 - Applicable architecture decision records.
 - Security and operational limitations.
+- Browser presentation and temporary interface state.
 
 The following scope restrictions remain applicable:
 
@@ -59,6 +64,13 @@ Final acceptance remains subject to integrated verification and independent huma
 | ETag | RequestController | Derived from stored version | Client receiving individual request response |
 | Supported demo identities | DemoIdentity | Application-defined constants | Demo participants |
 | Selected demo identity | RequestController / HTTP Session | Server-session state | Current session context |
+| Displayed browser identity | Browser presentation layer | Temporary browser state | Current browser interface |
+| Loaded browser request records | Backend REST response; browser maintains displayed copies | Temporary browser state | Current browser interface |
+| Unsaved request form input | Browser presentation layer | Temporary browser state | Current browser interface |
+| Unsaved reviewer note text | Browser presentation layer | Temporary browser state | Current browser interface |
+| Selected status filter | Browser presentation layer | Temporary browser state | Current browser interface |
+| Loading and operation feedback | Browser presentation layer | Temporary browser state | Current browser interface |
+| Browser session cookie | Server-issued session context / Browser | Browser-managed session cookie | Applicable browser session |
 | Runtime AI context | Not applicable | None | No runtime AI access |
 | Operational evidence | Development and operations team | According to documented evidence procedures | Authorized project reviewers |
 
@@ -73,6 +85,47 @@ JdbcRequestRepository performs physical database operations.
 RequestController exposes authorized results through the REST API.
 
 HTTP clients cannot establish authoritative ownership, status, timestamps, or request versions.
+
+The browser presentation layer maintains temporary copies of authorized REST responses for display and interaction.
+
+Displayed browser information does not supersede the authoritative backend state.
+
+### 2.1 Data and Context Boundaries
+
+CampusConnect distinguishes three primary data and context boundaries.
+
+| Boundary | Purpose | Lifetime |
+|---|---|---|
+| Browser presentation state | Display request information and coordinate user interactions | Temporary interface lifetime |
+| Server-side HTTP session | Retain the selected synthetic identity | Applicable server-session lifetime |
+| File-backed H2 database | Retain authoritative request records | Across ordinary restarts using the same database store |
+
+The browser does not directly access the database.
+
+The selected browser identity is not independently authoritative for authorization.
+
+Persistent request records remain separate from temporary browser state and server-session identity.
+
+```mermaid
+flowchart TD
+    User["Student or Reviewer"]
+    Browser["Browser Presentation Layer"]
+    State["Temporary Browser State"]
+    Controller["RequestController"]
+    Session["Server-side HTTP Session"]
+    Service["WorkflowService"]
+    Repository["JdbcRequestRepository"]
+    Database[("File-backed H2 Database")]
+
+    User --> Browser
+    Browser <--> State
+    Browser -->|"Same-origin REST requests"| Controller
+    Controller -->|"Authorized JSON responses and ETags"| Browser
+    Controller <--> Session
+    Controller --> Service
+    Service --> Repository
+    Repository <--> Database
+```
 
 ---
 
@@ -99,6 +152,10 @@ The implemented domain model is the immutable SupportRequest Java record.
 
 The domain model represents the current request state rather than a complete history of previous changes.
 
+The browser consumes the JSON representation of this model when rendering student and reviewer request information.
+
+The browser does not independently generate authoritative values for system-managed fields.
+
 ### 3.2 Physical Database Schema
 
 **Source:** `src/main/resources/schema.sql`
@@ -124,6 +181,8 @@ Application-level validation and workflow restrictions remain the responsibility
 
 The reviewed schema does not independently enforce the supported status transitions, allowed categories, or student identity permissions.
 
+The Cycle 2 browser presentation layer introduces no additional database tables or schema requirements.
+
 ### 3.3 Database Configuration
 
 **Source:** `src/main/resources/application.properties`
@@ -139,6 +198,8 @@ The reviewed schema does not independently enforce the supported status transiti
 | H2 browser console | Disabled |
 
 These settings describe the default local classroom configuration.
+
+Open `http://127.0.0.1:8080/` by default. A workstation that maps `campusconnect.local` to loopback can also use `http://campusconnect.local:8080/`.
 
 The database path is relative to the application's working directory.
 
@@ -159,6 +220,27 @@ The repository converts:
 - Database `version` into the Java long version field.
 
 Timestamps are written using UTC offsets and retrieved as Java Instant values.
+
+### 3.5 Browser Data Representation
+
+The browser presentation layer consumes authorized JSON responses returned by the REST API.
+
+Browser request information includes:
+
+- Request identifier.
+- Synthetic student ownership.
+- Request title.
+- Request category.
+- Request description.
+- Current status.
+- Saved resolution note.
+- Creation timestamp.
+- Last-updated timestamp.
+- Record version.
+
+These values represent copies of backend responses rather than independently persisted browser records.
+
+Client-side formatting and filtering do not modify the underlying stored request data.
 
 ---
 
@@ -196,6 +278,8 @@ WorkflowService enforces the appropriate role and ownership rules.
 
 The client must retain its session cookie between protected requests.
 
+The browser presentation layer uses browser-managed session cookies through same-origin REST requests.
+
 ### 4.3 Identity Trust Boundary
 
 The application does not trust client-provided role or ownership information as authoritative identity.
@@ -206,6 +290,8 @@ The following values cannot grant authorization:
 - X-User-Role headers.
 - Client-provided studentID fields.
 - Knowledge of another student's request identifier.
+- Browser-displayed role or identity.
+- Client-side visibility of reviewer controls.
 
 CreateRequestDto contains a studentID field, but RequestController does not use that field to establish ownership.
 
@@ -229,6 +315,28 @@ It does not establish:
 The implemented authorization rules demonstrate application-level role and ownership behavior within the synthetic classroom environment.
 
 They must not be represented as production authentication or institutional privacy protection.
+
+### 4.5 Browser Identity and Session Boundaries
+
+The browser provides identity selection controls for Student A, Student B, and Reviewer.
+
+Following successful identity selection, the browser loads the corresponding student or reviewer dashboard.
+
+The displayed browser identity is a presentation representation of the selected session context.
+
+The server-side HTTP session remains authoritative.
+
+Multiple tabs or windows within the same browser profile may share the same session cookie.
+
+Selecting another identity in one tab may change the server-side identity used by subsequent requests from another tab.
+
+Previously displayed browser information may become outdated until the interface refreshes or processes an authorization failure.
+
+Independent browser profiles or isolated HTTP client sessions should be used for simultaneous student and reviewer demonstrations.
+
+Switching identities does not modify stored request ownership.
+
+Returning to the identity selection interface is not equivalent to invalidating the server-side session or performing production logout.
 
 ---
 
@@ -257,6 +365,9 @@ These restrictions apply to:
 - Database records.
 - Test fixtures.
 - Screenshots.
+- Browser form inputs.
+- Browser developer tools.
+- Browser network inspection evidence.
 - Runtime evidence.
 - Operational logs.
 - GitHub documentation.
@@ -267,6 +378,8 @@ Sensitive-data restrictions follow the project AI Use Policy and classroom scope
 The application does not claim automated detection or removal of real personal information entered into free-text fields.
 
 Human participants remain responsible for using synthetic data.
+
+The browser presentation layer does not change the application's sensitive-data restrictions.
 
 ---
 
@@ -302,6 +415,12 @@ ApiExceptionHandler translates this failure into HTTP 404.
 
 Returning HTTP 404 avoids explicitly disclosing the existence of another student's request through that operation.
 
+The browser student dashboard retrieves the authorized student-owned request list through the existing REST API.
+
+Client-side status filtering operates only on the returned request records.
+
+The browser does not establish student isolation by filtering an unrestricted reviewer queue.
+
 ### 6.3 Reviewer Access
 
 Reviewer may:
@@ -313,6 +432,10 @@ Reviewer may:
 
 Reviewer cannot modify immutable request fields through the implemented endpoints.
 
+The browser reviewer dashboard displays the records returned by the authorized reviewer endpoints.
+
+Reviewer controls remain subject to server-side authorization, validation, and concurrency enforcement.
+
 ### 6.4 Direct Database and Filesystem Access
 
 Application-level role restrictions apply to the implemented REST workflow.
@@ -320,6 +443,23 @@ Application-level role restrictions apply to the implemented REST workflow.
 Direct access to the local database files or application host is outside the demonstrated role permission model.
 
 The local implementation does not establish production database encryption, institutional access management, or protection against a privileged local operator.
+
+### 6.5 Browser Presentation Visibility
+
+The browser presentation layer provides role-specific interfaces.
+
+| Interface | Displayed Data and Controls |
+|---|---|
+| Identity selection | Supported synthetic identity choices |
+| Student dashboard | Authorized student-owned requests, request submission form, statuses, and saved notes |
+| Reviewer dashboard | Authorized reviewer queue, request information, status controls, and resolution note controls |
+| Operation feedback | Relevant success, loading, conflict, and failure information |
+
+Browser visibility restrictions are not substitutes for backend authorization.
+
+Frontend HTML, CSS, and JavaScript resources may be retrieved independently of protected REST data.
+
+Static resource availability does not grant access to student or reviewer request records.
 
 ---
 
@@ -359,6 +499,10 @@ Successful creation returns HTTP 201 and the initial ETag.
 
 Invalid submissions must not create stored records.
 
+The browser request form maintains submitted field values as temporary interface state until the corresponding REST operation is processed.
+
+The browser does not independently persist the request or assign system-managed fields.
+
 ### 7.2 Request Retrieval
 
 Related contracts: API-002 and API-003.
@@ -373,6 +517,10 @@ List responses return arrays of authorized records.
 
 An empty successful list is distinguishable from a failed storage operation.
 
+The browser maintains temporary copies of retrieved records for display and status filtering.
+
+These displayed copies may become outdated when another authorized operation modifies the stored record.
+
 ### 7.3 Status Updates
 
 Related contract: API-004.
@@ -386,6 +534,10 @@ Related contract: API-004.
 All other transitions are rejected.
 
 Successful status updates preserve existing ownership, request content, creation timestamp, and resolution note.
+
+The browser submits status modifications through the existing conditional REST endpoint.
+
+Displayed status changes are not authoritative until the backend confirms successful modification.
 
 ### 7.4 Resolution Note Updates
 
@@ -407,11 +559,19 @@ Replacing a note replaces the current stored value.
 
 Comment threads and note-edit history are not implemented.
 
+Unsaved reviewer note text remains temporary browser state.
+
+The browser provides a separate save operation for resolution notes.
+
+Unsaved note text does not satisfy the backend requirement for a previously saved nonblank resolution note.
+
 ### 7.5 Retention
 
-File-backed H2 is intended to retain request records across ordinary application restarts using the same database location.
+File-backed H2 retains request records across ordinary application restarts using the same database location.
 
 Stable synthetic student identifiers allow a student to retrieve previously stored requests after reselecting the appropriate identity.
+
+Same-store restart persistence was demonstrated during the recorded November 24, 2026, operational exercises.
 
 The reviewed implementation does not establish:
 
@@ -419,9 +579,12 @@ The reviewed implementation does not establish:
 - A formal long-term retention period.
 - Scheduled data deletion.
 - Production archival procedures.
+- Verified backup restoration.
 - Verified disaster recovery.
 
 Long-term retention and controlled fixture-reset procedures remain documented open questions.
+
+Reference: [Runtime Evidence](../observability/runtime-evidence.md).
 
 ### 7.6 Deletion
 
@@ -430,6 +593,68 @@ No user-facing request deletion endpoint exists in the reviewed REST interface.
 Students and reviewers cannot delete submitted requests through the implemented workflow.
 
 Any controlled database reset or fixture cleanup must follow separately documented operational procedures.
+
+Clearing temporary browser state does not delete persistent request records.
+
+### 7.7 Temporary Browser State Lifecycle
+
+The browser presentation layer maintains temporary interface state during application use.
+
+| State | Origin | Lifecycle |
+|---|---|---|
+| Displayed identity | Successful identity selection | Updated when identity context changes |
+| Loaded request records | Authorized REST responses | Replaced when request information refreshes |
+| Status filter | User interaction | Maintained as temporary interface state |
+| Request form input | Student interaction | Temporary until submission or interface reset |
+| Unsaved reviewer note | Reviewer interaction | Temporary until saved or discarded |
+| Loading indicators | Pending HTTP operations | Updated when operations complete |
+| Operation feedback | HTTP responses and communication outcomes | Temporary interface feedback |
+| Displayed record version | Authorized request response | Updated when newer request information is loaded |
+
+The reviewed browser implementation does not establish an independent persistent request datastore using localStorage or another browser database.
+
+Refreshing the page, changing identity, or re-rendering relevant interface components may discard unsaved input.
+
+The application does not establish persistent browser draft recovery.
+
+Saved request data remains in the configured H2 database independently of temporary browser state.
+
+### 7.8 Synthetic Demonstration Data Lifecycle
+
+The demonstration preparation script is located at:
+
+`scripts/demo-data.sh`
+
+The script creates and modifies synthetic request records through the existing REST API.
+
+It uses the supported synthetic identities and existing request creation, reviewer inspection, status update, and resolution note contracts.
+
+The script does not directly modify database files or bypass application authorization.
+
+Its responsibilities include:
+
+- Preparing synthetic student request records.
+- Establishing representative workflow statuses.
+- Saving synthetic reviewer resolution notes.
+- Using current ETags for reviewer modifications.
+- Checking for existing matching demonstration records before creating additional records.
+- Reporting operation outcomes.
+
+The script modifies the configured persistent database.
+
+Successfully created demonstration records remain stored after the script completes.
+
+Repeated sequential preparation can skip existing matching records.
+
+The implementation does not establish:
+
+- Atomic duplicate prevention across concurrent executions.
+- A single transaction covering the complete preparation process.
+- Automatic rollback of all previously completed operations.
+- Automatic recovery of partially prepared demonstration records.
+- Automatic deletion of previously created demonstration records.
+
+Demonstration preparation must remain restricted to synthetic data and the intended local database store.
 
 ---
 
@@ -517,6 +742,46 @@ The implemented concurrency mechanism addresses conflicting status and note modi
 
 It does not establish exactly-once request creation, automatic deduplication, or complete idempotency guarantees.
 
+### 8.6 Browser State Synchronization
+
+The browser presentation layer supplements backend optimistic concurrency enforcement.
+
+Before submitting a reviewer modification, the browser:
+
+1. Identifies the version associated with the displayed request.
+2. Retrieves current reviewer request details through the existing REST endpoint.
+3. Obtains the current stored version and ETag.
+4. Compares the retrieved version and ETag with the originally displayed version.
+5. Prevents the modification when a mismatch is detected.
+6. Submits the conditional modification when the versions agree.
+7. Processes the authoritative backend response.
+8. Refreshes relevant request information following successful modification.
+
+The browser-side comparison does not eliminate the possibility of a concurrent update occurring between retrieval and modification.
+
+WorkflowService and JdbcRequestRepository remain responsible for authoritative version checking and atomic conditional updates.
+
+The browser does not automatically retry conflicting modifications or overwrite newer stored data.
+
+### 8.7 Browser and Persistent Data Consistency
+
+The following consistency boundaries apply to browser interaction.
+
+| Situation | Required Interpretation |
+|---|---|
+| Unsaved request form input | Not a stored request |
+| Unsaved reviewer note text | Not an authoritative resolution note |
+| Previously loaded request record | Temporary representation that may become outdated |
+| Successful creation response | Backend confirms stored request creation |
+| Successful modification response | Backend confirms stored request modification |
+| Failed conditional update | Existing newer stored state must remain protected |
+| Successful modification followed by failed refresh | The save succeeded. The browser clears the list and reports the refresh failure. On HTTP 403 it also returns to identity selection. |
+| Network failure during modification | Final operation outcome may be unconfirmed |
+| Successful empty list | No matching authorized records returned |
+| Failed listing | Retrieval failure rather than confirmed absence of records |
+
+The browser must not treat temporary display state as authoritative persistent data.
+
 ---
 
 ## 9. Failure Handling and Data Protection
@@ -547,6 +812,28 @@ Failure messages should not unnecessarily disclose request descriptions, resolut
 
 The listed outcomes describe reviewed implementation behavior and expected verification results, not independently executed Assignment 6 tests.
 
+### 9.1 Browser Failure Handling
+
+The browser presentation layer interprets REST responses and communication failures.
+
+Its responsibilities include:
+
+- Communicating invalid submission and workflow errors.
+- Communicating authorization failures.
+- Clearing or resetting protected interface state when applicable.
+- Communicating missing or inaccessible resources.
+- Communicating stale-version conflicts.
+- Communicating missing conditional update information.
+- Communicating storage and transaction failures.
+- Distinguishing unsuccessful retrieval from successful empty results.
+- Distinguishing confirmed modifications from subsequent refresh failures.
+
+A network failure does not independently establish whether a submitted operation was committed.
+
+Automatic repetition of an operation with an unconfirmed outcome may create duplicate requests or conflicting modifications.
+
+The browser does not establish exactly-once operation guarantees.
+
 ---
 
 ## 10. AI Context Sources and Limits
@@ -558,6 +845,7 @@ AI may assist with approved engineering activities, including:
 - Requirements documentation.
 - Architecture documentation.
 - Source code development.
+- Frontend development.
 - Test planning.
 - Documentation reconciliation.
 - Engineering review preparation.
@@ -597,6 +885,8 @@ The repository AI Use Log records development assistance rather than runtime app
 
 Future runtime AI integration requires separate scope review, architecture decisions, security assessment, and applicable instructor approval.
 
+The browser presentation layer introduces no runtime AI integration or independent AI context store.
+
 References:
 
 - [AI Use Policy](../ai/ai-policy.md)
@@ -619,6 +909,9 @@ The following table defines expected safe observability boundaries.
 | Concurrency conflict | Request ID, expected version, failure category | Unnecessary request content |
 | Storage failure | Operation and safe failure category | Credentials or sensitive configuration |
 | Demo identity selection | Synthetic identity reference when appropriate | Session identifiers |
+| Browser workflow verification | Synthetic identity, operation, response status, and outcome | Session cookies and unnecessary request content |
+| Browser concurrency rejection | Request identifier, relevant version information, and outcome | Unsaved note text |
+| Demonstration preparation | Synthetic record counts and operation outcomes | Credentials and session identifiers |
 | Runtime AI activity | Not applicable | No runtime AI payloads |
 
 These are observability and data-handling expectations.
@@ -635,6 +928,8 @@ Actual runtime logging and metrics evidence must be reconciled with:
 Logs must not become an uncontrolled secondary store of request descriptions, resolution notes, or historical request content.
 
 A complete production audit trail is not claimed.
+
+Browser notifications and temporary interface feedback do not constitute a persistent audit log.
 
 ---
 
@@ -655,16 +950,21 @@ A complete production audit trail is not claimed.
 | ADR-003 | Transactional updates and optimistic concurrency |
 | ADR-004 | Local persistence and recovery expectations |
 | ADR-0005 | Transactional JDBC and file-backed H2 implementation clarification |
+| ADR-006 | REST interface alignment and approved browser presentation extension |
 
 ADR-002 through ADR-004 were historically approved on October 16, 2026.
 
 The original architecture proposed server-rendered pages and Post/Redirect/Get.
 
-The reviewed implementation instead exposes REST HTTP endpoints.
+The reviewed implementation instead exposes REST HTTP endpoints extended by a same-origin static browser presentation layer.
 
 Post/Redirect/Get is not claimed as implemented functionality.
 
+The Cycle 2 browser presentation direction is documented in the [Cycle 2 Maturity Plan](../planning/cycle2-maturity-plan.md) and the corresponding [ADR-006](../decisions/ADR-006-rest-api-interface-alignment.md) amendment.
+
 Original decisions remain historical engineering evidence. Implementation deviations and remaining limitations require explicit documentation and review.
+
+The browser presentation layer does not change the authoritative request data model, persistence architecture, or existing ownership rules.
 
 ---
 
@@ -683,11 +983,73 @@ DQ-001 through DQ-003 preserve the original open-question identifiers and assign
 
 DQ-004 through DQ-006 are proposed additional tracking items and require team reconciliation before adoption.
 
+### 13.1 Browser and Demonstration Data Limitations
+
+The following additional implementation boundaries must remain visible in the release documentation.
+
+| Limitation | Current Boundary |
+|---|---|
+| Shared browser sessions | Multiple tabs may share the selected synthetic identity |
+| Unsaved browser input | May be lost during refresh, identity switching, or interface re-rendering |
+| Browser state synchronization | Displayed request information may become outdated |
+| Browser draft recovery | Persistent draft recovery is not established |
+| Network interruption | Modification outcome may remain unconfirmed |
+| Duplicate demonstration preparation | Sequential matching reduces duplicate creation but does not establish atomic deduplication |
+| Interrupted demonstration preparation | Previously completed operations may remain persisted |
+| Demonstration data cleanup | No user-facing request deletion endpoint exists |
+| Browser compatibility | Comprehensive cross-browser verification is not established |
+| Backup restoration | Same-store restart retention is verified within recorded exercises; backup restoration remains unverified |
+
+These limitations do not introduce additional formal DQ identifiers.
+
+They must be reconciled with the existing known limitations, risk register, and operational procedures.
+
 No production readiness, institutional compliance, or disaster recovery capability is established by this document.
 
 ---
 
 ## 14. Final Release Verification
+
+### 14.1 Recorded Data and Persistence Evidence
+
+The following previously recorded November 24, 2026, verification results support the reviewed data ownership, browser state, and persistence boundaries.
+
+| Verification Context | Recorded Results |
+|---|---|
+| Local frontend verification by Shú Perez | 38 smoke checks passed, zero failed |
+| Local demonstration data preparation | Six synthetic requests created and ten reviewer updates completed |
+| Integrated browser candidate `373a0f6` | Scoped Chromium workflow verification, including student isolation, reviewer modifications, stale-edit rejection, and owner visibility |
+| Repeated demonstration preparation | Six existing matching records skipped |
+| Integrated revision `0860160bc458af670c7944ccd035d21425e7511d` | 51 Maven tests passed with zero failures, errors, or skips |
+| Packaged HTTP workflow verification | 36 checks passed |
+| Packaged restart verification | Five checks passed |
+| Separate Windows exercise reported by Giancarlo Herrera | Ten of ten manual workflow checks passed and same-store restart retention reported |
+
+The local frontend verification was performed using checkout:
+
+`f09bd551456c539c92b185dcbbabc0d29f192be6`
+
+The Linux build, packaged HTTP workflow, and restart checks were performed by Codex.
+
+Giancarlo Herrera performed and reported the separate Windows browser and restart exercise.
+
+The recorded restart exercises demonstrated retention of stored request information after a controlled application stop and restart using the same database store.
+
+The packaged restart evidence includes retention of request identity, status, resolution note, and version-derived ETag.
+
+These results do not establish verified backup restoration, crash recovery, production disaster recovery, or final tagged release acceptance.
+
+Supporting evidence:
+
+- [Runtime Evidence](../observability/runtime-evidence.md)
+- [Integrated CI Execution](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45543404188)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [Packaged Workflow Transcript](../../test-evidence/a6-operations-0860160/workflow.jsonl)
+- [Packaged Restart Transcript](../../test-evidence/a6-operations-0860160/restart.jsonl)
+
+The recorded results retain their original execution contexts, operators, and tested revisions.
+
+### 14.2 Final Review Checklist
 
 Before final Assignment 6 acceptance:
 
@@ -704,11 +1066,18 @@ Before final Assignment 6 acceptance:
 - [ ] Confirm stale-version rejection.
 - [ ] Confirm rejected operations preserve stored data.
 - [ ] Confirm storage failures do not return false success.
-- [ ] Verify persistence across ordinary application restarts.
+- [ ] Reconcile recorded same-store restart evidence with the final release revision.
+- [ ] Confirm temporary browser state and persistent data boundaries.
+- [ ] Confirm browser session-sharing limitations.
+- [ ] Confirm browser-side concurrency handling.
+- [ ] Confirm unsaved browser input limitations.
+- [ ] Confirm demonstration data persistence and duplicate-prevention boundaries.
+- [ ] Reconcile backup restoration expectations with operational evidence.
 - [ ] Reconcile logging expectations with actual runtime evidence.
 - [ ] Confirm sensitive-data restrictions.
 - [ ] Reconcile open questions and known limitations.
 - [ ] Confirm architecture and API contract alignment.
+- [ ] Confirm ADR-006 amendment integration.
 - [ ] Confirm final test and CI evidence.
 - [ ] Record independent human review.
 - [ ] Record AI assistance and human verification.
@@ -726,6 +1095,7 @@ Source-level documentation review does not replace runtime verification or final
 - [Architecture Diagram](architecture-diagram.png)
 - [API Contracts](api-contracts.md)
 - [Component Responsibilities](component-responsibilities.md)
+- [ADR-006 — REST API Interface Alignment](../decisions/ADR-006-rest-api-interface-alignment.md)
 
 ### Requirements and Planning
 
@@ -735,9 +1105,12 @@ Source-level documentation review does not replace runtime verification or final
 - [Scope](../planning/scope.md)
 - [Traceability](../planning/traceability.md)
 - [Risk Register](../planning/risk-register.md)
+- [Cycle 2 Maturity Plan](../planning/cycle2-maturity-plan.md)
 
 ### Implementation
 
+- [Browser Presentation Resources](../../src/main/resources/static/)
+- [Browser Interface](../../src/main/resources/static/index.html)
 - [SupportRequest](../../src/main/java/edu/loyola/campusconnect/model/SupportRequest.java)
 - [DemoIdentity](../../src/main/java/edu/loyola/campusconnect/model/DemoIdentity.java)
 - [RequestController](../../src/main/java/edu/loyola/campusconnect/controller/RequestController.java)
@@ -755,11 +1128,15 @@ Source-level documentation review does not replace runtime verification or final
 - [HTTP API Guide](../testing/a4-http-api.md)
 - [CI Evidence](../testing/ci-evidence.md)
 - [A5 Acceptance Evidence Matrix](../testing/a5-acceptance-evidence-matrix.md)
+- [Final Test Evidence](../testing/final-test-evidence.md)
+- [Frontend Smoke Testing Script](../../scripts/frontend-smoke-test.sh)
+- [Demonstration Data Script](../../scripts/demo-data.sh)
 - [Known Limitations](../release/known-limitations.md)
 - [Operational Runbook](../operations/runbook.md)
 - [Observability Plan](../observability/observability-plan.md)
 - [Runtime Evidence](../observability/runtime-evidence.md)
 - [Metrics Notes](../observability/metrics-notes.md)
+- [Permission Boundaries](../security/permission-boundaries.md)
 
 ### AI Governance
 
@@ -774,10 +1151,26 @@ Source-level documentation review does not replace runtime verification or final
 - [PR #48](https://github.com/victordodan/-comp330-f26-team-02/pull/48) — Historical Architecture Overview.
 - [PR #119](https://github.com/victordodan/-comp330-f26-team-02/pull/119) — Assignment 6 Component Responsibilities Update.
 
+### Cycle 2 Review References
+
+- PR #116 — Architecture Overview.
+- PR #117 — Architecture Diagram.
+- PR #118 — API Contracts.
+- PR #119 — Component Responsibilities.
+- PR #120 — Data Context.
+- PR #126 — HTML Browser Interface.
+- PR #127 — Frontend Styling.
+- PR #128 — Browser Application Logic.
+- PR #129 — Frontend Integration Tests.
+- PR #130 — Frontend Smoke Testing.
+- PR #131 — Synthetic Demonstration Data Generation.
+
 ---
 
 **Architecture Lead:** Shú Perez
 
-**Backup:** Giancarlo Herrera
+**Document backup:** Giancarlo Herrera
 
-**Evidence Status:** Data and context ownership aligned with reviewed implementation source and database configuration. Final integrated verification, independent review, and release authorization remain pending.
+**Architecture & Development role backup:** Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md).
+
+**Evidence Status:** Data and context ownership aligned with the reviewed backend implementation, database configuration, and documented Cycle 2 browser presentation layer. Final integrated verification, independent review, and release authorization remain pending.
