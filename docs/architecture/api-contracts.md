@@ -5,7 +5,7 @@
 **Team:** Team 2 — Codex Ramblers  
 **Assignment:** A6 — Cycle 2 Final Release Candidate  
 **Owner:** Shú Perez  
-**Backup:** Giancarlo Herrera  
+**Document backup:** Giancarlo Herrera  
 **Last Updated:** 2026-11-24  
 **Target Release:** `a6-final-release`  
 **Status:** Implementation-aligned documentation; final verification pending
@@ -35,9 +35,7 @@ The implemented interface is a REST HTTP API using JSON rather than the server-r
 
 The approved Cycle 2 browser presentation layer communicates with the existing REST API through same-origin HTTP requests. Direct HTTP clients remain supported.
 
-The application is accessible through the locally configured address:
-
-`http://campusconnect.local:8080`
+The default local address is `http://127.0.0.1:8080/`. The optional hostname `campusconnect.local` requires a local mapping to loopback.
 
 The application remains restricted to a local classroom demonstration using synthetic data.
 
@@ -878,7 +876,10 @@ sequenceDiagram
     Controller->>Service: Retrieve authorized queue
     Service->>Repository: Retrieve requests
     Repository->>DB: Query records
-    DB-->>Browser: Records returned through application layers
+    DB-->>Repository: Request rows
+    Repository-->>Service: Requests
+    Service-->>Controller: Authorized queue
+    Controller-->>Browser: JSON response
 
     Reviewer->>Browser: Request note or status modification
     Browser->>Controller: GET reviewer request details
@@ -943,11 +944,7 @@ These resources include HTML, CSS, and JavaScript.
 
 Static resource delivery supports browser presentation and does not introduce additional business REST endpoints.
 
-The locally configured application address is:
-
-`http://campusconnect.local:8080`
-
-The hostname requires local configuration and does not establish public hosting.
+Open `http://127.0.0.1:8080/` by default. A workstation that maps `campusconnect.local` to loopback can also use `http://campusconnect.local:8080/`.
 
 Access to frontend resources does not grant authorization to protected REST endpoints.
 
@@ -1250,6 +1247,8 @@ Before final Assignment 6 acceptance:
 
 **Architecture Lead:** Shú Perez
 
-**Backup:** Giancarlo Herrera
+**Document backup:** Giancarlo Herrera
+
+**Architecture & Development role backup:** Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md).
 
 **Evidence Status:** Contracts aligned with reviewed implementation source. Final integrated testing, independent review, and release authorization remain pending.
