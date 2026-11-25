@@ -141,7 +141,7 @@ section links and the approved tag/SHA remain open for every requirement.
 # Assignment 6 — Cycle 2 Traceability Addendum (initial inventory, 2026-11-23)
 
 **Coordinator:** Giancarlo Herrera, Quality & Review Lead  
-**Tracking:** [Issue #111](https://github.com/victordodan/-comp330-f26-team-02/issues/111) · [Draft PR #112](https://github.com/victordodan/-comp330-f26-team-02/pull/112)  
+**Tracking:** [Issue #111](https://github.com/victordodan/-comp330-f26-team-02/issues/111) · [PR #112](https://github.com/victordodan/-comp330-f26-team-02/pull/112)
 **Scope:** Preserve the historical A4/A5 mappings above and distinguish A5's **subsequent** conditional acceptance from any **new A6** verification. This addendum is a documentation baseline, not an executed Cycle 2 test or final release sign-off.
 
 ## Baseline reconciliation
@@ -197,4 +197,4 @@ See [A6 quality gate](../quality/a6-final-release-quality-gate.md) for closure c
 
 ## November 24 implementation reconciliation
 
-Merged PR #113 adds note-update precondition regression coverage (REQ-006 / TC-012); merged #128 browser integration, #129 frontend authorization/integration tests, #130 HTTP smoke checks and #131 synthetic demo setup support REQ-001–006. Candidate results are recorded in [final test evidence](../testing/final-test-evidence.md#november-24-browser-candidate); this does not establish individual final-SHA TC-001–012 acceptance. PR #134 proposes the canonical changed-file inventory and must be reconciled with this branch's overlapping path. Final integrated SHA, human dispositions and authorization remain OPEN.
+Merged PR #113 adds note-update precondition regression coverage (REQ-006 / TC-012); merged #128 browser integration, #129 frontend authorization/integration tests, #130 HTTP smoke checks and #131 synthetic demo setup support REQ-001–006. Candidate results are recorded in [final test evidence](../testing/final-test-evidence.md#november-24-browser-candidate); this does not establish individual final-SHA TC-001–012 acceptance. Merged PR #134 established the [canonical inventory](../release/changed-files-since-a5.md). PR #112 leaves that file in place. Refresh the inventory once the submitted revision is selected. Final integrated SHA, human dispositions and authorization remain OPEN.
