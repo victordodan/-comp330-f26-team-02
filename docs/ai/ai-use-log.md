@@ -340,3 +340,10 @@ successful exact-main CI run and preserve the original evidence identities.
 ## A6 quality review follow-up — 2026-11-24
 
 ChatGPT assisted with repository patch inspection, scoped review comments on PRs #133–#136, and quality gate reconciliation in #112. Reviews requested corrections on #133, #134 and #136; #135 received a comment. No runtime execution, independent test-report verification, self-approval, merge or release authorization was performed. Human review of these AI-assisted assessments and final decision remains required.
+
+### A6 documentation review corrections
+
+Codex reconciled PRs #112 and #133–#136 against the A5 tag, the merged November
+24 candidate, GitHub review feedback, and the Sakai deadline. Candidate test
+results retain their execution revision. Human review of these revisions,
+remaining effort and ownership confirmations, and release authorization are open.
