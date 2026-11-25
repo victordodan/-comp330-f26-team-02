@@ -165,3 +165,35 @@ can differ legitimately; the release index must explain their purpose rather
 than overwrite history to make every document show an untested SHA.
 
 AI assistance and limits are recorded in [AI-use log](../ai/ai-use-log.md).
+
+
+---
+
+## Assignment 6 — Cycle 2 risk disposition intake (2026-11-23)
+
+This section tracks **unresolved A6 decisions**, not new defects or approvals. The [A5 conditional classroom release decision](../release/a5-release-decision.md) is historical and does not authorize a production deployment or final A6 release.
+
+| Risk / linkage | Current A6 status | Evidence or accountable decision required |
+|---|---|---|
+| LIM-001 / R-010 — local H2 file loss and recovery | **OPEN** | Shu: verified runbook, path, restart and backup/restore test if claimed; Victor: residual risk |
+| LIM-002 — synthetic session identities | **RESTRICTED / OPEN for A6 decision** | Shelby: governance and deployment-boundary documentation. Shú and Mareddy: technical authorization verification. Victor: decision on the deployment boundary. |
+| R-011 — concurrent updates and optimistic locking | **OPEN for A6 verification** | Mareddy: link exact-candidate concurrency and stale-version checks. Record conflicts and verify rejected updates preserve stored data. |
+| LIM-003 — no outbound notifications | **KNOWN LIMITATION** | Disclose polling/manual status retrieval; no invented feature completion |
+| LIM-004 — browser access | **Mitigated on the November 24 candidate** | PRs #126–#128 added the portal. See the [candidate test results](../testing/final-test-evidence.md#november-24-browser-candidate). Reconcile with the final release SHA. |
+| LIM-005 — monitoring, operations, incident recovery | **OPEN** | Shú owns the runbook. Giancarlo completed the Windows exercise at `0860160`. Victor executes and records any follow-up checks. See [PR #137](https://github.com/victordodan/-comp330-f26-team-02/pull/137). |
+| A5-F04 / #104 — final acceptance | **OPEN** | Mareddy: exact-A6-SHA TC-001–012 evidence; Victor: human case decisions |
+| A5-F05 / #105 — independent review, final tag | **OPEN** | Non-author reviewer, CI, Victor decision and matching tag |
+| A5-F06 — dependency/license/advisory assurance | **OPEN** | Dated scoped review or Victor's explicit deferral; no blanket clearance |
+
+See [A6 defect review](../quality/defect-review.md), [A6 quality gate](../quality/a6-final-release-quality-gate.md), and [Issue #107](https://github.com/victordodan/-comp330-f26-team-02/issues/107). **No A6 risks are marked accepted on Victor's behalf.** AI-assisted draft; human confirmation pending.
+
+### Additional Cycle 2 limitations
+
+The [expanded limitation register in #135](https://github.com/victordodan/-comp330-f26-team-02/pull/135) defines the scope and owners below. These entries carry forward to final review.
+
+| Limitations | Quality and risk disposition |
+|---|---|
+| LIM-006–008 | Separate browser profiles for independent sessions. Unsaved browser edits are temporary. R-011 tracks reviewer concurrency. The candidate Chromium run exercised stale-edit rejection. |
+| LIM-009–012 | Use synthetic fixtures and an isolated local H2 store. Sequential seed reruns passed on the candidate. Concurrent seeding and interrupted setup recovery remain unverified. The default loopback URL requires no hostname setup. |
+| LIM-013–014 | The candidate passed Chromium, HTTP smoke and regression checks. Broader browser and accessibility coverage, final SHA verification, independent review and release authorization remain open. |
+| LIM-015–016 | Production load and deployment are outside classroom scope. Scoped dependency and advisory disposition remains open. |

@@ -67,3 +67,24 @@ No branch-protection configuration was changed by this local work.
 
 **AI disclosure:** Codex assisted workflow review, configuration corrections and
 evidence documentation. Human review and actual CI execution remain separate.
+
+
+---
+
+## Assignment 6 — CI final-baseline intake (2026-11-23)
+
+**Status: OPEN.** This entry does not report a newly executed workflow. The historical CI links above are not proof of a passing A6 final SHA. Record the workflow actually used, its triggering event and whether path filters, manual-only jobs, skipped checks or branch protection affected the candidate.
+
+| Required field | A6 value |
+|---|---|
+| Final candidate commit SHA / branch | Pending |
+| Workflow file, event and run URL | Pending |
+| Job status, run conclusion and completion timestamp | Pending |
+| Maven/test totals, failures, errors and skips | Pending |
+| Test report/artifact URL | Pending |
+| Skipped or non-required checks and explanation | Pending |
+| Independent reviewer and final tag SHA match | Pending |
+
+**Scoped A6 evidence:** [PR #113](https://github.com/victordodan/-comp330-f26-team-02/pull/113) added HTTP 428/400 regression coverage for resolution-note updates. The PR records 36 tests passed in [run #73](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45249178158), and Giancarlo verified [run #74](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45253604010) on the exact PR head before approval. Treat these as PR-level evidence.
+
+**Acceptance rule:** The tested commit and the eventual `a6-final-release` tag target must be reconciled; a documentation-only CI run cannot substitute for verified application behavior. See [A6 quality gate](../quality/a6-final-release-quality-gate.md). AI drafted this intake; it did not run CI.

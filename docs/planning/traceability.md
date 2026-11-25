@@ -134,3 +134,67 @@ section links and the approved tag/SHA remain open for every requirement.
 - Quality records: this PR proposes [finding log](../quality/defect-log.md) and [review](../quality/defect-review.md); [#87](https://github.com/victordodan/-comp330-f26-team-02/pull/87) remains a proposed reconciliation.
 - Candidate gate/matrix/security/disclosure: #85/#88/#89/#90 remain open proposals at this checkpoint. No scans, complete license clearance or release signoffs are inferred from them.
 - [AI-use log](../ai/ai-use-log.md): correction disclosure added here; human verification remains pending. Codex assisted source/PR/evidence comparison and writing, without new runtime tests, scans or approvals.
+
+
+---
+
+# Assignment 6 — Cycle 2 Traceability Addendum (initial inventory, 2026-11-23)
+
+**Coordinator:** Giancarlo Herrera, Quality & Review Lead  
+**Tracking:** [Issue #111](https://github.com/victordodan/-comp330-f26-team-02/issues/111) · [PR #112](https://github.com/victordodan/-comp330-f26-team-02/pull/112)
+**Scope:** Preserve the historical A4/A5 mappings above and distinguish A5's **subsequent** conditional acceptance from any **new A6** verification. This addendum is a documentation baseline, not an executed Cycle 2 test or final release sign-off.
+
+## Baseline reconciliation
+
+The historical text above was written at earlier checkpoints and uses "acceptance pending" in that historical context. The [2026-11-10 A5 release decision](../release/a5-release-decision.md) later records **CONDITIONAL GO** for a local synthetic-data classroom demonstration and TC-001–TC-012 **PASS within that bounded scope** under Victor's documented delegated authority. It explicitly defers independent final integrated review and wider security/operational assurance. Do not retroactively rewrite the old checkpoint, or treat that A5 decision as A6 acceptance.
+
+A5 source/verification references: [A5 acceptance closeout](../testing/a5-acceptance-closeout.md), [A5 release decision](../release/a5-release-decision.md), [A5 acceptance matrix](../testing/a5-acceptance-evidence-matrix.md), [A5 quality gate](../quality/a5-final-release-quality-gate.md). These are **historical** evidence, not a claim of a new A6 run.
+
+## Requirement → implementation → tests → A6 verification
+
+| Requirement / cases | Existing implementation and A5 evidence | Cycle 2 change / PR | Required A6 evidence and disposition |
+|---|---|---|---|
+| REQ-001 submission and validation; TC-001/002 | [#66](https://github.com/victordodan/-comp330-f26-team-02/issues/66) → [#67](https://github.com/victordodan/-comp330-f26-team-02/pull/67) validation; [#71](https://github.com/victordodan/-comp330-f26-team-02/pull/71) service and [#72](https://github.com/victordodan/-comp330-f26-team-02/pull/72) HTTP; A5 scoped PASS | **Not established** | Exact-SHA submission and invalid-input checks; preserve TC-002 limitation on exact HTTP message wording |
+| REQ-002 own status/notes/isolation; TC-003/004/005 | #71/#72 and A5 scoped PASS; feature issue not recorded in historical ledger | **Not established** | Student isolation, authorization denial, own-status and notes evidence at final SHA |
+| REQ-003 persistence/ID/metadata; TC-006/007 | #71/#72, H2/JDBC correction [#81](https://github.com/victordodan/-comp330-f26-team-02/pull/81)/[#83](https://github.com/victordodan/-comp330-f26-team-02/pull/83); A5 scoped PASS | **Not established** | Packaged restart with same database at final SHA; distinguish from **unverified backup restore** (LIM-001) |
+| REQ-004 reviewer access; TC-008/009 | #71/#72, server-session synthetic identity; A5 scoped PASS | **Not established** | Reviewer happy path and student/forged-header rejection; disclose selectable demo Reviewer (LIM-002) |
+| REQ-005 lifecycle; TC-010/011 | #71/#72; A5 scoped PASS | **Not established** | Valid/invalid state transitions, version-conflict and rollback evidence at final SHA |
+| REQ-006 note management; TC-012 | #71/#72; A5 scoped PASS | **Not established** | Note edit/boundary and invalid-clear checks at final SHA |
+
+**Important:** No A6 implementation PR, test execution, or case-specific acceptance is asserted in this initial mapping. Add actual Cycle 2 issue/PR/commit references and the final tested SHA only after they exist. Historical missing feature issues must not be fabricated.
+
+## Cross-cutting Cycle 2 maturity traceability
+
+| Cycle 1 finding / risk | Expected Cycle 2 work or explicit deferral | Work / evidence pointer | Initial disposition |
+|---|---|---|---|
+| A5-F01, LIM-001, R-010 — file-backed H2 and recovery | Runbook, consistent datasource path, restart and (if claimed) actual backup/restore evidence | [A6 defect review](../quality/defect-review.md), [runbook](../operations/runbook.md) | **OPEN** — recovery evidence not established |
+| A5-F02, LIM-002 — synthetic identity | Security governance, bounded local demo, negative authorization tests; real SSO only if actually implemented | [Security checklist](../security/security-governance-checklist.md) | **OPEN** — no production authentication claim |
+| A5-F03/F04 — evidence accuracy and acceptance | Exact A6 tests/CI, TC-001–012 case dispositions, accountable human review | [Test catalog](../testing/test-cases.md), [Issue #104](https://github.com/victordodan/-comp330-f26-team-02/issues/104) | **OPEN** — A5 scoped acceptance is not A6 sign-off |
+| A5-F05 — final CI, non-author review and baseline | Final tested SHA, independent review, Victor decision and pushed `a6-final-release` tag | [Issue #105](https://github.com/victordodan/-comp330-f26-team-02/issues/105), [A6 quality gate](../quality/a6-final-release-quality-gate.md) | **OPEN** |
+| A5-F06 — dependency, license and advisory decisions | Dated scoped review or attributable risk deferral; no unsupported clearance | [A5 release decision](../release/a5-release-decision.md), [security checklist](../security/security-governance-checklist.md) | **OPEN** for A6 |
+| LIM-003 — outbound notifications | Status is retrieved on demand | [Known limitations](../release/known-limitations.md) | **KNOWN LIMITATION** |
+| LIM-004 — browser access | PRs #126–#128 added the browser client. PRs #129–#130 added integration tests and smoke checks. | [Candidate test results](../testing/final-test-evidence.md#november-24-browser-candidate) | **Mitigated on candidate** |
+| LIM-005 — operational readiness | Project-specific runbook, observability/failure evidence, recovery limits and named owners | [Issue #107](https://github.com/victordodan/-comp330-f26-team-02/issues/107), [observability plan](../observability/observability-plan.md) | **OPEN** |
+
+## Final A6 evidence and approval ledger
+
+| Required link in the chain | Evidence / exact revision | Status |
+|---|---|---|
+| Approved Cycle 2 scope, postmortem and re-estimation | Pending actual reviewed links | OPEN |
+| Actual Cycle 2 issue → PR → merged commit | Pending | OPEN |
+| Final Maven CI and tests at exact release SHA | Pending run URL, SHA and totals | OPEN |
+| TC-001–TC-012 at A6 SHA with attributable disposition | Pending | OPEN |
+| HTTP demo and negative/restart checks at A6 SHA | Pending transcripts, environment and operator | OPEN |
+| Operational/observability/security evidence and exceptions | Pending actual links and human decisions | OPEN |
+| Independent non-author integrated review | Pending named reviewer and SHA | OPEN |
+| Victor GO / CONDITIONAL GO / NO-GO | Pending attributable decision | OPEN |
+| Final notes, presentation evidence and `a6-final-release` tag | Pending approved SHA and tag URL | OPEN |
+
+See [A6 quality gate](../quality/a6-final-release-quality-gate.md) for closure criteria and [A6 defect review](../quality/defect-review.md) for finding dispositions. Do not close any row based solely on this documentation PR.
+
+**AI disclosure:** AI assisted in reconciling the historical traceability ledger with the existing A5 decision and drafting this A6 addendum. No new source execution, acceptance, independent review, or release authorization was performed. Record the assistance and human verification in [AI-use log](../ai/ai-use-log.md) before final submission.
+
+
+## November 24 implementation reconciliation
+
+Merged PR #113 adds note-update precondition regression coverage (REQ-006 / TC-012); merged #128 browser integration, #129 frontend authorization/integration tests, #130 HTTP smoke checks and #131 synthetic demo setup support REQ-001–006. Candidate results are recorded in [final test evidence](../testing/final-test-evidence.md#november-24-browser-candidate); this does not establish individual final-SHA TC-001–012 acceptance. Merged PR #134 established the [canonical inventory](../release/changed-files-since-a5.md). PR #112 leaves that file in place. Refresh the inventory once the submitted revision is selected. Final integrated SHA, human dispositions and authorization remain OPEN.
