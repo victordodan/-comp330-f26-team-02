@@ -470,7 +470,7 @@ Record this assistance and actual human verification in:
 | Release Phase | Assignment 6 — Cycle 2 |
 | Architecture Owner | Shú Perez |
 | Decision | Extend the existing REST architecture with a same-origin browser presentation layer |
-| Application Address | `http://campusconnect.local:8080` |
+| Default application address | `http://127.0.0.1:8080/`. `campusconnect.local` is an optional local alias. |
 | Implementation Status | Implemented |
 | Scope | Local classroom demonstration |
 | Team Approval | Frontend scope approved as documented in the Cycle 2 maturity plan |
