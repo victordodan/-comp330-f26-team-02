@@ -553,7 +553,7 @@ These results must not be interpreted as evidence that the application contains 
 
 The authoritative defect disposition is maintained in:
 
-- [Defect Summary](defect-summary.md)
+- [Defect Summary](../quality/defect-review.md)
 - [Defect Review](../quality/defect-review.md)
 
 Any defect discovered during final integration must receive an appropriate disposition, owner, and supporting evidence before release approval.
@@ -757,7 +757,7 @@ Do not delete the database directory unless an intentional reset has been author
 | Data Ownership | [Data Context](../architecture/data-context.md) |
 | Final Testing | [Final Test Evidence](../testing/final-test-evidence.md) |
 | CI/CD | [CI Evidence](../testing/ci-evidence.md) |
-| Defects | [Defect Summary](defect-summary.md) |
+| Defects | [Defect Summary](../quality/defect-review.md) |
 | Risks | [Risk Register](../planning/risk-register.md) |
 | Limitations | [Known Limitations](known-limitations.md) |
 | Operations | [Operational Runbook](../operations/runbook.md) |
