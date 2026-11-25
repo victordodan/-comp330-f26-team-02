@@ -342,16 +342,6 @@ At Victor's request, Codex inspected the integrated workflow and evidence at
 did not attribute this review to another person or represent it as independent
 human review. No additional execution, scanner clearance or release tag is claimed.
 
-## Conditional baseline finalization
-
-Victor instructed Codex to finish through tagging using his delegated release
-and risk authority. Codex explicitly deferred the unfulfilled independent human
-review condition for this conditional classroom baseline, retained Victor as
-accountable owner and disclosed possible course-assessment consequences. This
-is not a teammate’s review or an instructor waiver. The tag must follow a
-successful exact-main CI run and preserve the original evidence identities.
-
-
 ---
 
 ## A6 — Architecture & Development Lead AI Assistance (Shú Perez)
@@ -390,8 +380,8 @@ The assistance was restricted to project development and synthetic classroom dat
 | 2026-11-24 | ChatGPT | Review and reconcile the implemented architecture | PR #116; `docs/architecture/architecture.md` | Shú personally reviewed and confirmed the AI-assisted architecture documentation against the intended implementation and project scope. | Accepted for repository submission and subsequently reconciled with browser integration. |
 | 2026-11-24 | ChatGPT | Develop and reconcile the architecture diagram | PR #117; `docs/architecture/architecture-diagram.png` | Shú personally reviewed and confirmed the architectural relationships and AI-assisted diagram content. | Accepted for repository submission; final integrated diagram alignment remains subject to independent review. |
 | 2026-11-24 | ChatGPT | Reconcile API contracts with implemented REST behavior | PR #118; `docs/architecture/api-contracts.md` | Shú personally reviewed and confirmed the AI-assisted contract descriptions, endpoint responsibilities, and implementation boundaries. | API documentation accepted and further reconciled with browser integration. |
-| 2026-11-24 | ChatGPT | Document component responsibilities and architectural boundaries | PR #119; `docs/architecture/component-responsibilities.md` | Shú personally reviewed and confirmed the documented frontend and backend component responsibilities. | Accepted for repository submission. |
-| 2026-11-24 | ChatGPT | Document data ownership, persistence, and context boundaries | PR #120; `docs/architecture/data-context.md` | Shú personally reviewed and confirmed the AI-assisted descriptions of data ownership, persistence, authorization, and temporary browser state. | Accepted for repository submission. |
+| 2026-11-24 | ChatGPT | Document component responsibilities and architectural boundaries | PR #119 (backend), PR #142 (browser integration); `docs/architecture/component-responsibilities.md` | Shú personally reviewed and confirmed the documented frontend and backend component responsibilities. | Accepted for repository submission. |
+| 2026-11-24 | ChatGPT | Document data ownership, persistence, and context boundaries | PR #120 (persistent data), PR #144 (temporary browser state); `docs/architecture/data-context.md` | Shú personally reviewed and confirmed the AI-assisted descriptions of data ownership, persistence, authorization, and temporary browser state. | Accepted for repository submission. |
 | 2026-11-24 | ChatGPT | Develop the browser interface structure | PR #126; HTML frontend | Shú personally reviewed and confirmed the AI-assisted HTML implementation, integrated it locally, and executed frontend smoke verification. | Browser interface implemented using the existing REST architecture. |
 | 2026-11-24 | ChatGPT | Develop responsive frontend styling | PR #127; CSS frontend | Shú personally reviewed and confirmed the styling implementation and verified resource availability through the frontend smoke script. | CampusConnect visual presentation implemented without external frontend dependencies. |
 | 2026-11-24 | ChatGPT | Develop browser interaction and REST communication logic | PR #128; JavaScript frontend | Shú personally reviewed and confirmed the AI-assisted browser logic, integrated it locally, and executed the frontend smoke and demonstration preparation scripts. | Student and reviewer interfaces implemented using existing REST endpoints. |
@@ -624,7 +614,7 @@ Shú directed or confirmed the following decisions during the AI-assisted work:
 - Preserve historical architecture decisions rather than silently replacing them.
 - Document implementation deviations through explicit architecture reconciliation.
 - Use the locally configured CampusConnect hostname.
-- Identify Giancarlo Herrera as the architecture backup in the updated architecture documentation.
+- Identify Giancarlo Herrera as the backup listed in the architecture documents.
 - Distinguish temporary browser state from authoritative persistent data.
 - Distinguish personally executed verification from separately recorded team and Codex evidence.
 - Retain unresolved limitations and pending approval requirements.
@@ -796,6 +786,12 @@ Shú retains responsibility for the accuracy, appropriateness, and quality of th
 | [PR #129](https://github.com/victordodan/-comp330-f26-team-02/pull/129) | Frontend Integration Tests |
 | [PR #130](https://github.com/victordodan/-comp330-f26-team-02/pull/130) | Frontend Smoke Verification |
 | [PR #131](https://github.com/victordodan/-comp330-f26-team-02/pull/131) | Synthetic Demonstration Data Generation |
+| [PR #140](https://github.com/victordodan/-comp330-f26-team-02/pull/140) | Browser amendment to ADR-006 |
+| [PR #141](https://github.com/victordodan/-comp330-f26-team-02/pull/141) | Browser architecture overview |
+| [PR #142](https://github.com/victordodan/-comp330-f26-team-02/pull/142) | Browser component responsibilities |
+| [PR #143](https://github.com/victordodan/-comp330-f26-team-02/pull/143) | Browser REST contracts |
+| [PR #144](https://github.com/victordodan/-comp330-f26-team-02/pull/144) | Browser data context |
+| [PR #145](https://github.com/victordodan/-comp330-f26-team-02/pull/145) | Individual AI assistance disclosure |
 
 ---
 
@@ -837,3 +833,15 @@ I accept responsibility for the accuracy, appropriateness, and quality of the AI
 
 **Final Acceptance Status:** Pending final integrated release verification, risk acceptance, and release authorization.
 
+## A6 — Architecture documentation review follow-up (Codex)
+
+At Victor’s request, Codex checked PRs #140–145 against the candidate source and team records. Corrections cover the default loopback address, diagram, REST response path, failed browser refresh, and attribution of the earlier and later documentation changes. The [team role matrix](../team/roles.md) assigns the Architecture & Development role backup to Venkata Aravind Mareddy. Architecture documents also name Giancarlo Herrera as their document backup. Shu’s execution results above are her own report. Independent review of these corrections remains pending.
+
+## Conditional baseline finalization
+
+Victor instructed Codex to finish through tagging using his delegated release
+and risk authority. Codex explicitly deferred the unfulfilled independent human
+review condition for this conditional classroom baseline, retained Victor as
+accountable owner and disclosed possible course-assessment consequences. This
+is not a teammate’s review or an instructor waiver. The tag must follow a
+successful exact-main CI run and preserve the original evidence identities.
