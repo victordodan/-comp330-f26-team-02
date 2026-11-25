@@ -80,7 +80,7 @@ than claim an outcome without evidence.
 | MT-03 | OPEN | — | — | — |
 | MT-04 | OPEN | — | — | — |
 | MT-05 | OPEN | — | — | — |
-| MT-06 | Mitigated (proposed) | [#115](https://github.com/victordodan/-comp330-f26-team-02/pull/115) (`fa020be`); [#136](https://github.com/victordodan/-comp330-f26-team-02/pull/136) (`0ad0d6a`, [approved by Giancarlo Herrera](https://github.com/victordodan/-comp330-f26-team-02/pull/136#pullrequestreview-6051623597)); [`re-estimation.md`](re-estimation.md), [`task-plan.md`](task-plan.md), [`schedule.md`](schedule.md), [`changed-files-since-a5.md`](../release/changed-files-since-a5.md) | Partly: re-estimation and MS/TASK statuses are current and reviewed, but the effort log has no entries, CP-A6-1 was not held separately, and the changed-file index stops at `373a0f6` (PM-01/PM-04 recurred in part). | Proposed by Malec Tarabein, 2026-11-24; pending Victor |
+| MT-06 | Mitigated | [#115](https://github.com/victordodan/-comp330-f26-team-02/pull/115) (`fa020be`); [#136](https://github.com/victordodan/-comp330-f26-team-02/pull/136) (`0ad0d6a`, [approved by Giancarlo Herrera](https://github.com/victordodan/-comp330-f26-team-02/pull/136#pullrequestreview-6051623597)); [`re-estimation.md`](re-estimation.md), [`task-plan.md`](task-plan.md), [`schedule.md`](schedule.md), [`changed-files-since-a5.md`](../release/changed-files-since-a5.md) | Partly: re-estimation and MS/TASK statuses are current and reviewed, but the effort log has no entries, CP-A6-1 was not held separately, and the inventory still needs reconciliation against the approved release SHA. | Proposed by Malec Tarabein. Approved by Victor Dodan on November 24, 2026 (Chicago time). |
 
 ## Related records
 
