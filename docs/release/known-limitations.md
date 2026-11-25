@@ -142,7 +142,7 @@ A mitigation does not necessarily eliminate the underlying limitation.
 | LIM-001 | Local database retention and recovery | High | File-backed H2, consistent storage path, synthetic data | Partially Addressed |
 | LIM-002 | Synthetic identities without production authentication | High outside classroom scope | Server-side session permissions and local deployment | Deferred |
 | LIM-003 | No automated notification delivery | Low | Student dashboard and request retrieval | Deferred |
-| LIM-004 | Incomplete browser interaction verification | Medium | Implemented browser interface and passing HTTP smoke checks | Partially Addressed |
+| LIM-004 | Browser interaction coverage | Medium | Passing HTTP smoke checks and a Chromium workflow on merged main | Partially Addressed |
 | LIM-005 | No production deployment or complete operational recovery capability | High outside classroom scope | Local operation and documented release boundaries | Deferred |
 | LIM-006 | Shared browser session behavior | Medium | Separate browser profiles for independent identities | Mitigated |
 | LIM-007 | Temporary browser state and unsaved input | Medium | Explicit save operations and server-authoritative state | Partially Addressed |
@@ -150,7 +150,7 @@ A mitigation does not necessarily eliminate the underlying limitation.
 | LIM-009 | Demonstration data modifies persistent storage | Medium | Synthetic records and execution confirmation | Mitigated |
 | LIM-010 | Demonstration setup duplicate detection is not atomic | Medium | Sequential execution and existing-record matching | Partially Addressed |
 | LIM-011 | Interrupted demonstration setup may leave partial records | Medium | Inspect existing records before repeating setup | Deferred |
-| LIM-012 | Local hostname configuration dependency | Low | Documented hosts-file configuration | Mitigated |
+| LIM-012 | Optional local hostname configuration | Low | Use the default loopback URL without a hosts-file entry | Mitigated |
 | LIM-013 | Incomplete browser compatibility and accessibility verification | Medium | Responsive styling and accessibility-oriented interface design | Pending Verification |
 | LIM-014 | Final integrated release verification | High | Existing local runtime evidence and final release gate | Pending Verification |
 | LIM-015 | No verified production capacity or sustained-load assessment | High outside classroom scope | Restrict operation to bounded classroom use | Deferred |
@@ -346,7 +346,7 @@ Observed result:
 
 38 checks passed and 0 failed.
 
-However, HTTP smoke testing does not independently execute all browser-side JavaScript behavior.
+The follow-up Chromium run on merged main exercised the browser workflow. Broad browser, device, and accessibility coverage remains open.
 
 The recorded evidence does not establish comprehensive verification of:
 
@@ -660,7 +660,7 @@ The application uses the following locally configured address:
 
 `http://campusconnect.local:8080`
 
-The hostname requires a local operating system hosts-file entry:
+The optional hostname requires a local hosts-file entry. The default URL is `http://127.0.0.1:8080/` and needs no hosts-file entry:
 
 `127.0.0.1 campusconnect.local`
 
@@ -761,11 +761,8 @@ The recorded commit identifies the local checkout state reported by the smoke te
 
 It is not independent proof of the exact running application binary.
 
-Local runtime evidence does not independently establish:
+The merged revision has its own regression, CI, and Chromium results in section 7.4. The following release gates remain open:
 
-- Final merged-release regression results.
-- Final CI success.
-- Complete browser interaction verification.
 - Independent technical review.
 - Final release authorization.
 - Exact final release tag alignment.
@@ -924,6 +921,20 @@ These results support successful request creation, reviewer status changes, reso
 
 ---
 
+### 7.4 Merged Candidate Verification
+
+The November 24 merged candidate `373a0f6b6d6190d6067099178a8c71862bb12dec` passed [GitHub CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45509064331).
+On a clean checkout of that revision, Codex ran 51 Maven tests and 38 HTTP smoke
+checks with zero failures. The Chromium exercise covered student submission
+and isolation, reviewer status and note updates, stale-edit rejection, and
+owner visibility. Demo setup created six requests on the first run. A repeat
+run skipped all six and made zero reviewer updates. [Candidate evidence in #112](https://github.com/victordodan/-comp330-f26-team-02/blob/a6-quality-defect-review-gherrera/docs/testing/final-test-evidence.md#november-24-browser-candidate)
+
+Final acceptance, independent integrated review, release authorization, and
+tag verification remain pending.
+
+---
+
 ## 8. Verification Boundaries and Remaining Gaps
 
 | Verification Area | Available Evidence | Remaining Boundary |
@@ -934,11 +945,11 @@ These results support successful request creation, reviewer status changes, reso
 | Reviewer modifications | Ten confirmed updates | Comprehensive browser interaction coverage |
 | Student record visibility | Three owned demonstration records per student | Additional record-level negative-path evidence |
 | Reviewer queue visibility | Six accessible demonstration records | Production authorization is not established |
-| Browser interaction | Implemented browser presentation layer | Comprehensive manual interaction verification |
+| Browser interaction | Chromium workflow passed on merged main | Broader browser, device, and accessibility coverage |
 | Database persistence | Successful storage and retrieval during execution | Cycle 2 restart verification and backup restoration |
-| Duplicate prevention | Existing-record matching implementation | Repeated execution and concurrent duplicate prevention |
+| Duplicate prevention | Sequential repeat skipped all six matching examples and made zero updates | Concurrent duplicate prevention |
 | Demonstration recovery | Successful complete execution | Interrupted execution recovery |
-| Regression suite | Existing automated test implementation | Final execution result requires confirmation |
+| Regression suite | 51 Maven tests and GitHub CI passed on merged main | Confirm on the approved final revision |
 | CI | Existing repository CI infrastructure and historical evidence | Exact final release revision verification |
 | Dependency assurance | Historical dependency evidence | Final dependency disposition |
 | Accessibility | Accessibility-oriented implementation | Formal compliance and assistive technology verification |
