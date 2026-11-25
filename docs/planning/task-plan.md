@@ -218,7 +218,7 @@ done. The table above now reflects repository evidence:
 | ID | Subtask | Owner | Backup / Reviewer | Target | Estimate | Expected evidence | Depends on | Status |
 |---|---|---|---|---|---|---|---|---|
 | TASK-018.1 | Bounded backup and restore (tier B) | Shú Perez | Venkata Aravind Mareddy | MT-01 | C2-01 | Restore steps in `runbook.md`; executed restore transcript at the A6 SHA in `/test-evidence`; or Victor's dated deferral | Target confirmation | Not Started |
-| TASK-018.2 | Operational readiness and observability | Shú Perez (runbook), Giancarlo Herrera (runbook exercise and evidence); Shelby Sierah (observability planning) | Venkata Aravind Mareddy | MT-02 | C2-02 | Project-specific `runbook.md` and `observability-plan.md`; runbook exercise (startup, one observed failure signal, same-store restart) with environment and candidate SHA in `runtime-evidence.md`; unused starter files marked out of scope | Target confirmation (runbook assignment confirmed 2026-11-24) | Not Started |
+| TASK-018.2 | Operational readiness and observability | Shú Perez (runbook), Victor Dodan (follow-up exercise and evidence); Shelby Sierah (observability planning) | Venkata Aravind Mareddy | MT-02 | C2-02 | Project-specific `runbook.md` and `observability-plan.md`; runbook exercise (startup, one observed failure signal, same-store restart) with environment and candidate SHA in `runtime-evidence.md`; unused starter files marked out of scope | Non-author review of #107 documentation | In Progress. Giancarlo completed the Windows operational exercise. |
 | TASK-018.3 | Identity boundary and negative authorization tests | Shú Perez | Venkata Aravind Mareddy | MT-03 | C2-03 | Filled `permission-boundaries.md`; negative-path tests passing in CI at the A6 SHA | Target confirmation and permissions documentation | In Progress. Candidate authorization tests passed. |
 | TASK-018.4 | Acceptance re-run and independent review | Venkata Aravind Mareddy (acceptance), Giancarlo Herrera (quality gate) | Victor Dodan (decision) | MT-04 | C2-04 | TC-001–TC-012 human disposition per case at the A6 SHA; integrated browser workflow (PRs #126–#128) verified; named non-author review; CI URL and totals at the tag commit; Issues #104/#105 closed | Final candidate selected and outstanding evidence reconciled | In Progress. Browser and CI checks passed on candidate `373a0f6`. Human dispositions and independent review are open. |
 | TASK-018.5 | Supply-chain assurance (tier B) | Reviewer appointed by Victor | Victor Dodan | MT-05 | C2-05 | Tomcat/Boot update with CI re-run, or dated advisory/license review, or Victor's dated deferral | Reviewer appointment | Not Started |
@@ -262,9 +262,9 @@ from commit times. Planning totals are compared with the
 - The lightweight browser client (LIM-004) was added by team decision and
   implemented in PRs #126–#128. Browser workflow checks passed on candidate
   `373a0f6`. Final verification and dispositions remain open under TASK-018.4.
-- Victor confirmed the MT-02 assignment on November 24. Shú writes the runbook
-  and Giancarlo exercises it and records the results. The remaining target and
-  owner confirmations are open in the maturity plan merged through PR #115.
+- Shú owns the MT-02 runbook. Giancarlo completed the Windows operational exercise.
+  Victor takes over follow-up execution and observation recording. Other target
+  and owner confirmations are open in the maturity plan merged through PR #115.
 
 AI assistance: Claude (Claude Code) drafted this update for Malec Tarabein. No
 hours, work or approvals are claimed. See the [AI-use log](../ai/ai-use-log.md).

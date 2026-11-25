@@ -6,9 +6,9 @@
 **Prepared by:** Malec Tarabein (Planning & Process Lead) · **Backup:** Shú Perez
 **Prepared:** 2026-11-24 · **Cycle 1 baseline:** `a5-cycle1-release` → `3f297d8`
 **Status:** **PROPOSED.** Victor confirmed the MT-02 runbook assignment on
-November 24, 2026. Shú Perez writes the runbook and Giancarlo Herrera follows it
-and records the results. Target selection, remaining assignments, and owner
-acknowledgements are pending.
+November 24, 2026. Shú Perez owns the runbook. Giancarlo Herrera completed the
+Windows operational exercise. Victor Dodan takes over execution and observation
+recording for follow-up checks. Other target and owner confirmations are pending.
 
 ## Purpose
 
@@ -48,7 +48,7 @@ and the owners already named in draft [PR #112](https://github.com/victordodan/-
 | ID | Target | Tier | Cycle 1 evidence that justifies it | Expected proof (A6) | Owner / backup | Tracking |
 |---|---|---|---|---|---|---|
 | MT-01 | **Bounded data recovery** | B | LIM-001 (High data-loss risk), A5-F01, R-010; TC-007 restoration deferred in the A5 decision | Documented backup and restore steps in the runbook, plus one executed restore transcript at the A6 SHA in `/test-evidence`. Otherwise an explicit deferral recorded by Victor. | Shú / Mareddy | Defect review A5-F01 |
-| MT-02 | **Operational readiness and observability** | C | LIM-005; PM-06 (eight starter-kit files untouched since Sep 10); Issue #107 | Project-specific `runbook.md` (start, verify, restart, common failures), `observability-plan.md` stating what logging actually exists, and a runbook exercise covering startup, one observed failure signal, and same-store restart. Record observations, environment, and candidate SHA in `runtime-evidence.md`. Any file not used is marked out of scope instead of kept as a template. | Shú (runbook), Giancarlo (exercise and evidence); Shelby / Mareddy (observability planning) | Issue #107 |
+| MT-02 | **Operational readiness and observability** | C | LIM-005; PM-06 (eight starter-kit files untouched since Sep 10); Issue #107 | Project-specific `runbook.md` (start, verify, restart, common failures), `observability-plan.md` stating what logging actually exists, and a runbook exercise covering startup, one observed failure signal, and same-store restart. Record observations, environment, and candidate SHA in `runtime-evidence.md`. Any file not used is marked out of scope instead of kept as a template. | Shú (runbook), Victor (follow-up exercise and evidence); Shelby / Mareddy (observability planning) | Issue #107 |
 | MT-03 | **Identity boundary and negative authorization** | C | LIM-002 (High outside demo), A5-F02 | `permission-boundaries.md` filled in with the real who-can-do-what table, plus negative-path tests (student cannot act as reviewer, forged headers rejected) passing in CI at the A6 SHA. | Shú / Mareddy | Defect review A5-F02 |
 | MT-04 | **Acceptance and independent review discipline** | C | PM-05; A5-F04, A5-F05; independent review deferred in A5; Issues #104, #105 | TC-001–TC-012 re-run or re-mapped at the A6 SHA with a named human disposition per case; a **named non-author** integrated review before tagging; CI run URL and test totals at the exact tag commit. | Mareddy (acceptance), Giancarlo (quality gate) / Victor (decision) | #104, #105, #111, #112, #113 |
 | MT-05 | **Supply-chain assurance** | B | PM-08; A5-F06; Tomcat 10.1.55 advisories and Boot 3.5 support accepted for A5 only | Either a compatible Tomcat/Boot update with CI re-run, or a dated, scoped advisory/license review. Otherwise Victor's explicit, dated deferral. | Victor-appointed reviewer / Victor | A5 dependency disposition |
