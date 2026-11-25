@@ -260,11 +260,11 @@ from commit times. Planning totals are compared with the
   or deferred; see [re-estimation](re-estimation.md#cut-or-deferred). No task
   was created for them.
 - The lightweight browser client (LIM-004) was added by team decision and
-  implemented in PRs #126–#128; its integrated workflow is verified at freeze
-  under TASK-018.4. Candidate workflow checks passed on `373a0f6`. Final dispositions remain open.
-- Open decision: Victor's confirmation of the remaining targets and owners
-  (PR #115), needed before CP-A6-1. The MT-02 runbook assignment (Shú writes,
-  Giancarlo exercises and records) was confirmed by Victor on 2026-11-24.
+  implemented in PRs #126–#128. Browser workflow checks passed on candidate
+  `373a0f6`. Final verification and dispositions remain open under TASK-018.4.
+- Victor confirmed the MT-02 assignment on November 24. Shú writes the runbook
+  and Giancarlo exercises it and records the results. The remaining target and
+  owner confirmations are open in the maturity plan merged through PR #115.
 
 AI assistance: Claude (Claude Code) drafted this update for Malec Tarabein. No
 hours, work or approvals are claimed. See the [AI-use log](../ai/ai-use-log.md).
