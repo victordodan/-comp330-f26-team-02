@@ -1,5 +1,21 @@
 # Security Governance Checklist
 
+## A6 classroom security governance
+
+**Evidence baseline** `0860160bc458af670c7944ccd035d21425e7511d`, with
+operational documentation integrated in [#137](https://github.com/victordodan/-comp330-f26-team-02/pull/137).
+Final authorization and risk decisions are tracked in the release records.
+
+| Area | A6 evidence and boundary | Accountable role |
+|---|---|---|
+| Deployment and identity | The app defaults to loopback and permits selection of fixed synthetic identities, including Reviewer. Institutional authentication and production use are outside classroom scope. See [permission boundaries](permission-boundaries.md). | Shú Perez and Victor Dodan |
+| Authorization and mutation | Server-side role and ownership checks restrict student and reviewer actions. The candidate workflow and CI cover negative authorization and version checks. See [runtime evidence](../observability/runtime-evidence.md) and [candidate CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45543404188). | Shú Perez and Venkata Aravind Mareddy |
+| Data and evidence | Use synthetic data, an isolated H2 store for exercises, and redacted evidence. Keep database files and session cookies out of the repository. See [data handling notes](data-handling-notes.md). | Shelby Sierah and the operator |
+| Recovery and monitoring | Candidate runs verified same-store restart. Backup restoration, crash recovery, rollback, and automated monitoring remain unverified or outside classroom scope. See [known limitations](../release/known-limitations.md). | Shú Perez and Victor Dodan |
+| Dependency and release decisions | Scoped dependency and license assurance, residual risk dispositions, independent review, and final authorization remain open. | Victor Dodan and the designated reviewers |
+
+## Historical A3 security review
+
 ## Security Review Identification
 
 **Review Date:**  October 2026

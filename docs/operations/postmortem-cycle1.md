@@ -114,10 +114,12 @@ They are used here only to show *when evidence reached the repository*.
 
 ## 8. Cycle 1 presentation feedback
 
-**Pending team input.** Instructor and peer feedback from the Cycle 1
-presentations (Classes 22–23) is not recorded in the repository. Add specific
-feedback points here, each linked to the maturity target it affects. Do not
-infer feedback that was not given.
+No separate notes from the Cycle 1 presentation were available for this
+closeout. The written A5 assessment identified three follow-up priorities:
+verify the exact release revision, record case-by-case acceptance outcomes,
+and obtain an independent integrated review. Those priorities are tracked
+under MT-04. The [A5 release decision](../release/a5-release-decision.md)
+records the original scope and the independent-review exception.
 
 ## 9. Corrective actions → Cycle 2 maturity targets
 
