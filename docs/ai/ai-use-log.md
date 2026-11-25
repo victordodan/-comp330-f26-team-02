@@ -1,5 +1,15 @@
 # AI Use Log
 
+## A6 classroom operations and security documentation
+
+Victor used Codex to draft the #107 documentation, reconcile follow-up runbook
+ownership, inspect the application and test configuration, and check Markdown
+links. Codex executed the Linux build and local HTTP/restart checks recorded at
+`0860160`. Giancarlo Herrera executed and reported the separate Windows
+exercise in PR #112. Victor is assigned to record subsequent observations
+from checks he performs. Review of these documentation changes remains open.
+See [runtime evidence](../observability/runtime-evidence.md).
+
 ## A6 — Cycle 2 Re-Estimation, Task Plan and Schedule (Malec Tarabein)
 
 Claude (Claude Code) assisted Malec Tarabein on 2026-11-24 with drafting the
