@@ -74,8 +74,7 @@ Codex ran the following checks on a clean checkout of merged main at
 | Automated Chromium exercise against the packaged application | Student A submitted a request, Student B could not see it, and Reviewer updated its status and note. A stale reviewer edit preserved the concurrent update. Student A saw the resolved status and final note. |
 | `bash scripts/demo-data.sh`, confirmed twice on the same store | First run created six examples. Second run skipped all six with zero new requests and zero reviewer updates. |
 
-These results support the browser integration review. Final TC-001–TC-012 dispositions,
-Giancarlo's runbook exercise, independent integrated review, and release authorization remain open.
+These results support the browser integration review. The Windows runbook exercise is recorded below. Final TC-001–TC-012 dispositions, independent integrated review, and release authorization remain open.
 
 
 ## November 24 — Quality Lead Windows operational exercise
