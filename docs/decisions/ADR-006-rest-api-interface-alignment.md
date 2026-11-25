@@ -469,6 +469,7 @@ Record this assistance and actual human verification in:
 | Amendment Date | November 24, 2026 |
 | Release Phase | Assignment 6 — Cycle 2 |
 | Architecture Owner | Shú Perez |
+| Architecture & Development role backup | Venkata Aravind Mareddy, per the [team role matrix](../team/roles.md). The original ADR’s backup field is preserved above. |
 | Decision | Extend the existing REST architecture with a same-origin browser presentation layer |
 | Default application address | `http://127.0.0.1:8080/`. `campusconnect.local` is an optional local alias. |
 | Implementation Status | Implemented |
@@ -1028,7 +1029,7 @@ These consequences are documented further in:
 - [x] Integrated regression evidence identified.
 - [x] Same-store restart evidence identified.
 - [ ] Architecture overview reconciled with this amendment.
-- [ ] Architecture diagram reconciled with this amendment.
+- [x] The [candidate diagram](../architecture/architecture-diagram.png) at `398ea7f` shows the browser, REST boundary, and JDBC/H2 path described here.
 - [ ] Component responsibilities reconciled with this amendment.
 - [ ] API contracts reconciled with this amendment.
 - [ ] Data context reconciled with this amendment.
@@ -1091,7 +1092,7 @@ The team lead retains responsibility for final release authorization.
 
 ### 14.20 AI Assistance Disclosure
 
-ChatGPT assisted with drafting this architecture amendment, documenting component boundaries, organizing verification evidence, and describing browser-to-REST interaction. 
+ChatGPT assisted with drafting this architecture amendment, documenting component boundaries, organizing verification evidence, and describing browser-to-REST interaction.
 
 The amendment incorporates existing implementation information, the documented team-approved frontend scope, local runtime results, and additional repository-recorded verification evidence, and no additional runtime tests were performed through preparation of this amendment.
 
