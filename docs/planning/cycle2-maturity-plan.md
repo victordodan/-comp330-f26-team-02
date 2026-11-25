@@ -66,6 +66,17 @@ To avoid repeating PM-01, the plan adds one checkpoint before the A6 freeze:
 Dates for CP-A6-1 and CP-A6-2 are set by the team in `schedule.md`; this file
 does not invent deadlines.
 
+### Open decisions for MT-05 and MT-06
+
+- MT-05 remains open for Victor's scoped A6 dependency and license decision.
+  A documented deferral is proposed if the scoped review is unavailable.
+  [Historical assessment](../quality/a5-dependency-disposition.md) ·
+  [Current limitations](../release/known-limitations.md#616-lim-016--dependency-and-security-assurance)
+- Malec proposes **Mitigated** for MT-06 in [#138](https://github.com/victordodan/-comp330-f26-team-02/pull/138).
+The merged planning updates support the recommendation. The missing effort
+actuals and separate midpoint checkpoint remain visible. Victor's decision
+is pending.
+
 ## Final disposition (complete at the A6 freeze)
 
 Allowed values: **Fixed**, **Mitigated**, **Deferred**, **Accepted**, **Removed
@@ -75,10 +86,10 @@ than claim an outcome without evidence.
 
 | ID | Final disposition | Evidence (PR / commit / run / file) | Expected risk reduction achieved? | Decided by / date |
 |---|---|---|---|---|
-| MT-01 | OPEN | — | — | — |
-| MT-02 | OPEN | — | — | — |
-| MT-03 | OPEN | — | — | — |
-| MT-04 | OPEN | — | — | — |
+| MT-01 | OPEN. Backup restoration deferral proposed. | [Runtime evidence](../observability/runtime-evidence.md), [LIM-001](../release/known-limitations.md#61-lim-001--local-database-retention-and-recovery) | Same-store restart passed. Backup restoration remains unverified. | Victor decision pending |
+| MT-02 | Mitigated for the classroom candidate | [#137](https://github.com/victordodan/-comp330-f26-team-02/pull/137), [runbook](../operations/runbook.md), [runtime evidence](../observability/runtime-evidence.md) | Startup, a controlled failure signal, and same-store restart were observed. The runbook and evidence are merged. | Candidate evidence recorded Nov 24, 2026 |
+| MT-03 | Mitigated for the classroom candidate | [Permissions](../security/permission-boundaries.md), [workflow transcript](../../test-evidence/a6-operations-0860160/workflow.jsonl), [candidate CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45543404188) | Role and ownership denials were exercised on `0860160`. Selectable identities remain a classroom limit. Reconcile with the final SHA. | Candidate evidence recorded Nov 24, 2026 |
+| MT-04 | OPEN | [Candidate CI](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45543404188), [runtime evidence](../observability/runtime-evidence.md), [quality PR #112](https://github.com/victordodan/-comp330-f26-team-02/pull/112) | Candidate automation and manual checks are recorded. Final case dispositions, independent integrated review, and release authorization are pending. | Victor decision and non-author review pending |
 | MT-05 | OPEN | — | — | — |
 | MT-06 | OPEN | — | — | — |
 

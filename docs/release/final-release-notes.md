@@ -396,7 +396,7 @@ These results represent actual local runtime evidence. They do not independently
 | Application | CampusConnect |
 | Integration Branch | `a6-local-integration` |
 | Recorded Checkout Commit | `f09bd551456c539c92b185dcbbabc0d29f192be6` |
-| Current Application Address | `http://campusconnect.local:8080` |
+| Address used in the earlier local run | `http://campusconnect.local:8080` (optional local alias) |
 | Smoke Test Execution | November 24, 2026 |
 | Demonstration Setup Execution | November 24, 2026 |
 
@@ -692,23 +692,11 @@ Keep the application process running while accessing the browser interface.
 
 ### 17.5 Open CampusConnect
 
-Application address:
-
-```text
-http://campusconnect.local:8080
-```
-
-CampusConnect uses a locally configured hostname to provide a consistent and professional application address within the classroom demonstration environment.
-
-To configure the hostname, add the following entry to the operating system's hosts file:
-
-```text
-127.0.0.1 campusconnect.local
-```
-
-This configuration must be completed on each computer used to run the application.
-
-CampusConnect remains a locally hosted application and does not require public domain registration or external hosting.
+With the default configuration, open `http://127.0.0.1:8080/`. The application
+binds to loopback, and this URL works without a hosts-file entry. The earlier
+local run used `campusconnect.local` as an optional alias for `127.0.0.1`.
+The packaged verification procedure in the [runbook](../operations/runbook.md)
+uses port 18080 and its own synthetic H2 store.
 
 ### 17.6 Optional Smoke Testing
 

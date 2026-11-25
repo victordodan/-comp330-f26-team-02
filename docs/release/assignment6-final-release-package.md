@@ -19,7 +19,10 @@
 
 The local classroom scope uses loopback, selectable synthetic identities, and
 a file-backed H2 store. Candidate results cover 51 Maven tests, 38 HTTP checks,
-a Chromium workflow exercise, and a repeatable seed procedure.
+a Chromium workflow exercise, and a repeatable seed procedure. The
+[runtime record](../observability/runtime-evidence.md) adds the Linux and Windows
+operational exercises on `0860160`. [Post-merge CI for #137](https://github.com/victordodan/-comp330-f26-team-02/actions/runs/45549423920)
+passed on `e9ca7c2`.
 
 Before submission, add the approved revision and tag, final case dispositions,
 independent review outcome or recorded gap, and the accountable release decision.
