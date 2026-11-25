@@ -28,6 +28,26 @@ for the directory step. If launching with the default settings, open
 `http://127.0.0.1:8080/`. For the command above, use
 `http://127.0.0.1:18080/`. Both URLs work without a hosts-file entry.
 
+### Windows Maven PATH
+
+If PowerShell reports that `mvn` is unrecognized, verify that Java 17 is
+available with `java -version`. Find the directory containing Maven's
+`bin\mvn.cmd` and add its `bin` directory to PATH. For the current
+PowerShell session, replace the example path with your installed Maven path:
+
+```powershell
+$mavenBin = 'C:\Tools\apache-maven-3.9.9\bin'
+Test-Path (Join-Path $mavenBin 'mvn.cmd')
+$env:Path = "$mavenBin;$env:Path"
+Get-Command mvn
+mvn -version
+```
+
+Continue when `Test-Path` returns `True` and `mvn -version` reports Java 17.
+If Maven picks another Java version, set `JAVA_HOME` to the JDK 17 directory
+and put its `bin` directory first on PATH. For future sessions, add the Maven
+`bin` directory to the Windows user Path and open a new PowerShell window.
+
 ## Verify and restart
 
 1. Check the startup log for the web server port and H2 path. Open the portal.
