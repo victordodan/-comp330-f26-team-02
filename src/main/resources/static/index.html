@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="CampusConnect university support request portal">
+
+    <title>CampusConnect | University Support Portal</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+
+    <header class="site-header">
+        <div class="header-container">
+
+            <div class="brand">
+                <div class="brand-icon" aria-hidden="true">CC</div>
+
+                <div>
+                    <h1>CampusConnect</h1>
+                    <p>University Support Portal</p>
+                </div>
+            </div>
+
+            <div id="session-controls" class="session-controls" hidden>
+                <span id="active-identity"></span>
+
+                <button id="switch-identity"
+                        class="button button-secondary"
+                        type="button">
+                    Switch identity
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+
+    <main class="main-container">
+
+        <div id="notification"
+             class="notification"
+             role="status"
+             aria-live="polite"
+             hidden>
+        </div>
+
+
+        <!-- ==================== IDENTITY SELECTION ==================== -->
+
+        <section id="identity-screen" class="identity-screen">
+
+            <div class="welcome-section">
+
+                <p class="eyebrow">UNIVERSITY SUPPORT SERVICES</p>
+
+                <h2>Welcome to CampusConnect</h2>
+
+                <p>
+                    A centralized platform for submitting,
+                    managing, and tracking university support requests.
+                </p>
+
+            </div>
+
+            <div class="identity-grid">
+
+                <article class="identity-card">
+
+                    <span class="identity-icon" aria-hidden="true">A</span>
+
+                    <h3>Student A</h3>
+
+                    <p>
+                        Submit support requests and track
+                        your personal request history.
+                    </p>
+
+                    <button class="button button-primary identity-button"
+                            type="button"
+                            data-identity="student-a">
+                        Continue as Student A
+                    </button>
+
+                </article>
+
+
+                <article class="identity-card">
+
+                    <span class="identity-icon" aria-hidden="true">B</span>
+
+                    <h3>Student B</h3>
+
+                    <p>
+                        Access a separate student account
+                        and its individual support requests.
+                    </p>
+
+                    <button class="button button-primary identity-button"
+                            type="button"
+                            data-identity="student-b">
+                        Continue as Student B
+                    </button>
+
+                </article>
+
+
+                <article class="identity-card">
+
+                    <span class="identity-icon" aria-hidden="true">R</span>
+
+                    <h3>Support Reviewer</h3>
+
+                    <p>
+                        Review incoming requests, update
+                        statuses, and provide resolution notes.
+                    </p>
+
+                    <button class="button button-primary identity-button"
+                            type="button"
+                            data-identity="reviewer">
+                        Continue as Reviewer
+                    </button>
+
+                </article>
+
+            </div>
+
+            <aside class="demo-notice">
+
+                <strong>Classroom demonstration environment</strong>
+
+                <p>
+                    CampusConnect uses synthetic demo identities.
+                    This is not a production authentication system.
+                    Do not enter real student or sensitive information.
+                </p>
+
+            </aside>
+
+        </section>
+
+
+        <!-- ==================== DASHBOARD ==================== -->
+
+        <section id="dashboard" hidden>
+
+            <div class="dashboard-heading">
+
+                <div>
+
+                    <p id="dashboard-label" class="eyebrow">
+                        SUPPORT PORTAL
+                    </p>
+
+                    <h2 id="dashboard-title">Dashboard</h2>
+
+                    <p id="dashboard-description"></p>
+
+                </div>
+
+                <button id="refresh-requests"
+                        class="button button-outline"
+                        type="button">
+                    Refresh requests
+                </button>
+
+            </div>
+
+
+            <!-- ==================== STATISTICS ==================== -->
+
+            <section class="statistics-grid"
+                     aria-label="Request statistics">
+
+                <article class="stat-card">
+                    <p>Total requests</p>
+                    <strong id="total-count">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <p>Submitted</p>
+                    <strong id="submitted-count">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <p>In Progress</p>
+                    <strong id="progress-count">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <p>Resolved</p>
+                    <strong id="resolved-count">0</strong>
+                </article>
+
+            </section>
+
+
+            <!-- ==================== STUDENT FORM ==================== -->
+
+            <section id="student-panel" class="panel" hidden>
+
+                <div class="panel-heading">
+
+                    <h3>Submit a support request</h3>
+
+                    <p>
+                        Provide the information needed to
+                        help the support team understand your issue.
+                    </p>
+
+                </div>
+
+                <form id="request-form">
+
+                    <div class="form-group">
+
+                        <label for="request-title">
+                            Request title
+                        </label>
+
+                        <input
+                            id="request-title"
+                            name="title"
+                            type="text"
+                            minlength="5"
+                            maxlength="100"
+                            placeholder="Enter a short title"
+                            required
+                        >
+
+                        <small>5–100 characters.</small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="request-category">
+                            Category
+                        </label>
+
+                        <select
+                            id="request-category"
+                            name="category"
+                            required
+                        >
+
+                            <option value="">
+                                Select a category
+                            </option>
+
+                            <option value="Academic">
+                                Academic
+                            </option>
+
+                            <option value="IT">
+                                IT
+                            </option>
+
+                            <option value="Campus Services">
+                                Campus Services
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="request-description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="request-description"
+                            name="description"
+                            rows="5"
+                            minlength="10"
+                            maxlength="2000"
+                            placeholder="Describe your support request..."
+                            required
+                        ></textarea>
+
+                        <small>10–2,000 characters.</small>
+
+                    </div>
+
+                    <button id="submit-request"
+                            class="button button-primary"
+                            type="submit">
+                        Submit request
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- ==================== REQUEST LIST ==================== -->
+
+            <section class="panel">
+
+                <div class="panel-heading request-list-heading">
+
+                    <div>
+
+                        <h3 id="request-list-title">
+                            My support requests
+                        </h3>
+
+                        <p id="request-list-description">
+                            View and track your submitted requests.
+                        </p>
+
+                    </div>
+
+                    <div class="filter-group">
+
+                        <label for="status-filter">
+                            Filter by status
+                        </label>
+
+                        <select id="status-filter">
+
+                            <option value="all">
+                                All statuses
+                            </option>
+
+                            <option value="Submitted">
+                                Submitted
+                            </option>
+
+                            <option value="In Progress">
+                                In Progress
+                            </option>
+
+                            <option value="Resolved">
+                                Resolved
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div id="loading-state"
+                     class="empty-state"
+                     role="status"
+                     hidden>
+
+                    Loading requests...
+
+                </div>
+
+
+                <div id="empty-state"
+                     class="empty-state"
+                     hidden>
+
+                    <h4>No requests found</h4>
+
+                    <p>
+                        There are no requests matching
+                        your current view.
+                    </p>
+
+                </div>
+
+
+                <!-- Request cards are generated by app.js -->
+
+                <div id="request-list"
+                     class="request-list"
+                     aria-live="polite">
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================== REQUEST CARD TEMPLATE ==================== -->
+
+    <template id="request-card-template">
+
+        <article class="request-card">
+
+            <div class="request-card-header">
+
+                <div>
+                    <h4 class="request-title"></h4>
+                    <p class="request-meta"></p>
+                </div>
+
+                <span class="status-badge"></span>
+
+            </div>
+
+
+            <div class="request-details">
+
+                <p class="request-description"></p>
+
+                <dl class="request-information">
+
+                    <div>
+                        <dt>Request ID</dt>
+                        <dd class="request-id"></dd>
+                    </div>
+
+                    <div class="owner-field" hidden>
+                        <dt>Student</dt>
+                        <dd class="request-owner"></dd>
+                    </div>
+
+                    <div>
+                        <dt>Created</dt>
+                        <dd class="request-created"></dd>
+                    </div>
+
+                    <div>
+                        <dt>Last updated</dt>
+                        <dd class="request-updated"></dd>
+                    </div>
+
+                </dl>
+
+            </div>
+
+
+            <div class="student-note" hidden>
+
+                <h5>Reviewer note</h5>
+
+                <p class="saved-note"></p>
+
+            </div>
+
+
+            <!-- Reviewer-only interface controls -->
+
+            <div class="reviewer-controls" hidden>
+
+                <div class="form-group">
+
+                    <label class="note-label">
+                        Resolution note
+                    </label>
+
+                    <textarea
+                        class="reviewer-note"
+                        rows="3"
+                        maxlength="2000"
+                        placeholder="Enter a resolution note..."
+                    ></textarea>
+
+                    <small>Maximum 2,000 characters.</small>
+
+                </div>
+
+                <div class="request-actions">
+
+                    <button class="button button-outline save-note"
+                            type="button">
+                        Save note
+                    </button>
+
+                    <button class="button button-primary change-status"
+                            type="button">
+                        Update status
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </template>
+
+
+    <!-- ==================== FOOTER ==================== -->
+
+    <footer class="site-footer">
+
+        <p>CampusConnect | Codex Ramblers — Team 2</p>
+
+        <p>COMP 330 · Software Engineering · Classroom Release</p>
+
+    </footer>
+
+</body>
+</html>
